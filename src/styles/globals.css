@@ -1,0 +1,101 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap");
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply bg-surface text-white font-sans;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background: rgba(139, 92, 246, 0.3);
+    color: #fff;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #050505;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: rgba(139, 92, 246, 0.3);
+    border-radius: 3px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(139, 92, 246, 0.5);
+  }
+}
+
+@layer components {
+  .glass-panel {
+    @apply bg-glass-medium backdrop-blur-xl border border-white/[0.06] rounded-2xl;
+    box-shadow:
+      0 8px 32px 0 rgba(0, 0, 0, 0.36),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.05);
+  }
+
+  .glass-panel-hover {
+    @apply glass-panel transition-all duration-500;
+  }
+
+  .glass-panel-hover:hover {
+    @apply bg-glass-heavy border-white/[0.1];
+    box-shadow:
+      0 16px 48px 0 rgba(0, 0, 0, 0.4),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.08),
+      0 0 60px -12px rgba(139, 92, 246, 0.15);
+  }
+
+  .text-gradient {
+    @apply bg-gradient-accent bg-clip-text text-transparent;
+  }
+
+  .glow-line {
+    @apply h-px w-full bg-gradient-to-r from-transparent via-accent-purple/40 to-transparent;
+  }
+
+  .section-padding {
+    @apply px-6 md:px-12 lg:px-20 xl:px-32;
+  }
+
+  .magnetic-btn {
+    @apply relative inline-flex items-center justify-center overflow-hidden transition-all duration-300;
+  }
+
+  .magnetic-btn::before {
+    content: "";
+    @apply absolute inset-0 bg-gradient-accent opacity-0 transition-opacity duration-300;
+  }
+
+  .magnetic-btn:hover::before {
+    @apply opacity-100;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .mask-fade-bottom {
+    mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      black 60%,
+      transparent 100%
+    );
+  }
+}

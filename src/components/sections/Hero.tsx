@@ -98,8 +98,8 @@ export default function Hero() {
   custom={4}
   className="flex flex-wrap gap-4 mb-20"
   >
-  <MagneticButton href={SITE_CONFIG.links.calendly} size="lg" trackingLabel="hero_book_call">
-  Book a Discovery Call
+  <MagneticButton href="/free-consultation" size="lg" trackingLabel="hero_book_call">
+  Free Strategy Call
   </MagneticButton>
   <MagneticButton href="/services" variant="secondary" size="lg" trackingLabel="hero_view_services">
   View Services

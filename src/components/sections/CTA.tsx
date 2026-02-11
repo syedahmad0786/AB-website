@@ -68,8 +68,8 @@ export default function CTA() {
           </p>
 
           <div className="flex flex-wrap justify-center gap-4 mb-10">
-            <MagneticButton href={SITE_CONFIG.links.calendly} size="lg" trackingLabel="cta_book_call">
-              Book a Discovery Call
+            <MagneticButton href="/free-consultation" size="lg" trackingLabel="cta_book_call">
+              Book a Free Strategy Call
             </MagneticButton>
             <MagneticButton
               href={`mailto:${SITE_CONFIG.links.email}`}

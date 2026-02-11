@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
 import { SERVICES } from "@/lib/constants";
 import { fadeInUp, staggerContainer, slideInLeft, slideInRight } from "@/lib/motion";
 import SectionLabel from "@/components/ui/SectionLabel";
@@ -15,6 +16,14 @@ const SERVICE_IMAGES: Record<string, string> = {
   "content-automation": "/images/services/content-automation.png",
   "enterprise-automation": "/images/services/enterprise-automation.png",
   "ai-consulting": "/images/services/ai-consulting.png",
+};
+
+const SERVICE_DETAIL_LINKS: Record<string, string> = {
+  "agentic-ai": "/services/agentic-ai-autonomous-workflows",
+  "voice-ai": "/services/voice-ai-conversational-intelligence",
+  "content-automation": "/services/content-generation-automation",
+  "enterprise-automation": "/services/gohighlevel-crm-automation",
+  "ai-consulting": "/services/ai-sdr-outbound-automation",
 };
 
 function ServiceDetail({
@@ -78,6 +87,17 @@ function ServiceDetail({
   </div>
   ))}
   </div>
+
+  {/* Learn More Link */}
+  {SERVICE_DETAIL_LINKS[service.id] && (
+  <Link
+  href={SERVICE_DETAIL_LINKS[service.id]}
+  className="inline-flex items-center gap-2 text-sm font-mono text-accent-purple hover:text-white transition-colors duration-300"
+  >
+  Learn more about {service.title}
+  <span className="text-lg">&rarr;</span>
+  </Link>
+  )}
   </motion.div>
 
   {/* Use Case Card */}

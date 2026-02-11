@@ -17,11 +17,40 @@ export const SITE_CONFIG = {
 export const NAV_LINKS = [
   { label: "Home", href: "/" },
   { label: "Services", href: "/services" },
+  { label: "Case Studies", href: "/case-studies" },
+  { label: "Pricing", href: "/pricing" },
   { label: "Portfolio", href: "/portfolio" },
   { label: "Blog", href: "/blog" },
   { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
 ] as const;
+
+export const FOOTER_LINKS = {
+  services: [
+    { label: "Voice AI", href: "/services/voice-ai-conversational-intelligence" },
+    { label: "Agentic AI", href: "/services/agentic-ai-autonomous-workflows" },
+    { label: "GoHighLevel CRM", href: "/services/gohighlevel-crm-automation" },
+    { label: "AI SDR Outbound", href: "/services/ai-sdr-outbound-automation" },
+    { label: "Content Automation", href: "/services/content-generation-automation" },
+    { label: "All Services", href: "/services" },
+  ],
+  company: [
+    { label: "About", href: "/about" },
+    { label: "Our Process", href: "/process" },
+    { label: "Pricing", href: "/pricing" },
+    { label: "Case Studies", href: "/case-studies" },
+    { label: "Blog", href: "/blog" },
+    { label: "Contact", href: "/contact" },
+  ],
+  resources: [
+    { label: "Free Consultation", href: "/free-consultation" },
+    { label: "n8n Automation", href: "/tools/n8n-automation-development" },
+    { label: "GoHighLevel Setup", href: "/tools/gohighlevel-crm-setup" },
+    { label: "VAPI Voice AI", href: "/tools/vapi-voice-ai-integration" },
+    { label: "For Agencies", href: "/industries/marketing-agencies" },
+    { label: "For Coaches", href: "/industries/online-coaches" },
+  ],
+} as const;
 
 export const SERVICES = [
   {

@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
 import { fadeInUp, staggerContainer } from "@/lib/motion";
 import SectionLabel from "@/components/ui/SectionLabel";
 import GlowLine from "@/components/ui/GlowLine";
@@ -106,6 +107,35 @@ export default function CaseStudiesPageClient() {
   Every project below was deployed to production and measured against
   hard business outcomes. No vanity metrics. No hypotheticals.
   </motion.p>
+  </motion.div>
+
+  <GlowLine />
+
+  {/* Featured In-Depth Case Study */}
+  <motion.div
+  variants={fadeInUp}
+  initial="hidden"
+  whileInView="visible"
+  viewport={{ once: true }}
+  className="py-16"
+  >
+  <Link href="/case-studies/vendingpreneurs-student-onboarding-automation" className="block glass-panel overflow-hidden group hover:border-white/[0.12] transition-all duration-300">
+  <div className="h-1 bg-gradient-to-r from-purple-500 to-cyan-500" />
+  <div className="p-8 lg:p-12">
+  <div className="flex items-center gap-4 mb-4">
+  <span className="text-xs font-mono px-3 py-1 rounded-full bg-glass-light text-accent-purple border border-white/[0.06]">Featured Case Study</span>
+  <span className="text-xs font-mono text-white/20">VendingPreneurs</span>
+  </div>
+  <h2 className="font-serif text-3xl md:text-4xl font-bold mb-4 group-hover:text-gradient transition-all duration-300">From 18 Hours/Week to Under 2 Minutes</h2>
+  <p className="text-white/50 leading-relaxed text-lg mb-6 max-w-3xl">How we automated VendingPreneurs&apos; student onboarding with n8n, eliminating 18 hours of weekly manual work and saving $19,800/year in operational costs.</p>
+  <div className="grid grid-cols-3 gap-6 mb-6">
+  <div><p className="font-serif text-3xl font-bold text-gradient">18hrs</p><p className="text-sm text-white/40 mt-1">Weekly time saved</p></div>
+  <div><p className="font-serif text-3xl font-bold text-gradient">$19.8K</p><p className="text-sm text-white/40 mt-1">Annual savings</p></div>
+  <div><p className="font-serif text-3xl font-bold text-gradient">598%</p><p className="text-sm text-white/40 mt-1">3-Year ROI</p></div>
+  </div>
+  <span className="inline-flex items-center gap-2 text-sm font-mono text-accent-purple group-hover:text-white transition-colors">Read full case study <span className="text-lg">&rarr;</span></span>
+  </div>
+  </Link>
   </motion.div>
 
   <GlowLine />

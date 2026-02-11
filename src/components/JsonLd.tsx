@@ -1,5 +1,44 @@
 import { SITE_CONFIG } from "@/lib/constants";
 
+export function OrganizationJsonLd() {
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "AiXCEL Solutions",
+    url: SITE_CONFIG.url,
+    logo: `${SITE_CONFIG.url}/favicon.svg`,
+    description: SITE_CONFIG.description,
+    founder: {
+      "@type": "Person",
+      name: "Syed Muhammad Ahmad Bukhari",
+    },
+    contactPoint: {
+      "@type": "ContactPoint",
+      email: SITE_CONFIG.links.email,
+      telephone: SITE_CONFIG.links.phone,
+      contactType: "sales",
+      availableLanguage: ["English"],
+    },
+    sameAs: [SITE_CONFIG.links.linkedin],
+    areaServed: "Worldwide",
+    serviceType: [
+      "AI Automation",
+      "Voice AI Development",
+      "Agentic AI Systems",
+      "Enterprise Automation",
+      "CRM Automation",
+      "AI Consulting",
+    ],
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+    />
+  );
+}
+
 export function PersonJsonLd() {
   const schema = {
   "@context": "https://schema.org",

@@ -6,7 +6,7 @@ import InteractiveCursorField from "@/components/ui/InteractiveCursorField";
 import AnalyticsProvider from "@/components/AnalyticsProvider";
 import CookieConsent from "@/components/CookieConsent";
 import ExitIntentModal from "@/components/ExitIntentModal";
-import { PersonJsonLd, WebsiteJsonLd, FAQJsonLd, ServiceJsonLd } from "@/components/JsonLd";
+import { OrganizationJsonLd, PersonJsonLd, WebsiteJsonLd, FAQJsonLd, ServiceJsonLd } from "@/components/JsonLd";
 import "@/styles/globals.css";
 
 export const viewport: Viewport = {
@@ -79,6 +79,7 @@ export default function RootLayout({
   <html lang="en" className="dark">
   <head>
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <OrganizationJsonLd />
   <PersonJsonLd />
   <WebsiteJsonLd />
   <FAQJsonLd />

@@ -8,14 +8,14 @@ import GlowLine from "@/components/ui/GlowLine";
 
 export default function Home() {
   return (
-    <>
-      <Hero />
-      <GlowLine />
-      <ServicesGrid />
-      <GlowLine />
-      <TechStack />
-      <GlowLine />
-      <CTA />
-    </>
+  <>
+  <Hero />
+  <GlowLine />
+  <ServicesGrid />
+  <GlowLine />
+  <TechStack />
+  <GlowLine />
+  <CTA />
+  </>
   );
 }

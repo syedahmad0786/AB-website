@@ -31,6 +31,10 @@ yarn-error.log*
 # env files
 .env*.local
 
+# lead engine data (contains API keys and lead data)
+/data/config.json
+/data/leads.json
+
 # vercel
 .vercel
 

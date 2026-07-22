@@ -43,14 +43,24 @@ for (const file of required) {
 }
 
 const home = await readFile(resolve(dist, "index.html"), "utf8");
-for (const marker of ["digital gravity", "intelligence-field", "Selected systems", "Automation lab", "/twin-widget.js?v=8"]) {
+for (const marker of ["digital gravity", "intelligence-field", "cosmos-stage", "matter-stage", "brain-stage", "network-stage", "compute-stage", "Selected systems", "Automation lab", "/twin-widget.js?v=8", "data-visual-renderer=\"journey-shapes-v2\""]) {
   if (!home.includes(marker)) failures.push(`Homepage redesign marker missing: ${marker}`);
 }
 
 const css = await readFile(resolve(dist, "site.css"), "utf8");
-for (const marker of [".site-loader", ".gravity-mark", ".brand-name", ".field-media", ".atom-orbit"]) {
+for (const marker of [".site-loader", ".ab-logo", ".brand-name", ".field-shell[data-stage=\"2\"].field-rendered #intelligence-field", ".atom-orbit"]) {
   if (!css.includes(marker)) failures.push(`Current production CSS marker missing: ${marker}`);
 }
+
+const experience = await readFile(resolve(dist, "experience.js"), "utf8");
+const visualJourney = await readFile(resolve(dist, "visual-journey.js"), "utf8");
+const journeyScriptIndex = home.indexOf('<script defer src="/visual-journey.js"></script>');
+const experienceScriptIndex = home.indexOf('<script defer src="/experience.js"></script>');
+if (!visualJourney.startsWith('window.__AB_JOURNEY_RENDERER__ = "journey-shapes-v2";')) failures.push("Journey renderer ownership flag missing");
+if (!experience.includes('window.__AB_JOURNEY_RENDERER__ === "journey-shapes-v2"')) failures.push("Legacy renderer guard missing");
+if (journeyScriptIndex < 0 || experienceScriptIndex < 0 || journeyScriptIndex > experienceScriptIndex) failures.push("Journey renderer must load before the guarded experience script");
+if ((home.match(/https:\/\/ahmad-fable5\.vercel\.app\/img\/ahmad-cafe\.jpg/g) || []).length !== 2) failures.push("Current Ahmad portrait source is not present in both portrait placements");
+if (/(cosmos-hero|brain-profile)\.webp/.test(home)) failures.push("Homepage still references uncopied journey media");
 
 for (const directory of ["blog", "portfolio"]) {
   const files = await readdir(resolve(dist, directory));

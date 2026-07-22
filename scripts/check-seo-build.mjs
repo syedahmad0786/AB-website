@@ -37,7 +37,7 @@ for (const url of urls) {
   if (/"(?:aggregateRating|review|ratingValue|reviewCount)"/.test(html)) failures.push(`${url.pathname}: unsupported review or rating schema`);
 }
 
-const required = ["robots.txt", "sitemap.xml", "llms.txt", "feed.xml", "404.html", "site.css", "experience.js", "visual-journey.js", "twin-widget.js", "twin-avatar.svg"];
+const required = ["robots.txt", "sitemap.xml", "llms.txt", "feed.xml", "404.html", "site.css", "experience.js", "visual-journey.js", "twin-widget.js", "twin-avatar.svg", "images/ahmad-cafe.jpg"];
 for (const file of required) {
   try { await stat(resolve(dist, file)); } catch { failures.push(`Missing ${file}`); }
 }
@@ -56,10 +56,15 @@ const experience = await readFile(resolve(dist, "experience.js"), "utf8");
 const visualJourney = await readFile(resolve(dist, "visual-journey.js"), "utf8");
 const journeyScriptIndex = home.indexOf('<script defer src="/visual-journey.js"></script>');
 const experienceScriptIndex = home.indexOf('<script defer src="/experience.js"></script>');
-if (!visualJourney.startsWith('window.__AB_JOURNEY_RENDERER__ = "journey-shapes-v2";')) failures.push("Journey renderer ownership flag missing");
-if (!experience.includes('window.__AB_JOURNEY_RENDERER__ === "journey-shapes-v2"')) failures.push("Legacy renderer guard missing");
+for (const marker of ["function setJourneyRendererActive", "setJourneyRendererActive(h)", "setJourneyRendererInactive(e)"]) {
+  if (!visualJourney.includes(marker)) failures.push(`Journey renderer health marker missing: ${marker}`);
+}
+if (!experience.includes("journeyOwner.active === true")) failures.push("Legacy renderer active ownership guard missing");
+if (!experience.includes('journeyOwner.state === "ready" || journeyOwner.state === "active"')) failures.push("Legacy renderer readiness guard missing");
 if (journeyScriptIndex < 0 || experienceScriptIndex < 0 || journeyScriptIndex > experienceScriptIndex) failures.push("Journey renderer must load before the guarded experience script");
-if ((home.match(/https:\/\/ahmad-fable5\.vercel\.app\/img\/ahmad-cafe\.jpg/g) || []).length !== 2) failures.push("Current Ahmad portrait source is not present in both portrait placements");
+if ((home.match(/\/images\/ahmad-cafe\.jpg/g) || []).length !== 2) failures.push("Vendored Ahmad portrait source is not present in both portrait placements");
+if ((home.match(/width="778" height="1000"/g) || []).length < 2) failures.push("Vendored Ahmad portrait intrinsic dimensions are missing");
+if (home.includes("ahmad-fable5.vercel.app")) failures.push("Homepage still depends on the external portrait host");
 if (/(cosmos-hero|brain-profile)\.webp/.test(home)) failures.push("Homepage still references uncopied journey media");
 
 for (const directory of ["blog", "portfolio"]) {

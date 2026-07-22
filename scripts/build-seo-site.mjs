@@ -517,7 +517,7 @@ for (const item of PORTFOLIO_ITEMS) {
 
 await rm(output, { recursive: true, force: true });
 await mkdir(output, { recursive: true });
-for (const asset of ["favicon.svg", "twin-avatar.svg", "twin-widget.js", "images/ahmad-bukhari.jpg", "images/og-default.webp"]) {
+for (const asset of ["favicon.svg", "twin-avatar.svg", "twin-widget.js", "images/ahmad-bukhari.jpg", "images/ahmad-cafe.jpg", "images/og-default.webp"]) {
   const destination = resolve(output, asset);
   await mkdir(dirname(destination), { recursive: true });
   await cp(resolve(root, "public", asset), destination);

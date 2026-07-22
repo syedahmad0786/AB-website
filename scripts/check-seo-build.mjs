@@ -59,7 +59,7 @@ const experienceScriptIndex = home.indexOf('<script defer src="/experience.js"><
 for (const marker of ["function setJourneyRendererActive", "setJourneyRendererActive(h)", "setJourneyRendererInactive(e)", 'var JOURNEY_RENDERER_EVENT="ab:journey-renderer-state"', "new CustomEvent(JOURNEY_RENDERER_EVENT", "announceJourneyRendererState(t)"]) {
   if (!visualJourney.includes(marker)) failures.push(`Journey renderer health marker missing: ${marker}`);
 }
-for (const marker of ['var JOURNEY_RENDERER_EVENT = "ab:journey-renderer-state"', "addEventListener(JOURNEY_RENDERER_EVENT, onJourneyRendererStateChange)", 'legacyJourneyRendererState !== "idle" || legacyJourneyRendererTimer', 'handoff && handoff.reason === "CONTEXT LOST"', "canvas.cloneNode(false)", 'legacyJourneyRendererState = "active"']) {
+for (const marker of ['var JOURNEY_RENDERER_EVENT = "ab:journey-renderer-state"', "addEventListener(JOURNEY_RENDERER_EVENT, onJourneyRendererStateChange)", 'legacyJourneyRendererState !== "idle" || legacyJourneyRendererTimer', 'handoff && handoff.reason === "CONTEXT LOST"', "canvas.cloneNode(false)", "canvas.parentNode.replaceChild(replacementCanvas, canvas)", 'legacyJourneyRendererState = "active"']) {
   if (!experience.includes(marker)) failures.push(`Legacy renderer runtime handoff marker missing: ${marker}`);
 }
 if (!experience.includes("owner.active === true")) failures.push("Legacy renderer active ownership guard missing");

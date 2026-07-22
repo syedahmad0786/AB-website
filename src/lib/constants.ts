@@ -7,10 +7,10 @@ export const SITE_CONFIG = {
   ogImage: "/images/og-default.webp",
   links: {
   linkedin: "https://www.linkedin.com/in/bukhariahmad",
-  github: "https://github.com/bukhariahmad",
+  github: "https://github.com/syedahmad0786",
   email: "ahmadbukhari4245@gmail.com",
   phone: "+923005174444",
-  calendly: "https://calendly.com/ahmadbukhari4245",
+  calendly: "https://cal.com/ahmad-bukhari/ai-consultancy-call-with-ab",
   },
 } as const;
 

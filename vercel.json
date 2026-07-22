@@ -20,6 +20,7 @@
     },
     { "source": "/index.html", "destination": "/", "permanent": true },
     { "source": "/case-studies", "destination": "/work", "permanent": true },
+    { "source": "/field-notes", "destination": "/blog", "permanent": true },
     { "source": "/case-studies/vendingpreneurs-student-onboarding-automation", "destination": "/work/onboarding", "permanent": true },
     { "source": "/tools/n8n-automation-development", "destination": "/automation-lab", "permanent": true },
     { "source": "/tools/gohighlevel-crm-setup", "destination": "/services/gohighlevel-crm-automation", "permanent": true },

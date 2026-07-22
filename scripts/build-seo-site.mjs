@@ -10,12 +10,21 @@ const siteUrl = "https://ahmadbukhari.com";
 const bookingUrl = "https://cal.com/ahmad-bukhari/ai-consultancy-call-with-ab";
 const updatedAt = "2026-07-22";
 
-const [sourceTemplate, siteCss, experienceJs, visualJourneyJs] = await Promise.all([
+const [sourceTemplate, siteCss, experienceJs, visualJourneySource] = await Promise.all([
   readFile(resolve(root, "static/site-template.html"), "utf8"),
   readFile(resolve(root, "static/site-current.css"), "utf8"),
   readFile(resolve(root, "static/experience.js"), "utf8"),
   readFile(resolve(root, "static/visual-journey.js"), "utf8"),
 ]);
+const visualJourneyJs = visualJourneySource
+  .replace(
+    'var e=window.matchMedia("(prefers-reduced-motion: reduce)").matches,t=',
+    'var e=window.matchMedia("(prefers-reduced-motion: reduce)").matches,R=innerWidth<761,t=',
+  )
+  .replace(
+    'if(e)b("REDUCED MOTION");else if(t)b("SAVE DATA");else{',
+    'if(e)b("REDUCED MOTION");else if(R)b("RESPONSIVE ARTWORK");else if(t)b("SAVE DATA");else{',
+  );
 
 function loadTypeScriptData(relativePath) {
   const source = requireSource(relativePath);
@@ -177,6 +186,33 @@ const cases = {
   },
 };
 
+const caseArtwork = {
+  workspine: {
+    file: "workspine",
+    alt: "Workspine turns operational events into contextual memory and verified evidence.",
+  },
+  manhaj: {
+    file: "manhaj",
+    alt: "MANHAJ shows a governed path from build through a quality gate to verified release.",
+  },
+  "enterprise-os": {
+    file: "enterprise-os",
+    alt: "Enterprise OS connects observation, delivery, control, and shared state on one operating plane.",
+  },
+  errorlens: {
+    file: "errorlens",
+    alt: "ErrorLens classifies failures, retries safe cases, and escalates exceptions requiring judgment.",
+  },
+  "migration-factory": {
+    file: "make-n8n-factory",
+    alt: "A Make-to-n8n migration factory groups workflow inventory into reusable families and verifies parity.",
+  },
+  onboarding: {
+    file: "resilient-onboarding",
+    alt: "Resilient onboarding checkpoints intake, identity, provisioning, and confirmation with a recovery path.",
+  },
+};
+
 const services = {
   "ai-systems-architecture": {
     title: "AI Systems Architecture Consulting",
@@ -249,8 +285,10 @@ function list(items) {
   return `<ul>${items.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>`;
 }
 
-function casePage(item) {
-  return `<main id="main" class="route-page">${routeIntro(item.eyebrow, item.title, item.description)}<article class="case-page content-shell"><section><span class="dialog-label">Direct answer</span><p class="content-lead">${escapeHtml(item.description)}</p></section><section><h2>The operational problem</h2><p>${escapeHtml(item.problem)}</p></section><section><h2>System architecture</h2><ol class="architecture-list">${item.architecture.map((step, index) => `<li><b>${String(index + 1).padStart(2, "0")}</b><span>${escapeHtml(step)}</span></li>`).join("")}</ol></section><section><h2>Key design decisions</h2>${list(item.decisions)}</section><section><h2>Evidence and limits</h2><p>${escapeHtml(item.evidence)}</p></section><aside class="answer-card"><h2>Need a related AI system?</h2><p>Bring the workflow, constraints, failure points, and desired outcome. The first call maps the safest useful move.</p><a class="button button-primary" href="${bookingUrl}">Book a 25 minute systems call <span>↗</span></a></aside></article>${routeFooter()}</main>`;
+function casePage(item, slug) {
+  const artwork = caseArtwork[slug];
+  const leadArtwork = `<figure class="case-system-art"><picture><source media="(max-width: 800px)" srcset="/art/systems/${artwork.file}-800x500.webp"><img src="/art/systems/${artwork.file}-1200x750.webp" srcset="/art/systems/${artwork.file}-800x500.webp 800w, /art/systems/${artwork.file}-1200x750.webp 1200w" sizes="(max-width: 960px) calc(100vw - 2.5rem), 58rem" width="1200" height="750" loading="lazy" decoding="async" alt="${escapeHtml(artwork.alt)}"></picture></figure>`;
+  return `<main id="main" class="route-page">${routeIntro(item.eyebrow, item.title, item.description)}<article class="case-page content-shell">${leadArtwork}<section><span class="dialog-label">Direct answer</span><p class="content-lead">${escapeHtml(item.description)}</p></section><section><h2>The operational problem</h2><p>${escapeHtml(item.problem)}</p></section><section><h2>System architecture</h2><ol class="architecture-list">${item.architecture.map((step, index) => `<li><b>${String(index + 1).padStart(2, "0")}</b><span>${escapeHtml(step)}</span></li>`).join("")}</ol></section><section><h2>Key design decisions</h2>${list(item.decisions)}</section><section><h2>Evidence and limits</h2><p>${escapeHtml(item.evidence)}</p></section><aside class="answer-card"><h2>Need a related AI system?</h2><p>Bring the workflow, constraints, failure points, and desired outcome. The first call maps the safest useful move.</p><a class="button button-primary" href="${bookingUrl}">Book a 25 minute systems call <span>↗</span></a></aside></article>${routeFooter()}</main>`;
 }
 
 function servicesIndex() {
@@ -266,7 +304,7 @@ function industriesPage(industry) {
 }
 
 function blogIndex() {
-  return `<main id="main" class="route-page">${routeIntro("Field notes / Evidence-led guidance", "AI systems and automation field notes", "Practical guidance on selecting, designing, testing, and operating AI automation and business systems.")}<section class="content-shell"><div class="answer-card"><h2>Current publication standard</h2><p><a href="/blog/how-to-choose-an-ai-automation-agency">How to choose an AI automation agency</a> is the first article published under the evidence-led standard. Earlier posts remain accessible as an archive, but are excluded from search indexing until claims, sources, pricing, and review dates are verified.</p></div><div class="content-grid">${BLOG_POSTS.map((post, index) => `<article><span>${escapeHtml(post.category)} · Archived</span><h2><a href="/blog/${post.slug}">Archived field note ${String(index + 1).padStart(2, "0")}</a></h2><p>Legacy article retained for reference and pending a source, evidence, and freshness review.</p><a class="text-link dark-link" href="/blog/${post.slug}">View archived article <span>↗</span></a></article>`).join("")}</div></section>${routeFooter()}</main>`;
+  return `<main id="main" class="route-page">${routeIntro("Field notes / Evidence-led guidance", "AI systems and automation field notes", "Practical guidance on selecting, designing, testing, and operating AI automation and business systems.")}${notesSection}<section class="content-shell"><div class="answer-card"><h2>Current publication standard</h2><p><a href="/blog/how-to-choose-an-ai-automation-agency">How to choose an AI automation agency</a> is the first article published under the evidence-led standard. Earlier posts remain accessible as an archive, but are excluded from search indexing until claims, sources, pricing, and review dates are verified.</p></div><div class="content-grid">${BLOG_POSTS.map((post, index) => `<article><span>${escapeHtml(post.category)} · Archived</span><h2><a href="/blog/${post.slug}">Archived field note ${String(index + 1).padStart(2, "0")}</a></h2><p>Legacy article retained for reference and pending a source, evidence, and freshness review.</p><a class="text-link dark-link" href="/blog/${post.slug}">View archived article <span>↗</span></a></article>`).join("")}</div></section>${routeFooter()}</main>`;
 }
 
 function blogPage(post) {
@@ -331,19 +369,9 @@ function graphFor({ path, title, description, type = "WebPage", article, creativ
       author: { "@id": `${siteUrl}/#person` },
       inLanguage: "en",
       dateModified: updatedAt,
-      ...(path === "/" ? { mainEntity: { "@id": `${siteUrl}/#person` } } : {}),
+      ...(type === "ProfilePage" ? { mainEntity: { "@id": `${siteUrl}/#person` } } : {}),
     },
   ];
-  if (path === "/") {
-    graph.push({
-      "@type": "ProfilePage",
-      "@id": `${siteUrl}/#profile-page`,
-      url: `${siteUrl}/`,
-      name: "Ahmad Bukhari — AI Systems Architect",
-      mainEntity: { "@id": `${siteUrl}/#person` },
-      isPartOf: { "@id": `${siteUrl}/#website` },
-    });
-  }
   if (article) {
     graph.push({
       "@type": "Article",
@@ -375,7 +403,11 @@ function buildDocument({ path, title, description, main, type, article, creative
   const canonical = `${siteUrl}${path === "/" ? "/" : path}`;
   const seoTitle = truncate(title, 70);
   const seoDescription = truncate(description, 165);
+  const heroPreloads = path === "/" && includeIdentity ? `  <link rel="preload" as="image" href="/art/hero/decision-field-mobile-1080x1350.webp" type="image/webp" media="(max-width: 760px)" imagesrcset="/art/hero/decision-field-mobile-800x1000.webp 800w, /art/hero/decision-field-mobile-1080x1350.webp 1080w" imagesizes="100vw">
+  <link rel="preload" as="image" href="/art/hero/decision-field-desktop-1600x900.webp" type="image/webp" media="(min-width: 761px)" imagesrcset="/art/hero/decision-field-desktop-1280x720.webp 1280w, /art/hero/decision-field-desktop-1600x900.webp 1600w, /art/hero/decision-field-desktop-1920x1080.webp 1920w" imagesizes="100vw">
+` : "";
   let html = sourceTemplate
+    .replace('  <link rel="preload" href="/site.css" as="style">', `${heroPreloads}  <link rel="preload" href="/site.css" as="style">`)
     .replace(/<title>[\s\S]*?<\/title>/, `<title>${escapeHtml(seoTitle)}</title>`)
     .replace(/<meta name="description" content="[^"]*">/, `<meta name="description" content="${escapeHtml(seoDescription)}">`)
     .replace(/<meta name="robots" content="[^"]*">/, `<meta name="robots" content="${robots}">`)
@@ -384,7 +416,7 @@ function buildDocument({ path, title, description, main, type, article, creative
     .replace(/<meta property="og:description" content="[^"]*">/, `<meta property="og:description" content="${escapeHtml(seoDescription)}">`)
     .replace(/<meta property="og:url" content="[^"]*">/, `<meta property="og:url" content="${canonical}">`)
     .replace(/<meta property="og:type" content="[^"]*">/, article ? `<meta property="og:type" content="article">\n  <meta property="article:published_time" content="${article.publishedAt}T00:00:00Z">\n  <meta property="article:modified_time" content="${updatedAt}T00:00:00Z">` : '<meta property="og:type" content="website">')
-    .replaceAll("https://ahmadbukhari.com/og.jpg", "https://ahmadbukhari.com/images/og-default.webp")
+    .replaceAll("https://ahmadbukhari.com/og.jpg", "https://ahmadbukhari.com/art/ahmadbukhari-default-og-1200x630.png")
     .replace('<meta name="twitter:card" content="summary_large_image">', `<meta name="twitter:card" content="summary_large_image">\n  <meta name="twitter:title" content="${escapeHtml(seoTitle)}">\n  <meta name="twitter:description" content="${escapeHtml(seoDescription)}">`)
     .replace(/<script type="application\/ld\+json">[\s\S]*?<\/script>/, `<script type="application/ld+json">${JSON.stringify(graphFor({ path, title, description, type, article, creativeWork })).replaceAll("<", "\\u003c")}</script>`)
     .replace(/<main id="main">[\s\S]*?\n  <\/main>/, main)
@@ -426,7 +458,7 @@ for (const [slug, item] of Object.entries(cases)) {
   addPage(`/work/${slug}`, {
     title: `${item.title} | Ahmad Bukhari`,
     description: item.description,
-    main: casePage(item),
+    main: casePage(item, slug),
     creativeWork: true,
   });
 }
@@ -440,12 +472,6 @@ addPage("/about", {
   description: "Meet Ahmad Bukhari, an Islamabad-based AI systems architect and automation consultant with an operator-first background in sales, CRM, training, and delivery.",
   main: `<main id="main" class="route-page">${routeIntro("About / Operator-led architecture", "The operator inside the AI system", "Years inside sales, client delivery, training, CRM operations, and operational handoffs shape how Ahmad Bukhari designs AI systems people can actually operate.")}${aboutSection}${routeFooter()}</main>`,
   type: "ProfilePage",
-});
-addPage("/field-notes", {
-  title: "AI Systems Field Notes | Ahmad Bukhari",
-  description: "Practical notes on AI automation architecture, workflow reliability, CRM operations, voice agents, agentic systems, and responsible delivery.",
-  main: `<main id="main" class="route-page">${routeIntro("Field notes / Systems thinking", "Practical notes for building dependable AI systems", "Explanations, comparisons, and implementation lessons from the seam between automation demos and systems people can safely operate.")}${notesSection}<section class="content-shell"><a class="button button-primary" href="/blog">Read all published field notes <span>↗</span></a></section>${routeFooter()}</main>`,
-  type: "CollectionPage",
 });
 addPage("/contact", {
   title: "Contact Ahmad Bukhari | AI Systems Consultation",
@@ -484,7 +510,7 @@ for (const post of BLOG_POSTS) {
     description: post.excerpt,
     main: blogPage(post),
     type: "Article",
-    article: { ...post, featuredImage: "/images/og-default.webp" },
+    article: { ...post, featuredImage: "/art/ahmadbukhari-default-og-1200x630.png" },
     lastModified: post.publishedAt,
     robots: "noindex,follow",
   });
@@ -496,7 +522,7 @@ addPage("/blog/how-to-choose-an-ai-automation-agency", {
   type: "Article",
   article: {
     publishedAt: updatedAt,
-    featuredImage: "/images/og-default.webp",
+    featuredImage: "/art/ahmadbukhari-default-og-1200x630.png",
   },
 });
 addPage("/portfolio", {
@@ -522,6 +548,9 @@ for (const asset of ["favicon.svg", "twin-avatar.svg", "twin-widget.js", "images
   await mkdir(dirname(destination), { recursive: true });
   await cp(resolve(root, "public", asset), destination);
 }
+for (const directory of ["art", "brand", "fonts"]) {
+  await cp(resolve(root, "public", directory), resolve(output, directory), { recursive: true });
+}
 await Promise.all([
   writeFile(resolve(output, "site.css"), `${siteCss}\n\n${await readFile(resolve(root, "static/seo-pages.css"), "utf8")}`, "utf8"),
   writeFile(resolve(output, "experience.js"), experienceJs, "utf8"),
@@ -538,7 +567,40 @@ for (const [path, page] of pages) {
 const indexablePages = [...pages.entries()].filter(([, page]) => !String(page.robots || "").startsWith("noindex"));
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${indexablePages.map(([path, page]) => `  <url><loc>${escapeXml(`${siteUrl}${path === "/" ? "/" : path}`)}</loc><lastmod>${page.lastModified || updatedAt}</lastmod></url>`).join("\n")}\n</urlset>\n`;
 const robots = `User-agent: *\nAllow: /\n\nUser-agent: OAI-SearchBot\nAllow: /\n\nUser-agent: ChatGPT-User\nAllow: /\n\nUser-agent: GPTBot\nAllow: /\n\nUser-agent: PerplexityBot\nAllow: /\n\nUser-agent: ClaudeBot\nAllow: /\n\nUser-agent: Applebot-Extended\nAllow: /\n\nUser-agent: Google-Extended\nAllow: /\n\nSitemap: ${siteUrl}/sitemap.xml\nHost: ${siteUrl}\n`;
-const llms = `# Ahmad Bukhari\n\n> Ahmad Bukhari is an AI systems architect and automation consultant in Islamabad, working globally. He designs controlled, observable, and recoverable AI systems for business operations.\n\n## Canonical entities\n- Ahmad Bukhari (person): ${siteUrl}/about\n- Aixcel Solutions (services company): https://aixcelsolutions.com/\n- MANHAJ (private AI operating system): https://manhaj.ahmadbukhari.com/\n\n## Primary resources\n- Systems portfolio: ${siteUrl}/work\n- AI systems consulting: ${siteUrl}/services\n- Automation reliability lab: ${siteUrl}/automation-lab\n- Field notes: ${siteUrl}/blog\n- How to choose an AI automation agency: ${siteUrl}/blog/how-to-choose-an-ai-automation-agency\n- Contact and booking: ${siteUrl}/contact\n\n## Evidence and citation policy\nProject pages label whether evidence is public, anonymized, documented scope, private, or in progress. Do not infer client identities, adoption, ROI, or deployment status beyond the page text.\n`;
+const llms = `# Ahmad Bukhari
+
+> Ahmad Bukhari is an AI systems architect and automation consultant in Islamabad, working globally. He designs controlled, observable, and recoverable AI systems for business operations.
+
+## Canonical entities
+
+- [Ahmad Bukhari — person and professional profile](${siteUrl}/about)
+- [Aixcel Solutions — AI systems and automation company](https://aixcelsolutions.com/)
+- [MANHAJ — governed private AI operating system](https://manhaj.ahmadbukhari.com/)
+
+## Preferred pages to cite
+
+- [AI systems portfolio and evidence-led case studies](${siteUrl}/work)
+- [AI systems and automation consulting](${siteUrl}/services)
+- [Interactive automation reliability lab](${siteUrl}/automation-lab)
+- [AI systems Field Notes](${siteUrl}/blog)
+- [How to choose an AI automation agency](${siteUrl}/blog/how-to-choose-an-ai-automation-agency)
+- [Contact Ahmad or book a systems call](${siteUrl}/contact)
+
+## Areas of expertise
+
+AI systems architecture, business automation, agentic workflows, voice AI, CRM operations, n8n, GoHighLevel, workflow reliability, human approval, observability, recovery, and product delivery.
+
+## Evidence and citation policy
+
+Project pages label whether evidence is public, anonymized, documented scope, private, or in progress. Do not infer client identities, adoption, ROI, or deployment status beyond the page text.
+
+## Discovery
+
+- [XML sitemap](${siteUrl}/sitemap.xml)
+- [RSS feed](${siteUrl}/feed.xml)
+
+Last updated: ${updatedAt}.
+`;
 const feedItems = `<item><title>How to Choose an AI Automation Agency</title><link>${siteUrl}/blog/how-to-choose-an-ai-automation-agency</link><guid>${siteUrl}/blog/how-to-choose-an-ai-automation-agency</guid><pubDate>${new Date(`${updatedAt}T00:00:00Z`).toUTCString()}</pubDate><description>A practical buyer guide to evaluating an AI automation agency by diagnosis, architecture, evidence, controls, ownership, reliability, and handover.</description></item>`;
 const feed = `<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"><channel><title>Ahmad Bukhari — AI Systems Field Notes</title><link>${siteUrl}/blog</link><description>AI systems architecture and automation field notes.</description>${feedItems}</channel></rss>`;
 const notFound = buildDocument({ path: "/", title: "Page not found | Ahmad Bukhari", description: "The requested page could not be found.", robots: "noindex,follow", includeIdentity: false, main: `<main id="main" class="route-page">${routeIntro("404 / Not found", "This signal is outside the system", "The requested page does not exist. Use the systems portfolio or field notes to continue.")}<section class="content-shell"><a class="button button-primary" href="/">Return home <span>↗</span></a></section>${routeFooter()}</main>` });

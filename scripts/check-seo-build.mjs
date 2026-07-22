@@ -56,11 +56,14 @@ const experience = await readFile(resolve(dist, "experience.js"), "utf8");
 const visualJourney = await readFile(resolve(dist, "visual-journey.js"), "utf8");
 const journeyScriptIndex = home.indexOf('<script defer src="/visual-journey.js"></script>');
 const experienceScriptIndex = home.indexOf('<script defer src="/experience.js"></script>');
-for (const marker of ["function setJourneyRendererActive", "setJourneyRendererActive(h)", "setJourneyRendererInactive(e)"]) {
+for (const marker of ["function setJourneyRendererActive", "setJourneyRendererActive(h)", "setJourneyRendererInactive(e)", 'var JOURNEY_RENDERER_EVENT="ab:journey-renderer-state"', "new CustomEvent(JOURNEY_RENDERER_EVENT", "announceJourneyRendererState(t)"]) {
   if (!visualJourney.includes(marker)) failures.push(`Journey renderer health marker missing: ${marker}`);
 }
-if (!experience.includes("journeyOwner.active === true")) failures.push("Legacy renderer active ownership guard missing");
-if (!experience.includes('journeyOwner.state === "ready" || journeyOwner.state === "active"')) failures.push("Legacy renderer readiness guard missing");
+for (const marker of ['var JOURNEY_RENDERER_EVENT = "ab:journey-renderer-state"', "addEventListener(JOURNEY_RENDERER_EVENT, onJourneyRendererStateChange)", 'legacyJourneyRendererState !== "idle" || legacyJourneyRendererTimer', 'handoff && handoff.reason === "CONTEXT LOST"', "canvas.cloneNode(false)", 'legacyJourneyRendererState = "active"']) {
+  if (!experience.includes(marker)) failures.push(`Legacy renderer runtime handoff marker missing: ${marker}`);
+}
+if (!experience.includes("owner.active === true")) failures.push("Legacy renderer active ownership guard missing");
+if (!experience.includes('owner.state === "ready" || owner.state === "active"')) failures.push("Legacy renderer readiness guard missing");
 if (journeyScriptIndex < 0 || experienceScriptIndex < 0 || journeyScriptIndex > experienceScriptIndex) failures.push("Journey renderer must load before the guarded experience script");
 if ((home.match(/\/images\/ahmad-cafe\.jpg/g) || []).length !== 2) failures.push("Vendored Ahmad portrait source is not present in both portrait placements");
 if ((home.match(/width="778" height="1000"/g) || []).length < 2) failures.push("Vendored Ahmad portrait intrinsic dimensions are missing");

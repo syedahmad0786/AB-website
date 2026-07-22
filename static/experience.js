@@ -279,8 +279,15 @@
   }
 
   function initParticleWorld() {
-    // visual-journey.js owns this WebGL context. Keep this renderer only as a fallback.
-    if (window.__AB_JOURNEY_RENDERER__ === "journey-shapes-v2") return;
+    // Yield only after visual-journey.js proves its WebGL program and buffers are healthy.
+    // Missing or inactive ownership leaves this legacy renderer available as a fallback.
+    var journeyOwner = window.__AB_JOURNEY_RENDERER__;
+    if (
+      journeyOwner &&
+      journeyOwner.name === "journey-shapes-v2" &&
+      journeyOwner.active === true &&
+      (journeyOwner.state === "ready" || journeyOwner.state === "active")
+    ) return;
 
     var canvas = document.getElementById("intelligence-field");
     var shell = document.querySelector(".field-shell");

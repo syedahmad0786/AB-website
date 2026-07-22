@@ -9,8 +9,10 @@
     "test": "node --check scripts/serve-static.mjs && node --check public/twin-widget.js && npm run build && node scripts/check-seo-build.mjs",
     "lint": "node scripts/check-seo-build.mjs"
   },
-  "dependencies": {},
   "devDependencies": {
+    "@fontsource-variable/instrument-sans": "^5.3.0",
+    "@fontsource/ibm-plex-mono": "^5.3.0",
+    "@fontsource/instrument-serif": "^5.3.0",
     "typescript": "^5.7.0"
   }
 }

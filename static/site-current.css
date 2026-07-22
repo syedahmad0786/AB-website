@@ -1,14 +1,68 @@
+@font-face {
+  font-family: "Instrument Sans";
+  src: url("/fonts/instrument-sans-latin-wght-normal.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Instrument Sans";
+  src: url("/fonts/instrument-sans-latin-wght-italic.woff2") format("woff2");
+  font-style: italic;
+  font-weight: 400 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Instrument Serif";
+  src: url("/fonts/instrument-serif-latin-400-normal.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Instrument Serif";
+  src: url("/fonts/instrument-serif-latin-400-italic.woff2") format("woff2");
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "IBM Plex Mono";
+  src: url("/fonts/ibm-plex-mono-latin-400-normal.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "IBM Plex Mono";
+  src: url("/fonts/ibm-plex-mono-latin-500-normal.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+}
+@font-face {
+  font-family: "IBM Plex Mono";
+  src: url("/fonts/ibm-plex-mono-latin-600-normal.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+}
+
 :root {
   --obsidian: #080807;
   --obsidian-soft: #11100e;
   --ivory: #e9e1d2;
   --ivory-bright: #f4eee3;
   --ink: #11100e;
-  --gold: #cda968;
-  --gold-bright: #e7c98e;
+  --gold: #c95f37;
+  --gold-bright: #e9e1d2;
   --lime: #c8ff37;
-  --violet: #8e65ff;
+  --violet: #502c52;
   --rust: #c95f37;
+  --aubergine: #502c52;
+  --font-sans: "Instrument Sans", "Helvetica Neue", Arial, sans-serif;
+  --font-serif: "Instrument Serif", Georgia, "Times New Roman", serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Consolas, monospace;
   --muted-dark: #8f897e;
   --muted-light: #6d675e;
   --line-dark: rgba(233, 225, 210, 0.16);
@@ -24,7 +78,7 @@ body {
   overflow-x: hidden;
   color: var(--ivory);
   background: var(--obsidian);
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: var(--font-sans);
   font-size: 16px;
   line-height: 1.45;
   -webkit-font-smoothing: antialiased;
@@ -1497,4 +1551,230 @@ main { position: relative; z-index: 1; }
 @media (max-width: 760px) {
   .ab-logo { width: 46px; height: 36px; border-radius: 11px; }
   .ab-logo-orbit { width: 37px; height: 15px; }
+}
+
+/* AB ARTWORK SYSTEM / 2026-07-22
+   Official AB Axis identity, responsive Decision Field and production artwork. */
+.ab-axis {
+  flex: 0 0 auto;
+  width: 46px;
+  height: 46px;
+  object-fit: contain;
+  filter: drop-shadow(0 8px 18px rgba(0, 0, 0, .28));
+  transition: transform .35s cubic-bezier(.16, 1, .3, 1), filter .35s ease;
+}
+.monogram:hover .ab-axis {
+  transform: translateY(-1px) scale(1.035);
+  filter: drop-shadow(0 10px 22px rgba(200, 255, 55, .16));
+}
+
+.field-shell::before {
+  opacity: .62;
+  background-image: url("/art/backgrounds/field-grid.svg");
+  background-size: 240px 240px;
+  mask-image: linear-gradient(to bottom, black 0 82%, transparent);
+}
+.field-shell.field-rendered #intelligence-field,
+.field-shell[data-stage="0"].field-rendered #intelligence-field,
+.field-shell[data-stage="1"].field-rendered #intelligence-field,
+.field-shell[data-stage="2"].field-rendered #intelligence-field,
+.field-shell[data-stage="3"].field-rendered #intelligence-field,
+.field-shell[data-stage="4"].field-rendered #intelligence-field { opacity: .18; }
+.field-shell.field-rendered .field-fallback { opacity: .04; }
+
+.hero-art {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  display: block;
+  overflow: hidden;
+  pointer-events: none;
+  background: var(--obsidian);
+}
+.hero-art::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(8, 8, 7, .32) 0, rgba(8, 8, 7, .08) 52%, rgba(8, 8, 7, .1) 100%),
+    linear-gradient(180deg, rgba(8, 8, 7, .22), transparent 28%, rgba(8, 8, 7, .38));
+}
+.hero-art img {
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  object-position: center;
+}
+.hero-rail { position: relative; z-index: 2; }
+
+.chapter-art {
+  position: relative;
+  z-index: 1;
+  grid-column: 3;
+  justify-self: end;
+  width: min(59vw, 980px);
+  aspect-ratio: 16 / 9;
+  display: block;
+  overflow: hidden;
+  border: 1px solid rgba(244, 238, 227, .16);
+  background: var(--obsidian-soft);
+  box-shadow: 0 42px 90px rgba(0, 0, 0, .34);
+}
+.chapter-art::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(244, 238, 227, .06);
+  pointer-events: none;
+}
+.chapter-art img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.chapter-copy { position: relative; z-index: 2; }
+
+.signal-route-divider {
+  position: relative;
+  z-index: 4;
+  height: clamp(92px, 11vw, 180px);
+  overflow: hidden;
+  border-bottom: 1px solid var(--line-dark);
+  background: var(--obsidian);
+}
+.signal-route-divider img { width: 100%; height: 100%; object-fit: cover; }
+
+.light-section {
+  background-color: var(--ivory);
+  background-image: url("/art/backgrounds/paper-grain.svg");
+  background-size: 256px 256px;
+}
+.project-art-image {
+  min-height: 0 !important;
+  aspect-ratio: 8 / 5;
+  display: block;
+  background: var(--obsidian-soft);
+}
+.project-art-image::before { content: none; }
+.project-art-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .65s cubic-bezier(.16, 1, .3, 1), filter .35s ease;
+}
+.project-card > a:hover .project-art-image img { transform: scale(1.018); }
+.project-wide .project-art-image { min-height: 0 !important; }
+
+.portrait-frame::before { content: none; }
+.portrait-frame > .portrait-photo {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(.82) contrast(1.07);
+  transform: scale(1.03);
+}
+.portrait-frame > .portrait-axis-frame,
+.portrait-frame:hover > .portrait-axis-frame {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  pointer-events: none;
+  filter: none;
+  transform: none;
+}
+
+.notes-grid article { min-height: 680px; }
+.note-cover {
+  flex: 0 0 auto;
+  width: 100%;
+  aspect-ratio: 8 / 5;
+  margin-bottom: 24px;
+  display: block;
+  overflow: hidden;
+  border: 1px solid var(--line-light);
+  background: var(--obsidian-soft);
+}
+.note-cover img { width: 100%; height: 100%; object-fit: cover; }
+
+.hero-serif,
+.gravity-line em,
+.transformation-intro h2 em,
+.section-top h2 em,
+.gravity-manifesto > p em,
+.lab-copy h2 em,
+.about-statement h2 em,
+.contact-section h2 em,
+.github-proof-head h3 em,
+.notes-grid h3,
+.evidence-grid strong,
+.chapter-number { font-family: var(--font-serif); }
+.loader-head,
+.loader-foot,
+.hero-rail,
+.hero-kicker,
+.gravity-line::before,
+.eyebrow,
+.chapter-label,
+.chapter li,
+.card-head,
+.maturity,
+.card-foot,
+.notes-grid article > span,
+.notes-grid button,
+.brand-name small,
+.desktop-nav a,
+.header-cta { font-family: var(--font-mono); }
+.section-top h2 em,
+.project-card > a:hover h3,
+.card-foot b,
+.github-proof-head h3 em,
+.dark-link span,
+.evidence-grid strong { color: var(--aubergine); }
+.section-top .eyebrow,
+.evidence-head .eyebrow,
+.github-proof-head > span,
+.notes-grid article > span { color: var(--rust); }
+
+@media (max-width: 760px) {
+  .ab-axis { width: 42px; height: 42px; }
+  .hero-art img { object-position: 70% center; }
+  .hero-art::after {
+    background:
+      linear-gradient(90deg, rgba(8, 8, 7, .24), rgba(8, 8, 7, .04)),
+      linear-gradient(180deg, rgba(8, 8, 7, .16), transparent 32%, rgba(8, 8, 7, .78) 82%, var(--obsidian));
+  }
+  .hero-line > span,
+  .visual-ready .hero-line > span,
+  .hero-enter,
+  .visual-ready .hero-enter {
+    opacity: 1;
+    transform: none;
+    animation: none !important;
+  }
+  .hero-actions :is(.button, .text-link) { min-height: 44px; }
+  .chapter { padding-top: 48vh; }
+  .chapter-art {
+    position: absolute;
+    top: 72px;
+    left: 18px;
+    right: 18px;
+    width: auto;
+    height: min(42vh, 470px);
+    aspect-ratio: 4 / 5;
+    box-shadow: 0 28px 65px rgba(0, 0, 0, .3);
+  }
+  .chapter-art img { object-position: center; }
+  .notes-grid article { min-height: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .project-card > a:hover .project-art-image img,
+  .monogram:hover .ab-axis { transform: none; }
 }

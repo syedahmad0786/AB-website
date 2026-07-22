@@ -11,8 +11,9 @@
   gap: 1.5rem;
   padding: clamp(8rem, 16vw, 13rem) clamp(1.25rem, 6vw, 7rem) clamp(4rem, 9vw, 8rem);
   background:
-    radial-gradient(circle at 78% 20%, rgba(142, 101, 255, .18), transparent 33rem),
+    radial-gradient(circle at 78% 20%, rgba(80, 44, 82, .2), transparent 33rem),
     radial-gradient(circle at 18% 80%, rgba(200, 255, 55, .08), transparent 28rem),
+    url("/art/backgrounds/field-grid.svg"),
     #080807;
 }
 
@@ -35,7 +36,8 @@
 
 .content-shell {
   padding: clamp(4rem, 8vw, 8rem) clamp(1.25rem, 6vw, 7rem);
-  background: #f4eee3;
+  background: #f4eee3 url("/art/backgrounds/paper-grain.svg");
+  background-size: auto, 256px 256px;
   color: #171612;
 }
 
@@ -66,7 +68,7 @@
 
 .content-grid article > span,
 .article-meta {
-  font: 600 .72rem/1.4 ui-monospace, SFMono-Regular, Menlo, monospace;
+  font: 600 .72rem/1.4 var(--font-mono);
   letter-spacing: .11em;
   text-transform: uppercase;
   opacity: .58;
@@ -105,6 +107,26 @@
   width: min(100%, 58rem);
   margin-left: auto;
   margin-right: auto;
+}
+
+.case-system-art {
+  width: min(100%, 58rem);
+  margin: 0 auto;
+  overflow: hidden;
+  border: 1px solid rgba(23, 22, 18, .2);
+  background: #11100e;
+}
+
+.case-system-art picture,
+.case-system-art img {
+  display: block;
+  width: 100%;
+}
+
+.case-system-art img {
+  height: auto;
+  aspect-ratio: 8 / 5;
+  object-fit: cover;
 }
 
 .prose-page h2,
@@ -152,8 +174,8 @@
 }
 
 .architecture-list b {
-  font: 600 .72rem ui-monospace, SFMono-Regular, Menlo, monospace;
-  color: #6950cc;
+  font: 600 .72rem var(--font-mono);
+  color: var(--aubergine);
 }
 
 .route-footer {

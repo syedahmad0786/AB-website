@@ -9,7 +9,6 @@
   var AVATAR_TALK = "/twin-avatar.svg";
   var NAME = "Ahmad";
   var SUBTITLE = "AI twin";
-  var TEASER = "Hey — I'm Ahmad's AI twin. Ask me about automation, or I'll book you a call.";
   var SDK = "https://cdn.jsdelivr.net/npm/@elevenlabs/client@1.15.1/+esm";
 
   if (window.__twinWidget) return;
@@ -18,9 +17,10 @@
 
   /* ---------------- styles ---------------- */
   var css = `
-  .tw-root{position:fixed;right:8px;bottom:14px;z-index:2147483000;
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,system-ui,sans-serif;
-    color:#F4EEE3;--tw-violet:#8E65FF;--tw-lime:#C8FF37;--tw-bg:#0B0B0A;--tw-line:rgba(244,238,227,.14)}
+  .tw-root{position:fixed;right:12px;bottom:12px;z-index:2147483000;pointer-events:none;
+    transition:opacity .18s ease,transform .18s ease,visibility .18s;
+    font-family:"Instrument Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;
+    color:#F4EEE3;--tw-violet:#502C52;--tw-lime:#C8FF37;--tw-rust:#C95F37;--tw-bg:#0B0B0A;--tw-line:rgba(244,238,227,.14)}
   .tw-root *{box-sizing:border-box}
   .tw-hidden{display:none !important}
 
@@ -28,7 +28,7 @@
   .tw-launch{position:relative;display:block;background:none;border:0;padding:0;cursor:pointer;line-height:0}
   /* portrait frame: head through fists. artwork is pre-feathered to transparent,
      so no CSS mask is needed and it reads as a free-standing figure. */
-  .tw-char{position:relative;width:146px;height:146px;display:block;
+  .tw-char{position:relative;width:96px;height:96px;display:block;
     filter:drop-shadow(0 16px 26px rgba(0,0,0,.5));
     animation:tw-idle 3.4s ease-in-out infinite;transform-origin:50% 96%}
   .tw-char img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;display:block;
@@ -38,9 +38,9 @@
   .tw-root[data-state="speaking"] .tw-char img.tw-frame-talk{opacity:1}
   .tw-char-fallback{width:100%;height:100%;display:flex;align-items:center;justify-content:center;
     border-radius:50%;font-size:40px;font-weight:700;color:#0B0B0A;
-    background:linear-gradient(140deg,#8E65FF,#C8FF37)}
+    background:linear-gradient(140deg,#502C52,#C8FF37)}
   .tw-glow{position:absolute;left:50%;bottom:2px;transform:translateX(-50%);
-    width:74px;height:13px;border-radius:50%;background:rgba(142,101,255,.4);
+    width:68px;height:12px;border-radius:50%;background:rgba(80,44,82,.48);
     filter:blur(9px);opacity:.6;transition:background .35s,opacity .35s}
   .tw-char:hover{animation-duration:1.5s}
 
@@ -55,26 +55,19 @@
 
   .tw-root[data-state="listening"] .tw-char{animation:tw-lean 2s ease-in-out infinite}
   @keyframes tw-lean{0%,100%{transform:translateY(-2px) rotate(-2.5deg)}50%{transform:translateY(-6px) rotate(2.5deg)}}
-  .tw-root[data-state="listening"] .tw-glow{background:rgba(142,101,255,.75);opacity:1}
+  .tw-root[data-state="listening"] .tw-glow{background:rgba(80,44,82,.78);opacity:1}
   .tw-root[data-state="speaking"] .tw-char{animation:tw-talk .34s ease-in-out infinite}
   @keyframes tw-talk{0%,100%{transform:translateY(0) scale(1,1)}50%{transform:translateY(-3px) scale(.985,1.03)}}
   .tw-root[data-state="speaking"] .tw-glow{background:rgba(200,255,55,.7);opacity:1}
-  .tw-root[data-state="connecting"] .tw-glow{background:rgba(231,201,142,.6);opacity:1}
+  .tw-root[data-state="connecting"] .tw-glow{background:rgba(201,95,55,.7);opacity:1}
 
   /* small round avatar is still right inside the panel header */
   .tw-orb{position:relative;width:38px;height:38px;border-radius:50%;overflow:hidden;flex:0 0 auto;
-    background:linear-gradient(140deg,#8E65FF,#C8FF37)}
+    background:linear-gradient(140deg,#502C52,#C8FF37)}
   .tw-orb img{width:100%;height:100%;object-fit:cover;display:block}
   .tw-orb-fallback{width:100%;height:100%;display:flex;align-items:center;justify-content:center;
     background:#0B0B0A;font-size:17px;font-weight:700;
-    background-image:linear-gradient(140deg,rgba(142,101,255,.35),rgba(200,255,55,.3))}
-
-  .tw-teaser{max-width:230px;text-align:left;background:rgba(17,16,14,.96);border:1px solid var(--tw-line);
-    border-radius:14px;padding:10px 13px;font-size:13px;line-height:1.45;color:#E6DFD2;
-    box-shadow:0 10px 30px rgba(0,0,0,.45)}
-  .tw-teaser b{color:var(--tw-lime);font-weight:600}
-  .tw-teaser-close{position:absolute;top:-7px;left:-7px;width:20px;height:20px;border-radius:50%;
-    background:#201C15;border:1px solid var(--tw-line);color:#9A958C;font-size:12px;line-height:1;cursor:pointer;padding:0}
+    background-image:linear-gradient(140deg,rgba(80,44,82,.45),rgba(200,255,55,.3))}
 
   /* panel */
   .tw-panel{width:370px;max-width:calc(100vw - 32px);height:520px;max-height:calc(100vh - 110px);
@@ -88,7 +81,7 @@
   .tw-dot{width:6px;height:6px;border-radius:50%;background:#6b6b63;flex:0 0 auto}
   .tw-root[data-state="listening"] .tw-dot{background:var(--tw-violet)}
   .tw-root[data-state="speaking"] .tw-dot{background:var(--tw-lime)}
-  .tw-root[data-state="connecting"] .tw-dot{background:#e7c98e}
+  .tw-root[data-state="connecting"] .tw-dot{background:var(--tw-rust)}
   .tw-x{background:none;border:0;color:#9A958C;font-size:19px;cursor:pointer;padding:4px 6px;line-height:1;border-radius:8px}
   .tw-x:hover{color:#F4EEE3;background:rgba(244,238,227,.07)}
 
@@ -107,7 +100,7 @@
   .tw-row{display:flex;gap:8px;align-items:center}
   .tw-in{flex:1;background:#17140F;border:1px solid var(--tw-line);border-radius:11px;padding:10px 12px;
     color:#F4EEE3;font-size:13.5px;font-family:inherit;outline:none;min-width:0}
-  .tw-in:focus{border-color:rgba(142,101,255,.6)}
+  .tw-in:focus{border-color:rgba(80,44,82,.75)}
   .tw-in::placeholder{color:#807b73}
   .tw-btn{flex:0 0 auto;border:0;border-radius:11px;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;
     display:flex;align-items:center;justify-content:center;transition:filter .15s}
@@ -118,12 +111,14 @@
   .tw-call.tw-live{background:#2A2440;color:#F4EEE3}
   .tw-legal{text-align:center;font-size:10.5px;color:#6f6a63;margin-top:8px}
   .tw-legal a{color:#8d877e;text-decoration:underline}
+  .tw-panel,.tw-launch-wrap{pointer-events:auto}
+  .tw-root.tw-launcher-offstage:not(.tw-open){opacity:0;transform:translateY(12px);visibility:hidden}
 
   @media (max-width:640px){
     .tw-root{right:10px;left:10px;bottom:10px}
     .tw-panel{width:100%;max-width:none;height:min(74vh,540px)}
     .tw-launch{margin-left:auto}
-    .tw-teaser{max-width:190px}
+    .tw-char{width:72px;height:72px}
   }
   @media (prefers-reduced-motion:reduce){
     .tw-ring{animation:none !important}
@@ -153,6 +148,7 @@
     var c = el("div", "tw-char");
     var idle = new Image();
     idle.src = AVATAR;
+    idle.fetchPriority = "high";
     idle.alt = "";
     idle.className = "tw-frame-idle";
     idle.onerror = function () {
@@ -177,17 +173,10 @@
   // launcher
   var launchWrap = el("div", "tw-launch-wrap");
   launchWrap.style.cssText = "display:flex;align-items:center;justify-content:flex-end;gap:10px;position:relative";
-  var teaser = el("div", "tw-teaser");
-  teaser.innerHTML = TEASER.replace("book you a call", "<b>book you a call</b>");
-  var teaserClose = el("button", "tw-teaser-close", "&times;");
-  teaserClose.setAttribute("aria-label", "Dismiss");
-  teaser.appendChild(teaserClose);
-  teaser.classList.add("tw-hidden");
   var launchBtn = el("button", "tw-launch");
   launchBtn.setAttribute("aria-label", "Chat with " + NAME + "'s " + SUBTITLE);
   var charEl = character();
   launchBtn.appendChild(charEl);
-  launchWrap.appendChild(teaser);
   launchWrap.appendChild(launchBtn);
 
   // panel
@@ -235,7 +224,7 @@
   document.body.appendChild(root);
 
   /* ---------------- state ---------------- */
-  var convo = null, mode = null, opened = false, greeted = false, teaserShown = false;
+  var convo = null, mode = null, opened = false, greeted = false;
 
   function setState(s) {
     root.setAttribute("data-state", s);
@@ -274,9 +263,10 @@
 
   function open() {
     opened = true;
+    root.classList.add("tw-open");
+    root.classList.remove("tw-launcher-offstage");
     panel.classList.remove("tw-hidden");
     launchWrap.classList.add("tw-hidden");
-    teaser.classList.add("tw-hidden");
     setTimeout(function () { input.focus(); }, 60);
     if (!greeted) {
       greeted = true;
@@ -292,17 +282,14 @@
   }
   function close() {
     opened = false;
+    root.classList.remove("tw-open");
     panel.classList.add("tw-hidden");
     launchWrap.classList.remove("tw-hidden");
+    updateLauncherVisibility();
   }
 
   launchBtn.addEventListener("click", open);
   xBtn.addEventListener("click", close);
-  teaserClose.addEventListener("click", function (e) {
-    e.stopPropagation();
-    teaser.classList.add("tw-hidden");
-  });
-  teaser.addEventListener("click", open);
   document.addEventListener("keydown", function (e) {
     if (e.key === "Escape" && opened) close();
   });
@@ -426,6 +413,21 @@
   }
   launchBtn.addEventListener("mouseenter", hop);
 
+  // Keep the character discoverable in the opening view, then remove the
+  // fixed overlay once a visitor starts reading. The open panel stays fixed.
+  var launcherFrame = 0;
+  function updateLauncherVisibility() {
+    if (opened) return;
+    root.classList.toggle("tw-launcher-offstage", window.scrollY > 160);
+    launcherFrame = 0;
+  }
+  function requestLauncherVisibility() {
+    if (!launcherFrame) launcherFrame = requestAnimationFrame(updateLauncherVisibility);
+  }
+  window.addEventListener("scroll", requestLauncherVisibility, { passive: true });
+  window.addEventListener("resize", requestLauncherVisibility, { passive: true });
+  updateLauncherVisibility();
+
   // idle hops, spaced irregularly so it reads as alive rather than mechanical
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   function scheduleHop() {
@@ -437,21 +439,4 @@
   }
   scheduleHop();
 
-  function showTeaser() {
-    if (teaserShown || opened) return;
-    teaserShown = true;
-    teaser.classList.remove("tw-hidden");
-    hop();
-    setTimeout(function () { if (!opened) teaser.classList.add("tw-hidden"); }, 15000);
-  }
-  function onScroll() {
-    var d = document.documentElement;
-    var max = Math.max(1, d.scrollHeight - window.innerHeight);
-    if (window.scrollY > 500 || window.scrollY / max > 0.18) {
-      window.removeEventListener("scroll", onScroll);
-      showTeaser();
-    }
-  }
-  window.addEventListener("scroll", onScroll, { passive: true });
-  setTimeout(showTeaser, 20000);
 })();

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" role="img" aria-labelledby="title desc">
+  <title id="title">Ahmad Bukhari social avatar</title>
+  <desc id="desc">The AB Axis mark in black on a signal-lime field.</desc>
+  <rect width="1024" height="1024" fill="#C8FF37"/>
+  <g transform="translate(112 112) scale(8.333333)">
+    <g fill="none" stroke="#11100E" stroke-width="8" stroke-linejoin="miter" stroke-linecap="square">
+      <path d="M10 78 34 18 51 78M20 56h27"/>
+      <path d="M50 18v60M50 22h16c11 0 18 5.5 18 14s-7 14-18 14H50M50 50h18c11.5 0 18 5.5 18 14s-6.5 14-18 14H50"/>
+    </g>
+    <circle cx="50" cy="50" r="5.5" fill="#F4EEE3" stroke="#11100E" stroke-width="2"/>
+  </g>
+</svg>

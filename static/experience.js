@@ -5,6 +5,7 @@
   var body = document.body;
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var saveData = Boolean(navigator.connection && navigator.connection.saveData);
+  var staticArtworkPreferred = innerWidth < 761;
   var scrollProgress = 0;
   var scrollFrame = 0;
 
@@ -348,10 +349,10 @@
     var thesis = document.getElementById("thesis");
     if (visibilityObserver && hero) visibilityObserver.observe(hero);
     if (visibilityObserver && thesis) visibilityObserver.observe(thesis);
-    if (!canvas || !shell || !chapters.length || reduceMotion || saveData) {
+    if (!canvas || !shell || !chapters.length || reduceMotion || saveData || staticArtworkPreferred) {
       legacyJourneyRendererState = "static";
       if (shell) shell.classList.add("field-static");
-      if (qualityLabel) qualityLabel.textContent = reduceMotion ? "STATIC / REDUCED MOTION" : "STATIC / SAVE DATA";
+      if (qualityLabel) qualityLabel.textContent = reduceMotion ? "STATIC / REDUCED MOTION" : saveData ? "STATIC / SAVE DATA" : "STATIC / RESPONSIVE ARTWORK";
       return;
     }
 

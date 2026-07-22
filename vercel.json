@@ -7,6 +7,12 @@
   "trailingSlash": false,
   "redirects": [
     {
+      "source": "/",
+      "has": [{ "type": "host", "value": "www.ahmadbukhari.com" }],
+      "destination": "https://ahmadbukhari.com/",
+      "permanent": true
+    },
+    {
       "source": "/:path*",
       "has": [{ "type": "host", "value": "www.ahmadbukhari.com" }],
       "destination": "https://ahmadbukhari.com/:path*",

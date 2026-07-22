@@ -279,6 +279,9 @@
   }
 
   function initParticleWorld() {
+    // visual-journey.js owns this WebGL context. Keep this renderer only as a fallback.
+    if (window.__AB_JOURNEY_RENDERER__ === "journey-shapes-v2") return;
+
     var canvas = document.getElementById("intelligence-field");
     var shell = document.querySelector(".field-shell");
     var stageLabel = document.getElementById("field-stage");

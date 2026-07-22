@@ -278,16 +278,43 @@
     });
   }
 
-  function initParticleWorld() {
+  var JOURNEY_RENDERER_EVENT = "ab:journey-renderer-state";
+  var legacyJourneyRendererState = "idle";
+  var legacyJourneyRendererTimer = 0;
+
+  function primaryJourneyRendererIsActive(owner) {
+    return Boolean(
+      owner &&
+      owner.name === "journey-shapes-v2" &&
+      owner.active === true &&
+      (owner.state === "ready" || owner.state === "active")
+    );
+  }
+
+  function scheduleLegacyJourneyRenderer(owner) {
+    if (!owner || owner.name !== "journey-shapes-v2" || owner.active !== false) return;
+    if (legacyJourneyRendererState !== "idle" || legacyJourneyRendererTimer) return;
+    var handoff = { reason: owner.reason || "inactive" };
+    legacyJourneyRendererTimer = setTimeout(function () {
+      legacyJourneyRendererTimer = 0;
+      initParticleWorld(handoff);
+    }, 0);
+  }
+
+  function onJourneyRendererStateChange(event) {
+    scheduleLegacyJourneyRenderer(event && event.detail ? event.detail : window.__AB_JOURNEY_RENDERER__);
+  }
+
+  addEventListener(JOURNEY_RENDERER_EVENT, onJourneyRendererStateChange);
+
+  function initParticleWorld(handoff) {
+    if (legacyJourneyRendererState !== "idle") return;
+
     // Yield only after visual-journey.js proves its WebGL program and buffers are healthy.
     // Missing or inactive ownership leaves this legacy renderer available as a fallback.
     var journeyOwner = window.__AB_JOURNEY_RENDERER__;
-    if (
-      journeyOwner &&
-      journeyOwner.name === "journey-shapes-v2" &&
-      journeyOwner.active === true &&
-      (journeyOwner.state === "ready" || journeyOwner.state === "active")
-    ) return;
+    if (primaryJourneyRendererIsActive(journeyOwner)) return;
+    legacyJourneyRendererState = "starting";
 
     var canvas = document.getElementById("intelligence-field");
     var shell = document.querySelector(".field-shell");
@@ -297,6 +324,15 @@
     var scaleSteps = Array.prototype.slice.call(document.querySelectorAll(".scale-step"));
     var labels = ["COSMOS", "MATTER", "BIOLOGY", "NETWORK", "COMPUTE"];
     var pathLabels = ["SCALE TUNNEL", "SIGNAL ARC", "NEURAL FIBER", "DATA BUS"];
+
+    // A lost WebGL context cannot be reused. Replace only that canvas so the
+    // legacy renderer receives a fresh context without disturbing page state.
+    if (handoff && handoff.reason === "CONTEXT LOST" && canvas && canvas.parentNode) {
+      var replacementCanvas = canvas.cloneNode(false);
+      canvas.parentNode.replaceChild(replacementCanvas, canvas);
+      canvas = replacementCanvas;
+    }
+
     var journeyVisible = true;
     var visibleJourneySections = new Set();
     var visibilityObserver = shell ? new IntersectionObserver(function (entries) {
@@ -313,6 +349,7 @@
     if (visibilityObserver && hero) visibilityObserver.observe(hero);
     if (visibilityObserver && thesis) visibilityObserver.observe(thesis);
     if (!canvas || !shell || !chapters.length || reduceMotion || saveData) {
+      legacyJourneyRendererState = "static";
       if (shell) shell.classList.add("field-static");
       if (qualityLabel) qualityLabel.textContent = reduceMotion ? "STATIC / REDUCED MOTION" : "STATIC / SAVE DATA";
       return;
@@ -327,6 +364,7 @@
       preserveDrawingBuffer: false
     });
     if (!gl) {
+      legacyJourneyRendererState = "static";
       shell.classList.add("field-static");
       if (qualityLabel) qualityLabel.textContent = "STATIC / WEBGL FALLBACK";
       return;
@@ -508,6 +546,7 @@
       gl.linkProgram(program);
       if (!gl.getProgramParameter(program, gl.LINK_STATUS)) throw new Error(gl.getProgramInfoLog(program));
     } catch (error) {
+      legacyJourneyRendererState = "static";
       shell.classList.add("field-static");
       if (qualityLabel) qualityLabel.textContent = "STATIC / SHADER FALLBACK";
       return;
@@ -541,6 +580,8 @@
     gl.enable(gl.BLEND);
     gl.blendFunc(gl.SRC_ALPHA, gl.ONE);
     gl.disable(gl.DEPTH_TEST);
+    legacyJourneyRendererState = "active";
+    shell.classList.remove("field-static");
 
     var targetPhase = 0;
     var visible = !document.hidden;
@@ -638,6 +679,7 @@
     });
     canvas.addEventListener("webglcontextlost", function (event) {
       event.preventDefault();
+      legacyJourneyRendererState = "static";
       shell.classList.add("field-static");
       visible = false;
       if (renderTimer) clearTimeout(renderTimer);

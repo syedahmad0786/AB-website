@@ -4,7 +4,7 @@ export const SITE_CONFIG = {
   description:
   "Building autonomous AI systems that eliminate manual work. Founder of AiXCEL Solutions. Specializing in Agentic AI, Voice AI, and high-ROI enterprise automation.",
   url: "https://ahmadbukhari.com",
-  ogImage: "/images/og-default.webp",
+  ogImage: "/art/ahmadbukhari-default-og-1200x630.png",
   links: {
   linkedin: "https://www.linkedin.com/in/bukhariahmad",
   github: "https://github.com/syedahmad0786",

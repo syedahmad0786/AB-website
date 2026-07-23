@@ -1,0 +1,24 @@
+{
+  "name": "Ahmad Bukhari — AI Systems Architect",
+  "short_name": "Ahmad Bukhari",
+  "description": "AI systems architecture, resilient automation, CRM operations, and product delivery.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#080807",
+  "theme_color": "#080807",
+  "icons": [
+    {
+      "src": "/brand/ahmad-ab-axis-avatar-400.png",
+      "sizes": "400x400",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/brand/ahmad-ab-axis-avatar-1024.png",
+      "sizes": "1024x1024",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

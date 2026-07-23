@@ -8,23 +8,14 @@ const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const output = resolve(root, "dist");
 const siteUrl = "https://ahmadbukhari.com";
 const bookingUrl = "https://cal.com/ahmad-bukhari/ai-consultancy-call-with-ab";
-const updatedAt = "2026-07-22";
+const updatedAt = "2026-07-23";
 
-const [sourceTemplate, siteCss, experienceJs, visualJourneySource] = await Promise.all([
+const [sourceTemplate, siteCss, experienceJs, decisionEngineJs] = await Promise.all([
   readFile(resolve(root, "static/site-template.html"), "utf8"),
   readFile(resolve(root, "static/site-current.css"), "utf8"),
   readFile(resolve(root, "static/experience.js"), "utf8"),
-  readFile(resolve(root, "static/visual-journey.js"), "utf8"),
+  readFile(resolve(root, "static/decision-engine.js"), "utf8"),
 ]);
-const visualJourneyJs = visualJourneySource
-  .replace(
-    'var e=window.matchMedia("(prefers-reduced-motion: reduce)").matches,t=',
-    'var e=window.matchMedia("(prefers-reduced-motion: reduce)").matches,R=innerWidth<761,t=',
-  )
-  .replace(
-    'if(e)b("REDUCED MOTION");else if(t)b("SAVE DATA");else{',
-    'if(e)b("REDUCED MOTION");else if(R)b("RESPONSIVE ARTWORK");else if(t)b("SAVE DATA");else{',
-  );
 
 function loadTypeScriptData(relativePath) {
   const source = requireSource(relativePath);
@@ -543,7 +534,7 @@ for (const item of PORTFOLIO_ITEMS) {
 
 await rm(output, { recursive: true, force: true });
 await mkdir(output, { recursive: true });
-for (const asset of ["favicon.svg", "twin-avatar.svg", "twin-widget.js", "images/ahmad-bukhari.jpg", "images/ahmad-cafe.jpg", "images/og-default.webp"]) {
+for (const asset of ["favicon.svg", "site.webmanifest", "twin-avatar.svg", "twin-widget.js", "images/ahmad-bukhari.jpg", "images/ahmad-cafe.jpg", "images/og-default.webp"]) {
   const destination = resolve(output, asset);
   await mkdir(dirname(destination), { recursive: true });
   await cp(resolve(root, "public", asset), destination);
@@ -554,7 +545,7 @@ for (const directory of ["art", "brand", "fonts"]) {
 await Promise.all([
   writeFile(resolve(output, "site.css"), `${siteCss}\n\n${await readFile(resolve(root, "static/seo-pages.css"), "utf8")}`, "utf8"),
   writeFile(resolve(output, "experience.js"), experienceJs, "utf8"),
-  writeFile(resolve(output, "visual-journey.js"), visualJourneyJs, "utf8"),
+  writeFile(resolve(output, "decision-engine.js"), decisionEngineJs, "utf8"),
 ]);
 
 for (const [path, page] of pages) {

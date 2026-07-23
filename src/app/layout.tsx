@@ -6,14 +6,14 @@ import InteractiveCursorField from "@/components/ui/InteractiveCursorField";
 import AnalyticsProvider from "@/components/AnalyticsProvider";
 import CookieConsent from "@/components/CookieConsent";
 import ExitIntentModal from "@/components/ExitIntentModal";
-import { OrganizationJsonLd, PersonJsonLd, WebsiteJsonLd, FAQJsonLd, ServiceJsonLd } from "@/components/JsonLd";
+import { PersonJsonLd, WebsiteJsonLd, FAQJsonLd, ServiceJsonLd } from "@/components/JsonLd";
 import "@/styles/globals.css";
 
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
-  themeColor: "#050505",
+  themeColor: "#080807",
   colorScheme: "dark",
 };
 
@@ -57,6 +57,14 @@ export const metadata: Metadata = {
   description: SITE_CONFIG.description,
   images: [SITE_CONFIG.ogImage],
   },
+  icons: {
+  icon: [
+  { url: "/brand/ahmad-ab-axis-favicon.svg", type: "image/svg+xml" },
+  { url: "/brand/ahmad-ab-axis-favicon-32.png", type: "image/png", sizes: "32x32" },
+  ],
+  apple: [{ url: "/brand/ahmad-ab-axis-apple-touch-180.png", sizes: "180x180" }],
+  },
+  manifest: "/site.webmanifest",
   robots: {
   index: true,
   follow: true,
@@ -78,8 +86,10 @@ export default function RootLayout({
   return (
   <html lang="en" className="dark">
   <head>
-  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-  <OrganizationJsonLd />
+  <link rel="icon" href="/brand/ahmad-ab-axis-favicon.svg" type="image/svg+xml" sizes="any" />
+  <link rel="icon" href="/brand/ahmad-ab-axis-favicon-32.png" type="image/png" sizes="32x32" />
+  <link rel="apple-touch-icon" href="/brand/ahmad-ab-axis-apple-touch-180.png" sizes="180x180" />
+  <link rel="manifest" href="/site.webmanifest" />
   <PersonJsonLd />
   <WebsiteJsonLd />
   <FAQJsonLd />

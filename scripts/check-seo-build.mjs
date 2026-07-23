@@ -86,7 +86,7 @@ const requiredFonts = [
   "fonts/instrument-serif-LICENSE",
   "fonts/ibm-plex-mono-LICENSE",
 ];
-const required = ["robots.txt", "sitemap.xml", "llms.txt", "feed.xml", "404.html", "site.css", "experience.js", "visual-journey.js", "favicon.svg", "twin-widget.js", "twin-avatar.svg", "images/ahmad-cafe.jpg", ...requiredArtwork, ...requiredBrand, ...requiredFonts];
+const required = ["robots.txt", "sitemap.xml", "llms.txt", "feed.xml", "404.html", "site.css", "experience.js", "decision-engine.js", "site.webmanifest", "favicon.svg", "twin-widget.js", "twin-avatar.svg", "images/ahmad-cafe.jpg", ...requiredArtwork, ...requiredBrand, ...requiredFonts];
 for (const file of required) {
   try {
     const details = await stat(resolve(dist, file));
@@ -151,6 +151,9 @@ for (const file of htmlFiles) {
     const values = match[1] === "srcset" ? match[2].split(",").map((candidate) => candidate.trim().split(/\s+/)[0]) : [match[2]];
     localReferences.push(...values);
   }
+  for (const match of html.matchAll(/<link\b[^>]*\brel="(?:icon|apple-touch-icon|manifest)"[^>]*\bhref="([^"]+)"[^>]*>/g)) {
+    localReferences.push(match[1]);
+  }
   for (const reference of localReferences.filter((value) => value.startsWith("/"))) {
     const pathname = reference.split(/[?#]/)[0];
     try {
@@ -171,15 +174,19 @@ const defaultOgUrl = "https://ahmadbukhari.com/art/ahmadbukhari-default-og-1200x
 if (!home.includes(`<meta property="og:image" content="${defaultOgUrl}">`)) failures.push("Homepage default Open Graph PNG is missing");
 if (!home.includes(`<meta name="twitter:image" content="${defaultOgUrl}">`)) failures.push("Homepage default Twitter image PNG is missing");
 if (home.includes("/images/og-default.webp") || home.includes("/og.jpg")) failures.push("Homepage still references a superseded default share image");
-for (const marker of ["digital gravity", "intelligence-field", "cosmos-stage", "matter-stage", "brain-stage", "network-stage", "compute-stage", "Selected systems", "Automation lab", "/twin-widget.js?v=9", "data-visual-renderer=\"journey-shapes-v2\""]) {
+for (const marker of ["digital gravity", "The Decision Engine", "signal-stage", "context-stage", "decision-stage", "boundary-stage", "action-stage", "evidence-stage", "Selected systems", "Automation lab", "/twin-widget.js?v=9", "data-visual-renderer=\"decision-engine-v1\""]) {
   if (!home.includes(marker)) failures.push(`Homepage redesign marker missing: ${marker}`);
 }
-if ((home.match(/class="chapter-art reveal"/g) || []).length !== 5) failures.push("Homepage must contain five Scale Journey artwork scenes");
+if ((home.match(/data-engine-step="/g) || []).length !== 6) failures.push("Homepage must contain six semantic Decision Engine steps");
+if ((home.match(/data-engine-layer="/g) || []).length !== 6) failures.push("Homepage must contain six Decision Engine visual layers");
 if ((home.match(/class="project-art project-art-image"/g) || []).length !== 6) failures.push("Homepage must contain six System Story artworks");
 if ((home.match(/class="note-cover"/g) || []).length !== 3) failures.push("Homepage must contain three Field Note covers");
 if ((home.match(/<img\b[^>]*fetchpriority="high"[^>]*>/g) || []).length !== 1) failures.push("Homepage must have exactly one high-priority artwork image");
 if (!home.includes('<img class="ab-axis" src="/brand/ahmad-ab-axis.svg" alt="" width="96" height="96">')) failures.push("Homepage header does not use the official AB Axis SVG");
-if (/ab-logo-orbit/.test(home)) failures.push("Homepage still contains the retired CSS-drawn AB orbit logo");
+if (!home.includes('<link rel="icon" href="/brand/ahmad-ab-axis-favicon.svg" type="image/svg+xml" sizes="any">')) failures.push("Homepage does not use the cache-busting official AB Axis favicon path");
+if (!home.includes('<link rel="icon" href="/brand/ahmad-ab-axis-favicon-32.png" type="image/png" sizes="32x32">')) failures.push("Homepage 32px AB Axis favicon fallback is missing");
+if (!home.includes('<link rel="manifest" href="/site.webmanifest">')) failures.push("Homepage web manifest link is missing");
+if (/ab-logo-orbit|class="ab-logo|class="gravity-mark/.test(home)) failures.push("Homepage still contains a retired logo implementation");
 
 const homeSchema = JSON.parse(home.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)?.[1] || "{}");
 const homeProfiles = (homeSchema["@graph"] || []).filter((node) => node["@type"] === "ProfilePage");
@@ -194,8 +201,11 @@ if ((blogIndexHtml.match(/class="note-cover"/g) || []).length !== 3) failures.pu
 if (sitemapHrefs.has("https://ahmadbukhari.com/field-notes")) failures.push("Retired /field-notes teaser must not compete with the canonical /blog hub");
 
 const css = await readFile(resolve(dist, "site.css"), "utf8");
-for (const marker of [".site-loader", ".ab-logo", ".brand-name", ".field-shell[data-stage=\"2\"].field-rendered #intelligence-field", ".atom-orbit"]) {
+for (const marker of [".site-loader", ".loader-axis", ".brand-name", ".decision-engine-story", ".engine-layer-boundary", ".engine-output"]) {
   if (!css.includes(marker)) failures.push(`Current production CSS marker missing: ${marker}`);
+}
+for (const retiredMarker of [".ab-logo", ".gravity-mark", ".ab-logo-orbit"]) {
+  if (css.includes(retiredMarker)) failures.push(`Retired logo CSS is still present: ${retiredMarker}`);
 }
 
 const twinWidget = await readFile(resolve(dist, "twin-widget.js"), "utf8");
@@ -216,19 +226,15 @@ for (const reference of [...css.matchAll(/url\(["']?(\/[^"')]+)["']?\)/g)].map((
 }
 
 const experience = await readFile(resolve(dist, "experience.js"), "utf8");
-const visualJourney = await readFile(resolve(dist, "visual-journey.js"), "utf8");
-const journeyScriptIndex = home.indexOf('<script defer src="/visual-journey.js"></script>');
+const decisionEngine = await readFile(resolve(dist, "decision-engine.js"), "utf8");
+const decisionEngineScriptIndex = home.indexOf('<script defer src="/decision-engine.js"></script>');
 const experienceScriptIndex = home.indexOf('<script defer src="/experience.js"></script>');
-for (const marker of ["function setJourneyRendererActive", "setJourneyRendererActive(h)", "setJourneyRendererInactive(e)", 'var JOURNEY_RENDERER_EVENT="ab:journey-renderer-state"', "new CustomEvent(JOURNEY_RENDERER_EVENT", "announceJourneyRendererState(t)"]) {
-  if (!visualJourney.includes(marker)) failures.push(`Journey renderer health marker missing: ${marker}`);
+for (const marker of ["data-engine-story", "expansionFrames", "positionLayer", "prefers-reduced-motion", "navigator.connection", "requestAnimationFrame(update)", "Pass / logged"]) {
+  if (!decisionEngine.includes(marker)) failures.push(`Decision Engine runtime marker missing: ${marker}`);
 }
-if (!visualJourney.includes('else if(R)b("RESPONSIVE ARTWORK")')) failures.push("Mobile journey must use the responsive static artwork path");
-for (const marker of ['var JOURNEY_RENDERER_EVENT = "ab:journey-renderer-state"', "addEventListener(JOURNEY_RENDERER_EVENT, onJourneyRendererStateChange)", 'legacyJourneyRendererState !== "idle" || legacyJourneyRendererTimer', 'handoff && handoff.reason === "CONTEXT LOST"', "canvas.cloneNode(false)", "canvas.parentNode.replaceChild(replacementCanvas, canvas)", 'legacyJourneyRendererState = "active"']) {
-  if (!experience.includes(marker)) failures.push(`Legacy renderer runtime handoff marker missing: ${marker}`);
-}
-if (!experience.includes("owner.active === true")) failures.push("Legacy renderer active ownership guard missing");
-if (!experience.includes('owner.state === "ready" || owner.state === "active"')) failures.push("Legacy renderer readiness guard missing");
-if (journeyScriptIndex < 0 || experienceScriptIndex < 0 || journeyScriptIndex > experienceScriptIndex) failures.push("Journey renderer must load before the guarded experience script");
+if (!experience.includes('body.classList.add("visual-ready")')) failures.push("Experience runtime must release the branded loader after first render");
+if (decisionEngineScriptIndex < 0 || experienceScriptIndex < 0 || decisionEngineScriptIndex > experienceScriptIndex) failures.push("Decision Engine must load before the general experience script");
+if (home.includes("visual-journey.js") || home.includes("intelligence-field")) failures.push("Homepage still loads the retired WebGL journey");
 if ((home.match(/\/images\/ahmad-cafe\.jpg/g) || []).length !== 2) failures.push("Vendored Ahmad portrait source is not present in both portrait placements");
 if ((home.match(/width="778" height="1000"/g) || []).length < 2) failures.push("Vendored Ahmad portrait intrinsic dimensions are missing");
 if (home.includes("ahmad-fable5.vercel.app")) failures.push("Homepage still depends on the external portrait host");
@@ -250,7 +256,7 @@ for (const [slug, [artwork, alt]] of Object.entries(caseArtworkChecks)) {
   if (!html.includes('width="1200" height="750" loading="lazy" decoding="async"')) failures.push(`/work/${slug}: artwork dimensions or deferred-loading attributes are missing`);
   if (!html.includes(`alt="${alt}"`)) failures.push(`/work/${slug}: audited artwork alt text is missing`);
 }
-if (!experience.includes("staticArtworkPreferred = innerWidth < 761") || !experience.includes("STATIC / RESPONSIVE ARTWORK")) failures.push("Legacy renderer must stay inactive behind responsive mobile artwork");
+if (!decisionEngine.includes("reduceMotion.matches || saveData") || !decisionEngine.includes('story.classList.toggle("engine-static", staticMode)')) failures.push("Decision Engine must provide reduced-motion and Save Data fallbacks");
 
 for (const directory of ["blog", "portfolio"]) {
   const files = await readdir(resolve(dist, directory));

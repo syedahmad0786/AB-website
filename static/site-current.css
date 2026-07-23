@@ -2083,9 +2083,13 @@ main { position: relative; z-index: 1; }
 .engine-static .engine-layer { transition: none; }
 
 @media (max-width: 980px) {
-  .decision-engine-story { grid-template-columns: minmax(270px, .8fr) minmax(470px, 1.2fr); column-gap: 28px; }
-  .engine-stage { width: min(58vw, 680px); }
+  .decision-engine-story { grid-template-columns: minmax(270px, .8fr) minmax(0, 1.2fr); column-gap: 28px; }
+  .engine-stage { width: min(52vw, 680px); max-width: 100%; }
   .engine-rail { display: none; }
+}
+
+@media (max-width: 900px) {
+  .section-top { grid-template-columns: 1fr; gap: 35px; }
 }
 
 @media (max-width: 760px) {

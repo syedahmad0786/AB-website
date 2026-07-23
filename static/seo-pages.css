@@ -231,6 +231,7 @@
 .research-hub-featured h2 a { color: inherit; text-decoration: none; }
 .research-hub-featured > p { max-width: 52rem; color: rgba(244, 238, 227, .7); }
 .research-hub-featured .button { margin-top: 1.6rem; }
+.research-hub-grid { grid-template-columns: 1fr; }
 
 @media (max-width: 760px) {
   .route-page { padding-top: 5rem; }

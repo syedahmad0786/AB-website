@@ -2510,6 +2510,7 @@ main { position: relative; z-index: 1; }
   gap: 36px;
 }
 .research-grid .research-card-featured { grid-column: 1 / -1; min-height: 560px; background: var(--ink); color: var(--ivory-bright); }
+.research-grid .research-card:not(.research-card-featured) { grid-column: 1 / -1; }
 .research-meta { display: flex; justify-content: space-between; gap: 18px; color: rgba(17, 16, 14, .58); font: 500 8px/1.4 var(--font-mono); letter-spacing: .11em; text-transform: uppercase; }
 .research-card-featured .research-meta { color: rgba(244, 238, 227, .56); }
 .research-card-copy { align-self: end; }

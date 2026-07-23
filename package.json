@@ -6,7 +6,7 @@
     "dev": "npm run build && node scripts/serve-static.mjs",
     "build": "node scripts/build-seo-site.mjs",
     "start": "node scripts/serve-static.mjs",
-    "test": "node --check scripts/serve-static.mjs && node --check public/twin-widget.js && npm run build && node scripts/check-seo-build.mjs",
+    "test": "node --check scripts/serve-static.mjs && node --check static/decision-engine.js && node --check static/experience.js && node --check public/twin-widget.js && npm run build && node scripts/check-seo-build.mjs",
     "lint": "node scripts/check-seo-build.mjs"
   },
   "devDependencies": {

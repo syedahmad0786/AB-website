@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-visual-renderer="decision-engine-v1">
+<html lang="en" data-visual-renderer="decision-engine-cinema-v2">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,8 +9,8 @@
   <meta name="robots" content="index,follow">
   <meta name="google-site-verification" content="kKAcTOHisk8LJXjpzteUCTTAYXGz3wmhe0lOjLRphq0">
   <link rel="canonical" href="https://ahmadbukhari.com/">
-  <link rel="icon" href="/brand/ahmad-ab-axis-favicon.svg" type="image/svg+xml" sizes="any">
-  <link rel="icon" href="/brand/ahmad-ab-axis-favicon-32.png" type="image/png" sizes="32x32">
+  <link rel="icon" href="/brand/ahmad-ab-axis-favicon.svg?v=20260723" type="image/svg+xml" sizes="any">
+  <link rel="icon" href="/brand/ahmad-ab-axis-favicon-32.png?v=20260723" type="image/png" sizes="32x32">
   <link rel="apple-touch-icon" href="/brand/ahmad-ab-axis-apple-touch-180.png" sizes="180x180">
   <link rel="manifest" href="/site.webmanifest">
   <link rel="preload" href="/site.css" as="style">
@@ -19,7 +19,13 @@
   <link rel="stylesheet" href="/site.css">
   <noscript><style data-nojs-fallback>
     .site-loader { display: none !important; }
-    .hero-line > span, .hero-enter, .reveal, .engine-step { opacity: 1 !important; transform: none !important; animation: none !important; transition: none !important; }
+    .hero-line > span, .hero-enter, .reveal { opacity: 1 !important; transform: none !important; animation: none !important; transition: none !important; }
+    .decision-cinema { height: auto !important; overflow: visible !important; }
+    .cinema-sticky { position: relative !important; height: auto !important; min-height: 0 !important; overflow: visible !important; }
+    .cinema-copy-rail { position: relative !important; inset: auto !important; width: auto !important; height: auto !important; padding: 120px 5vw 80px !important; color: #11100e !important; }
+    .cinema-copy-stack { display: grid !important; gap: 1px !important; }
+    .cinema-copy { position: relative !important; grid-area: auto !important; opacity: 1 !important; transform: none !important; padding: 46px 0 !important; border-top: 1px solid rgba(17,16,14,.18) !important; }
+    .cinema-visual, .cinema-progress, .cinema-chrome { display: none !important; }
     @media (max-width: 1100px) {
       .site-header { height: 112px !important; grid-template-columns: 1fr !important; align-content: start !important; }
       .menu-toggle, .mobile-menu, .header-cta { display: none !important; }
@@ -81,7 +87,7 @@
       <a href="/work" data-route="work">Systems</a>
       <a href="/automation-lab" data-route="automation-lab">Lab</a>
       <a href="/about" data-route="about">About</a>
-      <a href="/blog" data-route="field-notes">Notes</a>
+      <a href="/blog" data-route="research">Research</a>
     </nav>
     <a class="header-cta" href="https://cal.com/ahmad-bukhari/ai-consultancy-call-with-ab" target="_blank" rel="noreferrer" data-cal-trigger data-cal-link="ahmad-bukhari/ai-consultancy-call-with-ab" data-cal-namespace="ai-consultancy-call-with-ab" data-cal-config='{"layout":"month_view","useSlotsViewOnSmallScreen":true}'><span>Book a 25 min call</span><b aria-hidden="true">↗</b></a>
     <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu"><span>Menu</span><i></i><i></i></button>
@@ -89,7 +95,7 @@
       <a href="/work" data-route="work">Systems <span>01</span></a>
       <a href="/automation-lab" data-route="automation-lab">Automation lab <span>02</span></a>
       <a href="/about" data-route="about">About <span>03</span></a>
-      <a href="/blog" data-route="field-notes">Field notes <span>04</span></a>
+      <a href="/blog" data-route="research">Research &amp; findings <span>04</span></a>
       <a href="/contact" data-route="contact">Contact <span>05</span></a>
     </div>
   </header>
@@ -131,136 +137,100 @@
       </div>
     </section>
 
-    <section class="transformation decision-engine-section" id="thesis" aria-labelledby="decision-engine-title">
-      <div class="transformation-intro reveal">
-        <span class="eyebrow">01 / The Decision Engine</span>
-        <h2 id="decision-engine-title">A system should open<br><em>before it acts.</em></h2>
-        <p>Most AI demos hide the operating logic. This one exposes it. Scroll through the six layers that turn a messy request into a controlled, owned, and recorded outcome.</p>
-      </div>
+    <section class="decision-cinema" id="thesis" aria-labelledby="decision-engine-title" data-cinema-story>
+      <div class="cinema-sticky">
+        <div class="cinema-grid" aria-hidden="true"></div>
+        <div class="cinema-wash" aria-hidden="true"></div>
 
-      <div class="chapters decision-engine-story" data-engine-story>
-        <div class="decision-engine-sticky" data-engine-sticky>
-          <div class="engine-stage" data-decision-engine aria-hidden="true">
-            <div class="engine-grid"></div>
-            <div class="engine-signal-field">
-              <i style="--sx:8%;--sy:18%;--delay:.1"></i><i style="--sx:78%;--sy:10%;--delay:.3"></i>
-              <i style="--sx:92%;--sy:56%;--delay:.6"></i><i style="--sx:12%;--sy:76%;--delay:.8"></i>
-              <i style="--sx:76%;--sy:90%;--delay:1"></i><i style="--sx:31%;--sy:7%;--delay:.45"></i>
+        <div class="cinema-copy-rail">
+          <p class="cinema-kicker">01 / The Decision Engine</p>
+          <div class="cinema-copy-stack">
+            <article class="cinema-copy is-current" data-cinema-copy="0">
+              <span>01 / The problem</span>
+              <h2 id="decision-engine-title">Your AI can answer.<br><em>Can it operate?</em></h2>
+              <p>A useful system needs more than a model. It needs context, limits, ownership, action, and proof.</p>
+            </article>
+            <article class="cinema-copy" data-cinema-copy="1">
+              <span>02 / The X-ray</span>
+              <h3>A real system opens<br><em>before it acts.</em></h3>
+              <p>Signal, context, judgment, boundaries, action, and evidence become one inspectable mechanism.</p>
+            </article>
+            <article class="cinema-copy" data-cinema-copy="2">
+              <span>03 / The boundary</span>
+              <h3>Capability becomes<br><em>controlled work.</em></h3>
+              <p>The gate decides what may proceed, what must stop, and where a responsible human takes over.</p>
+            </article>
+            <article class="cinema-copy" data-cinema-copy="3">
+              <span>04 / The result</span>
+              <h3>The parts close around<br><em>one owned outcome.</em></h3>
+              <p>Not AI theatre. A recoverable operating system with a clear owner and a measurable result.</p>
+            </article>
+            <article class="cinema-copy cinema-copy-final" data-cinema-copy="4">
+              <span>05 / The proof</span>
+              <h3>Action leaves.<br><em>Evidence returns.</em></h3>
+              <p>Every permitted action creates a record that makes the next decision safer and more useful.</p>
+              <a class="button button-primary" href="/contact">Map the messy part <b aria-hidden="true">↗</b></a>
+            </article>
+          </div>
+          <div class="cinema-progress" aria-hidden="true"><span data-cinema-readout>01 / ATTRACT</span><i><b data-cinema-progress></b></i></div>
+        </div>
+
+        <div class="cinema-visual" aria-hidden="true">
+          <div class="cinema-stage" data-decision-engine>
+            <div class="cinema-frame"></div>
+            <div class="cinema-signal-field">
+              <i style="--x:8%;--y:16%;--d:.1"></i><i style="--x:82%;--y:11%;--d:.3"></i>
+              <i style="--x:91%;--y:53%;--d:.6"></i><i style="--x:12%;--y:72%;--d:.8"></i>
+              <i style="--x:75%;--y:89%;--d:1"></i><i style="--x:31%;--y:7%;--d:.45"></i>
             </div>
-
-            <svg class="engine-tethers" viewBox="0 0 800 800" preserveAspectRatio="none">
-              <path d="M400 400C323 322 288 255 244 209"></path>
-              <path d="M400 400C482 318 525 255 566 214"></path>
-              <path d="M400 400C306 399 246 402 187 405"></path>
-              <path d="M400 400C497 400 558 402 617 405"></path>
-              <path d="M400 400C330 485 283 540 242 592"></path>
-              <path d="M400 400C478 485 519 540 564 593"></path>
+            <svg class="cinema-tethers" viewBox="0 0 800 800" preserveAspectRatio="none">
+              <path d="M400 400C330 330 290 250 236 206"></path><path d="M400 400C475 325 520 246 568 210"></path>
+              <path d="M400 400C310 400 248 402 182 405"></path><path d="M400 400C495 400 557 402 618 405"></path>
+              <path d="M400 400C330 480 286 548 238 598"></path><path d="M400 400C478 484 523 544 568 594"></path>
             </svg>
 
-            <div class="engine-object">
-              <div class="engine-chassis engine-chassis-back"></div>
-              <div class="engine-spine"><i></i><i></i><b></b></div>
+            <div class="cinema-camera" data-cinema-camera>
+              <div class="cinema-engine">
+                <div class="cinema-chassis cinema-chassis-back"></div>
+                <div class="cinema-spine"><i></i><i></i><b></b></div>
 
-              <div class="engine-layer engine-layer-evidence" data-engine-layer="evidence">
-                <span class="ledger-line"></span><span class="ledger-line"></span><span class="ledger-line"></span><i class="ledger-seal"></i>
-                <b class="engine-layer-name">Evidence</b>
+                <div class="cinema-layer cinema-layer-evidence" data-cinema-layer="evidence">
+                  <span class="cinema-ledger-line"></span><span class="cinema-ledger-line"></span><span class="cinema-ledger-line"></span><i class="cinema-ledger-seal"></i>
+                </div>
+                <div class="cinema-layer cinema-layer-action" data-cinema-layer="action">
+                  <svg viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M12 72C28 72 25 28 43 28S55 72 70 62S74 33 89 33"></path><circle cx="12" cy="72" r="3"></circle><circle cx="43" cy="28" r="3"></circle><circle cx="70" cy="62" r="3"></circle><circle cx="89" cy="33" r="3"></circle></svg>
+                </div>
+                <div class="cinema-layer cinema-layer-boundary" data-cinema-layer="boundary">
+                  <span class="cinema-rail cinema-rail-a"></span><span class="cinema-rail cinema-rail-b"></span><span class="cinema-gate"></span><span class="cinema-gate-node"></span><strong data-cinema-gate-status>Hold / human</strong>
+                </div>
+                <div class="cinema-layer cinema-layer-decision" data-cinema-layer="decision">
+                  <svg viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M20 68L39 31L61 57L81 25"></path><path d="M20 68L61 57L76 78"></path><circle cx="20" cy="68" r="4"></circle><circle cx="39" cy="31" r="4"></circle><circle cx="61" cy="57" r="4"></circle><circle cx="81" cy="25" r="4"></circle><circle cx="76" cy="78" r="4"></circle></svg>
+                </div>
+                <div class="cinema-layer cinema-layer-context" data-cinema-layer="context">
+                  <span class="cinema-context-card cinema-card-a"></span><span class="cinema-context-card cinema-card-b"></span><span class="cinema-context-card cinema-card-c"></span>
+                </div>
+                <div class="cinema-layer cinema-layer-signal" data-cinema-layer="signal">
+                  <span class="cinema-signal-ring cinema-ring-a"></span><span class="cinema-signal-ring cinema-ring-b"></span><span class="cinema-signal-ring cinema-ring-c"></span><i class="cinema-signal-core"></i>
+                </div>
+                <div class="cinema-chassis cinema-chassis-front"><span></span><span></span><span></span><span></span></div>
               </div>
-              <div class="engine-layer engine-layer-action" data-engine-layer="action">
-                <svg viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M12 72C28 72 25 28 43 28S55 72 70 62S74 33 89 33"></path><circle cx="12" cy="72" r="3"></circle><circle cx="43" cy="28" r="3"></circle><circle cx="70" cy="62" r="3"></circle><circle cx="89" cy="33" r="3"></circle></svg>
-                <b class="engine-layer-name">Action</b>
-              </div>
-              <div class="engine-layer engine-layer-boundary" data-engine-layer="boundary">
-                <span class="boundary-rail boundary-rail-a"></span><span class="boundary-rail boundary-rail-b"></span><span class="boundary-gate"></span><span class="boundary-node"></span>
-                <strong class="boundary-status" data-engine-gate-status>Hold / human</strong><b class="engine-layer-name">Boundary</b>
-              </div>
-              <div class="engine-layer engine-layer-decision" data-engine-layer="decision">
-                <svg viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M20 68L39 31L61 57L81 25"></path><path d="M20 68L61 57L76 78"></path><circle cx="20" cy="68" r="4"></circle><circle cx="39" cy="31" r="4"></circle><circle cx="61" cy="57" r="4"></circle><circle cx="81" cy="25" r="4"></circle><circle cx="76" cy="78" r="4"></circle></svg>
-                <b class="engine-layer-name">Decision</b>
-              </div>
-              <div class="engine-layer engine-layer-context" data-engine-layer="context">
-                <span class="context-card context-card-a"></span><span class="context-card context-card-b"></span><span class="context-card context-card-c"></span>
-                <b class="engine-layer-name">Context</b>
-              </div>
-              <div class="engine-layer engine-layer-signal" data-engine-layer="signal">
-                <span class="signal-ring signal-ring-a"></span><span class="signal-ring signal-ring-b"></span><span class="signal-ring signal-ring-c"></span><i class="signal-core"></i>
-                <b class="engine-layer-name">Signal</b>
-              </div>
-
-              <div class="engine-chassis engine-chassis-front"><span></span><span></span><span></span><span></span></div>
             </div>
 
-            <div class="engine-impact"></div>
-            <div class="engine-input"><span></span></div>
-            <div class="engine-output"><i></i><span>Verified action</span></div>
-          </div>
+            <div class="cinema-impact"></div>
+            <div class="cinema-input"><span></span></div>
+            <div class="cinema-output"><i></i><span>Verified action</span></div>
+            <svg class="cinema-return" viewBox="0 0 800 800" preserveAspectRatio="none"><path d="M716 575C670 700 520 730 416 650C355 603 350 534 392 486" pathLength="1"></path></svg>
 
-          <div class="engine-readout" aria-hidden="true">
-            <span data-engine-readout>01 / SIGNAL</span>
-            <i><b data-engine-progress></b></i>
+            <div class="cinema-callout cinema-callout-signal" data-cinema-callout="signal"><span>01</span><b>Signal</b><small>What changed?</small></div>
+            <div class="cinema-callout cinema-callout-context" data-cinema-callout="context"><span>02</span><b>Context</b><small>What is true?</small></div>
+            <div class="cinema-callout cinema-callout-decision" data-cinema-callout="decision"><span>03</span><b>Decision</b><small>What should happen?</small></div>
+            <div class="cinema-callout cinema-callout-boundary" data-cinema-callout="boundary"><span>04</span><b>Boundary</b><small>What may happen?</small></div>
+            <div class="cinema-callout cinema-callout-action" data-cinema-callout="action"><span>05</span><b>Action</b><small>What moves?</small></div>
+            <div class="cinema-callout cinema-callout-evidence" data-cinema-callout="evidence"><span>06</span><b>Evidence</b><small>What gets recorded?</small></div>
           </div>
-          <ol class="engine-rail" aria-hidden="true">
-            <li class="is-active" data-engine-nav><span>01</span>Signal</li>
-            <li data-engine-nav><span>02</span>Context</li>
-            <li data-engine-nav><span>03</span>Decision</li>
-            <li data-engine-nav><span>04</span>Boundary</li>
-            <li data-engine-nav><span>05</span>Action</li>
-            <li data-engine-nav><span>06</span>Evidence</li>
-          </ol>
         </div>
-        <article class="chapter engine-step is-active" id="signal-stage" data-engine-step="signal">
-          <div class="chapter-number">01</div>
-          <div class="chapter-copy reveal">
-            <span class="chapter-label">Signal / What changed?</span>
-            <h3>Start with the work. Not the tool.</h3>
-            <p>Requests, events, documents, and exceptions arrive from everywhere. A useful system first separates the signal that deserves action from the noise that does not.</p>
-            <ul><li>Trigger</li><li>Intent</li><li>Priority</li></ul>
-          </div>
-        </article>
-        <article class="chapter engine-step" id="context-stage" data-engine-step="context">
-          <div class="chapter-number">02</div>
-          <div class="chapter-copy reveal">
-            <span class="chapter-label">Context / What is true?</span>
-            <h3>Bring the truth into the same frame.</h3>
-            <p>Customer state, policy, history, ownership, and constraints have to travel with the request. Without context, even a fluent answer can create the wrong outcome.</p>
-            <ul><li>State</li><li>History</li><li>Owner</li></ul>
-          </div>
-        </article>
-        <article class="chapter engine-step" id="decision-stage" data-engine-step="decision">
-          <div class="chapter-number">03</div>
-          <div class="chapter-copy reveal">
-            <span class="chapter-label">Decision / What should happen?</span>
-            <h3>Make judgment inspectable.</h3>
-            <p>AI can interpret ambiguity, but evidence and operating rules define the choice. The decision must be explainable enough for an operator to challenge it.</p>
-            <ul><li>Evidence</li><li>Rule</li><li>Judgment</li></ul>
-          </div>
-        </article>
-        <article class="chapter engine-step" id="boundary-stage" data-engine-step="boundary">
-          <div class="chapter-number">04</div>
-          <div class="chapter-copy reveal">
-            <span class="chapter-label">Boundary / What may happen?</span>
-            <h3>Capability is not authority.</h3>
-            <p>Safe, reversible actions can pass. Uncertain, sensitive, or irreversible actions stop with a person who has the context and responsibility to decide.</p>
-            <ul><li>Permission</li><li>Stop condition</li><li>Human gate</li></ul>
-          </div>
-        </article>
-        <article class="chapter engine-step" id="action-stage" data-engine-step="action">
-          <div class="chapter-number">05</div>
-          <div class="chapter-copy reveal">
-            <span class="chapter-label">Action / What moves?</span>
-            <h3>Move the work. Not just the text.</h3>
-            <p>The approved decision updates the CRM, routes the case, schedules the work, or prepares the next handoff. Every action has an owner and a recovery path.</p>
-            <ul><li>Tool</li><li>Handoff</li><li>Recovery</li></ul>
-          </div>
-        </article>
-        <article class="chapter engine-step" id="evidence-stage" data-engine-step="evidence">
-          <div class="chapter-number">06</div>
-          <div class="chapter-copy reveal">
-            <span class="chapter-label">Evidence / What gets recorded?</span>
-            <h3>Return proof to memory.</h3>
-            <p>The system records what changed, why it changed, what was held, and who owned the exception. That evidence improves the next decision instead of disappearing into a chat log.</p>
-            <ul><li>Record</li><li>Measure</li><li>Improve</li></ul>
-          </div>
-        </article>
+
+        <div class="cinema-chrome" aria-hidden="true"><span>Scroll / reverse to inspect</span><b data-cinema-phase>Attract</b></div>
       </div>
     </section>
 
@@ -431,12 +401,24 @@
 
     <template id="future-team-card-template"><article class="team-card"><img src="/brand/ahmad-ab-axis-avatar.svg" alt=""><h3>Future collaborator</h3><p>Profile pending.</p></article></template>
 
-    <section class="notes-section light-section deferred-section" id="field-notes">
-      <div class="section-top reveal"><div><span class="eyebrow">06 / Field notes</span><h2>Thinking in<br><em>public drafts.</em></h2></div><div class="section-intro"><p>Short theses from the seam between automation demos and systems people can safely operate.</p></div></div>
-      <div class="notes-grid">
-        <article class="reveal"><picture class="note-cover"><source srcset="/art/field-notes/designing-systems-that-fail-safely-800x500.webp 800w, /art/field-notes/designing-systems-that-fail-safely-1200x750.webp 1200w" sizes="(max-width: 900px) 100vw, 33vw" type="image/webp"><img src="/art/field-notes/designing-systems-that-fail-safely-1200x750.webp" alt="" width="1200" height="750" loading="lazy" decoding="async"></picture><span>Draft 01 · Reliability</span><h3>Designing systems that can fail safely</h3><p>Why recovery paths, ownership, and state visibility belong in the first diagram.</p><button type="button" disabled>Essay in development</button></article>
-        <article class="reveal"><picture class="note-cover"><source srcset="/art/field-notes/workflow-count-is-a-weak-metric-800x500.webp 800w, /art/field-notes/workflow-count-is-a-weak-metric-1200x750.webp 1200w" sizes="(max-width: 900px) 100vw, 33vw" type="image/webp"><img src="/art/field-notes/workflow-count-is-a-weak-metric-1200x750.webp" alt="" width="1200" height="750" loading="lazy" decoding="async"></picture><span>Draft 02 · Measurement</span><h3>Workflow count is a weak automation metric</h3><p>A useful system is measured by controlled outcomes, not boxes connected on a canvas.</p><button type="button" disabled>Essay in development</button></article>
-        <article class="reveal"><picture class="note-cover"><source srcset="/art/field-notes/operators-advantage-in-ai-800x500.webp 800w, /art/field-notes/operators-advantage-in-ai-1200x750.webp 1200w" sizes="(max-width: 900px) 100vw, 33vw" type="image/webp"><img src="/art/field-notes/operators-advantage-in-ai-1200x750.webp" alt="" width="1200" height="750" loading="lazy" decoding="async"></picture><span>Draft 03 · Craft</span><h3>The operator’s advantage in AI</h3><p>People who know where work bends can design more dependable intelligence.</p><button type="button" disabled>Essay in development</button></article>
+    <section class="notes-section research-section light-section deferred-section" id="research">
+      <div class="section-top reveal"><div><span class="eyebrow">06 / Research &amp; findings</span><h2>What I’m<br><em>finding now.</em></h2></div><div class="section-intro"><p>Dated, evidence-led explanations of what new AI releases mean for operators and business leaders—without the jargon.</p></div></div>
+      <div class="notes-grid research-grid">
+        <article class="research-card research-card-featured reveal">
+          <div class="research-meta"><span>AI, Plain English · 002</span><time datetime="2026-07-23">July 23, 2026</time></div>
+          <div class="research-card-copy"><small>Latest finding · 9 minute read</small><h3>OpenAI Presence: The New Standard for Enterprise AI Agent Operations</h3><p>Why customer-facing AI agents are becoming controlled operating systems—and what leaders should deploy, delay, and measure.</p></div>
+          <a class="research-link" href="https://aixcelsolutions.com/insights/openai-presence-enterprise-ai-agent-rollout">Read the new finding on Aixcel Solutions <span>↗</span></a>
+        </article>
+        <article class="research-card reveal">
+          <div class="research-meta"><span>Buyer guide</span><time datetime="2026-07-22">Updated July 22, 2026</time></div>
+          <div class="research-card-copy"><small>Practical guide · 7 minute read</small><h3>How to choose an AI automation agency</h3><p>Evaluate diagnosis, controls, evidence, ownership, recovery, and handover—not demo count.</p></div>
+          <a class="research-link" href="/blog/how-to-choose-an-ai-automation-agency">Read the buyer guide <span>↗</span></a>
+        </article>
+        <article class="research-card research-card-index reveal">
+          <div class="research-meta"><span>Research index</span><time datetime="2026-07-23">Current</time></div>
+          <div class="research-card-copy"><small>Published work only</small><h3>Research without the archive wall.</h3><p>Find current articles by publication date, status, topic, and canonical publisher.</p></div>
+          <a class="research-link" href="/blog">Browse research &amp; findings <span>↗</span></a>
+        </article>
       </div>
     </section>
 

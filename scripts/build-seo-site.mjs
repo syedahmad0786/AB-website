@@ -8,6 +8,7 @@ const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const output = resolve(root, "dist");
 const siteUrl = "https://ahmadbukhari.com";
 const bookingUrl = "https://cal.com/ahmad-bukhari/ai-consultancy-call-with-ab";
+const latestResearchUrl = "https://aixcelsolutions.com/insights/openai-presence-enterprise-ai-agent-rollout";
 const updatedAt = "2026-07-23";
 
 const [sourceTemplate, siteCss, experienceJs, decisionEngineJs] = await Promise.all([
@@ -111,7 +112,6 @@ const homeMain = extract('<main id="main">', "\n  </main>") + "\n  </main>";
 const workSection = extract('<section class="work-section', '<section class="lab-section');
 const labSections = extract('<section class="lab-section', '<section class="about-section');
 const aboutSection = extract('<section class="about-section', '<template id="future-team-card-template"');
-const notesSection = extract('<section class="notes-section', '<section class="contact-section');
 const contactSection = extract('<section class="contact-section', "\n  </main>");
 
 const cases = {
@@ -269,7 +269,7 @@ function routeIntro(eyebrow, title, description) {
 }
 
 function routeFooter() {
-  return `<footer class="route-footer"><div><b>Ahmad Bukhari</b><span>AI Systems Architect · Islamabad · working globally</span></div><nav aria-label="Footer"><a href="/work">Systems</a><a href="/services">Consulting</a><a href="/blog">Field notes</a><a href="https://aixcelsolutions.com">Aixcel Solutions</a><a href="https://manhaj.ahmadbukhari.com">MANHAJ</a><a href="${bookingUrl}">Book a call ↗</a></nav></footer>`;
+  return `<footer class="route-footer"><div><b>Ahmad Bukhari</b><span>AI Systems Architect · Islamabad · working globally</span></div><nav aria-label="Footer"><a href="/work">Systems</a><a href="/services">Consulting</a><a href="/blog">Research &amp; findings</a><a href="https://aixcelsolutions.com">Aixcel Solutions</a><a href="https://manhaj.ahmadbukhari.com">MANHAJ</a><a href="${bookingUrl}">Book a call ↗</a></nav></footer>`;
 }
 
 function list(items) {
@@ -295,7 +295,7 @@ function industriesPage(industry) {
 }
 
 function blogIndex() {
-  return `<main id="main" class="route-page">${routeIntro("Field notes / Evidence-led guidance", "AI systems and automation field notes", "Practical guidance on selecting, designing, testing, and operating AI automation and business systems.")}${notesSection}<section class="content-shell"><div class="answer-card"><h2>Current publication standard</h2><p><a href="/blog/how-to-choose-an-ai-automation-agency">How to choose an AI automation agency</a> is the first article published under the evidence-led standard. Earlier posts remain accessible as an archive, but are excluded from search indexing until claims, sources, pricing, and review dates are verified.</p></div><div class="content-grid">${BLOG_POSTS.map((post, index) => `<article><span>${escapeHtml(post.category)} · Archived</span><h2><a href="/blog/${post.slug}">Archived field note ${String(index + 1).padStart(2, "0")}</a></h2><p>Legacy article retained for reference and pending a source, evidence, and freshness review.</p><a class="text-link dark-link" href="/blog/${post.slug}">View archived article <span>↗</span></a></article>`).join("")}</div></section>${routeFooter()}</main>`;
+  return `<main id="main" class="route-page">${routeIntro("Research & findings / Dated and evidence-led", "AI research translated into business decisions", "Current papers, releases, and operating lessons—explained in plain English, dated clearly, and linked to their canonical publisher.")}<section class="content-shell research-hub"><article class="answer-card research-hub-featured"><div class="article-meta"><span>AI, Plain English · Finding 002</span><time datetime="2026-07-23">Published July 23, 2026</time><span>9 minute read</span></div><h2><a href="${latestResearchUrl}">OpenAI Presence: The New Standard for Enterprise AI Agent Operations</a></h2><p>OpenAI Presence puts policy, testing, approved actions, monitoring, and escalation around customer-facing agents. This review explains what business leaders should deploy, delay, and measure.</p><a class="button button-primary" href="${latestResearchUrl}">Read the latest finding on Aixcel Solutions <span>↗</span></a></article><div class="content-grid research-hub-grid"><article><span>Buyer guide · Updated July 22, 2026</span><h2><a href="/blog/how-to-choose-an-ai-automation-agency">How to choose an AI automation agency</a></h2><p>Evaluate diagnosis, controls, evidence, ownership, recovery, and handover—not demo count.</p><a class="text-link dark-link" href="/blog/how-to-choose-an-ai-automation-agency">Read the buyer guide <span>↗</span></a></article><article><span>Publication policy</span><h2>Only current work belongs in the index.</h2><p>Older drafts remain available only at their existing direct URLs while they are reviewed. They are not presented as current research, linked from this index, or included in search indexing.</p></article></div></section>${routeFooter()}</main>`;
 }
 
 function blogPage(post) {
@@ -490,8 +490,8 @@ for (const [slug, industry] of Object.entries(industries)) {
   });
 }
 addPage("/blog", {
-  title: "AI Automation & Systems Blog | Ahmad Bukhari",
-  description: "Long-form field notes on AI automation, agentic systems, voice AI, CRM, n8n, GoHighLevel, analytics, and operational reliability.",
+  title: "AI Research & Business Findings | Ahmad Bukhari",
+  description: "Dated, evidence-led reviews of AI papers, product releases, automation systems, and their practical business impact—explained in plain English.",
   main: blogIndex(),
   type: "CollectionPage",
 });
@@ -573,7 +573,7 @@ const llms = `# Ahmad Bukhari
 - [AI systems portfolio and evidence-led case studies](${siteUrl}/work)
 - [AI systems and automation consulting](${siteUrl}/services)
 - [Interactive automation reliability lab](${siteUrl}/automation-lab)
-- [AI systems Field Notes](${siteUrl}/blog)
+- [AI research and business findings](${siteUrl}/blog)
 - [How to choose an AI automation agency](${siteUrl}/blog/how-to-choose-an-ai-automation-agency)
 - [Contact Ahmad or book a systems call](${siteUrl}/contact)
 
@@ -592,9 +592,9 @@ Project pages label whether evidence is public, anonymized, documented scope, pr
 
 Last updated: ${updatedAt}.
 `;
-const feedItems = `<item><title>How to Choose an AI Automation Agency</title><link>${siteUrl}/blog/how-to-choose-an-ai-automation-agency</link><guid>${siteUrl}/blog/how-to-choose-an-ai-automation-agency</guid><pubDate>${new Date(`${updatedAt}T00:00:00Z`).toUTCString()}</pubDate><description>A practical buyer guide to evaluating an AI automation agency by diagnosis, architecture, evidence, controls, ownership, reliability, and handover.</description></item>`;
-const feed = `<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"><channel><title>Ahmad Bukhari — AI Systems Field Notes</title><link>${siteUrl}/blog</link><description>AI systems architecture and automation field notes.</description>${feedItems}</channel></rss>`;
-const notFound = buildDocument({ path: "/", title: "Page not found | Ahmad Bukhari", description: "The requested page could not be found.", robots: "noindex,follow", includeIdentity: false, main: `<main id="main" class="route-page">${routeIntro("404 / Not found", "This signal is outside the system", "The requested page does not exist. Use the systems portfolio or field notes to continue.")}<section class="content-shell"><a class="button button-primary" href="/">Return home <span>↗</span></a></section>${routeFooter()}</main>` });
+const feedItems = `<item><title>OpenAI Presence: The New Standard for Enterprise AI Agent Operations</title><link>${latestResearchUrl}</link><guid>${latestResearchUrl}</guid><pubDate>${new Date("2026-07-23T00:00:00Z").toUTCString()}</pubDate><description>What OpenAI Presence changes for customer-facing AI agents, and what business leaders should deploy, delay, and measure.</description></item><item><title>How to Choose an AI Automation Agency</title><link>${siteUrl}/blog/how-to-choose-an-ai-automation-agency</link><guid>${siteUrl}/blog/how-to-choose-an-ai-automation-agency</guid><pubDate>${new Date("2026-07-22T00:00:00Z").toUTCString()}</pubDate><description>A practical buyer guide to evaluating an AI automation agency by diagnosis, architecture, evidence, controls, ownership, reliability, and handover.</description></item>`;
+const feed = `<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"><channel><title>Ahmad Bukhari — Research &amp; Findings</title><link>${siteUrl}/blog</link><description>Dated, evidence-led AI research and business findings in plain English.</description>${feedItems}</channel></rss>`;
+const notFound = buildDocument({ path: "/", title: "Page not found | Ahmad Bukhari", description: "The requested page could not be found.", robots: "noindex,follow", includeIdentity: false, main: `<main id="main" class="route-page">${routeIntro("404 / Not found", "This signal is outside the system", "The requested page does not exist. Use the systems portfolio or research index to continue.")}<section class="content-shell"><a class="button button-primary" href="/">Return home <span>↗</span></a></section>${routeFooter()}</main>` });
 
 await Promise.all([
   writeFile(resolve(output, "sitemap.xml"), sitemap, "utf8"),

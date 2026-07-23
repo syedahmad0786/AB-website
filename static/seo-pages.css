@@ -205,6 +205,33 @@
   font-size: .83rem;
 }
 
+.route-footer a { display: inline-flex; align-items: center; min-height: 44px; }
+
+.research-hub .research-hub-featured {
+  border-color: #11100e;
+  color: #f4eee3;
+  background: #11100e;
+}
+
+.research-hub-featured .article-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .65rem 1.75rem;
+  color: rgba(244, 238, 227, .58);
+}
+
+.research-hub-featured h2 {
+  max-width: 68rem;
+  margin: 2.6rem 0 1.5rem;
+  font-size: clamp(2.8rem, 5.6vw, 6.6rem);
+  line-height: .9;
+  letter-spacing: -.065em;
+}
+
+.research-hub-featured h2 a { color: inherit; text-decoration: none; }
+.research-hub-featured > p { max-width: 52rem; color: rgba(244, 238, 227, .7); }
+.research-hub-featured .button { margin-top: 1.6rem; }
+
 @media (max-width: 760px) {
   .route-page { padding-top: 5rem; }
   .content-grid { grid-template-columns: 1fr; }

@@ -10,7 +10,20 @@
   var scrollFrame = 0;
 
   root.classList.add("js");
-  requestAnimationFrame(function () { body.classList.add("is-ready"); });
+  requestAnimationFrame(function () {
+    body.classList.add("is-ready");
+    var loaderPercent = document.getElementById("loader-percent");
+    var loaderProgress = document.getElementById("loader-progress");
+    var loaderPhase = document.getElementById("loader-phase");
+    if (loaderPercent) loaderPercent.textContent = "100";
+    if (loaderProgress) loaderProgress.style.width = "100%";
+    if (loaderPhase) loaderPhase.textContent = "Decision system ready";
+    setTimeout(function () {
+      body.classList.add("visual-ready");
+      var loader = document.getElementById("site-loader");
+      if (loader) loader.setAttribute("aria-label", "Portfolio ready");
+    }, 180);
+  });
 
   function updateScrollMeter() {
     var max = Math.max(1, root.scrollHeight - innerHeight);

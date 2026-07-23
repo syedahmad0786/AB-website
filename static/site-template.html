@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-visual-renderer="journey-shapes-v2">
+<html lang="en" data-visual-renderer="decision-engine-v1">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,12 +9,26 @@
   <meta name="robots" content="index,follow">
   <meta name="google-site-verification" content="kKAcTOHisk8LJXjpzteUCTTAYXGz3wmhe0lOjLRphq0">
   <link rel="canonical" href="https://ahmadbukhari.com/">
-  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/brand/ahmad-ab-axis-favicon.svg" type="image/svg+xml" sizes="any">
+  <link rel="icon" href="/brand/ahmad-ab-axis-favicon-32.png" type="image/png" sizes="32x32">
   <link rel="apple-touch-icon" href="/brand/ahmad-ab-axis-apple-touch-180.png" sizes="180x180">
+  <link rel="manifest" href="/site.webmanifest">
   <link rel="preload" href="/site.css" as="style">
   <link rel="preload" href="/fonts/instrument-sans-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/twin-avatar.svg" as="image" type="image/svg+xml" fetchpriority="high">
   <link rel="stylesheet" href="/site.css">
+  <noscript><style data-nojs-fallback>
+    .site-loader { display: none !important; }
+    .hero-line > span, .hero-enter, .reveal, .engine-step { opacity: 1 !important; transform: none !important; animation: none !important; transition: none !important; }
+    @media (max-width: 1100px) {
+      .site-header { height: 112px !important; grid-template-columns: 1fr !important; align-content: start !important; }
+      .menu-toggle, .mobile-menu, .header-cta { display: none !important; }
+      .desktop-nav { grid-column: 1 / -1; width: 100%; display: flex !important; gap: 18px !important; overflow-x: auto; scrollbar-width: none; }
+      .desktop-nav::-webkit-scrollbar { display: none; }
+      .desktop-nav a { flex: 0 0 auto; font-size: 8px; }
+      .hero { padding-top: 132px !important; }
+    }
+  </style></noscript>
   <meta property="og:title" content="Ahmad Bukhari | AI Systems Architect">
   <meta property="og:description" content="I architect digital gravity. Systems that pull scattered work into coherent action.">
   <meta property="og:url" content="https://ahmadbukhari.com/">
@@ -42,7 +56,7 @@
     "knowsAbout": ["AI systems", "automation architecture", "CRM operations", "workflow reliability", "product operations"]
   }
   </script>
-  <script defer src="/visual-journey.js"></script>
+  <script defer src="/decision-engine.js"></script>
   <script defer src="/experience.js"></script>
 </head>
 <body>
@@ -52,29 +66,10 @@
   <div class="site-loader" id="site-loader" role="status" aria-live="polite">
     <div class="loader-head"><span>AHMAD BUKHARI / SYSTEMS</span><b id="loader-percent">00</b></div>
     <div class="loader-center">
-      <svg class="loader-infinity" viewBox="0 0 120 72" aria-hidden="true">
-        <path class="loader-base" d="M8 36C20 10 44 10 60 36S100 62 112 36C100 10 76 10 60 36S20 62 8 36" pathLength="100"></path>
-        <path class="loader-trace" d="M8 36C20 10 44 10 60 36S100 62 112 36C100 10 76 10 60 36S20 62 8 36" pathLength="100"></path>
-      </svg>
-      <strong>Architecting digital gravity</strong>
+      <span class="loader-axis-frame" aria-hidden="true"><img class="loader-axis" src="/brand/ahmad-ab-axis.svg" alt="" width="96" height="96"></span>
+      <strong>Opening the decision system</strong>
     </div>
-    <div class="loader-foot"><span id="loader-phase">Mapping the field</span><i><b id="loader-progress"></b></i></div>
-  </div>
-
-  <div class="field-shell" data-stage="0" aria-hidden="true">
-    <canvas id="intelligence-field"></canvas>
-    <div class="field-fallback"></div>
-    <div class="field-vignette"></div>
-    <ol class="scale-rail">
-      <li class="scale-step is-active"><span>01</span>Cosmos</li>
-      <li class="scale-step"><span>02</span>Matter</li>
-      <li class="scale-step"><span>03</span>Biology</li>
-      <li class="scale-step"><span>04</span>Network</li>
-      <li class="scale-step"><span>05</span>Compute</li>
-    </ol>
-    <div class="field-caption">
-      <span id="field-stage">01 / COSMOS</span>
-    </div>
+    <div class="loader-foot"><span id="loader-phase">Mapping the signal</span><i><b id="loader-progress"></b></i></div>
   </div>
 
   <header class="site-header" aria-label="Site header">
@@ -123,11 +118,11 @@
       <div class="hero-foot hero-enter">
         <p>AI systems architecture, resilient automation, CRM operations, and product delivery. Designed around how work actually breaks.</p>
         <div class="hero-actions">
-          <a class="button button-primary" href="#thesis">Change scale <span>↓</span></a>
+          <a class="button button-primary" href="#thesis">Open the engine <span>↓</span></a>
           <a class="text-link" href="/work" data-route="work">Explore the systems <span>↗</span></a>
         </div>
       </div>
-      <div class="hero-orbit-label" aria-hidden="true">Everything connects · scale changes · logic persists</div>
+      <div class="hero-orbit-label" aria-hidden="true">Signal enters · decision opens · evidence returns</div>
     </section>
 
     <section class="signal-strip" aria-label="Areas of practice">
@@ -136,91 +131,143 @@
       </div>
     </section>
 
-    <section class="transformation" id="thesis">
+    <section class="transformation decision-engine-section" id="thesis" aria-labelledby="decision-engine-title">
       <div class="transformation-intro reveal">
-        <span class="eyebrow">01 / A journey through scale</span>
-        <h2>The geometry changes.<br><em>The logic remains.</em></h2>
-        <p>Across the cosmos, matter, biology, networks, and silicon, complexity emerges from relationships. Scroll to follow the same organizing principle through five scales.</p>
+        <span class="eyebrow">01 / The Decision Engine</span>
+        <h2 id="decision-engine-title">A system should open<br><em>before it acts.</em></h2>
+        <p>Most AI demos hide the operating logic. This one exposes it. Scroll through the six layers that turn a messy request into a controlled, owned, and recorded outcome.</p>
       </div>
 
-      <div class="chapters">
-        <article class="chapter" id="cosmos-stage" data-stage="0">
+      <div class="chapters decision-engine-story" data-engine-story>
+        <div class="decision-engine-sticky" data-engine-sticky>
+          <div class="engine-stage" data-decision-engine aria-hidden="true">
+            <div class="engine-grid"></div>
+            <div class="engine-signal-field">
+              <i style="--sx:8%;--sy:18%;--delay:.1"></i><i style="--sx:78%;--sy:10%;--delay:.3"></i>
+              <i style="--sx:92%;--sy:56%;--delay:.6"></i><i style="--sx:12%;--sy:76%;--delay:.8"></i>
+              <i style="--sx:76%;--sy:90%;--delay:1"></i><i style="--sx:31%;--sy:7%;--delay:.45"></i>
+            </div>
+
+            <svg class="engine-tethers" viewBox="0 0 800 800" preserveAspectRatio="none">
+              <path d="M400 400C323 322 288 255 244 209"></path>
+              <path d="M400 400C482 318 525 255 566 214"></path>
+              <path d="M400 400C306 399 246 402 187 405"></path>
+              <path d="M400 400C497 400 558 402 617 405"></path>
+              <path d="M400 400C330 485 283 540 242 592"></path>
+              <path d="M400 400C478 485 519 540 564 593"></path>
+            </svg>
+
+            <div class="engine-object">
+              <div class="engine-chassis engine-chassis-back"></div>
+              <div class="engine-spine"><i></i><i></i><b></b></div>
+
+              <div class="engine-layer engine-layer-evidence" data-engine-layer="evidence">
+                <span class="ledger-line"></span><span class="ledger-line"></span><span class="ledger-line"></span><i class="ledger-seal"></i>
+                <b class="engine-layer-name">Evidence</b>
+              </div>
+              <div class="engine-layer engine-layer-action" data-engine-layer="action">
+                <svg viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M12 72C28 72 25 28 43 28S55 72 70 62S74 33 89 33"></path><circle cx="12" cy="72" r="3"></circle><circle cx="43" cy="28" r="3"></circle><circle cx="70" cy="62" r="3"></circle><circle cx="89" cy="33" r="3"></circle></svg>
+                <b class="engine-layer-name">Action</b>
+              </div>
+              <div class="engine-layer engine-layer-boundary" data-engine-layer="boundary">
+                <span class="boundary-rail boundary-rail-a"></span><span class="boundary-rail boundary-rail-b"></span><span class="boundary-gate"></span><span class="boundary-node"></span>
+                <strong class="boundary-status" data-engine-gate-status>Hold / human</strong><b class="engine-layer-name">Boundary</b>
+              </div>
+              <div class="engine-layer engine-layer-decision" data-engine-layer="decision">
+                <svg viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M20 68L39 31L61 57L81 25"></path><path d="M20 68L61 57L76 78"></path><circle cx="20" cy="68" r="4"></circle><circle cx="39" cy="31" r="4"></circle><circle cx="61" cy="57" r="4"></circle><circle cx="81" cy="25" r="4"></circle><circle cx="76" cy="78" r="4"></circle></svg>
+                <b class="engine-layer-name">Decision</b>
+              </div>
+              <div class="engine-layer engine-layer-context" data-engine-layer="context">
+                <span class="context-card context-card-a"></span><span class="context-card context-card-b"></span><span class="context-card context-card-c"></span>
+                <b class="engine-layer-name">Context</b>
+              </div>
+              <div class="engine-layer engine-layer-signal" data-engine-layer="signal">
+                <span class="signal-ring signal-ring-a"></span><span class="signal-ring signal-ring-b"></span><span class="signal-ring signal-ring-c"></span><i class="signal-core"></i>
+                <b class="engine-layer-name">Signal</b>
+              </div>
+
+              <div class="engine-chassis engine-chassis-front"><span></span><span></span><span></span><span></span></div>
+            </div>
+
+            <div class="engine-impact"></div>
+            <div class="engine-input"><span></span></div>
+            <div class="engine-output"><i></i><span>Verified action</span></div>
+          </div>
+
+          <div class="engine-readout" aria-hidden="true">
+            <span data-engine-readout>01 / SIGNAL</span>
+            <i><b data-engine-progress></b></i>
+          </div>
+          <ol class="engine-rail" aria-hidden="true">
+            <li class="is-active" data-engine-nav><span>01</span>Signal</li>
+            <li data-engine-nav><span>02</span>Context</li>
+            <li data-engine-nav><span>03</span>Decision</li>
+            <li data-engine-nav><span>04</span>Boundary</li>
+            <li data-engine-nav><span>05</span>Action</li>
+            <li data-engine-nav><span>06</span>Evidence</li>
+          </ol>
+        </div>
+        <article class="chapter engine-step is-active" id="signal-stage" data-engine-step="signal">
           <div class="chapter-number">01</div>
           <div class="chapter-copy reveal">
-            <span class="chapter-label">Cosmos / The field</span>
-            <h3>Begin with more signal than one mind can hold.</h3>
-            <p>Stars become galaxies through gravity. Work begins the same way: scattered events, people, tools, and constraints looking for a coherent center.</p>
-            <ul><li>Signal</li><li>Pattern</li><li>System boundary</li></ul>
+            <span class="chapter-label">Signal / What changed?</span>
+            <h3>Start with the work. Not the tool.</h3>
+            <p>Requests, events, documents, and exceptions arrive from everywhere. A useful system first separates the signal that deserves action from the noise that does not.</p>
+            <ul><li>Trigger</li><li>Intent</li><li>Priority</li></ul>
           </div>
-          <picture class="chapter-art reveal">
-            <source media="(max-width: 760px)" srcset="/art/scale/01-the-field-mobile-800x1000.webp" type="image/webp">
-            <source srcset="/art/scale/01-the-field-800x450.webp 800w, /art/scale/01-the-field-1280x720.webp 1280w, /art/scale/01-the-field-1600x900.webp 1600w" sizes="(max-width: 760px) 100vw, 58vw" type="image/webp">
-            <img src="/art/scale/01-the-field-1280x720.webp" alt="Scattered signals converge on one decision point and become an ordered route." width="1280" height="720" loading="lazy" decoding="async">
-          </picture>
         </article>
-        <article class="chapter" id="matter-stage" data-stage="1">
+        <article class="chapter engine-step" id="context-stage" data-engine-step="context">
           <div class="chapter-number">02</div>
           <div class="chapter-copy reveal">
-            <span class="chapter-label">Matter / The atom</span>
-            <h3>Zoom inward. Structure is relationship.</h3>
-            <p>An atom is not meaningful because of one particle. Its behavior emerges from force, state, and orbit. Dependable operations use the same primitives.</p>
-            <ul><li>State</li><li>Dependency</li><li>Constraint</li></ul>
+            <span class="chapter-label">Context / What is true?</span>
+            <h3>Bring the truth into the same frame.</h3>
+            <p>Customer state, policy, history, ownership, and constraints have to travel with the request. Without context, even a fluent answer can create the wrong outcome.</p>
+            <ul><li>State</li><li>History</li><li>Owner</li></ul>
           </div>
-          <picture class="chapter-art reveal">
-            <source media="(max-width: 760px)" srcset="/art/scale/02-the-atom-mobile-800x1000.webp" type="image/webp">
-            <source srcset="/art/scale/02-the-atom-800x450.webp 800w, /art/scale/02-the-atom-1280x720.webp 1280w, /art/scale/02-the-atom-1600x900.webp 1600w" sizes="(max-width: 760px) 100vw, 58vw" type="image/webp">
-            <img src="/art/scale/02-the-atom-1280x720.webp" alt="Modular components and dependencies align around one stable decision point." width="1280" height="720" loading="lazy" decoding="async">
-          </picture>
         </article>
-        <article class="chapter" id="brain-stage" data-stage="2">
+        <article class="chapter engine-step" id="decision-stage" data-engine-step="decision">
           <div class="chapter-number">03</div>
           <div class="chapter-copy reveal">
-            <span class="chapter-label">Biology / The brain</span>
-            <h3>Connections become memory and judgment.</h3>
-            <p>The brain does not store intelligence in one place. It forms pathways for context, feedback, inhibition, and recall. Useful AI systems need the same discipline.</p>
-            <ul><li>Context</li><li>Memory</li><li>Human judgment</li></ul>
+            <span class="chapter-label">Decision / What should happen?</span>
+            <h3>Make judgment inspectable.</h3>
+            <p>AI can interpret ambiguity, but evidence and operating rules define the choice. The decision must be explainable enough for an operator to challenge it.</p>
+            <ul><li>Evidence</li><li>Rule</li><li>Judgment</li></ul>
           </div>
-          <picture class="chapter-art reveal">
-            <source media="(max-width: 760px)" srcset="/art/scale/03-memory-mobile-800x1000.webp" type="image/webp">
-            <source srcset="/art/scale/03-memory-800x450.webp 800w, /art/scale/03-memory-1280x720.webp 1280w, /art/scale/03-memory-1600x900.webp 1600w" sizes="(max-width: 760px) 100vw, 58vw" type="image/webp">
-            <img src="/art/scale/03-memory-1280x720.webp" alt="Layered organic memory paths carry context toward a judgment node." width="1280" height="720" loading="lazy" decoding="async">
-          </picture>
         </article>
-        <article class="chapter" id="network-stage" data-stage="3">
+        <article class="chapter engine-step" id="boundary-stage" data-engine-step="boundary">
           <div class="chapter-number">04</div>
           <div class="chapter-copy reveal">
-            <span class="chapter-label">Network / Emergence</span>
-            <h3>Intelligence lives between the nodes.</h3>
-            <p>Neural networks make the relationship computational: signals move, weights change, errors return, and the system improves through feedback.</p>
-            <ul><li>Learning loop</li><li>Feedback</li><li>Adaptation</li></ul>
+            <span class="chapter-label">Boundary / What may happen?</span>
+            <h3>Capability is not authority.</h3>
+            <p>Safe, reversible actions can pass. Uncertain, sensitive, or irreversible actions stop with a person who has the context and responsibility to decide.</p>
+            <ul><li>Permission</li><li>Stop condition</li><li>Human gate</li></ul>
           </div>
-          <picture class="chapter-art reveal">
-            <source media="(max-width: 760px)" srcset="/art/scale/04-emergence-mobile-800x1000.webp" type="image/webp">
-            <source srcset="/art/scale/04-emergence-800x450.webp 800w, /art/scale/04-emergence-1280x720.webp 1280w, /art/scale/04-emergence-1600x900.webp 1600w" sizes="(max-width: 760px) 100vw, 58vw" type="image/webp">
-            <img src="/art/scale/04-emergence-1280x720.webp" alt="A physical network adapts through a returning feedback loop." width="1280" height="720" loading="lazy" decoding="async">
-          </picture>
         </article>
-        <article class="chapter" id="compute-stage" data-stage="4">
+        <article class="chapter engine-step" id="action-stage" data-engine-step="action">
           <div class="chapter-number">05</div>
           <div class="chapter-copy reveal">
-            <span class="chapter-label">Compute / The chip</span>
-            <h3>Then architecture turns thought into action.</h3>
-            <p>GPUs and circuits carry the pattern at machine speed. My work begins where that power meets real operations: controlled, observable, recoverable systems.</p>
-            <ul><li>Orchestration</li><li>Controls</li><li>Delivery</li></ul>
+            <span class="chapter-label">Action / What moves?</span>
+            <h3>Move the work. Not just the text.</h3>
+            <p>The approved decision updates the CRM, routes the case, schedules the work, or prepares the next handoff. Every action has an owner and a recovery path.</p>
+            <ul><li>Tool</li><li>Handoff</li><li>Recovery</li></ul>
           </div>
-          <picture class="chapter-art reveal">
-            <source media="(max-width: 760px)" srcset="/art/scale/05-orchestration-mobile-800x1000.webp" type="image/webp">
-            <source srcset="/art/scale/05-orchestration-800x450.webp 800w, /art/scale/05-orchestration-1280x720.webp 1280w, /art/scale/05-orchestration-1600x900.webp 1600w" sizes="(max-width: 760px) 100vw, 58vw" type="image/webp">
-            <img src="/art/scale/05-orchestration-1280x720.webp" alt="Input rails pass through controlled gates and leave as verified outputs." width="1280" height="720" loading="lazy" decoding="async">
-          </picture>
+        </article>
+        <article class="chapter engine-step" id="evidence-stage" data-engine-step="evidence">
+          <div class="chapter-number">06</div>
+          <div class="chapter-copy reveal">
+            <span class="chapter-label">Evidence / What gets recorded?</span>
+            <h3>Return proof to memory.</h3>
+            <p>The system records what changed, why it changed, what was held, and who owned the exception. That evidence improves the next decision instead of disappearing into a chat log.</p>
+            <ul><li>Record</li><li>Measure</li><li>Improve</li></ul>
+          </div>
         </article>
       </div>
     </section>
 
     <section class="gravity-manifesto">
-      <span class="eyebrow reveal">The portfolio thesis</span>
-      <p class="reveal">I architect <em>digital gravity.</em><br>Systems that pull scattered work into coherent action.</p>
-      <div class="manifesto-foot reveal"><span>Think in systems</span><span>Design for failure</span><span>Ship for operators</span></div>
+      <span class="eyebrow reveal">The operating model</span>
+      <p class="reveal">I make the decision visible.<br><em>Then we build around it.</em></p>
+      <div class="manifesto-foot reveal"><span>Ahmad / diagnose &amp; architect</span><span>Aixcel / implement &amp; integrate</span><span>MANHAJ / operate &amp; improve</span></div>
     </section>
 
     <div class="signal-route-divider" aria-hidden="true"><img src="/art/backgrounds/signal-route-divider.svg" alt="" width="1600" height="180" loading="lazy" decoding="async"></div>

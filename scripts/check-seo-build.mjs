@@ -207,6 +207,7 @@ for (const marker of [".site-loader", ".loader-axis", ".brand-name", ".decision-
 for (const retiredMarker of [".ab-logo", ".gravity-mark", ".ab-logo-orbit"]) {
   if (css.includes(retiredMarker)) failures.push(`Retired logo CSS is still present: ${retiredMarker}`);
 }
+if (!css.includes("html:not(.js) .hero-line > span") || !css.includes("html:not(.js) .reveal")) failures.push("No-JS hero and content visibility fallback is missing");
 
 const twinWidget = await readFile(resolve(dist, "twin-widget.js"), "utf8");
 if (/showTeaser|setTimeout\(showTeaser|addEventListener\("scroll", onScroll/.test(twinWidget)) failures.push("AI twin must not auto-expand a teaser over page content");
@@ -232,6 +233,7 @@ const experienceScriptIndex = home.indexOf('<script defer src="/experience.js"><
 for (const marker of ["data-engine-story", "expansionFrames", "positionLayer", "prefers-reduced-motion", "navigator.connection", "requestAnimationFrame(update)", "Pass / logged"]) {
   if (!decisionEngine.includes(marker)) failures.push(`Decision Engine runtime marker missing: ${marker}`);
 }
+if (!decisionEngine.includes("mobileStateAtAnchor")) failures.push("Decision Engine must align mobile state to the visible chapter copy");
 if (!experience.includes('body.classList.add("visual-ready")')) failures.push("Experience runtime must release the branded loader after first render");
 if (decisionEngineScriptIndex < 0 || experienceScriptIndex < 0 || decisionEngineScriptIndex > experienceScriptIndex) failures.push("Decision Engine must load before the general experience script");
 if (home.includes("visual-journey.js") || home.includes("intelligence-field")) failures.push("Homepage still loads the retired WebGL journey");

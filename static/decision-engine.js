@@ -121,8 +121,34 @@
     story.dataset.engineState = String(active);
   }
 
+  function mobileStateAtAnchor() {
+    var anchor = window.innerHeight * 0.58;
+    var centers = steps.map(function (step) {
+      var copy = step.querySelector(".chapter-copy") || step;
+      var rect = copy.getBoundingClientRect();
+      return rect.top + rect.height / 2;
+    });
+
+    if (anchor <= centers[0]) return 0;
+    if (anchor >= centers[centers.length - 1]) return centers.length - 1;
+
+    for (var index = 0; index < centers.length - 1; index += 1) {
+      if (anchor <= centers[index + 1]) {
+        var span = Math.max(1, centers[index + 1] - centers[index]);
+        return index + clamp((anchor - centers[index]) / span, 0, 1);
+      }
+    }
+
+    return centers.length - 1;
+  }
+
   function update() {
     frame = 0;
+    if (window.matchMedia("(max-width: 760px)").matches) {
+      render(mobileStateAtAnchor(), false);
+      return;
+    }
+
     var rect = story.getBoundingClientRect();
     var top = window.scrollY + rect.top;
     var travel = Math.max(1, story.offsetHeight - window.innerHeight);

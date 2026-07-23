@@ -207,7 +207,8 @@ for (const marker of [".site-loader", ".loader-axis", ".brand-name", ".decision-
 for (const retiredMarker of [".ab-logo", ".gravity-mark", ".ab-logo-orbit"]) {
   if (css.includes(retiredMarker)) failures.push(`Retired logo CSS is still present: ${retiredMarker}`);
 }
-if (!css.includes("html:not(.js) .hero-line > span") || !css.includes("html:not(.js) .reveal")) failures.push("No-JS hero and content visibility fallback is missing");
+if (css.includes("html:not(.js)")) failures.push("No-JS visibility rules must not flash before deferred scripts initialise");
+if (!home.includes("<noscript><style data-nojs-fallback>") || !home.includes(".hero-line > span, .hero-enter, .reveal, .engine-step") || !home.includes(".desktop-nav { grid-column: 1 / -1")) failures.push("No-JS content and mobile navigation fallback is missing");
 
 const twinWidget = await readFile(resolve(dist, "twin-widget.js"), "utf8");
 if (/showTeaser|setTimeout\(showTeaser|addEventListener\("scroll", onScroll/.test(twinWidget)) failures.push("AI twin must not auto-expand a teaser over page content");

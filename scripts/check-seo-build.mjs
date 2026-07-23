@@ -204,6 +204,7 @@ const css = await readFile(resolve(dist, "site.css"), "utf8");
 for (const marker of [".site-loader", ".loader-axis", ".brand-name", ".decision-engine-story", ".engine-layer-boundary", ".engine-output"]) {
   if (!css.includes(marker)) failures.push(`Current production CSS marker missing: ${marker}`);
 }
+if (!css.includes("z-index: 66") || !css.includes("height: 44px")) failures.push("Mobile menu close control must remain above the overlay with a 44px touch target");
 for (const retiredMarker of [".ab-logo", ".gravity-mark", ".ab-logo-orbit"]) {
   if (css.includes(retiredMarker)) failures.push(`Retired logo CSS is still present: ${retiredMarker}`);
 }

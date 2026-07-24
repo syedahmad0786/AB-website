@@ -134,9 +134,9 @@ for (const [label, directory, expectedFiles] of [
 }
 
 for (const [file, expectedHash] of [
-  ["brand/ahmad-ab-axis.svg", "d5d7dcea7a4068bd6b4b29e58dee30521007fe0fc18f1edd080c979bb0402115"],
-  ["brand/ahmad-ab-axis-favicon.svg", "76432e32a2871027c48c206a143cc62fd79cf8418c699ad1e312a7fede339c7a"],
-  ["favicon.svg", "76432e32a2871027c48c206a143cc62fd79cf8418c699ad1e312a7fede339c7a"],
+  ["brand/ahmad-ab-axis.svg", "5dd9ea02b9e5bd7126490ccb578c737aa4b20bd4a2a8d2cfcbf5ad7ad73ba77d"],
+  ["brand/ahmad-ab-axis-favicon.svg", "9d78f2fd9f42a388aec4df01a52e687d7efc5f1a24153a4a32fc3dcd5cf3f1e7"],
+  ["favicon.svg", "9d78f2fd9f42a388aec4df01a52e687d7efc5f1a24153a4a32fc3dcd5cf3f1e7"],
 ]) {
   const digest = createHash("sha256").update(await readFile(resolve(dist, file))).digest("hex");
   if (digest !== expectedHash) failures.push(`${file}: official AB Axis asset hash changed`);
@@ -181,7 +181,7 @@ if ((home.match(/data-cinema-copy="/g) || []).length !== 5) failures.push("Homep
 if ((home.match(/data-cinema-layer="/g) || []).length !== 6) failures.push("Homepage must contain six Decision Engine visual layers");
 if ((home.match(/class="project-art project-art-image"/g) || []).length !== 6) failures.push("Homepage must contain six System Story artworks");
 if ((home.match(/<article class="research-card/g) || []).length !== 2) failures.push("Homepage must contain two current research cards");
-if (!home.includes('datetime="2026-07-23"') || !home.includes("openai-presence-enterprise-ai-agent-rollout")) failures.push("Homepage latest research card must expose its publication date and canonical URL");
+if (!home.includes('datetime="2026-07-24"') || !home.includes("/blog/context-is-not-consent-ai-private-data")) failures.push("Homepage latest research card must expose its publication date and canonical URL");
 if ((home.match(/<img\b[^>]*fetchpriority="high"[^>]*>/g) || []).length !== 1) failures.push("Homepage must have exactly one high-priority artwork image");
 if (!home.includes('<img class="ab-axis" src="/brand/ahmad-ab-axis.svg" alt="" width="96" height="96">')) failures.push("Homepage header does not use the official AB Axis SVG");
 if (!home.includes('<link rel="icon" href="/brand/ahmad-ab-axis-favicon.svg?v=20260723" type="image/svg+xml" sizes="any">')) failures.push("Homepage does not use the cache-busting official AB Axis favicon path");
@@ -198,8 +198,8 @@ const aboutProfile = (aboutSchema["@graph"] || []).find((node) => node["@type"] 
 if (aboutProfile?.mainEntity?.["@id"] !== "https://ahmadbukhari.com/#person") failures.push("About ProfilePage must declare Ahmad as its main entity");
 
 const blogIndexHtml = await readFile(resolve(dist, "blog.html"), "utf8");
-if (!blogIndexHtml.includes("AI research translated into business decisions") || !blogIndexHtml.includes('datetime="2026-07-23"')) failures.push("Research hub must identify the current dated publication");
-if (!blogIndexHtml.includes("openai-presence-enterprise-ai-agent-rollout")) failures.push("Research hub must link to the canonical latest finding");
+if (!blogIndexHtml.includes("AI research translated into business decisions") || !blogIndexHtml.includes('datetime="2026-07-24"')) failures.push("Research hub must identify the current dated publication");
+if (!blogIndexHtml.includes("/blog/context-is-not-consent-ai-private-data")) failures.push("Research hub must link to the canonical latest finding");
 if (blogIndexHtml.includes("Archived field note") || blogIndexHtml.includes("View archived article")) failures.push("Research hub must not expose the legacy article wall");
 if (home.includes("Research without the archive wall") || blogIndexHtml.includes("Publication policy") || blogIndexHtml.includes("Older drafts remain")) failures.push("Current research surfaces must not promote legacy archive material");
 if (sitemapHrefs.has("https://ahmadbukhari.com/field-notes")) failures.push("Retired /field-notes teaser must not compete with the canonical /blog hub");
@@ -267,10 +267,11 @@ for (const [slug, [artwork, alt]] of Object.entries(caseArtworkChecks)) {
 }
 if (!decisionEngine.includes("reducedMotion.matches || saveData") || !decisionEngine.includes('story.classList.toggle("cinema-static", reducedMotion.matches || saveData)')) failures.push("Decision Engine must provide reduced-motion and Save Data fallbacks");
 
+const currentBlogPages = new Set(["context-is-not-consent-ai-private-data.html", "how-to-choose-an-ai-automation-agency.html"]);
 for (const directory of ["blog", "portfolio"]) {
   const files = await readdir(resolve(dist, directory));
   for (const name of files.filter((file) => file.endsWith(".html"))) {
-    if (directory === "blog" && name === "how-to-choose-an-ai-automation-agency.html") continue;
+    if (directory === "blog" && currentBlogPages.has(name)) continue;
     const html = await readFile(resolve(dist, directory, name), "utf8");
     const canonical = html.match(/<link rel="canonical" href="(.*?)">/)?.[1];
     const robots = html.match(/<meta name="robots" content="(.*?)">/)?.[1];
@@ -290,8 +291,19 @@ if (guideTypes.filter((type) => type === "Article").length !== 1 || !guideTypes.
 const guideArticle = (guideSchema["@graph"] || []).find((node) => node["@type"] === "Article");
 if (guideArticle?.image !== defaultOgUrl) failures.push("Current buyer guide Article schema must use the default Open Graph PNG");
 
+const contextConsentPath = "/blog/context-is-not-consent-ai-private-data";
+const contextConsentUrl = `https://ahmadbukhari.com${contextConsentPath}`;
+const contextConsent = await readFile(resolve(dist, `${contextConsentPath.slice(1)}.html`), "utf8");
+if (!sitemapHrefs.has(contextConsentUrl)) failures.push("Current permission article missing from sitemap");
+if (!contextConsent.includes('<meta property="og:type" content="article">')) failures.push("Current permission article missing article Open Graph type");
+if (!contextConsent.includes('datetime="2026-07-24"') || !contextConsent.includes("OpenAI’s Health rollout")) failures.push("Current permission article is missing its dated evidence-led opening");
+if (!contextConsent.includes('class="consent-ledger"') || !contextConsent.includes('class="permission-loop"')) failures.push("Current permission article is missing its branded decision-ledger visual or permission loop");
+const contextConsentSchema = JSON.parse(contextConsent.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)?.[1] || "{}");
+const contextConsentTypes = (contextConsentSchema["@graph"] || []).map((node) => node["@type"]);
+if (contextConsentTypes.filter((type) => type === "Article").length !== 1 || !contextConsentTypes.includes("WebPage")) failures.push("Current permission article must expose one Article and one WebPage entity");
+
 const feed = await readFile(resolve(dist, "feed.xml"), "utf8");
-if ((feed.match(/<item>/g) || []).length !== 2 || !feed.includes(guideUrl) || !feed.includes("openai-presence-enterprise-ai-agent-rollout")) failures.push("RSS feed must contain both current dated publications");
+if ((feed.match(/<item>/g) || []).length !== 2 || !feed.includes(contextConsentUrl) || !feed.includes("openai-presence-enterprise-ai-agent-rollout")) failures.push("RSS feed must contain both current dated publications");
 
 const llmsText = await readFile(resolve(dist, "llms.txt"), "utf8");
 if (!llmsText.startsWith("# Ahmad Bukhari\n")) failures.push("llms.txt must begin with the canonical publisher H1");

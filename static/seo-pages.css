@@ -233,50 +233,10 @@
 .research-hub-featured .button { margin-top: 1.6rem; }
 .research-hub-grid { grid-template-columns: 1fr; }
 
-.consent-ledger {
-  width: min(100%, 58rem);
-  margin: 0 auto;
-  padding: clamp(1.25rem, 3vw, 2rem);
-  color: #f4eee3;
-  background: #11100e url("/art/backgrounds/field-grid.svg");
-  border: 1px solid rgba(200, 255, 55, .42);
-}
-
-.consent-ledger-top,
-.consent-ledger-flow {
-  display: flex;
-  align-items: center;
-}
-
-.consent-ledger-top { gap: .85rem; font: 600 .72rem/1.4 var(--font-mono); letter-spacing: .11em; text-transform: uppercase; color: rgba(244, 238, 227, .62); }
-.consent-ledger-top .ab-axis { width: 3rem; height: 3rem; }
-.consent-ledger-flow { gap: .7rem; margin: 3rem 0 1.5rem; }
-.consent-ledger-flow span,
-.consent-ledger-flow strong { display: grid; min-height: 5.5rem; place-items: center; padding: 1rem; text-align: center; border: 1px solid rgba(244, 238, 227, .28); font-size: clamp(.95rem, 2vw, 1.15rem); }
-.consent-ledger-flow strong { color: #11100e; background: #c8ff37; border-color: #c8ff37; }
-.consent-ledger-flow i { flex: 1; min-width: 1rem; height: 1px; background: rgba(244, 238, 227, .5); }
-.consent-ledger figcaption { max-width: 42rem; color: rgba(244, 238, 227, .68); line-height: 1.6; }
-
-.permission-loop {
-  width: min(100%, 58rem);
-  margin: 0 auto;
-  padding: 0;
-  list-style: none;
-  border-top: 1px solid rgba(23, 22, 18, .18);
-}
-
-.permission-loop li { display: grid; grid-template-columns: 3.25rem 1fr; gap: 1rem; padding: 1rem 0; border-bottom: 1px solid rgba(23, 22, 18, .18); }
-.permission-loop b { font: 600 .72rem var(--font-mono); color: var(--aubergine); }
-.permission-loop strong { display: block; margin-bottom: .2rem; }
-
 @media (max-width: 760px) {
   .route-page { padding-top: 5rem; }
   .content-grid { grid-template-columns: 1fr; }
   .architecture-list { grid-template-columns: 1fr; }
   .architecture-list li { min-height: 6rem; }
   .route-footer { flex-direction: column; }
-  .consent-ledger-flow { align-items: stretch; flex-direction: column; }
-  .consent-ledger-flow i { width: 1px; min-height: 1.25rem; flex: none; margin: 0 auto; }
-  .consent-ledger-flow span,
-  .consent-ledger-flow strong { min-height: 4rem; }
 }

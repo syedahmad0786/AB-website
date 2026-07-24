@@ -8,10 +8,8 @@ const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const output = resolve(root, "dist");
 const siteUrl = "https://ahmadbukhari.com";
 const bookingUrl = "https://cal.com/ahmad-bukhari/ai-consultancy-call-with-ab";
-const contextConsentPath = "/blog/context-is-not-consent-ai-private-data";
-const contextConsentUrl = `${siteUrl}${contextConsentPath}`;
-const fieldNote002Url = "https://aixcelsolutions.com/insights/openai-presence-enterprise-ai-agent-rollout";
-const updatedAt = "2026-07-24";
+const latestResearchUrl = "https://aixcelsolutions.com/insights/openai-presence-enterprise-ai-agent-rollout";
+const updatedAt = "2026-07-23";
 
 const [sourceTemplate, siteCss, experienceJs, decisionEngineJs] = await Promise.all([
   readFile(resolve(root, "static/site-template.html"), "utf8"),
@@ -297,15 +295,11 @@ function industriesPage(industry) {
 }
 
 function blogIndex() {
-  return `<main id="main" class="route-page">${routeIntro("Research & findings / Dated and evidence-led", "AI research translated into business decisions", "Current papers, releases, and operating lessons—explained in plain English, dated clearly, and linked to their canonical publisher.")}<section class="content-shell research-hub"><article class="answer-card research-hub-featured"><div class="article-meta"><span>AI, Plain English · Post 003</span><time datetime="2026-07-24">Published July 24, 2026</time><span>5 minute read</span></div><h2><a href="${contextConsentPath}">Context is not consent: a rule for AI and private data</a></h2><p>OpenAI’s Health rollout makes one operating rule hard to ignore: a system can have useful private context without blanket authority to take a consequential action.</p><a class="button button-primary" href="${contextConsentPath}">Read Post 003 <span>↗</span></a></article><div class="content-grid research-hub-grid"><article><span>Field Note 002 · July 23, 2026</span><h2><a href="${fieldNote002Url}">OpenAI Presence: The New Standard for Enterprise AI Agent Operations</a></h2><p>What policy, testing, approved actions, monitoring, and escalation change for customer-facing agents.</p><a class="text-link dark-link" href="${fieldNote002Url}">Read on Aixcel Solutions <span>↗</span></a></article></div></section>${routeFooter()}</main>`;
+  return `<main id="main" class="route-page">${routeIntro("Research & findings / Dated and evidence-led", "AI research translated into business decisions", "Current papers, releases, and operating lessons—explained in plain English, dated clearly, and linked to their canonical publisher.")}<section class="content-shell research-hub"><article class="answer-card research-hub-featured"><div class="article-meta"><span>AI, Plain English · Field Note 002</span><time datetime="2026-07-23">Published July 23, 2026</time><span>9 minute read</span></div><h2><a href="${latestResearchUrl}">OpenAI Presence: The New Standard for Enterprise AI Agent Operations</a></h2><p>OpenAI Presence puts policy, testing, approved actions, monitoring, and escalation around customer-facing agents. This review explains what business leaders should deploy, delay, and measure.</p><a class="button button-primary" href="${latestResearchUrl}">Read Field Note 002 on Aixcel Solutions <span>↗</span></a></article><div class="content-grid research-hub-grid"><article><span>Buyer guide · Updated July 22, 2026</span><h2><a href="/blog/how-to-choose-an-ai-automation-agency">How to choose an AI automation agency</a></h2><p>Evaluate diagnosis, controls, evidence, ownership, recovery, and handover—not demo count.</p><a class="text-link dark-link" href="/blog/how-to-choose-an-ai-automation-agency">Read the buyer guide <span>↗</span></a></article></div></section>${routeFooter()}</main>`;
 }
 
 function blogPage(post) {
   return `<main id="main" class="route-page">${routeIntro(`${post.category} · Archived article`, post.title, post.excerpt)}<article class="content-shell article-body"><section class="answer-card"><h2>Archive and freshness notice</h2><p>This legacy article is retained for reference but excluded from search indexing. Product capabilities, pricing, quantitative claims, and examples have not yet completed the current source and evidence review.</p></section><p class="article-meta">Originally published <time datetime="${post.publishedAt}">${post.publishedAt}</time> · Written by Ahmad Bukhari</p>${renderLongForm(post.content)}<aside class="answer-card"><h2>Need current guidance?</h2><p>Use the current buyer guide or bring the system, constraints, and desired outcome to a focused call.</p><a class="button button-primary" href="/blog/how-to-choose-an-ai-automation-agency">Read the current buyer guide <span>↗</span></a></aside></article>${routeFooter()}</main>`;
-}
-
-function contextIsNotConsentArticle() {
-  return `<main id="main" class="route-page">${routeIntro("AI, Plain English / Post 003", "Context is not consent", "OpenAI’s Health rollout makes a practical rule for every AI team visible: useful private context is not blanket authority to act.")}<article class="content-shell article-body"><figure class="consent-ledger"><div class="consent-ledger-top"><img class="ab-axis" src="/brand/ahmad-ab-axis.svg" alt="" width="96" height="96" decoding="async"><span>Decision ledger / private-data systems</span></div><div class="consent-ledger-flow"><span>Context</span><i aria-hidden="true"></i><strong>Permission boundary</strong><i aria-hidden="true"></i><span>Consequence</span></div><figcaption>More context can improve an answer. It does not automatically increase an AI system’s authority to decide, disclose, or act.</figcaption></figure><p class="article-meta">Published <time datetime="2026-07-24">July 24, 2026</time> · Ahmad Bukhari · 5 minute read</p><section class="answer-card"><h2>The short answer</h2><p>An AI system may need private context to be helpful. That does not give it open-ended permission to change data, make a promise, disclose information, or complete a consequential task. The action still needs an explicit boundary and, when the consequence changes, a fresh confirmation.</p></section><h2>The release is about more than health data</h2><p>On July 23, OpenAI announced the rollout of Health in ChatGPT to logged-in U.S. adults on web and iOS. People can choose to connect Apple Health and supported medical records so conversations can use relevant information in context. OpenAI says Health information is asked for by default before it is used, and it also states that ChatGPT does not replace professional medical care. <a href="https://openai.com/index/health-in-chatgpt/">Read OpenAI’s launch note</a>.</p><p>This is a health product, not a business-automation product. But it makes a business design problem unusually easy to see: a system can have useful context without having blanket permission to act.</p><h2>A record gives context, not authority</h2><p>Once an agent can read a CRM, ticket history, contract, or customer profile, it can feel natural to let it do the next thing. That is where systems get sloppy. A customer record can help an AI draft a response. It does not automatically authorize an address change, disclosure, refund, subscription change, or case closure.</p><p>The useful question is not only “What can this system see?” It is “What may it do with what it sees, and when must it ask again?”</p><h2>Design a permission loop, not a checkbox</h2><ol class="permission-loop"><li><b>01</b><span><strong>Connect</strong> — make the source being linked visible.</span></li><li><b>02</b><span><strong>Context</strong> — state what information may be used for this task.</span></li><li><b>03</b><span><strong>Boundary</strong> — limit the access and actions to the relevant category of work.</span></li><li><b>04</b><span><strong>Confirm</strong> — create a new decision point before a consequential action.</span></li><li><b>05</b><span><strong>Revoke</strong> — let the person review, change, or withdraw access without friction.</span></li></ol><p>The confirmation step is where the model becomes useful without pretending that prior access is a blank cheque. Someone may be comfortable with an AI summarising recent activity before a meeting, but not sending a decision to a customer.</p><h2>What this looks like in a real workflow</h2><p>In appointment preparation, an AI can compare recent results, summarise a visit note, and help draft questions for a clinician. That is assistance with understanding and preparation. It should not present a diagnosis as a clinical conclusion, send a care plan, or share private information with another party without a specific next permission.</p><p>The same distinction holds in business systems. A support agent can prepare an answer; a human may still need to approve a refund, account change, disclosure, or exception. This is not busywork. It is matching the control to the consequence.</p><h2>Four questions for AI teams</h2>${list(["Can the person see exactly what information the system may use?", "Is the permission one-time, continuing, or tied to a specific action?", "Which action must trigger a fresh confirmation?", "Can the person withdraw access, and can the team prove that the change took effect?"])}<aside class="answer-card"><h2>Put the boundary into the system</h2><p>For agentic workflows, the permission boundary should be reflected in the tools, approval gates, audit trail, and recovery path—not left to a prompt alone. See the <a href="/services/agentic-ai-autonomous-workflows">agentic AI workflow approach</a> and test failure paths in the <a href="/automation-lab">Automation Reliability Lab</a>.</p></aside><section><h2>The operating principle</h2><p>More context can make an AI response more helpful. It does not make the system more entitled to decide.</p><p>The strongest AI experiences will make the next permission clear before the next consequence happens. That is the rule worth carrying into customer operations, internal agents, and every system that touches private data.</p></section><section class="article-source-note"><h2>Source and limitation</h2><p>This article interprets OpenAI’s July 23 product release as a general operating-design lesson. It is not medical, legal, or security advice, and it does not claim that one product’s safeguards are sufficient for another organisation’s use case.</p></section></article>${routeFooter()}</main>`;
 }
 
 function portfolioIndex() {
@@ -501,17 +495,6 @@ addPage("/blog", {
   main: blogIndex(),
   type: "CollectionPage",
 });
-addPage(contextConsentPath, {
-  title: "Context Is Not Consent: A Rule for AI and Private Data | Ahmad Bukhari",
-  description: "What OpenAI’s Health rollout teaches AI teams: useful private context does not give a system blanket authority to take consequential action.",
-  main: contextIsNotConsentArticle(),
-  type: "Article",
-  article: {
-    publishedAt: "2026-07-24",
-    featuredImage: "/art/ahmadbukhari-default-og-1200x630.png",
-  },
-  lastModified: "2026-07-24",
-});
 for (const post of BLOG_POSTS) {
   addPage(`/blog/${post.slug}`, {
     title: `${post.title} | Ahmad Bukhari`,
@@ -529,7 +512,7 @@ addPage("/blog/how-to-choose-an-ai-automation-agency", {
   main: agencyGuide(),
   type: "Article",
   article: {
-    publishedAt: "2026-07-22",
+    publishedAt: updatedAt,
     featuredImage: "/art/ahmadbukhari-default-og-1200x630.png",
   },
 });
@@ -591,7 +574,6 @@ const llms = `# Ahmad Bukhari
 - [AI systems and automation consulting](${siteUrl}/services)
 - [Interactive automation reliability lab](${siteUrl}/automation-lab)
 - [AI research and business findings](${siteUrl}/blog)
-- [Context is not consent: a rule for AI and private data](${contextConsentUrl})
 - [How to choose an AI automation agency](${siteUrl}/blog/how-to-choose-an-ai-automation-agency)
 - [Contact Ahmad or book a systems call](${siteUrl}/contact)
 
@@ -610,7 +592,7 @@ Project pages label whether evidence is public, anonymized, documented scope, pr
 
 Last updated: ${updatedAt}.
 `;
-const feedItems = `<item><title>Context Is Not Consent: A Rule for AI and Private Data</title><link>${contextConsentUrl}</link><guid>${contextConsentUrl}</guid><pubDate>${new Date("2026-07-24T00:00:00Z").toUTCString()}</pubDate><description>What OpenAI’s Health rollout teaches AI teams: useful private context does not give a system blanket authority to take consequential action.</description></item><item><title>OpenAI Presence: The New Standard for Enterprise AI Agent Operations</title><link>${fieldNote002Url}</link><guid>${fieldNote002Url}</guid><pubDate>${new Date("2026-07-23T00:00:00Z").toUTCString()}</pubDate><description>What OpenAI Presence changes for customer-facing AI agents, and what business leaders should deploy, delay, and measure.</description></item>`;
+const feedItems = `<item><title>OpenAI Presence: The New Standard for Enterprise AI Agent Operations</title><link>${latestResearchUrl}</link><guid>${latestResearchUrl}</guid><pubDate>${new Date("2026-07-23T00:00:00Z").toUTCString()}</pubDate><description>What OpenAI Presence changes for customer-facing AI agents, and what business leaders should deploy, delay, and measure.</description></item><item><title>How to Choose an AI Automation Agency</title><link>${siteUrl}/blog/how-to-choose-an-ai-automation-agency</link><guid>${siteUrl}/blog/how-to-choose-an-ai-automation-agency</guid><pubDate>${new Date("2026-07-22T00:00:00Z").toUTCString()}</pubDate><description>A practical buyer guide to evaluating an AI automation agency by diagnosis, architecture, evidence, controls, ownership, reliability, and handover.</description></item>`;
 const feed = `<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"><channel><title>Ahmad Bukhari — Research &amp; Findings</title><link>${siteUrl}/blog</link><description>Dated, evidence-led AI research and business findings in plain English.</description>${feedItems}</channel></rss>`;
 const notFound = buildDocument({ path: "/", title: "Page not found | Ahmad Bukhari", description: "The requested page could not be found.", robots: "noindex,follow", includeIdentity: false, main: `<main id="main" class="route-page">${routeIntro("404 / Not found", "This signal is outside the system", "The requested page does not exist. Use the systems portfolio or research index to continue.")}<section class="content-shell"><a class="button button-primary" href="/">Return home <span>↗</span></a></section>${routeFooter()}</main>` });
 

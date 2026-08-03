@@ -138,7 +138,7 @@ for (const [file, expectedHash] of [
   ["brand/ahmad-ab-axis-favicon.svg", "76432e32a2871027c48c206a143cc62fd79cf8418c699ad1e312a7fede339c7a"],
   ["favicon.svg", "76432e32a2871027c48c206a143cc62fd79cf8418c699ad1e312a7fede339c7a"],
 ]) {
-  const digest = createHash("sha256").update(await readFile(resolve(dist, file))).digest("hex");
+  const digest = createHash("sha256").update((await readFile(resolve(dist, file), "utf8")).replaceAll("\r\n", "\n")).digest("hex");
   if (digest !== expectedHash) failures.push(`${file}: official AB Axis asset hash changed`);
 }
 

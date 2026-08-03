@@ -264,12 +264,55 @@ const industries = {
   },
 };
 
+const agenticSystems = [
+  {
+    name: "AgentOps Mission Control",
+    category: "Observability",
+    summary: "Ingests agent telemetry and detects failed, slow, stale, over-budget, and approval-blocked runs with replayable evidence.",
+    proof: "FastAPI, Pydantic, OpenTelemetry, Langfuse-compatible traces, Postman, replay mode",
+    live: "https://agentops-mission-control.vercel.app",
+    repo: "https://github.com/syedahmad0786/mission-control",
+  },
+  {
+    name: "EvidenceGraph Research Engine",
+    category: "Research and RAG",
+    summary: "Coordinates parallel research agents, builds a claim-evidence graph, verifies citations, and marks unsupported claims unknown.",
+    proof: "LangGraph fan-out and fan-in, RAG, evidence hashes, prompt-injection checks, evaluation fixtures",
+    live: "https://evidencegraph-research.vercel.app",
+    repo: "https://github.com/syedahmad0786/deep-research-mini",
+  },
+  {
+    name: "Workflow Reliability Lab",
+    category: "Workflow resilience",
+    summary: "Compiles workflow intent, validates n8n JSON, simulates faults, and proposes versioned repairs without mutating a live workflow.",
+    proof: "Idempotency, retries, typed validation, ten reference workflows, human approval",
+    live: "https://workflow-reliability-lab.vercel.app",
+    repo: "https://github.com/syedahmad0786/evoflow",
+  },
+  {
+    name: "Revenue Intelligence Council",
+    category: "Sales intelligence",
+    summary: "Researches and qualifies synthetic accounts, develops evidence-backed messaging, and produces drafts without sending or writing to a CRM.",
+    proof: "LangGraph, typed read-only tools, MCP boundary, evidence-linked drafts, approval state",
+    live: "https://revenue-intelligence-council.vercel.app",
+    repo: "https://github.com/syedahmad0786/salescout-agents",
+  },
+  {
+    name: "Agentic Agency OS Fabric",
+    category: "Multi-agent governance",
+    summary: "Runs three governed councils for revenue assurance, delivery risk and margin, and systems audits across 36 synthetic scenarios.",
+    proof: "Next.js, TypeScript, Vercel Workflows, role-scoped data, approval gates, protected stakeholder pilots",
+    live: "https://agentic-agency-os-fabric.vercel.app",
+    repo: "https://github.com/syedahmad0786/compound-agents",
+  },
+];
+
 function routeIntro(eyebrow, title, description) {
   return `<section class="route-intro"><span class="eyebrow">${escapeHtml(eyebrow)}</span><h1>${escapeHtml(title)}</h1><p>${escapeHtml(description)}</p></section>`;
 }
 
 function routeFooter() {
-  return `<footer class="route-footer"><div><b>Ahmad Bukhari</b><span>AI Systems Architect · Islamabad · working globally</span></div><nav aria-label="Footer"><a href="/work">Systems</a><a href="/services">Consulting</a><a href="/blog">Research &amp; findings</a><a href="https://aixcelsolutions.com">Aixcel Solutions</a><a href="https://manhaj.ahmadbukhari.com">MANHAJ</a><a href="${bookingUrl}">Book a call ↗</a></nav></footer>`;
+  return `<footer class="route-footer"><div><b>Ahmad Bukhari</b><span>Agentic AI &amp; LLM Systems Specialist · Islamabad · working globally</span></div><nav aria-label="Footer"><a href="/agentic-systems">Agentic systems</a><a href="/work">Systems</a><a href="/services">Consulting</a><a href="/blog">Research &amp; findings</a><a href="https://aixcelsolutions.com">Aixcel Solutions</a><a href="https://manhaj.ahmadbukhari.com">MANHAJ</a><a href="${bookingUrl}">Book a call ↗</a></nav></footer>`;
 }
 
 function list(items) {
@@ -280,6 +323,11 @@ function casePage(item, slug) {
   const artwork = caseArtwork[slug];
   const leadArtwork = `<figure class="case-system-art"><picture><source media="(max-width: 800px)" srcset="/art/systems/${artwork.file}-800x500.webp"><img src="/art/systems/${artwork.file}-1200x750.webp" srcset="/art/systems/${artwork.file}-800x500.webp 800w, /art/systems/${artwork.file}-1200x750.webp 1200w" sizes="(max-width: 960px) calc(100vw - 2.5rem), 58rem" width="1200" height="750" loading="lazy" decoding="async" alt="${escapeHtml(artwork.alt)}"></picture></figure>`;
   return `<main id="main" class="route-page">${routeIntro(item.eyebrow, item.title, item.description)}<article class="case-page content-shell">${leadArtwork}<section><span class="dialog-label">Direct answer</span><p class="content-lead">${escapeHtml(item.description)}</p></section><section><h2>The operational problem</h2><p>${escapeHtml(item.problem)}</p></section><section><h2>System architecture</h2><ol class="architecture-list">${item.architecture.map((step, index) => `<li><b>${String(index + 1).padStart(2, "0")}</b><span>${escapeHtml(step)}</span></li>`).join("")}</ol></section><section><h2>Key design decisions</h2>${list(item.decisions)}</section><section><h2>Evidence and limits</h2><p>${escapeHtml(item.evidence)}</p></section><aside class="answer-card"><h2>Need a related AI system?</h2><p>Bring the workflow, constraints, failure points, and desired outcome. The first call maps the safest useful move.</p><a class="button button-primary" href="${bookingUrl}">Book a 25 minute systems call <span>↗</span></a></aside></article>${routeFooter()}</main>`;
+}
+
+function agenticSystemsPage() {
+  const cards = agenticSystems.map((system, index) => `<article><span>${String(index + 1).padStart(2, "0")} / ${escapeHtml(system.category)} · Public demo</span><h2>${escapeHtml(system.name)}</h2><p>${escapeHtml(system.summary)}</p><p><strong>Proof:</strong> ${escapeHtml(system.proof)}</p><a class="button button-primary" href="${system.live}" target="_blank" rel="noopener noreferrer">Open live system <span>↗</span></a> <a class="button button-ghost" href="${system.repo}" target="_blank" rel="noopener noreferrer">Inspect GitHub <span>↗</span></a></article>`).join("");
+  return `<main id="main" class="route-page">${routeIntro("Five flagship systems / Verified public demos", "Agentic AI & LLM Systems Specialist", "A production-minded portfolio proving controlled multi-agent orchestration, evidence, typed APIs, human approval, evaluation, observability, replay, and cloud deployment.")}<section class="content-shell"><div class="answer-card"><h2>Positioning backed by working systems</h2><p>Python foundations with AI-assisted development experience across FastAPI APIs, LangGraph workflows, data processing, and automated testing.</p><p>Integration experience is applied as governed agent tools, REST contracts, MCP boundaries, deterministic gates, idempotent workflows, and observable recovery paths.</p></div><div class="content-grid">${cards}</div></section><article class="content-shell case-page"><section><h2>Production stack demonstrated</h2>${list(["Python 3.12, FastAPI, Pydantic v2, REST and generated OpenAPI", "LangGraph and LangChain adapters, tool calling, MCP, RAG and pgvector-ready persistence", "Postman collections and CLI checks, Docker, GitHub Actions, Playwright and Vercel", "Langfuse-compatible OpenTelemetry traces, evaluation fixtures, budgets and replay mode", "TypeScript, Next.js, Vercel Workflows, role-scoped views and explicit human decisions"] )}</section><section><h2>What the public proof does not claim</h2><p>These are verified portfolio deployments using synthetic records. The ChiroCandy and HRMNY routes are protected stakeholder pilots, not production integrations. They do not use client credentials, private records, patient health information, payroll data, or write tools. Any company integration requires a separate private review, staging release, named owner approval, and rollback plan.</p></section><aside class="answer-card"><h2>Verification status</h2><p>All five public demos passed repository CI, API contract checks, Postman collections, desktop and 390-pixel browser journeys, and replay-mode checks on 3 August 2026.</p><a class="button button-primary" href="https://github.com/syedahmad0786" target="_blank" rel="noopener noreferrer">Review the source repositories <span>↗</span></a></aside></article>${routeFooter()}</main>`;
 }
 
 function servicesIndex() {
@@ -322,7 +370,7 @@ function graphFor({ path, title, description, type = "WebPage", article, creativ
       "@id": `${siteUrl}/#website`,
       url: `${siteUrl}/`,
       name: "Ahmad Bukhari",
-      description: "AI systems architecture, automation consulting, and product delivery.",
+      description: "Agentic AI and LLM systems, controlled automation, and product delivery.",
       publisher: { "@id": `${siteUrl}/#person` },
       inLanguage: "en",
     },
@@ -333,8 +381,8 @@ function graphFor({ path, title, description, type = "WebPage", article, creativ
       alternateName: "Syed Muhammad Ahmad Bukhari",
       url: `${siteUrl}/`,
       image: `${siteUrl}/images/ahmad-bukhari.jpg`,
-      jobTitle: ["AI Systems Architect", "AI Automation Consultant"],
-      description: "AI systems architect and automation consultant designing controlled, observable, and recoverable systems for business operations.",
+      jobTitle: "Agentic AI & LLM Systems Specialist",
+      description: "Agentic AI and LLM systems specialist designing controlled, observable, and recoverable systems for business operations.",
       sameAs: ["https://www.linkedin.com/in/bukhariahmad", "https://github.com/syedahmad0786", "https://n8n.io/creators/ahmadbukhari/"],
       knowsAbout: ["AI systems architecture", "AI automation", "agentic AI", "voice AI", "CRM operations", "workflow reliability", "n8n", "product operations"],
       worksFor: { "@id": "https://aixcelsolutions.com/#organization" },
@@ -434,8 +482,8 @@ function addPage(path, config) {
 }
 
 addPage("/", {
-  title: "Ahmad Bukhari | AI Systems Architect & Automation Consultant",
-  description: "Ahmad Bukhari is an AI systems architect and automation consultant designing reliable AI, CRM, voice, agentic, and operating systems for growing businesses.",
+  title: "Ahmad Bukhari | Agentic AI & LLM Systems Specialist",
+  description: "Ahmad Bukhari is an Agentic AI and LLM Systems Specialist designing controlled multi-agent systems, typed APIs, evaluations, observability, and human approval.",
   main: homeMain,
   type: "ProfilePage",
 });
@@ -443,6 +491,12 @@ addPage("/work", {
   title: "AI Systems Portfolio & Case Studies | Ahmad Bukhari",
   description: "Inspect AI systems, automation reliability, private operating systems, migration, CRM, onboarding, and public code—with evidence and limits clearly labeled.",
   main: `<main id="main" class="route-page">${routeIntro("Selected systems / Evidence-led", "AI systems architecture with consequences", "Six system stories spanning private products, governed delivery, workflow reliability, migration, CRM operations, and resilient onboarding.")}${workSection}${routeFooter()}</main>`,
+  type: "CollectionPage",
+});
+addPage("/agentic-systems", {
+  title: "Agentic AI & LLM Systems Specialist | Ahmad Bukhari",
+  description: "Five verified agentic AI systems demonstrating LangGraph, FastAPI, MCP, RAG, evaluations, observability, approval gates, Postman, and Vercel deployment.",
+  main: agenticSystemsPage(),
   type: "CollectionPage",
 });
 for (const [slug, item] of Object.entries(cases)) {
@@ -459,8 +513,8 @@ addPage("/automation-lab", {
   main: `<main id="main" class="route-page">${routeIntro("Automation lab / Interactive proof", "Stress the AI automation—not just the diagram", "Run mock failure scenarios and inspect how resilient automation handles duplicate records, unavailable services, payment gates, and webhook timeouts.")}${labSections}${routeFooter()}</main>`,
 });
 addPage("/about", {
-  title: "About Ahmad Bukhari | AI Systems Architect",
-  description: "Meet Ahmad Bukhari, an Islamabad-based AI systems architect and automation consultant with an operator-first background in sales, CRM, training, and delivery.",
+  title: "About Ahmad Bukhari | Agentic AI & LLM Systems Specialist",
+  description: "Meet Ahmad Bukhari, an Islamabad-based Agentic AI and LLM Systems Specialist with an operator-first background in sales, CRM, training, and delivery.",
   main: `<main id="main" class="route-page">${routeIntro("About / Operator-led architecture", "The operator inside the AI system", "Years inside sales, client delivery, training, CRM operations, and operational handoffs shape how Ahmad Bukhari designs AI systems people can actually operate.")}${aboutSection}${routeFooter()}</main>`,
   type: "ProfilePage",
 });
@@ -560,7 +614,7 @@ const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://w
 const robots = `User-agent: *\nAllow: /\n\nUser-agent: OAI-SearchBot\nAllow: /\n\nUser-agent: ChatGPT-User\nAllow: /\n\nUser-agent: GPTBot\nAllow: /\n\nUser-agent: PerplexityBot\nAllow: /\n\nUser-agent: ClaudeBot\nAllow: /\n\nUser-agent: Applebot-Extended\nAllow: /\n\nUser-agent: Google-Extended\nAllow: /\n\nSitemap: ${siteUrl}/sitemap.xml\nHost: ${siteUrl}\n`;
 const llms = `# Ahmad Bukhari
 
-> Ahmad Bukhari is an AI systems architect and automation consultant in Islamabad, working globally. He designs controlled, observable, and recoverable AI systems for business operations.
+> Ahmad Bukhari is an Agentic AI & LLM Systems Specialist in Islamabad, working globally. He designs controlled, observable, and recoverable AI systems for business operations.
 
 ## Canonical entities
 
@@ -571,6 +625,7 @@ const llms = `# Ahmad Bukhari
 ## Preferred pages to cite
 
 - [AI systems portfolio and evidence-led case studies](${siteUrl}/work)
+- [Five verified agentic AI systems](${siteUrl}/agentic-systems)
 - [AI systems and automation consulting](${siteUrl}/services)
 - [Interactive automation reliability lab](${siteUrl}/automation-lab)
 - [AI research and business findings](${siteUrl}/blog)

@@ -44,6 +44,7 @@ for (const url of urls) {
 const scaleScenes = ["01-the-field", "02-the-atom", "03-memory", "04-emergence", "05-orchestration"];
 const systemStories = ["workspine", "manhaj", "enterprise-os", "errorlens", "make-n8n-factory", "resilient-onboarding"];
 const fieldNotes = ["designing-systems-that-fail-safely", "workflow-count-is-a-weak-metric", "operators-advantage-in-ai"];
+const linkedinSystems = ["creator-campaign-command", "creator-campaign-proof-lab", "language-mix-studio", "agentic-systems-evaluation-lab", "content-performance-forecaster"];
 const requiredArtwork = [
   "art/ahmadbukhari-default-og-1200x630.png",
   ...["field-grid", "paper-grain", "portrait-axis-frame", "signal-route-divider"].map((name) => `art/backgrounds/${name}.svg`),
@@ -61,6 +62,10 @@ const requiredArtwork = [
   ...fieldNotes.flatMap((name) => [
     `art/field-notes/${name}-800x500.webp`,
     `art/field-notes/${name}-1200x750.webp`,
+  ]),
+  ...linkedinSystems.flatMap((name) => [
+    `art/linkedin/${name}.png`,
+    `art/linkedin/${name}.svg`,
   ]),
 ];
 const requiredBrand = [
@@ -138,7 +143,7 @@ for (const [file, expectedHash] of [
   ["brand/ahmad-ab-axis-favicon.svg", "76432e32a2871027c48c206a143cc62fd79cf8418c699ad1e312a7fede339c7a"],
   ["favicon.svg", "76432e32a2871027c48c206a143cc62fd79cf8418c699ad1e312a7fede339c7a"],
 ]) {
-  const digest = createHash("sha256").update(await readFile(resolve(dist, file))).digest("hex");
+  const digest = createHash("sha256").update((await readFile(resolve(dist, file), "utf8")).replaceAll("\r\n", "\n")).digest("hex");
   if (digest !== expectedHash) failures.push(`${file}: official AB Axis asset hash changed`);
 }
 

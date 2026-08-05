@@ -264,12 +264,60 @@ const industries = {
   },
 };
 
+const agenticSystems = [
+  {
+    name: "Creator Campaign Command",
+    art: "creator-campaign-command",
+    category: "Multi-agent campaign planning",
+    summary: "Five bounded roles turn a campaign objective and budget into an evidence-linked creator plan, then stop before outreach or spend.",
+    proof: "LangGraph, FastAPI, 5 roles, 3 scenario shapes, objective-sensitive ranking, approval gate",
+    live: "https://creator-campaign-command.vercel.app",
+    repo: "https://github.com/syedahmad0786/creator-campaign-command",
+  },
+  {
+    name: "Creator Campaign Proof Lab",
+    art: "creator-campaign-proof-lab",
+    category: "Campaign measurement",
+    summary: "A measurement council reconciles platform aggregates, separates observation from causality, and blocks unsupported success claims.",
+    proof: "FastAPI, 5 measurement roles, 4 attribution windows, evidence hashes, draft-only release gate",
+    live: "https://creator-campaign-proof-lab.vercel.app",
+    repo: "https://github.com/syedahmad0786/creator-campaign-proof-lab",
+  },
+  {
+    name: "LanguageMix Studio",
+    art: "language-mix-studio",
+    category: "Multilingual content operations",
+    summary: "Timed English scripts become distinct Urdu, Roman Urdu, or Arabic review packages with voice register, safety checks, and native-language approval.",
+    proof: "FastAPI, 3 source scenarios, 3 locale routes, 3 registers, 27 meaningful combinations",
+    live: "https://language-mix-studio.vercel.app",
+    repo: "https://github.com/syedahmad0786/language-mix-studio",
+  },
+  {
+    name: "Agentic Systems Evaluation Lab",
+    art: "agentic-systems-evaluation-lab",
+    category: "Independent evaluation",
+    summary: "A live black-box evaluator tests deployed systems for contracts, evidence, approval gates, boundaries, idempotency, and latency.",
+    proof: "3 target systems, 7 weighted checks, 4 baseline and fault scenarios, arbitrary URLs blocked",
+    live: "https://agentic-systems-evaluation-lab.vercel.app",
+    repo: "https://github.com/syedahmad0786/agentic-systems-evaluation-lab",
+  },
+  {
+    name: "Content Performance Forecaster",
+    art: "content-performance-forecaster",
+    category: "Pre-publish decision support",
+    summary: "A reproducible historical baseline returns forecast ranges, confidence, cohort fallback, and input sensitivity before publication.",
+    proof: "500 licensed records, 400 training rows, 100 holdout rows, versioned ridge models, no LLM claim",
+    live: "https://content-performance-forecaster.vercel.app",
+    repo: "https://github.com/syedahmad0786/content-performance-forecaster",
+  },
+];
+
 function routeIntro(eyebrow, title, description) {
   return `<section class="route-intro"><span class="eyebrow">${escapeHtml(eyebrow)}</span><h1>${escapeHtml(title)}</h1><p>${escapeHtml(description)}</p></section>`;
 }
 
 function routeFooter() {
-  return `<footer class="route-footer"><div><b>Ahmad Bukhari</b><span>AI Systems Architect · Islamabad · working globally</span></div><nav aria-label="Footer"><a href="/work">Systems</a><a href="/services">Consulting</a><a href="/blog">Research &amp; findings</a><a href="https://aixcelsolutions.com">Aixcel Solutions</a><a href="https://manhaj.ahmadbukhari.com">MANHAJ</a><a href="${bookingUrl}">Book a call ↗</a></nav></footer>`;
+  return `<footer class="route-footer"><div><b>Ahmad Bukhari</b><span>Agentic AI &amp; LLM Systems Specialist · Islamabad · working globally</span></div><nav aria-label="Footer"><a href="/agentic-systems">Agentic systems</a><a href="/work">Systems</a><a href="/services">Consulting</a><a href="/blog">Research &amp; findings</a><a href="https://aixcelsolutions.com">Aixcel Solutions</a><a href="https://manhaj.ahmadbukhari.com">MANHAJ</a><a href="${bookingUrl}">Book a call ↗</a></nav></footer>`;
 }
 
 function list(items) {
@@ -280,6 +328,11 @@ function casePage(item, slug) {
   const artwork = caseArtwork[slug];
   const leadArtwork = `<figure class="case-system-art"><picture><source media="(max-width: 800px)" srcset="/art/systems/${artwork.file}-800x500.webp"><img src="/art/systems/${artwork.file}-1200x750.webp" srcset="/art/systems/${artwork.file}-800x500.webp 800w, /art/systems/${artwork.file}-1200x750.webp 1200w" sizes="(max-width: 960px) calc(100vw - 2.5rem), 58rem" width="1200" height="750" loading="lazy" decoding="async" alt="${escapeHtml(artwork.alt)}"></picture></figure>`;
   return `<main id="main" class="route-page">${routeIntro(item.eyebrow, item.title, item.description)}<article class="case-page content-shell">${leadArtwork}<section><span class="dialog-label">Direct answer</span><p class="content-lead">${escapeHtml(item.description)}</p></section><section><h2>The operational problem</h2><p>${escapeHtml(item.problem)}</p></section><section><h2>System architecture</h2><ol class="architecture-list">${item.architecture.map((step, index) => `<li><b>${String(index + 1).padStart(2, "0")}</b><span>${escapeHtml(step)}</span></li>`).join("")}</ol></section><section><h2>Key design decisions</h2>${list(item.decisions)}</section><section><h2>Evidence and limits</h2><p>${escapeHtml(item.evidence)}</p></section><aside class="answer-card"><h2>Need a related AI system?</h2><p>Bring the workflow, constraints, failure points, and desired outcome. The first call maps the safest useful move.</p><a class="button button-primary" href="${bookingUrl}">Book a 25 minute systems call <span>↗</span></a></aside></article>${routeFooter()}</main>`;
+}
+
+function agenticSystemsPage() {
+  const cards = agenticSystems.map((system, index) => `<article><img class="system-card-art" src="/art/linkedin/${system.art}.png" alt="${escapeHtml(system.name)} project visual" width="1080" height="1350" loading="lazy" decoding="async"><span>${String(index + 1).padStart(2, "0")} / ${escapeHtml(system.category)} · Public demo</span><h2>${escapeHtml(system.name)}</h2><p>${escapeHtml(system.summary)}</p><p><strong>Proof:</strong> ${escapeHtml(system.proof)}</p><a class="button button-primary" href="${system.live}" target="_blank" rel="noopener noreferrer">Open live system <span>↗</span></a> <a class="button button-ghost" href="${system.repo}" target="_blank" rel="noopener noreferrer">Inspect GitHub <span>↗</span></a></article>`).join("");
+  return `<main id="main" class="route-page">${routeIntro("Five flagship systems / Verified public demos", "Agentic AI & LLM Systems Specialist", "A production-minded creator economy portfolio proving controlled multi-agent orchestration, evidence, typed APIs, human approval, evaluation, observability, replay, and cloud deployment.")}<section class="content-shell"><div class="answer-card"><h2>Positioning backed by working systems</h2><p>Python foundations with AI-assisted development across FastAPI APIs, LangGraph workflows, deterministic decision systems, data processing, and automated testing.</p><p>The controls are real: objective, attribution window, locale, register, fault scenario, and forecast inputs each change the computed output. Every project links to its source, tests, diagrams, API contract, and live case study.</p></div><div class="content-grid">${cards}</div></section><article class="content-shell case-page"><section><h2>Stack demonstrated in the deployed systems</h2>${list(["Python 3.12, FastAPI, Pydantic v2, REST and generated OpenAPI", "LangGraph for the campaign state graph, with deterministic rules for scoring, evidence, limits, and safety", "Postman collections, Pytest, GitHub Actions, Playwright and Vercel preview promotion", "X-Trace-ID response headers, structured JSON logs, evidence records, latency, usage and approval state", "Black-box evaluation with fault injection, idempotency checks, replay mode, uncertainty and input sensitivity"] )}</section><section><h2>What the public proof does not claim</h2><p>These verified portfolio deployments use synthetic or licensed public records. They do not use client credentials, private records, patient health information, live publishing, ad spend, messaging, or CRM write tools. LangChain, CrewAI, MCP, RAG, Kubernetes, Langfuse, LangSmith, and Sentry are not claimed as connected runtime components where they are not deployed.</p></section><aside class="answer-card"><h2>Verification status</h2><p>All five public demos passed repository CI, API behavior checks, desktop and 390-pixel browser journeys, architecture-asset checks, replay checks, and browser-console checks on 5 August 2026.</p><a class="button button-primary" href="https://github.com/syedahmad0786" target="_blank" rel="noopener noreferrer">Review the source repositories <span>↗</span></a></aside></article>${routeFooter()}</main>`;
 }
 
 function servicesIndex() {
@@ -322,7 +375,7 @@ function graphFor({ path, title, description, type = "WebPage", article, creativ
       "@id": `${siteUrl}/#website`,
       url: `${siteUrl}/`,
       name: "Ahmad Bukhari",
-      description: "AI systems architecture, automation consulting, and product delivery.",
+      description: "Agentic AI and LLM systems, controlled automation, and product delivery.",
       publisher: { "@id": `${siteUrl}/#person` },
       inLanguage: "en",
     },
@@ -333,8 +386,8 @@ function graphFor({ path, title, description, type = "WebPage", article, creativ
       alternateName: "Syed Muhammad Ahmad Bukhari",
       url: `${siteUrl}/`,
       image: `${siteUrl}/images/ahmad-bukhari.jpg`,
-      jobTitle: ["AI Systems Architect", "AI Automation Consultant"],
-      description: "AI systems architect and automation consultant designing controlled, observable, and recoverable systems for business operations.",
+      jobTitle: "Agentic AI & LLM Systems Specialist",
+      description: "Agentic AI and LLM systems specialist designing controlled, observable, and recoverable systems for business operations.",
       sameAs: ["https://www.linkedin.com/in/bukhariahmad", "https://github.com/syedahmad0786", "https://n8n.io/creators/ahmadbukhari/"],
       knowsAbout: ["AI systems architecture", "AI automation", "agentic AI", "voice AI", "CRM operations", "workflow reliability", "n8n", "product operations"],
       worksFor: { "@id": "https://aixcelsolutions.com/#organization" },
@@ -434,8 +487,8 @@ function addPage(path, config) {
 }
 
 addPage("/", {
-  title: "Ahmad Bukhari | AI Systems Architect & Automation Consultant",
-  description: "Ahmad Bukhari is an AI systems architect and automation consultant designing reliable AI, CRM, voice, agentic, and operating systems for growing businesses.",
+  title: "Ahmad Bukhari | Agentic AI & LLM Systems Specialist",
+  description: "Ahmad Bukhari is an Agentic AI and LLM Systems Specialist designing controlled multi-agent systems, typed APIs, evaluations, observability, and human approval.",
   main: homeMain,
   type: "ProfilePage",
 });
@@ -443,6 +496,12 @@ addPage("/work", {
   title: "AI Systems Portfolio & Case Studies | Ahmad Bukhari",
   description: "Inspect AI systems, automation reliability, private operating systems, migration, CRM, onboarding, and public code—with evidence and limits clearly labeled.",
   main: `<main id="main" class="route-page">${routeIntro("Selected systems / Evidence-led", "AI systems architecture with consequences", "Six system stories spanning private products, governed delivery, workflow reliability, migration, CRM operations, and resilient onboarding.")}${workSection}${routeFooter()}</main>`,
+  type: "CollectionPage",
+});
+addPage("/agentic-systems", {
+  title: "Agentic AI & LLM Systems Specialist | Ahmad Bukhari",
+  description: "Five verified agentic AI systems demonstrating LangGraph, FastAPI, MCP, RAG, evaluations, observability, approval gates, Postman, and Vercel deployment.",
+  main: agenticSystemsPage(),
   type: "CollectionPage",
 });
 for (const [slug, item] of Object.entries(cases)) {
@@ -459,8 +518,8 @@ addPage("/automation-lab", {
   main: `<main id="main" class="route-page">${routeIntro("Automation lab / Interactive proof", "Stress the AI automation—not just the diagram", "Run mock failure scenarios and inspect how resilient automation handles duplicate records, unavailable services, payment gates, and webhook timeouts.")}${labSections}${routeFooter()}</main>`,
 });
 addPage("/about", {
-  title: "About Ahmad Bukhari | AI Systems Architect",
-  description: "Meet Ahmad Bukhari, an Islamabad-based AI systems architect and automation consultant with an operator-first background in sales, CRM, training, and delivery.",
+  title: "About Ahmad Bukhari | Agentic AI & LLM Systems Specialist",
+  description: "Meet Ahmad Bukhari, an Islamabad-based Agentic AI and LLM Systems Specialist with an operator-first background in sales, CRM, training, and delivery.",
   main: `<main id="main" class="route-page">${routeIntro("About / Operator-led architecture", "The operator inside the AI system", "Years inside sales, client delivery, training, CRM operations, and operational handoffs shape how Ahmad Bukhari designs AI systems people can actually operate.")}${aboutSection}${routeFooter()}</main>`,
   type: "ProfilePage",
 });
@@ -560,7 +619,7 @@ const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://w
 const robots = `User-agent: *\nAllow: /\n\nUser-agent: OAI-SearchBot\nAllow: /\n\nUser-agent: ChatGPT-User\nAllow: /\n\nUser-agent: GPTBot\nAllow: /\n\nUser-agent: PerplexityBot\nAllow: /\n\nUser-agent: ClaudeBot\nAllow: /\n\nUser-agent: Applebot-Extended\nAllow: /\n\nUser-agent: Google-Extended\nAllow: /\n\nSitemap: ${siteUrl}/sitemap.xml\nHost: ${siteUrl}\n`;
 const llms = `# Ahmad Bukhari
 
-> Ahmad Bukhari is an AI systems architect and automation consultant in Islamabad, working globally. He designs controlled, observable, and recoverable AI systems for business operations.
+> Ahmad Bukhari is an Agentic AI & LLM Systems Specialist in Islamabad, working globally. He designs controlled, observable, and recoverable AI systems for business operations.
 
 ## Canonical entities
 
@@ -571,6 +630,7 @@ const llms = `# Ahmad Bukhari
 ## Preferred pages to cite
 
 - [AI systems portfolio and evidence-led case studies](${siteUrl}/work)
+- [Five verified agentic AI systems](${siteUrl}/agentic-systems)
 - [AI systems and automation consulting](${siteUrl}/services)
 - [Interactive automation reliability lab](${siteUrl}/automation-lab)
 - [AI research and business findings](${siteUrl}/blog)

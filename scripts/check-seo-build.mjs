@@ -46,7 +46,7 @@ for (const url of urls) {
 const scaleScenes = ["01-the-field", "02-the-atom", "03-memory", "04-emergence", "05-orchestration"];
 const systemStories = ["workspine", "manhaj", "enterprise-os", "errorlens", "make-n8n-factory", "resilient-onboarding"];
 const fieldNotes = ["designing-systems-that-fail-safely", "workflow-count-is-a-weak-metric", "operators-advantage-in-ai"];
-const linkedinSystems = ["creator-campaign-command", "marketing-revenue-assurance", "language-mix-studio", "agentic-systems-evaluation-lab", "content-performance-forecaster", "revenue-signal-graph"];
+const linkedinSystems = ["creator-campaign-command", "marketing-revenue-assurance", "deal-rescue-forecast-truth", "language-mix-studio", "agentic-systems-evaluation-lab", "content-performance-forecaster", "revenue-signal-graph"];
 const requiredArtwork = [
   "art/ahmadbukhari-default-og-1200x630.png",
   ...["field-grid", "paper-grain", "portrait-axis-frame", "signal-route-divider"].map((name) => `art/backgrounds/${name}.svg`),

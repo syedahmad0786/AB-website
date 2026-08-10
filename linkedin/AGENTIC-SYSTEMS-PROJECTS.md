@@ -12,7 +12,7 @@ I design and implement controlled AI systems that connect language models, deter
 
 My work is strongest where an AI demo has to become an inspectable operating system: typed FastAPI contracts, LangGraph workflows, evidence and retrieval boundaries, approval gates, idempotency, evaluation, observability, replay, and cloud deployment.
 
-I have built six public systems across revenue and creator operations: account qualification, marketing revenue assurance, campaign planning, multilingual content review, pre-publish performance forecasting, and independent agent-system evaluation. Every system has a separate GitHub repository, live deployment, architecture package, tests, Postman collection, documented constraints, and a visible production path.
+I have built seven public systems across revenue and creator operations: account qualification, marketing revenue assurance, B2B forecast control, campaign planning, multilingual content review, pre-publish performance forecasting, and independent agent-system evaluation. Every system has a separate GitHub repository, live deployment, architecture package, tests, Postman collection, documented constraints, and a visible production path.
 
 My wider automation stack includes n8n, Make, Zapier, GoHighLevel, HubSpot, Airtable, webhooks, REST APIs, Postman, Docker, GitHub Actions, Vercel, Claude Code, and OpenAI Codex. I use Python foundations with AI-assisted development across FastAPI APIs, LangGraph workflows, data processing, and automated testing.
 
@@ -25,10 +25,11 @@ GitHub: https://github.com/syedahmad0786
 ## Featured section order
 
 1. Agentic systems portfolio: https://ahmadbukhari.com/agentic-systems
-2. Revenue Signal Graph: https://revenue-signal-graph.vercel.app
-3. Marketing Revenue Assurance: https://marketing-revenue-assurance.vercel.app
-4. Agentic Systems Evaluation Lab: https://agentic-systems-evaluation-lab.vercel.app
-5. AiXCEL implementation lab: https://aixcelsolutions.com/labs/agentic-systems
+2. Deal Rescue and Forecast Truth: https://deal-rescue-forecast-truth.vercel.app
+3. Revenue Signal Graph: https://revenue-signal-graph.vercel.app
+4. Marketing Revenue Assurance: https://marketing-revenue-assurance.vercel.app
+5. Agentic Systems Evaluation Lab: https://agentic-systems-evaluation-lab.vercel.app
+6. AiXCEL implementation lab: https://aixcelsolutions.com/labs/agentic-systems
 
 ## Project 1: Creator Campaign Command
 
@@ -64,7 +65,31 @@ Technology reasoning: FastAPI provides typed Pydantic contracts and generated Op
 
 Top 5 skills: LangGraph, Python, FastAPI, Agent Evaluation, Observability
 
-## Project 3: LanguageMix Studio
+## Project 3: Deal Rescue and Forecast Truth
+
+Project URL: https://deal-rescue-forecast-truth.vercel.app
+
+Repository: Private implementation repository
+
+Dates: July 2026 to August 2026
+
+Description:
+
+Built a governed B2B deal control plane that tests seller-entered CRM forecast against exact buyer evidence from synthetic call transcripts, stakeholder coverage, and sales activity.
+
+A deal can remain in Best Case or Commit even when budget is not approved, the economic buyer is absent, security review is open, the next step belongs only to the seller, or the buyer has gone silent. FastAPI and Pydantic provide typed REST contracts. LangGraph coordinates six parallel evidence roles plus forecast, policy, and manager-approval stages. SQLAlchemy, Alembic, and PostgreSQL provide tenant-scoped runs, findings, objections, decisions, idempotency, usage, audit receipts, and durable checkpoints.
+
+Deterministic Python owns source integrity, privacy checks, forecast policy, risk and exposure bounds, authorization, and action permissions. LangGraph owns state, parallel work, joins, checkpoints, and the human interrupt. This keeps a language model from inventing a probability or bypassing business policy.
+
+The public decision room is live. Changing seller confidence, stakeholder coverage, buyer silence, next-step integrity, or the latest buyer statement re-signs the synthetic evidence and runs the graph again. A verified browser journey changed an evidence-backed Commit at 0 risk into Omitted at 100 risk.
+
+Release evidence: 53 automated tests, 83.97 percent measured coverage, 12 of 12 expected risks, top risks, and forecast categories correct, 15 evaluation dimensions at target, 28 live Postman assertions, 16 Prometheus signal families, PostgreSQL checkpoint restart proof, persistent dark and light themes, and zero external mutations.
+
+Top 5 skills: LangGraph, FastAPI, Python, Multi-Agent Systems, OpenTelemetry
+
+Media: use the live URL first, then the project card, live decision room, agent collaboration diagram, system context, backend release proof, and mobile light-theme screenshot from the private project media package.
+
+## Project 4: LanguageMix Studio
 
 Project URL: https://language-mix-studio.vercel.app
 
@@ -78,7 +103,7 @@ Technical proof: Python, FastAPI, Pydantic, REST, OpenAPI, Unicode and RTL handl
 
 Skills: Python, FastAPI, Multilingual AI, Localization, Urdu, Arabic, Content Operations, REST APIs, Postman, Evaluation, Human-in-the-Loop AI
 
-## Project 4: Agentic Systems Evaluation Lab
+## Project 5: Agentic Systems Evaluation Lab
 
 Project URL: https://agentic-systems-evaluation-lab.vercel.app
 
@@ -92,7 +117,7 @@ Technical proof: Python, FastAPI, Pydantic, black-box HTTP evaluation, fault inj
 
 Skills: Agent Evaluation, LLM Evaluation, Python, FastAPI, API Testing, Observability, Fault Injection, Idempotency, CI/CD, Postman, Vercel
 
-## Project 5: Content Performance Forecaster
+## Project 6: Content Performance Forecaster
 
 Project URL: https://content-performance-forecaster.vercel.app
 
@@ -106,7 +131,7 @@ Technical proof: Python, FastAPI, Pydantic, versioned model artifacts, holdout e
 
 Skills: Python, Machine Learning, Model Evaluation, Forecasting, FastAPI, Pydantic, REST APIs, Data Validation, Observability, Postman, GitHub Actions
 
-## Project 6: Revenue Signal Graph
+## Project 7: Revenue Signal Graph
 
 Project URL: https://revenue-signal-graph.vercel.app
 

@@ -32,6 +32,8 @@ for (const url of urls) {
   if (!robots?.includes("index") || robots.includes("noindex") || !robots.includes("follow")) failures.push(`${url.pathname}: sitemap page is not index,follow`);
   if (!/<h1[ >]/.test(html)) failures.push(`${url.pathname}: missing H1`);
   if (!/<script type="application\/ld\+json">/.test(html)) failures.push(`${url.pathname}: missing JSON-LD`);
+  if (!html.includes('id="theme-toggle"') || !html.includes('src="/theme.js"')) failures.push(`${url.pathname}: shared theme controls are missing`);
+  if (!html.includes('aixcel-color-theme') || !html.includes('document.documentElement.dataset.theme')) failures.push(`${url.pathname}: early theme initialization is missing`);
   if (html.includes("calendly.com/ahmadbukhari4245")) failures.push(`${url.pathname}: stale booking URL`);
   if (html.includes("github.com/bukhariahmad")) failures.push(`${url.pathname}: stale GitHub URL`);
   if (html.includes("hello@ahmadbukhari.com")) failures.push(`${url.pathname}: unverified email address`);
@@ -309,6 +311,9 @@ const notFound = await readFile(resolve(dist, "404.html"), "utf8");
 if (!notFound.includes('<meta name="robots" content="noindex,follow">')) failures.push("404 page must be noindex,follow");
 if (/rel="canonical"|property="og:url"|application\/ld\+json/.test(notFound)) failures.push("404 page must not claim homepage canonical, Open Graph URL, or schema identity");
 if (/rel="preload" as="image" href="\/art\/hero\//.test(notFound)) failures.push("404 page must not preload homepage artwork");
+
+const themeScript = await readFile(resolve(dist, "theme.js"), "utf8");
+if (!themeScript.includes("localStorage.setItem") || !themeScript.includes("prefers-color-scheme: dark")) failures.push("Theme script must persist explicit choices and honor system preference");
 
 const vercel = await readFile(resolve(root, "vercel.json"), "utf8");
 if (!vercel.includes('microphone=(self)')) failures.push("Permissions Policy must allow the first-party voice widget microphone");

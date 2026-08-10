@@ -11,11 +11,13 @@ const bookingUrl = "https://cal.com/ahmad-bukhari/ai-consultancy-call-with-ab";
 const latestResearchUrl = "https://aixcelsolutions.com/insights/openai-presence-enterprise-ai-agent-rollout";
 const updatedAt = "2026-07-23";
 
-const [sourceTemplate, siteCss, experienceJs, decisionEngineJs] = await Promise.all([
+const [sourceTemplate, siteCss, themeCss, experienceJs, decisionEngineJs, themeJs] = await Promise.all([
   readFile(resolve(root, "static/site-template.html"), "utf8"),
   readFile(resolve(root, "static/site-current.css"), "utf8"),
+  readFile(resolve(root, "static/theme.css"), "utf8"),
   readFile(resolve(root, "static/experience.js"), "utf8"),
   readFile(resolve(root, "static/decision-engine.js"), "utf8"),
+  readFile(resolve(root, "static/theme.js"), "utf8"),
 ]);
 
 function loadTypeScriptData(relativePath) {
@@ -310,6 +312,15 @@ const agenticSystems = [
     live: "https://content-performance-forecaster.vercel.app",
     repo: "https://github.com/syedahmad0786/content-performance-forecaster",
   },
+  {
+    name: "Revenue Signal Graph",
+    art: "revenue-signal-graph",
+    category: "Governed revenue operations",
+    summary: "Seven bounded agents convert fragmented account evidence into an explainable qualification, speed-to-lead decision, and human-reviewed action proposal.",
+    proof: "LangGraph, FastAPI, PostgreSQL path, 12 of 12 golden scenarios, 31 tests, 85.30 percent coverage, 18 Postman assertions, $0 replay inference",
+    live: "https://revenue-signal-graph.vercel.app",
+    repo: null,
+  },
 ];
 
 function routeIntro(eyebrow, title, description) {
@@ -331,8 +342,8 @@ function casePage(item, slug) {
 }
 
 function agenticSystemsPage() {
-  const cards = agenticSystems.map((system, index) => `<article><img class="system-card-art" src="/art/linkedin/${system.art}.png" alt="${escapeHtml(system.name)} project visual" width="1080" height="1350" loading="lazy" decoding="async"><span>${String(index + 1).padStart(2, "0")} / ${escapeHtml(system.category)} · Public demo</span><h2>${escapeHtml(system.name)}</h2><p>${escapeHtml(system.summary)}</p><p><strong>Proof:</strong> ${escapeHtml(system.proof)}</p><a class="button button-primary" href="${system.live}" target="_blank" rel="noopener noreferrer">Open live system <span>↗</span></a> <a class="button button-ghost" href="${system.repo}" target="_blank" rel="noopener noreferrer">Inspect GitHub <span>↗</span></a></article>`).join("");
-  return `<main id="main" class="route-page">${routeIntro("Five flagship systems / Verified public demos", "Agentic AI & LLM Systems Specialist", "A production-minded creator economy portfolio proving controlled multi-agent orchestration, evidence, typed APIs, human approval, evaluation, observability, replay, and cloud deployment.")}<section class="content-shell"><div class="answer-card"><h2>Positioning backed by working systems</h2><p>Python foundations with AI-assisted development across FastAPI APIs, LangGraph workflows, deterministic decision systems, data processing, and automated testing.</p><p>The controls are real: objective, attribution window, locale, register, fault scenario, and forecast inputs each change the computed output. Every project links to its source, tests, diagrams, API contract, and live case study.</p></div><div class="content-grid">${cards}</div></section><article class="content-shell case-page"><section><h2>Stack demonstrated in the deployed systems</h2>${list(["Python 3.12, FastAPI, Pydantic v2, REST and generated OpenAPI", "LangGraph for the campaign state graph, with deterministic rules for scoring, evidence, limits, and safety", "Postman collections, Pytest, GitHub Actions, Playwright and Vercel preview promotion", "X-Trace-ID response headers, structured JSON logs, evidence records, latency, usage and approval state", "Black-box evaluation with fault injection, idempotency checks, replay mode, uncertainty and input sensitivity"] )}</section><section><h2>What the public proof does not claim</h2><p>These verified portfolio deployments use synthetic or licensed public records. They do not use client credentials, private records, patient health information, live publishing, ad spend, messaging, or CRM write tools. LangChain, CrewAI, MCP, RAG, Kubernetes, Langfuse, LangSmith, and Sentry are not claimed as connected runtime components where they are not deployed.</p></section><aside class="answer-card"><h2>Verification status</h2><p>All five public demos passed repository CI, API behavior checks, desktop and 390-pixel browser journeys, architecture-asset checks, replay checks, and browser-console checks on 5 August 2026.</p><a class="button button-primary" href="https://github.com/syedahmad0786" target="_blank" rel="noopener noreferrer">Review the source repositories <span>↗</span></a></aside></article>${routeFooter()}</main>`;
+  const cards = agenticSystems.map((system, index) => `<article><img class="system-card-art" src="/art/linkedin/${system.art}.png" alt="${escapeHtml(system.name)} project visual" width="1080" height="1350" loading="lazy" decoding="async"><span>${String(index + 1).padStart(2, "0")} / ${escapeHtml(system.category)} · Public demo</span><h2>${escapeHtml(system.name)}</h2><p>${escapeHtml(system.summary)}</p><p><strong>Proof:</strong> ${escapeHtml(system.proof)}</p><a class="button button-primary" href="${system.live}" target="_blank" rel="noopener noreferrer">Open live system <span>↗</span></a>${system.repo ? ` <a class="button button-ghost" href="${system.repo}" target="_blank" rel="noopener noreferrer">Inspect GitHub <span>↗</span></a>` : `<p><strong>Source:</strong> Private implementation repository</p>`}</article>`).join("");
+  return `<main id="main" class="route-page">${routeIntro("Six flagship systems / Verified public demos", "Agentic AI & LLM Systems Specialist", "A production-minded revenue and creator operations portfolio proving controlled multi-agent orchestration, evidence, typed APIs, human approval, evaluation, observability, replay, and cloud deployment.")}<section class="content-shell"><div class="answer-card"><h2>Positioning backed by working systems</h2><p>Python foundations with AI-assisted development across FastAPI APIs, LangGraph workflows, deterministic decision systems, data processing, and automated testing.</p><p>The controls are real: objective, attribution window, locale, register, fault scenario, forecast inputs, consent, and speed-to-lead timing each change the computed output. Every project links to its source, tests, diagrams, API contract, and live case study.</p></div><div class="content-grid">${cards}</div></section><article class="content-shell case-page"><section><h2>Stack demonstrated in the deployed systems</h2>${list(["Python 3.12, FastAPI, Pydantic v2, REST and generated OpenAPI", "LangGraph for explicit state, interruption, approval, and resumption, with deterministic rules for scoring, evidence, limits, and safety", "Postman collections, Pytest, GitHub Actions, Playwright and Vercel deployment", "OpenTelemetry traces, Prometheus metrics, structured JSON logs, evidence records, latency, usage and approval state", "Black-box evaluation with fault injection, idempotency checks, replay mode, uncertainty and input sensitivity"] )}</section><section><h2>What the public proof does not claim</h2><p>These verified portfolio deployments use synthetic or licensed public records. They do not use client credentials, private records, patient health information, live publishing, ad spend, messaging, or CRM write tools. LangChain, CrewAI, MCP, RAG, Kubernetes, Langfuse, LangSmith, and Sentry are not claimed as connected runtime components where they are not deployed.</p></section><aside class="answer-card"><h2>Verification status</h2><p>Five creator systems passed their published checks on 5 August 2026. Revenue Signal Graph passed 31 automated tests, 12 golden scenarios, 18 external Postman assertions, PostgreSQL container acceptance, and four public browser journeys on 10 August 2026.</p><a class="button button-primary" href="https://github.com/syedahmad0786" target="_blank" rel="noopener noreferrer">Review the source repositories <span>↗</span></a></aside></article>${routeFooter()}</main>`;
 }
 
 function servicesIndex() {
@@ -500,7 +511,7 @@ addPage("/work", {
 });
 addPage("/agentic-systems", {
   title: "Agentic AI & LLM Systems Specialist | Ahmad Bukhari",
-  description: "Five verified agentic AI systems demonstrating LangGraph, FastAPI, MCP, RAG, evaluations, observability, approval gates, Postman, and Vercel deployment.",
+  description: "Six verified agentic AI systems demonstrating LangGraph, FastAPI, evaluations, observability, approval gates, Postman, and Vercel deployment.",
   main: agenticSystemsPage(),
   type: "CollectionPage",
 });
@@ -602,9 +613,10 @@ for (const directory of ["art", "brand", "fonts"]) {
   await cp(resolve(root, "public", directory), resolve(output, directory), { recursive: true });
 }
 await Promise.all([
-  writeFile(resolve(output, "site.css"), `${siteCss}\n\n${await readFile(resolve(root, "static/seo-pages.css"), "utf8")}`, "utf8"),
+  writeFile(resolve(output, "site.css"), `${siteCss}\n\n${await readFile(resolve(root, "static/seo-pages.css"), "utf8")}\n\n${themeCss}`, "utf8"),
   writeFile(resolve(output, "experience.js"), experienceJs, "utf8"),
   writeFile(resolve(output, "decision-engine.js"), decisionEngineJs, "utf8"),
+  writeFile(resolve(output, "theme.js"), themeJs, "utf8"),
 ]);
 
 for (const [path, page] of pages) {

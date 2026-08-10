@@ -34,11 +34,10 @@ const technologyMarks = Object.fromEntries(await Promise.all(technologies.map(as
 const techRow = technologies.map(([name, label], index) => {
   const x = 56 + (index * 194);
   const iconBackground = name === "fastapi"
-    ? '<circle cx="33" cy="34" r="23" fill="#009688"/>'
+    ? '\n    <circle cx="33" cy="34" r="23" fill="#009688"/>'
     : "";
   return `<g transform="translate(${x} 1080)">
-    <rect width="178" height="68" rx="34" fill="#F4F0E8" stroke="#D9D0C5"/>
-    ${iconBackground}
+    <rect width="178" height="68" rx="34" fill="#F4F0E8" stroke="#D9D0C5"/>${iconBackground}
     <image x="14" y="15" width="38" height="38" preserveAspectRatio="xMidYMid meet" href="data:image/svg+xml;base64,${technologyMarks[name]}"/>
     <text x="62" y="41" class="tech">${label}</text>
   </g>`;

@@ -11,13 +11,14 @@ const bookingUrl = "https://cal.com/ahmad-bukhari/ai-consultancy-call-with-ab";
 const latestResearchUrl = "https://aixcelsolutions.com/insights/openai-presence-enterprise-ai-agent-rollout";
 const updatedAt = "2026-08-11";
 
-const [sourceTemplate, siteCss, themeCss, experienceJs, decisionEngineJs, themeJs] = await Promise.all([
+const [sourceTemplate, siteCss, themeCss, experienceJs, decisionEngineJs, themeJs, analyticsJs] = await Promise.all([
   readFile(resolve(root, "static/site-template.html"), "utf8"),
   readFile(resolve(root, "static/site-current.css"), "utf8"),
   readFile(resolve(root, "static/theme.css"), "utf8"),
   readFile(resolve(root, "static/experience.js"), "utf8"),
   readFile(resolve(root, "static/decision-engine.js"), "utf8"),
   readFile(resolve(root, "static/theme.js"), "utf8"),
+  readFile(resolve(root, "static/analytics.js"), "utf8"),
 ]);
 
 function loadTypeScriptData(relativePath) {
@@ -938,6 +939,7 @@ await Promise.all([
   writeFile(resolve(output, "experience.js"), experienceJs, "utf8"),
   writeFile(resolve(output, "decision-engine.js"), decisionEngineJs, "utf8"),
   writeFile(resolve(output, "theme.js"), themeJs, "utf8"),
+  writeFile(resolve(output, "analytics.js"), analyticsJs, "utf8"),
 ]);
 
 for (const [path, page] of pages) {

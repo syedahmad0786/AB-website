@@ -9,7 +9,7 @@ const output = resolve(root, "dist");
 const siteUrl = "https://ahmadbukhari.com";
 const bookingUrl = "https://cal.com/ahmad-bukhari/ai-consultancy-call-with-ab";
 const latestResearchUrl = "https://aixcelsolutions.com/insights/openai-presence-enterprise-ai-agent-rollout";
-const updatedAt = "2026-07-23";
+const updatedAt = "2026-08-11";
 
 const [sourceTemplate, siteCss, themeCss, experienceJs, decisionEngineJs, themeJs] = await Promise.all([
   readFile(resolve(root, "static/site-template.html"), "utf8"),
@@ -150,6 +150,7 @@ const cases = {
   errorlens: {
     eyebrow: "04 / Reliability system",
     title: "Self-healing AI automation and workflow reliability",
+    seoTitle: "Workflow Reliability & Error Recovery",
     shortTitle: "Self-Healing Automation",
     description: "A workflow reliability layer that classifies failures, retries safe cases, quarantines unsafe events, and escalates with operator-ready context.",
     problem: "Workflow errors are often buried in platform logs or forwarded without enough context to act. The same failure can repeat while a team manually reconstructs what happened.",
@@ -215,6 +216,7 @@ const services = {
   },
   "ai-automation-consulting": {
     title: "AI Automation Consultant for Business Operations",
+    seoTitle: "AI Automation Consulting",
     description: "Practical AI automation consulting for CRM, revenue operations, onboarding, reporting, customer communication, and internal delivery workflows.",
     answer: "A strong AI automation engagement starts with the operational failure, maps the state and owners, and automates only the actions that can be controlled and measured.",
     outcomes: ["Workflow and failure-point audit", "Automation opportunity ranking", "Prototype and integration plan", "Controls for retries and escalation", "Operator documentation"],
@@ -227,6 +229,7 @@ const services = {
   },
   "voice-ai-conversational-intelligence": {
     title: "Voice AI Systems and Conversational Automation",
+    seoTitle: "Voice AI & Conversational Automation",
     description: "Voice AI architecture for qualification, appointment setting, reception, support triage, and structured handoff to human teams.",
     answer: "A production voice agent is more than a prompt. It needs low-latency dialogue, verified business knowledge, CRM state, safe actions, call outcomes, and escalation to a person.",
     outcomes: ["Conversation and escalation design", "Knowledge grounding", "CRM and calendar integration", "Consent and recording controls", "Outcome analytics"],
@@ -245,6 +248,7 @@ const services = {
   },
   "content-generation-automation": {
     title: "AI Content Generation and Repurposing Automation",
+    seoTitle: "AI Content Automation Systems",
     description: "Evidence-led content automation that turns approved source material into reviewable articles, social posts, video briefs, and distribution workflows.",
     answer: "Useful content automation preserves source evidence, brand voice, editorial review, and a canonical publishing record instead of generating unverified volume.",
     outcomes: ["Source-to-asset workflow", "Editorial checkpoints", "Brand and factual guardrails", "Repurposing formats", "Distribution and performance feedback"],
@@ -254,6 +258,7 @@ const services = {
 const industries = {
   "online-coaches": {
     title: "AI Automation for Online Coaches and Education Businesses",
+    seoTitle: "AI Automation for Online Coaches",
     description: "AI automation architecture for coaching businesses: lead response, qualification, enrollment, client onboarding, delivery support, renewal, and reporting.",
     audience: "coaching programs, cohort businesses, education creators, and expert-led service companies",
     workflows: ["Lead capture, qualification, and appointment routing", "Enrollment and payment-state checks", "Checkpointed student or client onboarding", "Program reminders and support triage", "Renewal risk and outcome reporting"],
@@ -356,6 +361,64 @@ function list(items) {
   return `<ul>${items.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>`;
 }
 
+function faqSection(faqs) {
+  if (!faqs?.length) return "";
+  return `<section class="faq-section"><h2>Frequently asked questions</h2>${faqs.map(({ question, answer }) => `<div class="faq-item"><h3>${escapeHtml(question)}</h3><p>${escapeHtml(answer)}</p></div>`).join("")}</section>`;
+}
+
+function serviceFaqs(service) {
+  return [
+    {
+      question: `What does ${service.title} deliver?`,
+      answer: `Typical outputs include ${service.outcomes.join(", ").toLowerCase()}. The exact scope is defined around the operating problem, constraints, owners, and evidence required for a successful handover.`,
+    },
+    {
+      question: "How does the engagement start?",
+      answer: "The work starts by mapping the current business state, actors, data, failure points, and expensive exceptions. Architecture and a phased delivery plan come before tool selection or automated action.",
+    },
+    {
+      question: "How are risk and human approval handled?",
+      answer: "Every proposed action receives an owner, permission boundary, evidence requirement, recovery path, and measurable outcome. Sensitive or irreversible decisions remain behind an explicit human approval or escalation step.",
+    },
+    {
+      question: "Who leads delivery?",
+      answer: "Ahmad Bukhari leads architecture and systems thinking. Aixcel Solutions supports implementation and integration, while MANHAJ provides the governed delivery model for private AI operating systems.",
+    },
+  ];
+}
+
+function industryFaqs(industry) {
+  return [
+    {
+      question: `Where should ${industry.audience} start with AI automation?`,
+      answer: `Start with a workflow where state, ownership, and failure cost can be measured. Common candidates include ${industry.workflows.slice(0, 3).join(", ").toLowerCase()}.`,
+    },
+    {
+      question: "How is automation kept reliable?",
+      answer: "The architecture uses a canonical record, explicit ownership, idempotent actions where possible, checkpoints, escalation, and an audit trail. Recovery and human handoff are designed before automation is released.",
+    },
+    {
+      question: "What is reviewed before implementation?",
+      answer: "The operating audit reviews where data enters, how business state changes, which decisions require permission, which failures are expensive, and what evidence will prove the workflow is working.",
+    },
+  ];
+}
+
+const agencyGuideFaqs = [
+  {
+    question: "What is the clearest warning sign when choosing an AI automation agency?",
+    answer: "Be cautious when a provider starts with a tool or demo before diagnosing the operating problem, cannot explain the system boundary, or promises fully autonomous results without recovery and human-control paths.",
+  },
+  {
+    question: "Should every AI workflow be fully autonomous?",
+    answer: "No. Autonomy should be limited by the reversibility and risk of each action. Sensitive decisions, uncertain model outputs, and expensive exceptions should stop for human approval or escalation.",
+  },
+  {
+    question: "What evidence should a buyer request before signing?",
+    answer: "Ask for working repositories or demos, sanitized architecture, test scenarios, evaluation results, failure-path evidence, ownership terms, and documentation that clearly labels what is live, illustrative, anonymized, or still in development.",
+  },
+];
+
 function casePage(item, slug) {
   const artwork = caseArtwork[slug];
   const leadArtwork = `<figure class="case-system-art"><picture><source media="(max-width: 800px)" srcset="/art/systems/${artwork.file}-800x500.webp"><img src="/art/systems/${artwork.file}-1200x750.webp" srcset="/art/systems/${artwork.file}-800x500.webp 800w, /art/systems/${artwork.file}-1200x750.webp 1200w" sizes="(max-width: 960px) calc(100vw - 2.5rem), 58rem" width="1200" height="750" loading="lazy" decoding="async" alt="${escapeHtml(artwork.alt)}"></picture></figure>`;
@@ -371,12 +434,12 @@ function servicesIndex() {
   return `<main id="main" class="route-page">${routeIntro("AI consulting / Capabilities", "AI systems and automation consulting", "Architecture-led consulting for organizations that need AI, CRM, automation, and human operations to work as one dependable system.")}<section class="content-shell"><div class="answer-card"><h2>What I help build</h2><p>I diagnose operational friction, define the system boundary, and design the data, state, agents, controls, integrations, observability, and human handoffs needed for production. Delivery can continue through Aixcel Solutions and the MANHAJ operating model.</p></div><div class="content-grid">${Object.entries(services).map(([slug, service]) => `<article><span>Capability</span><h2><a href="/services/${slug}">${escapeHtml(service.title)}</a></h2><p>${escapeHtml(service.description)}</p><a class="text-link dark-link" href="/services/${slug}">Explore the approach <span>↗</span></a></article>`).join("")}</div></section>${routeFooter()}</main>`;
 }
 
-function servicePage(service) {
-  return `<main id="main" class="route-page">${routeIntro("AI consulting / Specialist capability", service.title, service.description)}<article class="content-shell prose-page"><section class="answer-card"><h2>What does this service do?</h2><p>${escapeHtml(service.answer)}</p></section><section><h2>Typical engagement outputs</h2>${list(service.outcomes)}</section><section><h2>How the work is approached</h2><p>The engagement starts with the business state, actors, evidence, and exceptions. Architecture comes before tool selection. Every proposed automated action receives an owner, permission boundary, recovery path, and measurable outcome.</p></section><section><h2>Who delivers the system?</h2><p>Ahmad Bukhari leads architecture and systems thinking. <a href="https://aixcelsolutions.com">Aixcel Solutions</a> is the services company, and <a href="https://manhaj.ahmadbukhari.com">MANHAJ</a> is the governed delivery model for private AI operating systems.</p></section><aside class="answer-card"><h2>Discuss the workflow</h2><p>Share the current process, the breakpoints, and the outcome that matters.</p><a class="button button-primary" href="${bookingUrl}">Book a 25 minute call <span>↗</span></a></aside></article>${routeFooter()}</main>`;
+function servicePage(service, faqs) {
+  return `<main id="main" class="route-page">${routeIntro("AI consulting / Specialist capability", service.title, service.description)}<article class="content-shell prose-page"><section class="answer-card"><h2>What does this service do?</h2><p>${escapeHtml(service.answer)}</p></section><section><h2>Typical engagement outputs</h2>${list(service.outcomes)}</section><section><h2>How the work is approached</h2><p>The engagement starts with the business state, actors, evidence, and exceptions. Architecture comes before tool selection. Every proposed automated action receives an owner, permission boundary, recovery path, and measurable outcome.</p></section><section><h2>How can the work be verified?</h2><p>Review the <a href="/agentic-systems">deployed agentic systems</a>, <a href="/work">evidence-led case studies</a>, and linked public repositories. Each record states its evidence level and limits rather than presenting unverified ROI or client claims.</p></section><section><h2>Who delivers the system?</h2><p>Ahmad Bukhari leads architecture and systems thinking. <a href="https://aixcelsolutions.com">Aixcel Solutions</a> is the services company, and <a href="https://manhaj.ahmadbukhari.com">MANHAJ</a> is the governed delivery model for private AI operating systems.</p></section>${faqSection(faqs)}<aside class="answer-card"><h2>Discuss the workflow</h2><p>Share the current process, the breakpoints, and the outcome that matters.</p><a class="button button-primary" href="${bookingUrl}">Book a 25 minute call <span>↗</span></a></aside></article>${routeFooter()}</main>`;
 }
 
-function industriesPage(industry) {
-  return `<main id="main" class="route-page">${routeIntro("Industry systems", industry.title, industry.description)}<article class="content-shell prose-page"><section class="answer-card"><h2>Where AI automation helps</h2><p>For ${escapeHtml(industry.audience)}, the highest-value automation usually connects revenue, delivery, and customer state. It should remove repeatable coordination while keeping people in control of sensitive decisions.</p></section><section><h2>Systems commonly designed</h2>${list(industry.workflows)}</section><section><h2>What makes the architecture dependable?</h2><p>Each workflow needs a canonical record, explicit ownership, idempotent actions where possible, checkpoints, escalation, and an audit trail. Those controls matter more than the number of automations deployed.</p></section><section><h2>Start with an operating audit</h2><p>The first step maps where data enters, how state changes, which failures are expensive, and what a successful human handoff looks like.</p><a class="button button-primary" href="${bookingUrl}">Book a systems call <span>↗</span></a></section></article>${routeFooter()}</main>`;
+function industriesPage(industry, faqs) {
+  return `<main id="main" class="route-page">${routeIntro("Industry systems", industry.title, industry.description)}<article class="content-shell prose-page"><section class="answer-card"><h2>Where AI automation helps</h2><p>For ${escapeHtml(industry.audience)}, the highest-value automation usually connects revenue, delivery, and customer state. It should remove repeatable coordination while keeping people in control of sensitive decisions.</p></section><section><h2>Systems commonly designed</h2>${list(industry.workflows)}</section><section><h2>What makes the architecture dependable?</h2><p>Each workflow needs a canonical record, explicit ownership, idempotent actions where possible, checkpoints, escalation, and an audit trail. Those controls matter more than the number of automations deployed.</p></section><section><h2>How can the approach be verified?</h2><p>Inspect the <a href="/agentic-systems">deployed systems</a> and <a href="/work">evidence-led case studies</a>. The public records identify what is live, anonymized, documented scope, private, or still in progress.</p></section>${faqSection(faqs)}<section><h2>Start with an operating audit</h2><p>The first step maps where data enters, how state changes, which failures are expensive, and what a successful human handoff looks like.</p><a class="button button-primary" href="${bookingUrl}">Book a systems call <span>↗</span></a></section></article>${routeFooter()}</main>`;
 }
 
 function blogIndex() {
@@ -395,11 +458,34 @@ function portfolioPage(item) {
   return `<main id="main" class="route-page">${routeIntro(`${item.category} / Archived project record`, item.title, item.overview)}<article class="content-shell prose-page"><section class="answer-card"><h2>Archive and evidence notice</h2><p>This owner-supplied legacy record is retained for reference but is excluded from search indexing. Quantitative statements have not been independently verified for this publication; they should not be treated as benchmarks, forecasts, testimonials, or guarantees.</p></section><section><h2>System described</h2>${list(item.deliverables)}</section><section><h2>Architecture and tools</h2><p>${item.techStack.map(escapeHtml).join(" · ")}</p></section><section><h2>Claims recorded in the original archive</h2>${list(item.results)}</section><section><h2>Publication limits</h2><p>Client identities and sensitive implementation details are withheld. This page can be reconsidered for indexing after the claims are paired with a supporting artifact, measurement definition, method, and time window.</p></section></article>${routeFooter()}</main>`;
 }
 
-function agencyGuide() {
-  return `<main id="main" class="route-page">${routeIntro("Buyer guide / AI automation", "How to choose an AI automation agency", "Choose an AI automation agency by evaluating its operating diagnosis, architecture, controls, evidence, ownership model, and ability to support the system after launch—not by its demo count.")}<article class="content-shell article-body"><p class="article-meta">Updated <time datetime="2026-07-22">July 22, 2026</time> · Ahmad Bukhari</p><section class="answer-card"><h2>Short answer</h2><p>The right AI automation agency can explain your current state, identify where automation should stop, show how failures recover, and define a measurable operating outcome. Avoid providers that start with a tool, promise fully autonomous results without constraints, or cannot show how humans regain control.</p></section><h2>1. Start with the operational problem</h2><p>A credible agency asks how work moves today, where state lives, who owns each decision, what failure costs, and which outcomes matter. A list of AI tools is not an operating diagnosis.</p><h2>2. Ask for a system boundary</h2><p>The proposal should state what data enters, which actions the system may take, where approvals occur, and which exceptions remain human. This boundary is the foundation of security and reliability.</p><h2>3. Inspect evidence, not theatre</h2><p>Look for working repositories, sanitized architecture, test scenarios, evaluation results, or case studies that label what is live, anonymized, illustrative, or still in development. Unqualified ROI and invented certainty are warning signs.</p><h2>4. Test the failure path</h2><p>Ask what happens when a webhook arrives twice, a CRM record conflicts, the model is uncertain, an API fails, or a customer requests a human. Mature teams design these states before launch.</p><h2>5. Confirm ownership and handover</h2><p>Clarify who owns source code, credentials, prompts, data, documentation, and deployment accounts. The client should be able to operate and change the system without permanent dependency on one builder.</p><h2>6. Compare the delivery model</h2><p>A freelancer can be right for a focused workflow. An agency can coordinate broader implementation. A private AI operating system may be appropriate when several business functions need shared governance, memory, and observability. The best model depends on scope and risk.</p><h2>Questions to ask before signing</h2>${list(["What business state is the system responsible for?", "Which actions require human approval?", "How are model outputs evaluated?", "How are retries, duplicates, and partial failures handled?", "Where do logs, credentials, and customer data live?", "What evidence will prove the system is working?", "What documentation and ownership transfer are included?"])}<aside class="answer-card"><h2>Compare your current plan</h2><p>Ahmad Bukhari leads architecture; Aixcel Solutions delivers AI systems; MANHAJ provides a governed model for private AI operating systems.</p><a class="button button-primary" href="${bookingUrl}">Book a 25 minute systems call <span>↗</span></a></aside></article>${routeFooter()}</main>`;
+function agencyGuide(faqs) {
+  return `<main id="main" class="route-page">${routeIntro("Buyer guide / AI automation", "How to choose an AI automation agency", "Choose an AI automation agency by evaluating its operating diagnosis, architecture, controls, evidence, ownership model, and ability to support the system after launch—not by its demo count.")}<article class="content-shell article-body"><p class="article-meta">Updated <time datetime="2026-07-22">July 22, 2026</time> · Ahmad Bukhari</p><section class="answer-card"><h2>TL;DR: choose controls and evidence over demo count</h2><p>The right AI automation agency can explain your current state, identify where automation should stop, show how failures recover, and define a measurable operating outcome. Avoid providers that start with a tool, promise fully autonomous results without constraints, or cannot show how humans regain control.</p></section><h2>1. Start with the operational problem</h2><p>A credible agency asks how work moves today, where state lives, who owns each decision, what failure costs, and which outcomes matter. A list of AI tools is not an operating diagnosis.</p><h2>2. Ask for a system boundary</h2><p>The proposal should state what data enters, which actions the system may take, where approvals occur, and which exceptions remain human. This boundary is the foundation of security and reliability.</p><h2>3. Inspect evidence, not theatre</h2><p>Look for working repositories, sanitized architecture, test scenarios, evaluation results, or case studies that label what is live, anonymized, illustrative, or still in development. Unqualified ROI and invented certainty are warning signs.</p><h2>4. Test the failure path</h2><p>Ask what happens when a webhook arrives twice, a CRM record conflicts, the model is uncertain, an API fails, or a customer requests a human. Mature teams design these states before launch.</p><h2>5. Confirm ownership and handover</h2><p>Clarify who owns source code, credentials, prompts, data, documentation, and deployment accounts. The client should be able to operate and change the system without permanent dependency on one builder.</p><h2>6. Compare the delivery model</h2><p>A freelancer can be right for a focused workflow. An agency can coordinate broader implementation. A private AI operating system may be appropriate when several business functions need shared governance, memory, and observability. The best model depends on scope and risk.</p><h2>Questions to ask before signing</h2>${list(["What business state is the system responsible for?", "Which actions require human approval?", "How are model outputs evaluated?", "How are retries, duplicates, and partial failures handled?", "Where do logs, credentials, and customer data live?", "What evidence will prove the system is working?", "What documentation and ownership transfer are included?"])}${faqSection(faqs)}<aside class="answer-card"><h2>Compare your current plan</h2><p>Ahmad Bukhari leads architecture; Aixcel Solutions delivers AI systems; MANHAJ provides a governed model for private AI operating systems.</p><a class="button button-primary" href="${bookingUrl}">Book a 25 minute systems call <span>↗</span></a></aside></article>${routeFooter()}</main>`;
 }
 
-function graphFor({ path, title, description, type = "WebPage", article, creativeWork }) {
+function breadcrumbItems(path, title) {
+  if (path === "/") return [];
+  const labels = {
+    services: "Services",
+    industries: "Industries",
+    work: "Systems",
+    blog: "Research & findings",
+    portfolio: "Portfolio archive",
+  };
+  const segments = path.split("/").filter(Boolean);
+  const items = [{ "@type": "ListItem", position: 1, name: "Home", item: `${siteUrl}/` }];
+  let currentPath = "";
+  segments.forEach((segment, index) => {
+    currentPath += `/${segment}`;
+    const isCurrentPage = index === segments.length - 1;
+    const name = isCurrentPage
+      ? String(title).replace(/\s*\|\s*Ahmad Bukhari$/, "")
+      : labels[segment] || segment.replaceAll("-", " ").replace(/\b\w/g, (letter) => letter.toUpperCase());
+    items.push({ "@type": "ListItem", position: index + 2, name, item: `${siteUrl}${currentPath}` });
+  });
+  return items;
+}
+
+function graphFor({ path, title, description, type = "WebPage", article, creativeWork, service, faqs }) {
   const url = `${siteUrl}${path === "/" ? "/" : path}`;
   const graph = [
     {
@@ -472,10 +558,42 @@ function graphFor({ path, title, description, type = "WebPage", article, creativ
       mainEntityOfPage: { "@id": `${url}#webpage` },
     });
   }
+  if (service) {
+    graph.push({
+      "@type": "Service",
+      "@id": `${url}#service`,
+      name: service.name || title,
+      serviceType: service.serviceType || service.name || title,
+      description,
+      url,
+      provider: { "@id": `${siteUrl}/#person` },
+      areaServed: "Worldwide",
+      mainEntityOfPage: { "@id": `${url}#webpage` },
+    });
+  }
+  if (faqs?.length) {
+    graph.push({
+      "@type": "FAQPage",
+      "@id": `${url}#faq`,
+      mainEntity: faqs.map(({ question, answer }) => ({
+        "@type": "Question",
+        name: question,
+        acceptedAnswer: { "@type": "Answer", text: answer },
+      })),
+    });
+  }
+  const breadcrumbs = breadcrumbItems(path, title);
+  if (breadcrumbs.length >= 2) {
+    graph.push({
+      "@type": "BreadcrumbList",
+      "@id": `${url}#breadcrumb`,
+      itemListElement: breadcrumbs,
+    });
+  }
   return { "@context": "https://schema.org", "@graph": graph };
 }
 
-function buildDocument({ path, title, description, main, type, article, creativeWork, robots = "index,follow", includeIdentity = true }) {
+function buildDocument({ path, title, description, main, type, article, creativeWork, service, faqs, robots = "index,follow", includeIdentity = true }) {
   const canonical = `${siteUrl}${path === "/" ? "/" : path}`;
   const seoTitle = truncate(title, 70);
   const seoDescription = truncate(description, 165);
@@ -494,7 +612,7 @@ function buildDocument({ path, title, description, main, type, article, creative
     .replace(/<meta property="og:type" content="[^"]*">/, article ? `<meta property="og:type" content="article">\n  <meta property="article:published_time" content="${article.publishedAt}T00:00:00Z">\n  <meta property="article:modified_time" content="${updatedAt}T00:00:00Z">` : '<meta property="og:type" content="website">')
     .replaceAll("https://ahmadbukhari.com/og.jpg", "https://ahmadbukhari.com/art/ahmadbukhari-default-og-1200x630.png")
     .replace('<meta name="twitter:card" content="summary_large_image">', `<meta name="twitter:card" content="summary_large_image">\n  <meta name="twitter:title" content="${escapeHtml(seoTitle)}">\n  <meta name="twitter:description" content="${escapeHtml(seoDescription)}">`)
-    .replace(/<script type="application\/ld\+json">[\s\S]*?<\/script>/, `<script type="application/ld+json">${JSON.stringify(graphFor({ path, title, description, type, article, creativeWork })).replaceAll("<", "\\u003c")}</script>`)
+    .replace(/<script type="application\/ld\+json">[\s\S]*?<\/script>/, `<script type="application/ld+json">${JSON.stringify(graphFor({ path, title, description, type, article, creativeWork, service, faqs })).replaceAll("<", "\\u003c")}</script>`)
     .replace(/<main id="main">[\s\S]*?\n  <\/main>/, main)
     .replace(/\sdata-route="[^"]*"/g, "")
     .replace(/\sdata-case="[^"]*"/g, "")
@@ -520,7 +638,7 @@ function addPage(path, config) {
 
 addPage("/", {
   title: "Ahmad Bukhari | Agentic AI & LLM Systems Specialist",
-  description: "Ahmad Bukhari is an Agentic AI and LLM Systems Specialist designing controlled multi-agent systems, typed APIs, evaluations, observability, and human approval.",
+  description: "Ahmad Bukhari designs agentic AI and LLM systems, resilient automation, CRM operations, and product delivery around controlled decisions and evidence.",
   main: homeMain,
   type: "ProfilePage",
 });
@@ -538,7 +656,7 @@ addPage("/agentic-systems", {
 });
 for (const [slug, item] of Object.entries(cases)) {
   addPage(`/work/${slug}`, {
-    title: `${item.title} | Ahmad Bukhari`,
+    title: `${item.seoTitle || item.title} | Ahmad Bukhari`,
     description: item.description,
     main: casePage(item, slug),
     creativeWork: true,
@@ -550,7 +668,7 @@ addPage("/automation-lab", {
   main: `<main id="main" class="route-page">${routeIntro("Automation lab / Interactive proof", "Stress the AI automation—not just the diagram", "Run mock failure scenarios and inspect how resilient automation handles duplicate records, unavailable services, payment gates, and webhook timeouts.")}${labSections}${routeFooter()}</main>`,
 });
 addPage("/about", {
-  title: "About Ahmad Bukhari | Agentic AI & LLM Systems Specialist",
+  title: "About Ahmad Bukhari | AI Systems Specialist",
   description: "Meet Ahmad Bukhari, an Islamabad-based Agentic AI and LLM Systems Specialist with an operator-first background in sales, CRM, training, and delivery.",
   main: `<main id="main" class="route-page">${routeIntro("About / Operator-led architecture", "The operator inside the AI system", "Years inside sales, client delivery, training, CRM operations, and operational handoffs shape how Ahmad Bukhari designs AI systems people can actually operate.")}${aboutSection}${routeFooter()}</main>`,
   type: "ProfilePage",
@@ -562,22 +680,28 @@ addPage("/contact", {
 });
 addPage("/services", {
   title: "AI Systems & Automation Consulting | Ahmad Bukhari",
-  description: "AI systems architecture and automation consulting for agentic workflows, voice AI, CRM, revenue operations, content systems, and dependable business automation.",
+  description: "AI systems and automation consulting for agentic workflows, voice AI, CRM, revenue operations, content systems, and dependable operations.",
   main: servicesIndex(),
   type: "CollectionPage",
 });
 for (const [slug, service] of Object.entries(services)) {
+  const faqs = serviceFaqs(service);
   addPage(`/services/${slug}`, {
-    title: `${service.title} | Ahmad Bukhari`,
+    title: `${service.seoTitle || service.title} | Ahmad Bukhari`,
     description: service.description,
-    main: servicePage(service),
+    main: servicePage(service, faqs),
+    service: { name: service.title, serviceType: service.title },
+    faqs,
   });
 }
 for (const [slug, industry] of Object.entries(industries)) {
+  const faqs = industryFaqs(industry);
   addPage(`/industries/${slug}`, {
-    title: `${industry.title} | Ahmad Bukhari`,
+    title: `${industry.seoTitle || industry.title} | Ahmad Bukhari`,
     description: industry.description,
-    main: industriesPage(industry),
+    main: industriesPage(industry, faqs),
+    service: { name: industry.title, serviceType: industry.title },
+    faqs,
   });
 }
 addPage("/blog", {
@@ -599,9 +723,10 @@ for (const post of BLOG_POSTS) {
 }
 addPage("/blog/how-to-choose-an-ai-automation-agency", {
   title: "How to Choose an AI Automation Agency | Ahmad Bukhari",
-  description: "A practical buyer guide to evaluating an AI automation agency by its diagnosis, architecture, evidence, controls, data ownership, reliability, and handover model.",
-  main: agencyGuide(),
+  description: "Evaluate an AI automation agency by its diagnosis, architecture, evidence, controls, data ownership, reliability, recovery, and handover.",
+  main: agencyGuide(agencyGuideFaqs),
   type: "Article",
+  faqs: agencyGuideFaqs,
   article: {
     publishedAt: updatedAt,
     featuredImage: "/art/ahmadbukhari-default-og-1200x630.png",

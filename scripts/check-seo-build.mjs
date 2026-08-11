@@ -262,8 +262,10 @@ for (const path of [
   if (!faq || (faq.mainEntity || []).length < 3) failures.push(`/${path}: FAQPage schema is missing or too thin`);
   if (!breadcrumb || (breadcrumb.itemListElement || []).length < 3) failures.push(`/${path}: BreadcrumbList schema is incomplete`);
   if ((html.match(/class="faq-item"/g) || []).length !== (faq?.mainEntity || []).length) failures.push(`/${path}: visible FAQs do not match FAQPage schema`);
-  const visibleWords = html.replace(/<script[\s\S]*?<\/script>/g, " ").replace(/<style[\s\S]*?<\/style>/g, " ").replace(/<[^>]+>/g, " ").replace(/&[^;]+;/g, " ").trim().split(/\s+/).length;
+  const visibleWords = mainVisibleWordCount(html);
   if (visibleWords < 300) failures.push(`/${path}: rendered static content remains below 300 words`);
+  if (path.startsWith("industries/") && visibleWords < 500) failures.push(`/${path}: industry operating guidance remains below 500 main-content words`);
+  if (path.startsWith("industries/") && (!html.includes("Operating risks and controls") || !html.includes("Industry workflow controls") || !html.includes("What should remain human?"))) failures.push(`/${path}: industry risk, control, and human-boundary guidance is incomplete`);
 }
 for (const [path, markers] of Object.entries({
   "services/ai-systems-architecture": ["Automation governance framework for inspectable AI decisions", "Inspectable decision controls", "NIST AI Risk Management Framework"],

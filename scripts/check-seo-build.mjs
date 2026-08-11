@@ -173,6 +173,7 @@ const builtFiles = await listAssetFiles(dist);
 const htmlFiles = builtFiles.filter((file) => file.endsWith(".html"));
 for (const file of htmlFiles) {
   const html = await readFile(resolve(dist, file), "utf8");
+  if (html.includes("ai-consultancy-call-with-ab")) failures.push(`${file}: retired Cal.com booking slug must not ship`);
   const localReferences = [];
   for (const match of html.matchAll(/\b(src|srcset)="([^"]+)"/g)) {
     const values = match[1] === "srcset" ? match[2].split(",").map((candidate) => candidate.trim().split(/\s+/)[0]) : [match[2]];
@@ -197,6 +198,8 @@ for (const file of htmlFiles) {
 }
 
 const home = builtIndex;
+const verifiedBookingUrl = "https://cal.com/ahmad-bukhari/revenue-handoff-map";
+if (!home.includes(`href="${verifiedBookingUrl}"`)) failures.push("Homepage must link to the verified live Cal.com event");
 const analytics = await readFile(resolve(dist, "analytics.js"), "utf8");
 if ((analytics.match(/G-W66WJJKGWQ/g) || []).length !== 1) failures.push("Analytics must use the Measurement ID from the existing Ahmad Bukhari Profile web stream");
 if (!analytics.includes("googletagmanager.com/gtag/js") || !analytics.includes('send_page_view: true')) failures.push("GA4 page-view initialization is incomplete");

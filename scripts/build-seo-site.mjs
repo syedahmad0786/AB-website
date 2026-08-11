@@ -8,7 +8,7 @@ import ts from "typescript";
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const output = resolve(root, "dist");
 const siteUrl = "https://ahmadbukhari.com";
-const bookingUrl = "https://cal.com/ahmad-bukhari/ai-consultancy-call-with-ab";
+const bookingUrl = "https://cal.com/ahmad-bukhari/revenue-handoff-map";
 const latestResearchUrl = "https://aixcelsolutions.com/insights/openai-presence-enterprise-ai-agent-rollout";
 const updatedAt = "2026-08-11";
 

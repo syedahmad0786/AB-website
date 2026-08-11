@@ -27,7 +27,7 @@
     { "source": "/tools/vapi-voice-ai-integration", "destination": "/services/voice-ai-conversational-intelligence", "permanent": true },
     { "source": "/process", "destination": "https://aixcelsolutions.com/#process", "permanent": true },
     { "source": "/pricing", "destination": "https://aixcelsolutions.com/contact#engagement", "permanent": true },
-    { "source": "/free-consultation", "destination": "https://cal.com/ahmad-bukhari/ai-consultancy-call-with-ab", "permanent": true },
+    { "source": "/free-consultation", "destination": "https://cal.com/ahmad-bukhari/revenue-handoff-map", "permanent": true },
     { "source": "/cv", "destination": "/about", "permanent": true }
   ],
   "headers": [

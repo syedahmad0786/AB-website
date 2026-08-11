@@ -25,7 +25,9 @@ for (const url of urls) {
   const description = html.match(/<meta name="description" content="(.*?)">/)?.[1];
   const robots = html.match(/<meta name="robots" content="(.*?)">/)?.[1];
   if (!title || title.length < 20 || title.length > 75) failures.push(`${url.pathname}: invalid title`);
-  if (!description || description.length < 70 || description.length > 170) failures.push(`${url.pathname}: invalid description`);
+  const renderedTitle = title?.replaceAll("&amp;", "&").replaceAll("&quot;", '"').replaceAll("&#39;", "'") || "";
+  if (renderedTitle.length > 60) failures.push(`${url.pathname}: title exceeds 60 rendered characters`);
+  if (!description || description.length < 70 || description.length > 158) failures.push(`${url.pathname}: invalid description`);
   if (canonical !== url.href) failures.push(`${url.pathname}: canonical mismatch (${canonical})`);
   if (canonicals.has(canonical)) failures.push(`${url.pathname}: duplicate canonical`);
   canonicals.add(canonical);
@@ -205,10 +207,40 @@ for (const marker of ["Creative Learning OS", "creative-learning-os.vercel.app",
 const homeSchema = JSON.parse(home.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)?.[1] || "{}");
 const homeProfiles = (homeSchema["@graph"] || []).filter((node) => node["@type"] === "ProfilePage");
 if (homeProfiles.length !== 1 || homeProfiles[0]?.mainEntity?.["@id"] !== "https://ahmadbukhari.com/#person") failures.push("Homepage must expose exactly one ProfilePage with Ahmad as its main entity");
+if ((homeSchema["@graph"] || []).some((node) => node["@type"] === "BreadcrumbList")) failures.push("Homepage must not publish a one-item BreadcrumbList");
+const homeDescription = home.match(/<meta name="description" content="(.*?)">/)?.[1] || "";
+if (homeDescription.length > 158) failures.push("Homepage description must stay within the Searchable baseline recommendation");
+if (!homeDescription.includes("resilient automation") || !homeDescription.includes("controlled decisions and evidence")) failures.push("Homepage description must align with visible operating-system positioning");
 const about = await readFile(resolve(dist, "about.html"), "utf8");
 const aboutSchema = JSON.parse(about.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)?.[1] || "{}");
 const aboutProfile = (aboutSchema["@graph"] || []).find((node) => node["@type"] === "ProfilePage");
 if (aboutProfile?.mainEntity?.["@id"] !== "https://ahmadbukhari.com/#person") failures.push("About ProfilePage must declare Ahmad as its main entity");
+if (!(aboutSchema["@graph"] || []).some((node) => node["@type"] === "BreadcrumbList")) failures.push("About page must expose BreadcrumbList schema");
+
+for (const path of [
+  "services/ai-systems-architecture",
+  "services/ai-automation-consulting",
+  "services/agentic-ai-autonomous-workflows",
+  "services/voice-ai-conversational-intelligence",
+  "services/gohighlevel-crm-automation",
+  "services/ai-sdr-outbound-automation",
+  "services/content-generation-automation",
+  "industries/online-coaches",
+  "industries/marketing-agencies",
+]) {
+  const html = await readFile(resolve(dist, `${path}.html`), "utf8");
+  const schema = JSON.parse(html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)?.[1] || "{}");
+  const graph = schema["@graph"] || [];
+  const service = graph.find((node) => node["@type"] === "Service");
+  const faq = graph.find((node) => node["@type"] === "FAQPage");
+  const breadcrumb = graph.find((node) => node["@type"] === "BreadcrumbList");
+  if (service?.provider?.["@id"] !== "https://ahmadbukhari.com/#person" || service?.areaServed !== "Worldwide") failures.push(`/${path}: Service schema provider or area served is missing`);
+  if (!faq || (faq.mainEntity || []).length < 3) failures.push(`/${path}: FAQPage schema is missing or too thin`);
+  if (!breadcrumb || (breadcrumb.itemListElement || []).length < 3) failures.push(`/${path}: BreadcrumbList schema is incomplete`);
+  if ((html.match(/class="faq-item"/g) || []).length !== (faq?.mainEntity || []).length) failures.push(`/${path}: visible FAQs do not match FAQPage schema`);
+  const visibleWords = html.replace(/<script[\s\S]*?<\/script>/g, " ").replace(/<style[\s\S]*?<\/style>/g, " ").replace(/<[^>]+>/g, " ").replace(/&[^;]+;/g, " ").trim().split(/\s+/).length;
+  if (visibleWords < 300) failures.push(`/${path}: rendered static content remains below 300 words`);
+}
 
 const blogIndexHtml = await readFile(resolve(dist, "blog.html"), "utf8");
 if (!blogIndexHtml.includes("AI research translated into business decisions") || !blogIndexHtml.includes('datetime="2026-07-23"')) failures.push("Research hub must identify the current dated publication");
@@ -300,6 +332,8 @@ if (!guide.includes('<meta property="og:type" content="article">')) failures.pus
 const guideSchema = JSON.parse(guide.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)?.[1] || "{}");
 const guideTypes = (guideSchema["@graph"] || []).map((node) => node["@type"]);
 if (guideTypes.filter((type) => type === "Article").length !== 1 || !guideTypes.includes("WebPage")) failures.push("Current buyer guide must expose one Article and one WebPage entity");
+if (!guideTypes.includes("FAQPage") || !guideTypes.includes("BreadcrumbList")) failures.push("Current buyer guide must expose FAQPage and BreadcrumbList entities");
+if (!guide.includes("TL;DR: choose controls and evidence over demo count") || (guide.match(/class="faq-item"/g) || []).length !== 3) failures.push("Current buyer guide must expose its TL;DR and three visible FAQs");
 const guideArticle = (guideSchema["@graph"] || []).find((node) => node["@type"] === "Article");
 if (guideArticle?.image !== defaultOgUrl) failures.push("Current buyer guide Article schema must use the default Open Graph PNG");
 

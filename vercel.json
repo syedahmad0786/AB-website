@@ -40,7 +40,11 @@
       ]
     },
     {
-      "source": "/(site.css|experience.js|decision-engine.js|theme.js|analytics.js)",
+      "source": "/site.:hash.css",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
+    },
+    {
+      "source": "/(experience.js|decision-engine.js|theme.js|analytics.js)",
       "headers": [{ "key": "Cache-Control", "value": "public, max-age=3600, must-revalidate" }]
     }
   ]

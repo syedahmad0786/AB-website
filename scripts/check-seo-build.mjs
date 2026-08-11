@@ -108,7 +108,11 @@ const requiredFonts = [
   "fonts/instrument-serif-LICENSE",
   "fonts/ibm-plex-mono-LICENSE",
 ];
-const required = ["robots.txt", "sitemap.xml", "llms.txt", "feed.xml", "404.html", "site.css", "experience.js", "decision-engine.js", "theme.js", "analytics.js", "site.webmanifest", "favicon.svg", "aixcel-signal-icon-512.svg", "twin-widget.js", "twin-avatar.svg", "images/ahmad-cafe.jpg", ...requiredArtwork, ...requiredBrand, ...requiredFonts];
+const builtIndex = await readFile(resolve(dist, "index.html"), "utf8");
+const siteCssRefs = [...builtIndex.matchAll(/\/(site\.[a-f0-9]{12}\.css)/g)].map((match) => match[1]);
+const siteCssFilename = siteCssRefs[0] || "";
+if (siteCssRefs.length !== 2 || new Set(siteCssRefs).size !== 1) failures.push("Homepage must preload and load one matching content-hashed site stylesheet");
+const required = ["robots.txt", "sitemap.xml", "llms.txt", "feed.xml", "404.html", ...(siteCssFilename ? [siteCssFilename] : []), "experience.js", "decision-engine.js", "theme.js", "analytics.js", "site.webmanifest", "favicon.svg", "aixcel-signal-icon-512.svg", "twin-widget.js", "twin-avatar.svg", "images/ahmad-cafe.jpg", ...requiredArtwork, ...requiredBrand, ...requiredFonts];
 for (const file of required) {
   try {
     const details = await stat(resolve(dist, file));
@@ -192,7 +196,7 @@ for (const file of htmlFiles) {
   }
 }
 
-const home = await readFile(resolve(dist, "index.html"), "utf8");
+const home = builtIndex;
 const analytics = await readFile(resolve(dist, "analytics.js"), "utf8");
 if ((analytics.match(/G-X3LRS8KJKX/g) || []).length !== 1) failures.push("Analytics must use the single recovered GA4 Measurement ID");
 if (!analytics.includes("googletagmanager.com/gtag/js") || !analytics.includes('send_page_view: true')) failures.push("GA4 page-view initialization is incomplete");
@@ -311,7 +315,7 @@ if ((servicesIndexHtml.match(/<table>/g) || []).length !== 1) failures.push("Ser
 const portfolioIndexHtml = await readFile(resolve(dist, "portfolio.html"), "utf8");
 if (portfolioIndexHtml.includes("Archived project record 01") || !portfolioIndexHtml.includes("Automated Ad Analytics &amp; Reporting")) failures.push("Portfolio archive must use descriptive record headings without treating titles as verified results");
 
-const css = await readFile(resolve(dist, "site.css"), "utf8");
+const css = await readFile(resolve(dist, siteCssFilename), "utf8");
 for (const marker of [".site-loader", ".loader-axis", ".brand-name", ".decision-cinema", ".cinema-camera", ".cinema-layer-boundary", ".cinema-return", ".research-grid"]) {
   if (!css.includes(marker)) failures.push(`Current production CSS marker missing: ${marker}`);
 }

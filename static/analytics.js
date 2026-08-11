@@ -1,5 +1,6 @@
 (() => {
   const measurementId = "G-W66WJJKGWQ";
+  let calEmbedScriptReady = false;
 
   window.dataLayer = window.dataLayer || [];
   window.gtag = window.gtag || function gtag() {
@@ -41,6 +42,9 @@
           const embedScript = documentRef.createElement("script");
           embedScript.src = embedSource;
           embedScript.async = true;
+          embedScript.addEventListener("load", () => {
+            calEmbedScriptReady = true;
+          }, { once: true });
           documentRef.head.appendChild(embedScript);
           cal.loaded = true;
         }
@@ -119,6 +123,9 @@
     }
 
     if (destination.hostname === "cal.com" && destination.pathname.startsWith("/ahmad-bukhari/")) {
+      if (calEmbedScriptReady && link.matches?.("[data-cal-trigger][data-cal-link]")) {
+        event.preventDefault();
+      }
       record("discovery_call_click", {
         page_path: window.location.pathname,
         link_domain: destination.hostname,

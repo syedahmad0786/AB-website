@@ -1,5 +1,5 @@
 (() => {
-  const measurementId = "G-X3LRS8KJKX";
+  const measurementId = "G-W66WJJKGWQ";
 
   window.dataLayer = window.dataLayer || [];
   window.gtag = window.gtag || function gtag() {

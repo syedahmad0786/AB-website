@@ -198,7 +198,7 @@ for (const file of htmlFiles) {
 
 const home = builtIndex;
 const analytics = await readFile(resolve(dist, "analytics.js"), "utf8");
-if ((analytics.match(/G-X3LRS8KJKX/g) || []).length !== 1) failures.push("Analytics must use the single recovered GA4 Measurement ID");
+if ((analytics.match(/G-W66WJJKGWQ/g) || []).length !== 1) failures.push("Analytics must use the Measurement ID from the existing Ahmad Bukhari Profile web stream");
 if (!analytics.includes("googletagmanager.com/gtag/js") || !analytics.includes('send_page_view: true')) failures.push("GA4 page-view initialization is incomplete");
 if (!analytics.includes('record("discovery_call_click"') || !analytics.includes('record("contact_email_click"')) failures.push("Truthful contact-intent analytics events are missing");
 if (/generate_lead|booking_confirmed/.test(analytics)) failures.push("Analytics must not claim a lead or booking without a verified success state");

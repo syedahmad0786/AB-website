@@ -12,7 +12,7 @@ I design and implement controlled AI systems that connect language models, deter
 
 My work is strongest where an AI demo has to become an inspectable operating system: typed FastAPI contracts, LangGraph workflows, evidence and retrieval boundaries, approval gates, idempotency, evaluation, observability, replay, and cloud deployment.
 
-I have built seven public systems across revenue and creator operations: account qualification, marketing revenue assurance, B2B forecast control, campaign planning, multilingual content review, pre-publish performance forecasting, and independent agent-system evaluation. Every system has a separate GitHub repository, live deployment, architecture package, tests, Postman collection, documented constraints, and a visible production path.
+I have built ten public systems across revenue and creator operations, including account qualification, marketing revenue assurance, B2B forecast control, creator planning, creative measurement, multilingual review, performance forecasting, independent agent-system evaluation, and a governed model gateway. Every system has a separate GitHub repository, live deployment, architecture package, tests, Postman collection, documented constraints, and a visible production path.
 
 My wider automation stack includes n8n, Make, Zapier, GoHighLevel, HubSpot, Airtable, webhooks, REST APIs, Postman, Docker, GitHub Actions, Vercel, Claude Code, and OpenAI Codex. I use Python foundations with AI-assisted development across FastAPI APIs, LangGraph workflows, data processing, and automated testing.
 
@@ -29,7 +29,8 @@ GitHub: https://github.com/syedahmad0786
 3. Revenue Signal Graph: https://revenue-signal-graph.vercel.app
 4. Marketing Revenue Assurance: https://marketing-revenue-assurance.vercel.app
 5. Agentic Systems Evaluation Lab: https://agentic-systems-evaluation-lab.vercel.app
-6. AiXCEL implementation lab: https://aixcelsolutions.com/labs/agentic-systems
+6. Agentic Systems Gateway: https://agentic-systems-gateway.vercel.app
+7. AiXCEL implementation lab: https://aixcelsolutions.com/labs/agentic-systems
 
 ## Project 1: Creator Campaign Command
 
@@ -150,6 +151,28 @@ Release evidence: 31 automated tests, 12 of 12 golden scenarios, 85.30 percent m
 Technology reasoning: FastAPI provides typed REST contracts and generated OpenAPI. LangGraph provides explicit state, agent boundaries, checkpoints, and human interruption. PostgreSQL provides durable records and audit ordering for the container path. OpenTelemetry, Prometheus, structured logs, trace IDs, golden scenarios, and Postman make behavior and operations inspectable. The public replay path keeps the system testable without inference cost.
 
 Top 5 skills: LangGraph, Python, FastAPI, Multi-Agent Systems, Human-in-the-Loop AI
+
+## Project 8: Agentic Systems Gateway and Evaluation Registry
+
+Project URL: https://agentic-systems-gateway.vercel.app
+
+Repository: Private implementation repository
+
+Dates: August 2026 to Present
+
+Description:
+
+Built a governed control plane for nine deployed agentic and AI decision systems so technical reviewers can test evidence-sensitive outputs without exposing an owner-funded provider key or creating uncontrolled inference spend.
+
+The gateway offers three explicit access paths: deterministic verified replay at zero model cost, NVIDIA NIM with a visitor-owned key, and OpenRouter free routing with a visitor-owned key. Models and provider endpoints are fixed. Keys enter through one request header, are cleared from the browser, and are never stored or logged. Provider failure never falls back to a paid owner credential.
+
+The same FastAPI service publishes a typed system registry and an evidence-qualified evaluation registry. HMAC-signed receipts preserve provider, model, latency, token, content-hash, and zero-action evidence without retaining prompts or API keys. Optional PostgreSQL persistence stores only redacted usage metadata. OpenTelemetry trace context, Prometheus metrics, structured logs, strict security headers, quotas, prompt-injection controls, and persistent light and dark themes make the public release operable and inspectable.
+
+Release evidence: 85 automated tests, 84.95 percent measured coverage, 18 of 18 release evaluation measures, 12 production API requests with 40 passing Postman assertions, Docker and PostgreSQL restart proof, seven rendered OpenAPI routes, desktop and 390-pixel mobile browser journeys, persistent theme verification, zero console or request failures, zero external business actions, and zero production 5xx responses during the verified run.
+
+Technology reasoning: FastAPI and Pydantic provide the strict REST and OpenAPI boundary. LangGraph is intentionally excluded because this component is deterministic policy infrastructure, not an agent reasoning workflow. SQLAlchemy, Alembic, and PostgreSQL provide the durable private path. Vercel provides on-demand public compute while shared provider spend remains disabled.
+
+Top 5 skills: FastAPI, Python, API Security, OpenTelemetry, PostgreSQL
 
 ## Skills to add now
 

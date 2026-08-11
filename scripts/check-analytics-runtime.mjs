@@ -50,10 +50,11 @@ function emitBooking(data) {
 
 emitBooking({ uid: "accepted-1", eventTypeId: 101, startTime: "2026-08-12T10:00:00.000Z", status: "ACCEPTED", email: "private@example.com", title: "Private title", videoCallUrl: "https://example.com/private" });
 emitBooking({ uid: "pending-1", eventTypeId: 101, startTime: "2026-08-13T10:00:00.000Z", status: "PENDING" });
+emitBooking({ uid: "unknown-1", eventTypeId: 101, startTime: "2026-08-14T10:00:00.000Z", status: "ACCEPTED<script>" });
 emitBooking({ uid: "accepted-1", eventTypeId: 101, startTime: "2026-08-12T10:00:00.000Z", status: "ACCEPTED" });
 
 const bookingEvents = analyticsEvents().filter(event => event.name.startsWith("booking_"));
-if (bookingEvents.filter(event => event.name === "booking_created").length !== 2) {
+if (bookingEvents.filter(event => event.name === "booking_created").length !== 3) {
   failures.push("Exactly one booking_created event per unique successful booking is required");
 }
 if (bookingEvents.filter(event => event.name === "booking_confirmed").length !== 1) {
@@ -61,6 +62,8 @@ if (bookingEvents.filter(event => event.name === "booking_confirmed").length !==
 }
 const pendingConfirmed = bookingEvents.some(event => event.name === "booking_confirmed" && event.parameters?.booking_status === "pending");
 if (pendingConfirmed) failures.push("Pending bookings must not be reported as confirmed");
+const unknownBooking = bookingEvents.find(event => event.name === "booking_created" && event.parameters?.booking_status === "unknown");
+if (!unknownBooking) failures.push("Undocumented Cal.com status values must be bounded to unknown");
 
 const forbiddenParameter = /uid|email|name|title|start|end|video|url/i;
 for (const event of bookingEvents) {

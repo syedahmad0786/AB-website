@@ -84,8 +84,12 @@
         if (bookingKey && measuredBookings.has(bookingKey)) return;
         if (bookingKey) measuredBookings.add(bookingKey);
 
-        const bookingStatus = typeof data.status === "string"
+        const normalizedBookingStatus = typeof data.status === "string"
           ? data.status.trim().toLowerCase()
+          : "unknown";
+        const allowedBookingStatuses = new Set(["accepted", "confirmed", "pending", "rejected", "cancelled", "canceled"]);
+        const bookingStatus = allowedBookingStatuses.has(normalizedBookingStatus)
+          ? normalizedBookingStatus
           : "unknown";
         const parameters = {
           page_path: window.location.pathname,

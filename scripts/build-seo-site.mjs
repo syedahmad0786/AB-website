@@ -840,11 +840,14 @@ function buildDocument({ path, title, description, main, type, article, creative
     .replace(/\s*<div class="field-media field-media-cosmos">[\s\S]*?<\/div>/, "")
     .replace(/\s*<div class="field-media field-media-brain">[\s\S]*?<\/div>/, "");
   html = html.replace(/<a\b[^>]*href="https:\/\/cal\.com\/ahmad-bukhari\/revenue-handoff-map"[^>]*>/g, tag => {
-    if (tag.includes("data-cal-link=")) return tag;
     let embeddedTag = tag;
     if (!/\starget=/.test(embeddedTag)) embeddedTag = embeddedTag.replace(/>$/, ' target="_blank">');
     if (!/\srel=/.test(embeddedTag)) embeddedTag = embeddedTag.replace(/>$/, ' rel="noreferrer">');
-    return embeddedTag.replace(/>$/, ` data-cal-trigger data-cal-link="ahmad-bukhari/${bookingNamespace}" data-cal-namespace="${bookingNamespace}" data-cal-config='{"layout":"month_view","useSlotsViewOnSmallScreen":true}'>`);
+    if (!/\sdata-cal-trigger(?:\s|=|>)/.test(embeddedTag)) embeddedTag = embeddedTag.replace(/>$/, " data-cal-trigger>");
+    if (!/\sdata-cal-link=/.test(embeddedTag)) embeddedTag = embeddedTag.replace(/>$/, ` data-cal-link="ahmad-bukhari/${bookingNamespace}">`);
+    if (!/\sdata-cal-namespace=/.test(embeddedTag)) embeddedTag = embeddedTag.replace(/>$/, ` data-cal-namespace="${bookingNamespace}">`);
+    if (!/\sdata-cal-config=/.test(embeddedTag)) embeddedTag = embeddedTag.replace(/>$/, ' data-cal-config=\'{"layout":"month_view","useSlotsViewOnSmallScreen":true}\'>');
+    return embeddedTag;
   });
   if (!includeIdentity) {
     html = html

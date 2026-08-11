@@ -13,7 +13,14 @@ const context = {
   location: { pathname: "/services/ai-automation-consulting", href: "https://ahmadbukhari.com/services/ai-automation-consulting" },
   document: {
     querySelector: selector => selector === "[data-cal-trigger][data-cal-link]" ? {} : null,
-    createElement: tagName => ({ tagName, dataset: {} }),
+    createElement: tagName => ({
+      tagName,
+      dataset: {},
+      listeners: {},
+      addEventListener(type, listener) {
+        this.listeners[type] = listener;
+      },
+    }),
     head: { append: appendScript, appendChild: appendScript },
     addEventListener: (type, listener) => listeners.set(type, listener),
   },
@@ -26,7 +33,8 @@ const failures = [];
 if (!appendedScripts.some(script => script.src === "https://www.googletagmanager.com/gtag/js?id=G-W66WJJKGWQ")) {
   failures.push("GA4 loader was not initialized with the verified measurement ID");
 }
-if (!appendedScripts.some(script => script.src === "https://app.cal.com/embed/embed.js" && script.async === true)) {
+const calLoader = appendedScripts.find(script => script.src === "https://app.cal.com/embed/embed.js" && script.async === true);
+if (!calLoader) {
   failures.push("Cal.com embed loader was not initialized asynchronously");
 }
 
@@ -73,11 +81,26 @@ for (const event of bookingEvents) {
 }
 
 const clickListener = listeners.get("click");
-clickListener?.({
-  target: {
-    closest: () => ({ href: "https://cal.com/ahmad-bukhari/revenue-handoff-map" }),
-  },
-});
+function clickBookingLink() {
+  const event = {
+    prevented: false,
+    preventDefault() {
+      this.prevented = true;
+    },
+    target: {
+      closest: () => ({
+        href: "https://cal.com/ahmad-bukhari/revenue-handoff-map",
+        matches: selector => selector === "[data-cal-trigger][data-cal-link]",
+      }),
+    },
+  };
+  clickListener?.(event);
+  return event.prevented;
+}
+
+if (clickBookingLink()) failures.push("Booking link fallback must remain available before the Cal.com embed loads");
+calLoader?.listeners?.load?.();
+if (!clickBookingLink()) failures.push("Loaded Cal.com embeds must suppress native anchor navigation");
 if (!analyticsEvents().some(event => event.name === "discovery_call_click")) {
   failures.push("Discovery-call intent event no longer fires for the verified Cal.com link");
 }

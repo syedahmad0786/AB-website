@@ -840,8 +840,7 @@ function buildDocument({ path, title, description, main, type, article, creative
     .replace(/\s*<div class="field-media field-media-cosmos">[\s\S]*?<\/div>/, "")
     .replace(/\s*<div class="field-media field-media-brain">[\s\S]*?<\/div>/, "");
   html = html.replace(/<a\b[^>]*href="https:\/\/cal\.com\/ahmad-bukhari\/revenue-handoff-map"[^>]*>/g, tag => {
-    let embeddedTag = tag;
-    if (!/\starget=/.test(embeddedTag)) embeddedTag = embeddedTag.replace(/>$/, ' target="_blank">');
+    let embeddedTag = tag.replace(/\s+target=(?:"[^"]*"|'[^']*')/g, "");
     if (!/\srel=/.test(embeddedTag)) embeddedTag = embeddedTag.replace(/>$/, ' rel="noreferrer">');
     if (!/\sdata-cal-trigger(?:\s|=|>)/.test(embeddedTag)) embeddedTag = embeddedTag.replace(/>$/, " data-cal-trigger>");
     if (!/\sdata-cal-link=/.test(embeddedTag)) embeddedTag = embeddedTag.replace(/>$/, ` data-cal-link="ahmad-bukhari/${bookingNamespace}">`);

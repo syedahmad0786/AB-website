@@ -47,6 +47,7 @@ for (const url of urls) {
   if (!/<h1[ >]/.test(html)) failures.push(`${url.pathname}: missing H1`);
   if (!/<script type="application\/ld\+json">/.test(html)) failures.push(`${url.pathname}: missing JSON-LD`);
   if (!html.includes('id="theme-toggle"') || !html.includes('src="/theme.js"')) failures.push(`${url.pathname}: shared theme controls are missing`);
+  if ((html.match(/src="\/analytics\.js"/g) || []).length !== 1) failures.push(`${url.pathname}: expected exactly one shared analytics loader`);
   if (!html.includes('aixcel-color-theme') || !html.includes('document.documentElement.dataset.theme')) failures.push(`${url.pathname}: early theme initialization is missing`);
   if (html.includes("calendly.com/ahmadbukhari4245")) failures.push(`${url.pathname}: stale booking URL`);
   if (html.includes("github.com/bukhariahmad")) failures.push(`${url.pathname}: stale GitHub URL`);
@@ -107,7 +108,7 @@ const requiredFonts = [
   "fonts/instrument-serif-LICENSE",
   "fonts/ibm-plex-mono-LICENSE",
 ];
-const required = ["robots.txt", "sitemap.xml", "llms.txt", "feed.xml", "404.html", "site.css", "experience.js", "decision-engine.js", "site.webmanifest", "favicon.svg", "aixcel-signal-icon-512.svg", "twin-widget.js", "twin-avatar.svg", "images/ahmad-cafe.jpg", ...requiredArtwork, ...requiredBrand, ...requiredFonts];
+const required = ["robots.txt", "sitemap.xml", "llms.txt", "feed.xml", "404.html", "site.css", "experience.js", "decision-engine.js", "theme.js", "analytics.js", "site.webmanifest", "favicon.svg", "aixcel-signal-icon-512.svg", "twin-widget.js", "twin-avatar.svg", "images/ahmad-cafe.jpg", ...requiredArtwork, ...requiredBrand, ...requiredFonts];
 for (const file of required) {
   try {
     const details = await stat(resolve(dist, file));
@@ -192,6 +193,11 @@ for (const file of htmlFiles) {
 }
 
 const home = await readFile(resolve(dist, "index.html"), "utf8");
+const analytics = await readFile(resolve(dist, "analytics.js"), "utf8");
+if ((analytics.match(/G-X3LRS8KJKX/g) || []).length !== 1) failures.push("Analytics must use the single recovered GA4 Measurement ID");
+if (!analytics.includes("googletagmanager.com/gtag/js") || !analytics.includes('send_page_view: true')) failures.push("GA4 page-view initialization is incomplete");
+if (!analytics.includes('record("discovery_call_click"') || !analytics.includes('record("contact_email_click"')) failures.push("Truthful contact-intent analytics events are missing");
+if (/generate_lead|booking_confirmed/.test(analytics)) failures.push("Analytics must not claim a lead or booking without a verified success state");
 const defaultOgUrl = "https://ahmadbukhari.com/art/ahmadbukhari-default-og-1200x630.png";
 if (!home.includes(`<meta property="og:image" content="${defaultOgUrl}">`)) failures.push("Homepage default Open Graph PNG is missing");
 if (!home.includes(`<meta name="twitter:image" content="${defaultOgUrl}">`)) failures.push("Homepage default Twitter image PNG is missing");

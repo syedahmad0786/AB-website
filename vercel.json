@@ -40,7 +40,7 @@
       ]
     },
     {
-      "source": "/(site.css|experience.js|decision-engine.js)",
+      "source": "/(site.css|experience.js|decision-engine.js|theme.js|analytics.js)",
       "headers": [{ "key": "Cache-Control", "value": "public, max-age=3600, must-revalidate" }]
     }
   ]

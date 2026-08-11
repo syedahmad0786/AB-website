@@ -962,7 +962,7 @@ addPage("/blog/automation-governance-inspectable-systems", {
   type: "Article",
   faqs: automationGovernanceFaqs,
   article: {
-    publishedAt: updatedAt,
+    publishedAt: "2026-08-11",
     featuredImage: "/art/ahmadbukhari-default-og-1200x630.png",
   },
 });

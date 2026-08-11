@@ -400,7 +400,7 @@ if (!decisionEngine.includes("reducedMotion.matches || saveData") || !decisionEn
 for (const directory of ["blog", "portfolio"]) {
   const files = await readdir(resolve(dist, directory));
   for (const name of files.filter((file) => file.endsWith(".html"))) {
-    if (directory === "blog" && name === "how-to-choose-an-ai-automation-agency.html") continue;
+    if (directory === "blog" && ["how-to-choose-an-ai-automation-agency.html", "automation-governance-inspectable-systems.html"].includes(name)) continue;
     const html = await readFile(resolve(dist, directory, name), "utf8");
     const canonical = html.match(/<link rel="canonical" href="(.*?)">/)?.[1];
     const robots = html.match(/<meta name="robots" content="(.*?)">/)?.[1];
@@ -426,8 +426,52 @@ for (const source of ["www.nist.gov/itl/ai-risk-management-framework", "opentele
 const guideArticle = (guideSchema["@graph"] || []).find((node) => node["@type"] === "Article");
 if (guideArticle?.image !== defaultOgUrl) failures.push("Current buyer guide Article schema must use the default Open Graph PNG");
 
+const governancePath = "/blog/automation-governance-inspectable-systems";
+const governanceUrl = `https://ahmadbukhari.com${governancePath}`;
+const governanceGuide = await readFile(resolve(dist, `${governancePath.slice(1)}.html`), "utf8");
+const governanceTitle = "Automation Governance Guide | Ahmad Bukhari";
+const governanceDescription = "Design governed CRM, AI, delivery, recovery, and workflow migration systems with explicit state, permissions, human gates, evidence, and rollback.";
+if (!sitemapHrefs.has(governanceUrl)) failures.push("Automation governance guide missing from sitemap");
+if (!governanceGuide.includes('<meta property="og:type" content="article">')) failures.push("Automation governance guide missing article Open Graph type");
+if (!governanceGuide.includes(`<meta property="og:title" content="${governanceTitle}">`)) failures.push("Automation governance guide Open Graph title mismatch");
+if (!governanceGuide.includes(`<meta property="og:description" content="${governanceDescription}">`)) failures.push("Automation governance guide Open Graph description mismatch");
+const governanceSchema = JSON.parse(governanceGuide.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)?.[1] || "{}");
+const governanceGraph = governanceSchema["@graph"] || [];
+const governanceTypes = governanceGraph.map((node) => node["@type"]);
+const governanceArticles = governanceGraph.filter((node) => node["@type"] === "Article");
+const governanceWebPages = governanceGraph.filter((node) => node["@type"] === "WebPage");
+const governanceFaq = governanceGraph.find((node) => node["@type"] === "FAQPage");
+const governanceBreadcrumb = governanceGraph.find((node) => node["@type"] === "BreadcrumbList");
+if (governanceArticles.length !== 1 || governanceWebPages.length !== 1) failures.push("Automation governance guide must expose exactly one Article and one WebPage entity");
+if (!governanceFaq || !governanceBreadcrumb) failures.push("Automation governance guide must expose FAQPage and BreadcrumbList entities");
+const governanceArticle = governanceArticles[0];
+if (governanceArticle?.headline !== governanceTitle || governanceArticle?.datePublished !== "2026-08-11" || !governanceArticle?.author) failures.push("Automation governance guide Article schema metadata mismatch");
+const governanceFaqQuestions = governanceFaq?.mainEntity?.map((item) => item?.name) || [];
+for (const question of ["What is automation governance?", "Who owns an automated failure?", "Is this guide evidence of a client result?"]) {
+  if (!governanceFaqQuestions.includes(question)) failures.push(`Automation governance guide FAQ schema question missing: ${question}`);
+}
+if (governanceFaqQuestions.length !== 3) failures.push("Automation governance guide FAQ schema must expose exactly three questions");
+if ((governanceBreadcrumb?.itemListElement || []).length < 3) failures.push("Automation governance guide breadcrumb schema is incomplete");
+if (!governanceGuide.includes("TL;DR: govern the state change, not just the model") || (governanceGuide.match(/class="faq-item"/g) || []).length !== 3) failures.push("Automation governance guide must expose its TL;DR and three visible FAQs");
+if (!governanceGuide.includes('class="guide-toc"') || !governanceGuide.includes("Governance control map") || (governanceGuide.match(/<table>/g) || []).length !== 1) failures.push("Automation governance guide must expose a linked contents list and one control map");
+for (const path of ["/services/gohighlevel-crm-automation", "/work/enterprise-os", "/work/errorlens", "/work/migration-factory", "/automation-lab"]) {
+  if (!governanceGuide.includes(`href="${path}"`)) failures.push(`Automation governance guide internal evidence link missing: ${path}`);
+}
+for (const source of ["www.nist.gov/itl/ai-risk-management-framework", "opentelemetry.io/docs/concepts/observability-primer/", "help.make.com/error-handlers"]) {
+  if (!governanceGuide.includes(source)) failures.push(`Automation governance guide primary reference missing: ${source}`);
+}
+const governanceEvidenceBoundary = "this is a practitioner framework supported by public architecture examples and primary references. It is not an attributable client result and does not claim adoption, ROI, savings, revenue, satisfaction, or comparative superiority.";
+const governanceArticleBody = governanceGuide.match(/<article class="content-shell article-body">([\s\S]*?)<\/article>/)?.[1] || "";
+const governanceClaimsBody = governanceArticleBody.replace(governanceEvidenceBoundary, "");
+const unsupportedGovernanceClaim = /\b(?:clients?|customers?)\s+(?:saved|increased|improved|reduced|grew|achieved|reported)\b|\b(?:proven|guaranteed)\s+(?:roi|results?|outcomes?)\b|\b(?:fixed|transparent|standard)\s+(?:price|pricing|package)\b|\b(?:best-in-class|industry-leading|outperforms?|superior to)\b|\b\d+(?:\.\d+)?%\b|\b(?:testimonials?|client logos?)\b|\b(?:adopted by|used by)\b/i;
+if (!governanceGuide.includes(governanceEvidenceBoundary) || unsupportedGovernanceClaim.test(governanceClaimsBody)) failures.push("Automation governance guide evidence boundary is incomplete or contains an unsupported outcome, pricing, adoption, or superiority claim");
+if (governanceArticle?.image !== defaultOgUrl) failures.push("Automation governance guide Article schema must use the default Open Graph PNG");
+
 const feed = await readFile(resolve(dist, "feed.xml"), "utf8");
-if ((feed.match(/<item>/g) || []).length !== 2 || !feed.includes(guideUrl) || !feed.includes("openai-presence-enterprise-ai-agent-rollout")) failures.push("RSS feed must contain both current dated publications");
+if ((feed.match(/<item>/g) || []).length !== 3 || !feed.includes(governanceUrl) || !feed.includes(guideUrl) || !feed.includes("openai-presence-enterprise-ai-agent-rollout")) failures.push("RSS feed must contain all three current dated publications");
+const firstFeedItem = feed.match(/<item>([\s\S]*?)<\/item>/)?.[1] || "";
+const governanceFeedDate = new Date("2026-08-11T00:00:00Z").toUTCString();
+if (!firstFeedItem.includes(`<link>${governanceUrl}</link>`) || !firstFeedItem.includes(`<guid>${governanceUrl}</guid>`) || !firstFeedItem.includes(`<pubDate>${governanceFeedDate}</pubDate>`)) failures.push("Automation governance guide must be the first RSS item with its canonical URL and fixed publication date");
 
 const llmsText = await readFile(resolve(dist, "llms.txt"), "utf8");
 if (!llmsText.startsWith("# Ahmad Bukhari\n")) failures.push("llms.txt must begin with the canonical publisher H1");
@@ -435,7 +479,7 @@ if ((llmsText.match(/\[[^\]]+\]\(https?:\/\/[^)]+\)/g) || []).length < 10) failu
 for (const marker of ["## Canonical entities", "## Preferred pages to cite", "## Areas of expertise", "## Evidence and citation policy", "## Discovery"]) {
   if (!llmsText.includes(marker)) failures.push(`llms.txt section missing: ${marker}`);
 }
-for (const path of ["/services/ai-systems-architecture", "/services/gohighlevel-crm-automation", "/work/errorlens", "/work/migration-factory", "/work/enterprise-os"]) {
+for (const path of ["/services/ai-systems-architecture", "/services/gohighlevel-crm-automation", "/work/errorlens", "/work/migration-factory", "/work/enterprise-os", "/blog/automation-governance-inspectable-systems"]) {
   if (!llmsText.includes(`https://ahmadbukhari.com${path}`)) failures.push(`llms.txt zero-visibility topic link missing: ${path}`);
 }
 

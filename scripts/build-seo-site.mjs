@@ -1,6 +1,7 @@
 import { cp, mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import { createHash } from "node:crypto";
 import vm from "node:vm";
 import ts from "typescript";
 
@@ -11,15 +12,19 @@ const bookingUrl = "https://cal.com/ahmad-bukhari/ai-consultancy-call-with-ab";
 const latestResearchUrl = "https://aixcelsolutions.com/insights/openai-presence-enterprise-ai-agent-rollout";
 const updatedAt = "2026-08-11";
 
-const [sourceTemplate, siteCss, themeCss, experienceJs, decisionEngineJs, themeJs, analyticsJs] = await Promise.all([
+const [sourceTemplateInput, siteCss, seoPagesCss, themeCss, experienceJs, decisionEngineJs, themeJs, analyticsJs] = await Promise.all([
   readFile(resolve(root, "static/site-template.html"), "utf8"),
   readFile(resolve(root, "static/site-current.css"), "utf8"),
+  readFile(resolve(root, "static/seo-pages.css"), "utf8"),
   readFile(resolve(root, "static/theme.css"), "utf8"),
   readFile(resolve(root, "static/experience.js"), "utf8"),
   readFile(resolve(root, "static/decision-engine.js"), "utf8"),
   readFile(resolve(root, "static/theme.js"), "utf8"),
   readFile(resolve(root, "static/analytics.js"), "utf8"),
 ]);
+const compiledSiteCss = `${siteCss}\n\n${seoPagesCss}\n\n${themeCss}`;
+const siteCssFilename = `site.${createHash("sha256").update(compiledSiteCss).digest("hex").slice(0, 12)}.css`;
+const sourceTemplate = sourceTemplateInput.replaceAll("/site.css", `/${siteCssFilename}`);
 
 function loadTypeScriptData(relativePath) {
   const source = requireSource(relativePath);
@@ -793,7 +798,7 @@ function buildDocument({ path, title, description, main, type, article, creative
   <link rel="preload" as="image" href="/art/hero/decision-field-desktop-1600x900.webp" type="image/webp" media="(min-width: 761px)" imagesrcset="/art/hero/decision-field-desktop-1280x720.webp 1280w, /art/hero/decision-field-desktop-1600x900.webp 1600w, /art/hero/decision-field-desktop-1920x1080.webp 1920w" imagesizes="100vw">
 ` : "";
   let html = sourceTemplate
-    .replace('  <link rel="preload" href="/site.css" as="style">', `${heroPreloads}  <link rel="preload" href="/site.css" as="style">`)
+    .replace(`  <link rel="preload" href="/${siteCssFilename}" as="style">`, `${heroPreloads}  <link rel="preload" href="/${siteCssFilename}" as="style">`)
     .replace(/<title>[\s\S]*?<\/title>/, `<title>${escapeHtml(seoTitle)}</title>`)
     .replace(/<meta name="description" content="[^"]*">/, `<meta name="description" content="${escapeHtml(seoDescription)}">`)
     .replace(/<meta name="robots" content="[^"]*">/, `<meta name="robots" content="${robots}">`)
@@ -959,7 +964,7 @@ for (const directory of ["art", "brand", "fonts"]) {
   await cp(resolve(root, "public", directory), resolve(output, directory), { recursive: true });
 }
 await Promise.all([
-  writeFile(resolve(output, "site.css"), `${siteCss}\n\n${await readFile(resolve(root, "static/seo-pages.css"), "utf8")}\n\n${themeCss}`, "utf8"),
+  writeFile(resolve(output, siteCssFilename), compiledSiteCss, "utf8"),
   writeFile(resolve(output, "experience.js"), experienceJs, "utf8"),
   writeFile(resolve(output, "decision-engine.js"), decisionEngineJs, "utf8"),
   writeFile(resolve(output, "theme.js"), themeJs, "utf8"),

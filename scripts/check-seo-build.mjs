@@ -55,6 +55,7 @@ for (const url of urls) {
   if (!bookingAnchors.length) failures.push(`${url.pathname}: verified booking CTA is missing`);
   for (const anchor of bookingAnchors) {
     if (!anchor.includes("data-cal-trigger") || !anchor.includes('data-cal-link="ahmad-bukhari/revenue-handoff-map"') || !anchor.includes('data-cal-namespace="revenue-handoff-map"')) failures.push(`${url.pathname}: booking CTA cannot emit a first-party success event`);
+    if (/\starget=(?:"_blank"|'_blank')/.test(anchor)) failures.push(`${url.pathname}: embedded booking CTA opens a duplicate browser context`);
   }
   if (html.includes("github.com/bukhariahmad")) failures.push(`${url.pathname}: stale GitHub URL`);
   if (html.includes("hello@ahmadbukhari.com")) failures.push(`${url.pathname}: unverified email address`);

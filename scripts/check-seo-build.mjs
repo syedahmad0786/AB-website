@@ -400,7 +400,7 @@ if (!decisionEngine.includes("reducedMotion.matches || saveData") || !decisionEn
 for (const directory of ["blog", "portfolio"]) {
   const files = await readdir(resolve(dist, directory));
   for (const name of files.filter((file) => file.endsWith(".html"))) {
-    if (directory === "blog" && name === "how-to-choose-an-ai-automation-agency.html") continue;
+    if (directory === "blog" && ["how-to-choose-an-ai-automation-agency.html", "automation-governance-inspectable-systems.html"].includes(name)) continue;
     const html = await readFile(resolve(dist, directory, name), "utf8");
     const canonical = html.match(/<link rel="canonical" href="(.*?)">/)?.[1];
     const robots = html.match(/<meta name="robots" content="(.*?)">/)?.[1];
@@ -426,8 +426,29 @@ for (const source of ["www.nist.gov/itl/ai-risk-management-framework", "opentele
 const guideArticle = (guideSchema["@graph"] || []).find((node) => node["@type"] === "Article");
 if (guideArticle?.image !== defaultOgUrl) failures.push("Current buyer guide Article schema must use the default Open Graph PNG");
 
+const governancePath = "/blog/automation-governance-inspectable-systems";
+const governanceUrl = `https://ahmadbukhari.com${governancePath}`;
+const governanceGuide = await readFile(resolve(dist, `${governancePath.slice(1)}.html`), "utf8");
+if (!sitemapHrefs.has(governanceUrl)) failures.push("Automation governance guide missing from sitemap");
+if (!governanceGuide.includes('<meta property="og:type" content="article">')) failures.push("Automation governance guide missing article Open Graph type");
+const governanceSchema = JSON.parse(governanceGuide.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)?.[1] || "{}");
+const governanceTypes = (governanceSchema["@graph"] || []).map((node) => node["@type"]);
+if (governanceTypes.filter((type) => type === "Article").length !== 1 || !governanceTypes.includes("WebPage")) failures.push("Automation governance guide must expose one Article and one WebPage entity");
+if (!governanceTypes.includes("FAQPage") || !governanceTypes.includes("BreadcrumbList")) failures.push("Automation governance guide must expose FAQPage and BreadcrumbList entities");
+if (!governanceGuide.includes("TL;DR: govern the state change, not just the model") || (governanceGuide.match(/class="faq-item"/g) || []).length !== 3) failures.push("Automation governance guide must expose its TL;DR and three visible FAQs");
+if (!governanceGuide.includes('class="guide-toc"') || !governanceGuide.includes("Governance control map") || (governanceGuide.match(/<table>/g) || []).length !== 1) failures.push("Automation governance guide must expose a linked contents list and one control map");
+for (const path of ["/services/gohighlevel-crm-automation", "/work/enterprise-os", "/work/errorlens", "/work/migration-factory", "/automation-lab"]) {
+  if (!governanceGuide.includes(`href="${path}"`)) failures.push(`Automation governance guide internal evidence link missing: ${path}`);
+}
+for (const source of ["www.nist.gov/itl/ai-risk-management-framework", "opentelemetry.io/docs/concepts/observability-primer/", "help.make.com/error-handlers"]) {
+  if (!governanceGuide.includes(source)) failures.push(`Automation governance guide primary reference missing: ${source}`);
+}
+if (!governanceGuide.includes("It is not an attributable client result") || /testimonial|proven ROI|best-in-class/.test(governanceGuide)) failures.push("Automation governance guide evidence boundary is incomplete or promotional");
+const governanceArticle = (governanceSchema["@graph"] || []).find((node) => node["@type"] === "Article");
+if (governanceArticle?.image !== defaultOgUrl) failures.push("Automation governance guide Article schema must use the default Open Graph PNG");
+
 const feed = await readFile(resolve(dist, "feed.xml"), "utf8");
-if ((feed.match(/<item>/g) || []).length !== 2 || !feed.includes(guideUrl) || !feed.includes("openai-presence-enterprise-ai-agent-rollout")) failures.push("RSS feed must contain both current dated publications");
+if ((feed.match(/<item>/g) || []).length !== 3 || !feed.includes(governanceUrl) || !feed.includes(guideUrl) || !feed.includes("openai-presence-enterprise-ai-agent-rollout")) failures.push("RSS feed must contain all three current dated publications");
 
 const llmsText = await readFile(resolve(dist, "llms.txt"), "utf8");
 if (!llmsText.startsWith("# Ahmad Bukhari\n")) failures.push("llms.txt must begin with the canonical publisher H1");
@@ -435,7 +456,7 @@ if ((llmsText.match(/\[[^\]]+\]\(https?:\/\/[^)]+\)/g) || []).length < 10) failu
 for (const marker of ["## Canonical entities", "## Preferred pages to cite", "## Areas of expertise", "## Evidence and citation policy", "## Discovery"]) {
   if (!llmsText.includes(marker)) failures.push(`llms.txt section missing: ${marker}`);
 }
-for (const path of ["/services/ai-systems-architecture", "/services/gohighlevel-crm-automation", "/work/errorlens", "/work/migration-factory", "/work/enterprise-os"]) {
+for (const path of ["/services/ai-systems-architecture", "/services/gohighlevel-crm-automation", "/work/errorlens", "/work/migration-factory", "/work/enterprise-os", "/blog/automation-governance-inspectable-systems"]) {
   if (!llmsText.includes(`https://ahmadbukhari.com${path}`)) failures.push(`llms.txt zero-visibility topic link missing: ${path}`);
 }
 

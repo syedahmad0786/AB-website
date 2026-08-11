@@ -46,7 +46,7 @@ for (const url of urls) {
 const scaleScenes = ["01-the-field", "02-the-atom", "03-memory", "04-emergence", "05-orchestration"];
 const systemStories = ["workspine", "manhaj", "enterprise-os", "errorlens", "make-n8n-factory", "resilient-onboarding"];
 const fieldNotes = ["designing-systems-that-fail-safely", "workflow-count-is-a-weak-metric", "operators-advantage-in-ai"];
-const linkedinSystems = ["creator-campaign-command", "marketing-revenue-assurance", "deal-rescue-forecast-truth", "creative-learning-os", "language-mix-studio", "agentic-systems-evaluation-lab", "content-performance-forecaster", "revenue-signal-graph"];
+const linkedinSystems = ["creator-campaign-command", "marketing-revenue-assurance", "deal-rescue-forecast-truth", "creative-learning-os", "language-mix-studio", "agentic-systems-evaluation-lab", "content-performance-forecaster", "revenue-signal-graph", "creator-talent-campaign-os"];
 const requiredArtwork = [
   "art/ahmadbukhari-default-og-1200x630.png",
   ...["field-grid", "paper-grain", "portrait-axis-frame", "signal-route-divider"].map((name) => `art/backgrounds/${name}.svg`),
@@ -197,9 +197,9 @@ if (!home.includes('<link rel="manifest" href="/site.webmanifest">')) failures.p
 if (/ab-logo-orbit|class="ab-logo|class="gravity-mark/.test(home)) failures.push("Homepage still contains a retired logo implementation");
 
 const agenticSystemsPage = await readFile(resolve(dist, "agentic-systems.html"), "utf8");
-if ((agenticSystemsPage.match(/class="system-card-art"/g) || []).length !== 8) failures.push("Agentic systems library must contain eight verified project cards");
-for (const marker of ["Creative Learning OS", "creative-learning-os.vercel.app", "13 of 13 golden scenarios", "34 production Postman assertions", "Eight flagship systems"]) {
-  if (!agenticSystemsPage.includes(marker)) failures.push(`Creative Learning OS library evidence is missing: ${marker}`);
+if ((agenticSystemsPage.match(/class="system-card-art"/g) || []).length !== 9) failures.push("Agentic systems library must contain nine verified project cards");
+for (const marker of ["Creator &amp; Talent Campaign OS", "creator-talent-campaign-os.vercel.app", "70 tests", "85.38 percent coverage", "PostgreSQL checkpoint restart proof", "Nine flagship systems"]) {
+  if (!agenticSystemsPage.includes(marker)) failures.push(`Creator & Talent Campaign OS library evidence is missing: ${marker}`);
 }
 
 const homeSchema = JSON.parse(home.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)?.[1] || "{}");

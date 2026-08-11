@@ -10,6 +10,18 @@ const failures = [];
 const canonicals = new Set();
 const sitemapHrefs = new Set(urls.map((url) => url.href));
 
+function mainVisibleWordCount(html) {
+  const main = html.match(/<main[\s\S]*?<\/main>/)?.[0] || "";
+  return main
+    .replace(/<script[\s\S]*?<\/script>/g, " ")
+    .replace(/<style[\s\S]*?<\/style>/g, " ")
+    .replace(/<[^>]+>/g, " ")
+    .replace(/&[^;]+;/g, " ")
+    .trim()
+    .split(/\s+/)
+    .filter(Boolean).length;
+}
+
 for (const url of urls) {
   const relative = url.pathname === "/" ? "index.html" : `${url.pathname.slice(1)}.html`;
   const file = resolve(dist, relative);
@@ -95,7 +107,7 @@ const requiredFonts = [
   "fonts/instrument-serif-LICENSE",
   "fonts/ibm-plex-mono-LICENSE",
 ];
-const required = ["robots.txt", "sitemap.xml", "llms.txt", "feed.xml", "404.html", "site.css", "experience.js", "decision-engine.js", "site.webmanifest", "favicon.svg", "twin-widget.js", "twin-avatar.svg", "images/ahmad-cafe.jpg", ...requiredArtwork, ...requiredBrand, ...requiredFonts];
+const required = ["robots.txt", "sitemap.xml", "llms.txt", "feed.xml", "404.html", "site.css", "experience.js", "decision-engine.js", "site.webmanifest", "favicon.svg", "aixcel-signal-icon-512.svg", "twin-widget.js", "twin-avatar.svg", "images/ahmad-cafe.jpg", ...requiredArtwork, ...requiredBrand, ...requiredFonts];
 for (const file of required) {
   try {
     const details = await stat(resolve(dist, file));
@@ -146,6 +158,7 @@ for (const [file, expectedHash] of [
   ["brand/ahmad-ab-axis.svg", "d5d7dcea7a4068bd6b4b29e58dee30521007fe0fc18f1edd080c979bb0402115"],
   ["brand/ahmad-ab-axis-favicon.svg", "76432e32a2871027c48c206a143cc62fd79cf8418c699ad1e312a7fede339c7a"],
   ["favicon.svg", "76432e32a2871027c48c206a143cc62fd79cf8418c699ad1e312a7fede339c7a"],
+  ["aixcel-signal-icon-512.svg", "14c5dacce5a964a44c9ea6f281d99000544dc1a51f4e38919ff011a6821c2202"],
 ]) {
   const digest = createHash("sha256").update((await readFile(resolve(dist, file), "utf8")).replaceAll("\r\n", "\n")).digest("hex");
   if (digest !== expectedHash) failures.push(`${file}: official AB Axis asset hash changed`);
@@ -207,6 +220,8 @@ for (const marker of ["Creator &amp; Talent Campaign OS", "creator-talent-campai
 const homeSchema = JSON.parse(home.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)?.[1] || "{}");
 const homeProfiles = (homeSchema["@graph"] || []).filter((node) => node["@type"] === "ProfilePage");
 if (homeProfiles.length !== 1 || homeProfiles[0]?.mainEntity?.["@id"] !== "https://ahmadbukhari.com/#person") failures.push("Homepage must expose exactly one ProfilePage with Ahmad as its main entity");
+const aixcelOrganization = (homeSchema["@graph"] || []).find((node) => Array.isArray(node["@type"]) && node["@type"].includes("Organization"));
+if (aixcelOrganization?.name !== "Aixcel Solutions" || aixcelOrganization?.logo?.url !== "https://ahmadbukhari.com/aixcel-signal-icon-512.svg" || aixcelOrganization?.logo?.width !== 512 || aixcelOrganization?.logo?.height !== 512) failures.push("Aixcel Organization schema must expose the approved 512px signal logo");
 if ((homeSchema["@graph"] || []).some((node) => node["@type"] === "BreadcrumbList")) failures.push("Homepage must not publish a one-item BreadcrumbList");
 const homeDescription = home.match(/<meta name="description" content="(.*?)">/)?.[1] || "";
 if (homeDescription.length > 158) failures.push("Homepage description must stay within the Searchable baseline recommendation");
@@ -241,13 +256,49 @@ for (const path of [
   const visibleWords = html.replace(/<script[\s\S]*?<\/script>/g, " ").replace(/<style[\s\S]*?<\/style>/g, " ").replace(/<[^>]+>/g, " ").replace(/&[^;]+;/g, " ").trim().split(/\s+/).length;
   if (visibleWords < 300) failures.push(`/${path}: rendered static content remains below 300 words`);
 }
+for (const [path, markers] of Object.entries({
+  "services/ai-systems-architecture": ["Automation governance framework for inspectable AI decisions", "Inspectable decision controls", "NIST AI Risk Management Framework"],
+  "services/gohighlevel-crm-automation": ["CRM operations architecture that survives peak demand", "CRM operating controls", "Peak-hour verification"],
+})) {
+  const html = await readFile(resolve(dist, `${path}.html`), "utf8");
+  for (const marker of markers) if (!html.includes(marker)) failures.push(`/${path}: zero-visibility topic marker missing: ${marker}`);
+  if ((html.match(/<table>/g) || []).length !== 1) failures.push(`/${path}: topic guide must expose one semantic control table`);
+}
+
+for (const [path, minimumWords] of [
+  ["work", 600],
+  ["automation-lab", 450],
+  ["about", 400],
+  ["contact", 300],
+  ["services", 550],
+  ["blog", 350],
+  ["portfolio", 550],
+]) {
+  const html = await readFile(resolve(dist, `${path}.html`), "utf8");
+  const schema = JSON.parse(html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)?.[1] || "{}");
+  const graph = schema["@graph"] || [];
+  const faq = graph.find((node) => node["@type"] === "FAQPage");
+  const breadcrumb = graph.find((node) => node["@type"] === "BreadcrumbList");
+  const visibleFaqCount = (html.match(/class="faq-item"/g) || []).length;
+  if (!faq || (faq.mainEntity || []).length !== 3 || visibleFaqCount !== 3) failures.push(`/${path}: three visible FAQs must match FAQPage schema`);
+  if (!breadcrumb || (breadcrumb.itemListElement || []).length < 2) failures.push(`/${path}: BreadcrumbList schema is missing`);
+  if (mainVisibleWordCount(html) < minimumWords) failures.push(`/${path}: answer-first content fell below ${minimumWords} words`);
+}
 
 const blogIndexHtml = await readFile(resolve(dist, "blog.html"), "utf8");
 if (!blogIndexHtml.includes("AI research translated into business decisions") || !blogIndexHtml.includes('datetime="2026-07-23"')) failures.push("Research hub must identify the current dated publication");
 if (!blogIndexHtml.includes("openai-presence-enterprise-ai-agent-rollout")) failures.push("Research hub must link to the canonical latest finding");
 if (blogIndexHtml.includes("Archived field note") || blogIndexHtml.includes("View archived article")) failures.push("Research hub must not expose the legacy article wall");
 if (home.includes("Research without the archive wall") || blogIndexHtml.includes("Publication policy") || blogIndexHtml.includes("Older drafts remain")) failures.push("Current research surfaces must not promote legacy archive material");
+if (!blogIndexHtml.includes("TL;DR: research should change an operating decision") || !blogIndexHtml.includes("How findings are evaluated")) failures.push("Research hub must expose its answer-first editorial policy");
 if (sitemapHrefs.has("https://ahmadbukhari.com/field-notes")) failures.push("Retired /field-notes teaser must not compete with the canonical /blog hub");
+
+const servicesIndexHtml = await readFile(resolve(dist, "services.html"), "utf8");
+if (!servicesIndexHtml.includes("How an engagement is scoped") || !servicesIndexHtml.includes("How pricing becomes transparent") || !servicesIndexHtml.includes("Engagement phases and decision gates")) failures.push("Services index must expose scope, pricing process, and decision gates without invented package prices");
+if ((servicesIndexHtml.match(/<table>/g) || []).length !== 1) failures.push("Services index must expose one semantic engagement table");
+
+const portfolioIndexHtml = await readFile(resolve(dist, "portfolio.html"), "utf8");
+if (portfolioIndexHtml.includes("Archived project record 01") || !portfolioIndexHtml.includes("Automated Ad Analytics &amp; Reporting")) failures.push("Portfolio archive must use descriptive record headings without treating titles as verified results");
 
 const css = await readFile(resolve(dist, "site.css"), "utf8");
 for (const marker of [".site-loader", ".loader-axis", ".brand-name", ".decision-cinema", ".cinema-camera", ".cinema-layer-boundary", ".cinema-return", ".research-grid"]) {
@@ -309,6 +360,22 @@ for (const [slug, [artwork, alt]] of Object.entries(caseArtworkChecks)) {
   if (!html.includes(`/art/systems/${artwork}-1200x750.webp`)) failures.push(`/work/${slug}: 1200px artwork source is missing`);
   if (!html.includes('width="1200" height="750" loading="lazy" decoding="async"')) failures.push(`/work/${slug}: artwork dimensions or deferred-loading attributes are missing`);
   if (!html.includes(`alt="${alt}"`)) failures.push(`/work/${slug}: audited artwork alt text is missing`);
+  if (!html.includes(`<figcaption>${alt}</figcaption>`)) failures.push(`/work/${slug}: lead artwork must expose a matching caption`);
+  if (mainVisibleWordCount(html) < 400) failures.push(`/work/${slug}: evidence-led case content fell below 400 words`);
+  const schema = JSON.parse(html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)?.[1] || "{}");
+  const graph = schema["@graph"] || [];
+  const faq = graph.find((node) => node["@type"] === "FAQPage");
+  if (!faq || (faq.mainEntity || []).length !== 3 || (html.match(/class="faq-item"/g) || []).length !== 3) failures.push(`/work/${slug}: three visible case FAQs must match FAQPage schema`);
+  if (graph.some((node) => node["@type"] === "Service")) failures.push(`/work/${slug}: case study must not use Service schema`);
+}
+for (const [slug, markers] of Object.entries({
+  errorlens: ["How to classify and recover workflow errors", "Workflow error classes and safe recovery decisions", "OpenTelemetry observability primer"],
+  "migration-factory": ["Why workflow migrations break after the tool switch", "Make and n8n migration questions—not a universal winner", "Parity before cutover"],
+  "enterprise-os": ["What product delivery infrastructure actually controls", "Governance controls for product delivery", "NIST AI Risk Management Framework"],
+})) {
+  const html = await readFile(resolve(dist, `work/${slug}.html`), "utf8");
+  for (const marker of markers) if (!html.includes(marker)) failures.push(`/work/${slug}: topic-guide marker missing: ${marker}`);
+  if ((html.match(/<table>/g) || []).length !== 1) failures.push(`/work/${slug}: topic guide must expose one semantic comparison or control table`);
 }
 if (!decisionEngine.includes("reducedMotion.matches || saveData") || !decisionEngine.includes('story.classList.toggle("cinema-static", reducedMotion.matches || saveData)')) failures.push("Decision Engine must provide reduced-motion and Save Data fallbacks");
 
@@ -334,6 +401,10 @@ const guideTypes = (guideSchema["@graph"] || []).map((node) => node["@type"]);
 if (guideTypes.filter((type) => type === "Article").length !== 1 || !guideTypes.includes("WebPage")) failures.push("Current buyer guide must expose one Article and one WebPage entity");
 if (!guideTypes.includes("FAQPage") || !guideTypes.includes("BreadcrumbList")) failures.push("Current buyer guide must expose FAQPage and BreadcrumbList entities");
 if (!guide.includes("TL;DR: choose controls and evidence over demo count") || (guide.match(/class="faq-item"/g) || []).length !== 3) failures.push("Current buyer guide must expose its TL;DR and three visible FAQs");
+if (!guide.includes('class="guide-toc"') || !guide.includes("Delivery-model comparison") || (guide.match(/<table>/g) || []).length !== 1) failures.push("Current buyer guide must expose a linked contents list and one delivery-model comparison table");
+for (const source of ["www.nist.gov/itl/ai-risk-management-framework", "opentelemetry.io/docs/concepts/observability-primer/", "help.make.com/error-handlers"]) {
+  if (!guide.includes(source)) failures.push(`Current buyer guide primary reference missing: ${source}`);
+}
 const guideArticle = (guideSchema["@graph"] || []).find((node) => node["@type"] === "Article");
 if (guideArticle?.image !== defaultOgUrl) failures.push("Current buyer guide Article schema must use the default Open Graph PNG");
 
@@ -345,6 +416,9 @@ if (!llmsText.startsWith("# Ahmad Bukhari\n")) failures.push("llms.txt must begi
 if ((llmsText.match(/\[[^\]]+\]\(https?:\/\/[^)]+\)/g) || []).length < 10) failures.push("llms.txt must expose canonical resources as Markdown links");
 for (const marker of ["## Canonical entities", "## Preferred pages to cite", "## Areas of expertise", "## Evidence and citation policy", "## Discovery"]) {
   if (!llmsText.includes(marker)) failures.push(`llms.txt section missing: ${marker}`);
+}
+for (const path of ["/services/ai-systems-architecture", "/services/gohighlevel-crm-automation", "/work/errorlens", "/work/migration-factory", "/work/enterprise-os"]) {
+  if (!llmsText.includes(`https://ahmadbukhari.com${path}`)) failures.push(`llms.txt zero-visibility topic link missing: ${path}`);
 }
 
 const notFound = await readFile(resolve(dist, "404.html"), "utf8");

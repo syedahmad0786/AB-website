@@ -255,6 +255,11 @@ const services = {
   },
 };
 
+const serviceGuides = {
+  "ai-systems-architecture": `<section><h2>Automation governance framework for inspectable AI decisions</h2><p>A governed AI decision engine separates model judgment from permission to act. It records the input and source freshness, policy version, model or rule output, confidence and uncertainty, allowed tools, approval state, side effect, verification result, and final owner. The system should make a refusal or human escalation as observable as a successful automated action.</p>${comparisonTable("Inspectable decision controls", ["Control", "Question answered", "Minimum evidence", "Owner"], [["Input provenance", "What information drove the decision?", "Source, version, freshness, retrieval reference", "Data owner"], ["Policy boundary", "Was this action allowed?", "Policy version, role, permission, risk class", "Business owner"], ["Evaluation", "Was the output good enough?", "Scenario, expected result, actual result, score", "System owner"], ["Human approval", "Who accepted the risky action?", "Preview, approver, time, decision", "Named approver"], ["Execution receipt", "What changed outside the model?", "Tool, request ID, before/after state, verification", "Integration owner"], ["Recovery", "How is a bad outcome contained?", "Checkpoint, retry class, rollback or escalation", "Incident owner"]])}<p>NIST’s voluntary AI Risk Management Framework groups risk activity into govern, map, measure, and manage. Those functions are useful scaffolding; production architecture still requires specific state, permission, evaluation, approval, receipt, and recovery controls for each automated action.</p><p class="source-note"><strong>Primary reference:</strong> <a href="https://www.nist.gov/itl/ai-risk-management-framework">NIST AI Risk Management Framework</a></p></section>`,
+  "gohighlevel-crm-automation": `<section><h2>CRM operations architecture that survives peak demand</h2><p>A CRM integration usually fails under peak load because identity, ordering, rate limits, retries, and ownership were treated as connector settings instead of operating requirements. Define the canonical contact and opportunity state, normalize inbound events, use idempotency keys where possible, queue work that can wait, bound retries, preserve request and record identifiers, and route conflicting state to an owner.</p>${comparisonTable("CRM operating controls", ["Risk", "Control", "Evidence", "Recovery"], [["Duplicate contact or event", "Identity resolution and idempotency", "Source ID, canonical contact, prior action", "Merge, ignore, or review"], ["Out-of-order updates", "Version or state-transition check", "Previous and requested state", "Reject stale event"], ["Rate limit or timeout", "Queue and bounded backoff", "Attempt, response code, request ID", "Retry only safe actions"], ["Partial cross-platform write", "Checkpoint and reconciliation", "Completed side effects and last good state", "Continue or compensate"], ["Credential or permission failure", "Integration identity monitoring", "Connection, scope, affected action", "Stop and re-authorize"], ["Unknown conflict", "Human exception queue", "Record context, trace, recommended next step", "Named owner decides"]])}<p>Peak-hour verification should include bursts, duplicate webhooks, reordered events, expired credentials, slow dependencies, and partial completion. Success is not only throughput: the same business event must produce one intended state change, remain traceable, and reach a recoverable exception path when it cannot complete.</p></section>`,
+};
+
 const industries = {
   "online-coaches": {
     title: "AI Automation for Online Coaches and Education Businesses",
@@ -371,6 +376,10 @@ function list(items) {
   return `<ul>${items.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>`;
 }
 
+function comparisonTable(caption, headers, rows) {
+  return `<div class="comparison-table-wrap"><table><caption>${escapeHtml(caption)}</caption><thead><tr>${headers.map((header) => `<th scope="col">${escapeHtml(header)}</th>`).join("")}</tr></thead><tbody>${rows.map((row) => `<tr>${row.map((cell, index) => index === 0 ? `<th scope="row">${escapeHtml(cell)}</th>` : `<td>${escapeHtml(cell)}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
+}
+
 function faqSection(faqs) {
   if (!faqs?.length) return "";
   return `<section class="faq-section"><h2>Frequently asked questions</h2>${faqs.map(({ question, answer }) => `<div class="faq-item"><h3>${escapeHtml(question)}</h3><p>${escapeHtml(answer)}</p></div>`).join("")}</section>`;
@@ -429,10 +438,140 @@ const agencyGuideFaqs = [
   },
 ];
 
+const servicesIndexFaqs = [
+  {
+    question: "Which AI consulting service should a team start with?",
+    answer: "Start with the operational problem rather than a service label. A focused operating audit identifies the state, owners, data, failure cost, and controls, then maps the work to architecture, automation, CRM, voice, outbound, or content capabilities.",
+  },
+  {
+    question: "Why are fixed package prices not published?",
+    answer: "The cost depends on the number of systems, integrations, permissions, failure paths, evidence requirements, and handover scope. After the operating audit, the proposed work should state its boundaries, delivery phases, ownership, and price before implementation begins.",
+  },
+  {
+    question: "Can an engagement stop after architecture?",
+    answer: "Yes. A team can use the system blueprint, risk boundaries, acceptance tests, and delivery plan with its own implementation team. Continuing into build and integration is a separate decision.",
+  },
+];
+
+const workIndexFaqs = [
+  {
+    question: "What counts as evidence in these AI system case studies?",
+    answer: "Each record labels whether evidence is a public deployment, public repository, private implementation, anonymized architecture, documented project scope, or self-reported history. Those labels are not interchangeable.",
+  },
+  {
+    question: "Do the case studies claim client results?",
+    answer: "Only when a result has an attributable source, measurement definition, method, and time window. Architecture records without that evidence describe the system pattern and its limits instead of presenting unverified ROI.",
+  },
+  {
+    question: "How should a similar system be evaluated?",
+    answer: "Evaluate its state model, permissions, failure recovery, human handoff, observability, acceptance tests, ownership, and evidence—not only its happy-path demo.",
+  },
+];
+
+const automationLabFaqs = [
+  {
+    question: "Does the automation lab use live customer data?",
+    answer: "No. It uses invented records and mock failure states. It does not contain client identities, credentials, production endpoints, or live write tools.",
+  },
+  {
+    question: "What does the simulator test?",
+    answer: "It tests happy-path handling, duplicate identity, unavailable calendars, payment gates, webhook timeouts, checkpoints, recovery, and the context provided to a human operator.",
+  },
+  {
+    question: "What does a successful run prove?",
+    answer: "It proves the public simulator follows its documented state and recovery rules. It does not prove an undisclosed client deployment, business result, or production integration.",
+  },
+];
+
+const aboutFaqs = [
+  {
+    question: "What does Ahmad Bukhari specialize in?",
+    answer: "Ahmad specializes in agentic AI and LLM systems, automation architecture, CRM operations, workflow reliability, human approval, observability, recovery, and product delivery infrastructure.",
+  },
+  {
+    question: "How is the work delivered?",
+    answer: "Ahmad leads architecture and systems thinking. Aixcel Solutions supports implementation and integration, while MANHAJ provides a governed model for private AI operating systems.",
+  },
+  {
+    question: "Where can the work be verified?",
+    answer: "Use the public agentic systems library, evidence-labeled case studies, linked GitHub repositories, and the automation reliability lab. Each surface states what is live, public, private, anonymized, or still in development.",
+  },
+];
+
+const contactFaqs = [
+  {
+    question: "What should I bring to the first systems call?",
+    answer: "Bring the current workflow, where state lives, the expensive failure points, who owns each decision, the systems involved, and the outcome that would make the work worthwhile.",
+  },
+  {
+    question: "What should not be sent before the call?",
+    answer: "Do not send passwords, API keys, customer exports, health information, financial account data, or other sensitive records. A sanitized workflow description is enough for initial discovery.",
+  },
+  {
+    question: "What happens after discovery?",
+    answer: "The next step is a written boundary: the problem, actors, data, permissions, failure paths, evidence, proposed phases, ownership, and the decision to stop, prototype, or proceed.",
+  },
+];
+
+const blogIndexFaqs = [
+  {
+    question: "How are research topics selected?",
+    answer: "Topics are selected for their operational consequences: what a team should deploy, delay, govern, measure, or verify. Product announcements without a business decision are not enough.",
+  },
+  {
+    question: "How is freshness handled?",
+    answer: "Current findings are dated and linked to their canonical publisher. Legacy articles stay excluded from indexing until product capabilities, pricing, examples, and claims complete a new source review.",
+  },
+  {
+    question: "Are the articles implementation guarantees?",
+    answer: "No. They are evidence-led analysis and buyer guidance. Implementation scope and risk depend on the organization, data, permissions, integrations, and operating environment.",
+  },
+];
+
+const portfolioIndexFaqs = [
+  {
+    question: "Why are some portfolio records archived?",
+    answer: "The original records contain owner-supplied summaries or quantitative claims that have not yet been paired with a supporting artifact, measurement definition, method, and time window for this publication.",
+  },
+  {
+    question: "Where is the current evidence-led portfolio?",
+    answer: "Use Selected Systems and the Agentic Systems library. Those pages label public demos, repositories, private implementations, anonymized architecture, documented scope, and evidence limits.",
+  },
+  {
+    question: "Does an archived title verify the original result?",
+    answer: "No. A descriptive title identifies the type of project record. It is not a testimonial, endorsement, independently verified outcome, forecast, or guarantee.",
+  },
+];
+
+function caseFaqs(item, slug) {
+  const topicQuestion = {
+    errorlens: "How should workflow errors be classified before recovery?",
+    "migration-factory": "How is parity verified during a workflow migration?",
+    "enterprise-os": "What governance controls belong in product delivery infrastructure?",
+  }[slug] || `How should the ${item.shortTitle} pattern be evaluated?`;
+  const topicAnswer = {
+    errorlens: "Classify errors by cause, reversibility, retry safety, business impact, and the evidence available. Retry only transient failures that are safe to repeat; quarantine or escalate conflicts, invalid state, and uncertain actions.",
+    "migration-factory": "Capture the current inputs, outputs, side effects, timing, credentials, errors, and exceptions; rebuild by workflow family; then compare expected and actual behavior with copied or synthetic data before cutover.",
+    "enterprise-os": "Use explicit state transitions, role and permission checks, approval gates, financial dependencies, release evidence, observability, and a named owner for every exception path.",
+  }[slug] || "Evaluate the state model, permissions, failure recovery, human handoff, observability, evidence, acceptance tests, and ownership transfer rather than relying on a happy-path demonstration.";
+  return [
+    { question: topicQuestion, answer: topicAnswer },
+    { question: "Is this page proof of a client result?", answer: "No unless the page explicitly provides an attributable source, measurement definition, method, and time window. Otherwise it documents an architecture pattern, scope, public proof, or stated evidence limit." },
+    { question: "What should be verified before production use?", answer: "Verify permissions, data boundaries, idempotency, retries, checkpoints, observability, human escalation, acceptance tests, rollback, and the operator documentation needed to recover the system." },
+  ];
+}
+
+const caseGuides = {
+  errorlens: `<section><h2>How to classify and recover workflow errors</h2><p>Start by separating transient infrastructure failures from invalid data, authentication problems, business-rule conflicts, duplicate events, and unknown failures. A timeout may be safe to retry when the action is idempotent. A payment-state conflict, permission failure, or uncertain write should stop. The recovery decision must use the error class, current business state, previous attempts, side-effect risk, and owner—not the error message alone.</p>${comparisonTable("Workflow error classes and safe recovery decisions", ["Error class", "Typical signal", "Safe default", "Evidence to retain"], [["Transient dependency", "Timeout, temporary 5xx, rate limit", "Bounded retry with backoff", "Attempt count, dependency, request ID"], ["Invalid input", "Schema or validation failure", "Quarantine and correct", "Rejected field, source record, validation rule"], ["State conflict", "Duplicate, stale version, illegal transition", "Stop and reconcile", "Canonical state, competing event, owner"], ["Permission or authentication", "401, 403, expired credential", "Stop and escalate", "Integration identity and affected action"], ["Unknown or high-impact", "Unclassified failure or irreversible write", "Human decision", "Payload reference, logs, trace, last good state"]])}</section><section><h2>What an operator needs to recover the system</h2><p>An alert should identify the workflow, canonical record, last good state, failed step, normalized error class, attempt history, side effects already completed, current owner, and next safe action. Logs without business state force a person to reconstruct the incident. Business state without trace and request identifiers makes the technical cause difficult to verify.</p><p>Platform handlers are useful building blocks, not a complete operating model. Make documents skip, retry, resume, commit, and rollback handlers; OpenTelemetry documents traces, metrics, and logs as observability signals. The architecture still has to decide which recovery is safe for the specific business action.</p><p class="source-note"><strong>Primary references:</strong> <a href="https://help.make.com/error-handlers">Make error handlers</a> · <a href="https://opentelemetry.io/docs/concepts/observability-primer/">OpenTelemetry observability primer</a></p></section>`,
+  "migration-factory": `<section><h2>Why workflow migrations break after the tool switch</h2><p>A migration fails when the team copies nodes but not behavior. The hidden contract includes trigger timing, field mapping, credentials, retries, ordering, duplicate handling, rate limits, partial writes, operator alerts, and downstream expectations. Inventory those contracts first, group workflows into reusable families, and separate business rules from platform-specific implementation before rebuilding.</p>${comparisonTable("Make and n8n migration questions—not a universal winner", ["Decision area", "What to inspect in Make", "What to inspect in n8n", "Migration acceptance"], [["Execution state", "Incomplete executions and scenario history", "Execution data, error workflows, and persistence", "A failed run can be found and safely resumed"], ["Error handling", "Handler routes and retry directives", "Error workflows, node behavior, and retry design", "Each error class reaches the intended recovery path"], ["Reusable structure", "Templates, subscenarios, and shared data", "Sub-workflows, credentials, and environment configuration", "One family pattern replaces repeated one-off logic"], ["Scale and ordering", "Scheduling, webhooks, and sequential processing", "Concurrency, queue mode, workers, and database state", "Load and ordering tests match the operating requirement"], ["Ownership", "Organization, connections, and documentation", "Instance, source, credentials, and runbooks", "The client can operate, change, and roll back the system"]])}</section><section><h2>Parity before cutover</h2><p>Run the old and new workflow against copied or synthetic cases and compare outputs, side effects, timing, error paths, and operator alerts. Include duplicates, missing fields, expired credentials, timeouts, rate limits, and partial completion. Cut over by family only when the acceptance evidence is recorded; keep a rollback path until the new execution history is stable.</p></section>`,
+  "enterprise-os": `<section><h2>What product delivery infrastructure actually controls</h2><p>Product delivery infrastructure is the operating layer connecting intake, identity, permissions, work state, quality evidence, release decisions, finance dependencies, and observability. A pipeline lacks governance when actions can advance without a named owner, allowed transition, supporting evidence, or recovery path. The answer is not another dashboard; it is a controlled state model shared by the systems that change delivery.</p>${comparisonTable("Governance controls for product delivery", ["Control", "Decision it protects", "Required evidence", "Failure response"], [["Identity and role", "Who may act", "Actor, role, tenant, permission", "Deny and record"], ["State transition", "Whether work may advance", "Current state, requested transition, invariant", "Reject or route exception"], ["Quality gate", "Whether output meets acceptance", "Test result, reviewer, artifact", "Hold release"], ["Financial dependency", "Whether delivery and billing states agree", "Invoice or payment state and owner", "Separate states and escalate"], ["Release receipt", "What changed and why", "Version, approver, deployment, verification", "Rollback or remediate"]])}</section><section><h2>How governance is evaluated</h2><p>Test the state machine with valid and invalid transitions, least-privilege roles, duplicate events, delayed financial updates, failed deployments, missing evidence, and a human override. The audit trail must answer who requested an action, what policy allowed it, which evidence supported it, what changed, and whether the result was verified. NIST’s voluntary AI Risk Management Framework organizes risk work around govern, map, measure, and manage; an implementation still needs concrete controls for its own operating context.</p><p class="source-note"><strong>Primary reference:</strong> <a href="https://www.nist.gov/itl/ai-risk-management-framework">NIST AI Risk Management Framework</a></p></section>`,
+};
+
 function casePage(item, slug) {
   const artwork = caseArtwork[slug];
-  const leadArtwork = `<figure class="case-system-art"><picture><source media="(max-width: 800px)" srcset="/art/systems/${artwork.file}-800x500.webp"><img src="/art/systems/${artwork.file}-1200x750.webp" srcset="/art/systems/${artwork.file}-800x500.webp 800w, /art/systems/${artwork.file}-1200x750.webp 1200w" sizes="(max-width: 960px) calc(100vw - 2.5rem), 58rem" width="1200" height="750" loading="lazy" decoding="async" alt="${escapeHtml(artwork.alt)}"></picture></figure>`;
-  return `<main id="main" class="route-page">${routeIntro(item.eyebrow, item.title, item.description)}<article class="case-page content-shell">${leadArtwork}<section><span class="dialog-label">Direct answer</span><p class="content-lead">${escapeHtml(item.description)}</p></section><section><h2>The operational problem</h2><p>${escapeHtml(item.problem)}</p></section><section><h2>System architecture</h2><ol class="architecture-list">${item.architecture.map((step, index) => `<li><b>${String(index + 1).padStart(2, "0")}</b><span>${escapeHtml(step)}</span></li>`).join("")}</ol></section><section><h2>Key design decisions</h2>${list(item.decisions)}</section><section><h2>Evidence and limits</h2><p>${escapeHtml(item.evidence)}</p></section><aside class="answer-card"><h2>Need a related AI system?</h2><p>Bring the workflow, constraints, failure points, and desired outcome. The first call maps the safest useful move.</p><a class="button button-primary" href="${bookingUrl}">Book a 25 minute systems call <span>↗</span></a></aside></article>${routeFooter()}</main>`;
+  const faqs = caseFaqs(item, slug);
+  const leadArtwork = `<figure class="case-system-art"><picture><source media="(max-width: 800px)" srcset="/art/systems/${artwork.file}-800x500.webp"><img src="/art/systems/${artwork.file}-1200x750.webp" srcset="/art/systems/${artwork.file}-800x500.webp 800w, /art/systems/${artwork.file}-1200x750.webp 1200w" sizes="(max-width: 960px) calc(100vw - 2.5rem), 58rem" width="1200" height="750" loading="lazy" decoding="async" alt="${escapeHtml(artwork.alt)}"></picture><figcaption>${escapeHtml(artwork.alt)}</figcaption></figure>`;
+  return `<main id="main" class="route-page">${routeIntro(item.eyebrow, item.title, item.description)}<article class="case-page content-shell">${leadArtwork}<section><span class="dialog-label">Direct answer</span><p class="content-lead">${escapeHtml(item.description)}</p></section><section><h2>The operational problem</h2><p>${escapeHtml(item.problem)}</p></section><section><h2>System architecture</h2><ol class="architecture-list">${item.architecture.map((step, index) => `<li><b>${String(index + 1).padStart(2, "0")}</b><span>${escapeHtml(step)}</span></li>`).join("")}</ol></section><section><h2>Key design decisions</h2>${list(item.decisions)}</section><section><h2>How the pattern is operated</h2><p>The operating model begins with a canonical record and explicit state. Every automated action needs an owner, permission boundary, idempotency or duplicate strategy, observable result, and recovery path. A checkpoint records the last good state before a side effect. When the system cannot prove that continuing is safe, it stops and gives a person the evidence needed to decide.</p></section><section><h2>Verification checklist</h2>${list(["Test the happy path and each documented failure state with copied or synthetic data.", "Confirm that retries cannot repeat an unsafe or irreversible action.", "Trace the actor, input, state transition, side effect, and verification result.", "Exercise human escalation, rollback, and operator handover before release."])}</section>${caseGuides[slug] || ""}<section><h2>Evidence and limits</h2><p>${escapeHtml(item.evidence)}</p></section>${faqSection(faqs)}<aside class="answer-card"><h2>Need a related AI system?</h2><p>Bring the workflow, constraints, failure points, and desired outcome. The first call maps the safest useful move.</p><a class="button button-primary" href="${bookingUrl}">Book a 25 minute systems call <span>↗</span></a></aside></article>${routeFooter()}</main>`;
 }
 
 function agenticSystemsPage() {
@@ -441,19 +580,31 @@ function agenticSystemsPage() {
 }
 
 function servicesIndex() {
-  return `<main id="main" class="route-page">${routeIntro("AI consulting / Capabilities", "AI systems and automation consulting", "Architecture-led consulting for organizations that need AI, CRM, automation, and human operations to work as one dependable system.")}<section class="content-shell"><div class="answer-card"><h2>What I help build</h2><p>I diagnose operational friction, define the system boundary, and design the data, state, agents, controls, integrations, observability, and human handoffs needed for production. Delivery can continue through Aixcel Solutions and the MANHAJ operating model.</p></div><div class="content-grid">${Object.entries(services).map(([slug, service]) => `<article><span>Capability</span><h2><a href="/services/${slug}">${escapeHtml(service.title)}</a></h2><p>${escapeHtml(service.description)}</p><a class="text-link dark-link" href="/services/${slug}">Explore the approach <span>↗</span></a></article>`).join("")}</div></section>${routeFooter()}</main>`;
+  return `<main id="main" class="route-page">${routeIntro("AI consulting / Capabilities", "AI systems and automation consulting", "Architecture-led consulting for organizations that need AI, CRM, automation, and human operations to work as one dependable system.")}<section class="content-shell"><div class="answer-card"><h2>What I help build</h2><p>I diagnose operational friction, define the system boundary, and design the data, state, agents, controls, integrations, observability, and human handoffs needed for production. Delivery can continue through Aixcel Solutions and the MANHAJ operating model.</p></div><section class="prose-page compact-prose"><h2>How an engagement is scoped</h2><p>Scope follows operating risk rather than a fixed tool package. The first decision is whether the problem needs a workflow repair, a bounded automation, a CRM state redesign, an AI decision system, or no automation at all. The written plan identifies what is included, what remains human, which accounts and data the client owns, and the evidence required before release.</p>${comparisonTable("Engagement phases and decision gates", ["Phase", "Output", "Decision gate"], [["Operating audit", "Current state, owners, failure cost, data and constraints", "Is the problem worth solving?"], ["System blueprint", "Boundary, state model, permissions, integrations and acceptance tests", "Is the proposed system safe and useful?"], ["Prototype or build", "Controlled implementation on copied or approved data", "Does behavior match the blueprint?"], ["Verification", "Failure tests, observability, security, handover and release evidence", "Is production release approved?"], ["Operate and improve", "Monitored outcomes, incidents, changes and audit receipts", "Should the system continue, change, or stop?"]])}<h2>How pricing becomes transparent</h2><p>Fixed public package prices would imply that every workflow has the same integrations, permissions, failure paths, and handover burden. Instead, the proposal should state the priced scope after the operating audit: phases, deliverables, assumptions, exclusions, client-owned costs, ownership, acceptance criteria, and change process. No implementation begins from an open-ended estimate.</p></section><div class="content-grid">${Object.entries(services).map(([slug, service]) => `<article><span>Capability</span><h2><a href="/services/${slug}">${escapeHtml(service.title)}</a></h2><p>${escapeHtml(service.description)}</p><a class="text-link dark-link" href="/services/${slug}">Explore the approach <span>↗</span></a></article>`).join("")}</div>${faqSection(servicesIndexFaqs)}</section>${routeFooter()}</main>`;
 }
 
-function servicePage(service, faqs) {
-  return `<main id="main" class="route-page">${routeIntro("AI consulting / Specialist capability", service.title, service.description)}<article class="content-shell prose-page"><section class="answer-card"><h2>What does this service do?</h2><p>${escapeHtml(service.answer)}</p></section><section><h2>Typical engagement outputs</h2>${list(service.outcomes)}</section><section><h2>How the work is approached</h2><p>The engagement starts with the business state, actors, evidence, and exceptions. Architecture comes before tool selection. Every proposed automated action receives an owner, permission boundary, recovery path, and measurable outcome.</p></section><section><h2>How can the work be verified?</h2><p>Review the <a href="/agentic-systems">deployed agentic systems</a>, <a href="/work">evidence-led case studies</a>, and linked public repositories. Each record states its evidence level and limits rather than presenting unverified ROI or client claims.</p></section><section><h2>Who delivers the system?</h2><p>Ahmad Bukhari leads architecture and systems thinking. <a href="https://aixcelsolutions.com">Aixcel Solutions</a> is the services company, and <a href="https://manhaj.ahmadbukhari.com">MANHAJ</a> is the governed delivery model for private AI operating systems.</p></section>${faqSection(faqs)}<aside class="answer-card"><h2>Discuss the workflow</h2><p>Share the current process, the breakpoints, and the outcome that matters.</p><a class="button button-primary" href="${bookingUrl}">Book a 25 minute call <span>↗</span></a></aside></article>${routeFooter()}</main>`;
+function servicePage(service, faqs, slug) {
+  return `<main id="main" class="route-page">${routeIntro("AI consulting / Specialist capability", service.title, service.description)}<article class="content-shell prose-page"><section class="answer-card"><h2>What does this service do?</h2><p>${escapeHtml(service.answer)}</p></section><section><h2>Typical engagement outputs</h2>${list(service.outcomes)}</section><section><h2>How the work is approached</h2><p>The engagement starts with the business state, actors, evidence, and exceptions. Architecture comes before tool selection. Every proposed automated action receives an owner, permission boundary, recovery path, and measurable outcome.</p></section><section><h2>What makes the approach different?</h2><p>The work is designed from the operator’s failure path backward. A proposal must identify the canonical state, the person responsible for exceptions, the evidence that permits each action, and how the team regains control. Public proof is labeled by evidence level; unverified testimonials, ROI, “first,” and “only” claims are not substituted for working systems or acceptance tests.</p></section><section><h2>How scope and pricing work</h2><p>The initial audit defines the system boundary, integrations, permissions, risks, phases, acceptance criteria, ownership, and exclusions. A written scope and price follow that boundary. No fixed package or result is invented before the operating problem is understood, and a client can stop after architecture instead of committing to implementation.</p></section>${serviceGuides[slug] || ""}<section><h2>How can the work be verified?</h2><p>Review the <a href="/agentic-systems">deployed agentic systems</a>, <a href="/work">evidence-led case studies</a>, and linked public repositories. Each record states its evidence level and limits rather than presenting unverified ROI or client claims.</p></section><section><h2>Who delivers the system?</h2><p>Ahmad Bukhari leads architecture and systems thinking. <a href="https://aixcelsolutions.com">Aixcel Solutions</a> is the services company, and <a href="https://manhaj.ahmadbukhari.com">MANHAJ</a> is the governed delivery model for private AI operating systems.</p></section>${faqSection(faqs)}<aside class="answer-card"><h2>Discuss the workflow</h2><p>Share the current process, the breakpoints, and the outcome that matters.</p><a class="button button-primary" href="${bookingUrl}">Book a 25 minute call <span>↗</span></a></aside></article>${routeFooter()}</main>`;
 }
 
 function industriesPage(industry, faqs) {
   return `<main id="main" class="route-page">${routeIntro("Industry systems", industry.title, industry.description)}<article class="content-shell prose-page"><section class="answer-card"><h2>Where AI automation helps</h2><p>For ${escapeHtml(industry.audience)}, the highest-value automation usually connects revenue, delivery, and customer state. It should remove repeatable coordination while keeping people in control of sensitive decisions.</p></section><section><h2>Systems commonly designed</h2>${list(industry.workflows)}</section><section><h2>What makes the architecture dependable?</h2><p>Each workflow needs a canonical record, explicit ownership, idempotent actions where possible, checkpoints, escalation, and an audit trail. Those controls matter more than the number of automations deployed.</p></section><section><h2>How can the approach be verified?</h2><p>Inspect the <a href="/agentic-systems">deployed systems</a> and <a href="/work">evidence-led case studies</a>. The public records identify what is live, anonymized, documented scope, private, or still in progress.</p></section>${faqSection(faqs)}<section><h2>Start with an operating audit</h2><p>The first step maps where data enters, how state changes, which failures are expensive, and what a successful human handoff looks like.</p><a class="button button-primary" href="${bookingUrl}">Book a systems call <span>↗</span></a></section></article>${routeFooter()}</main>`;
 }
 
+function automationLabPage() {
+  return `<main id="main" class="route-page">${routeIntro("Automation lab / Interactive proof", "Stress the AI automation—not just the diagram", "Run mock failure scenarios and inspect how resilient automation handles duplicate records, unavailable services, payment gates, retries, escalation, and human handoff.")}${labSections}<article class="content-shell prose-page"><section class="answer-card"><h2>What the lab demonstrates</h2><p>The simulator makes workflow state and recovery visible. A scenario moves through intake, identity, provisioning, verification, and handoff while the event log records what the system decided. The useful evidence is not that the animation completes; it is whether a duplicate, unavailable dependency, pending payment, or timeout reaches the documented safe state.</p></section><section><h2>How to read a run</h2><p>Follow the canonical record through each checkpoint. Confirm which steps completed, which side effects remain safe to repeat, why the system stopped, and whether the next action belongs to automation or a person. A reliable implementation should preserve the same information in production logs and operator views: record identity, last good state, normalized error, attempt history, owner, and next safe action.</p></section><section><h2>Evidence boundary</h2><p>The lab uses mock data and local rules. It is evidence of the public failure-state design, not a claim that a client deployment, live CRM, payment system, calendar, or customer record participated in the run. Production acceptance would additionally require authenticated integrations, security review, load behavior, recovery exercises, and owner sign-off.</p></section>${faqSection(automationLabFaqs)}</article>${routeFooter()}</main>`;
+}
+
+function aboutPage() {
+  return `<main id="main" class="route-page">${routeIntro("About / Operator-led architecture", "The operator inside the AI system", "Years inside sales, client delivery, training, CRM operations, and operational handoffs shape how Ahmad Bukhari designs AI systems people can actually operate.")}${aboutSection}<article class="content-shell prose-page"><section><h2>Working principles</h2><p>The work starts with the business state, the people responsible for it, and the exceptions that make the process expensive. Architecture comes before tool selection. Sensitive actions keep an explicit human approval path; recoverable failures receive checkpoints and bounded retries; every production change needs evidence and an owner.</p></section><section><h2>How experience is represented</h2><p>Public pages distinguish career history, self-reported operating evidence, private implementations, anonymized architecture, public repositories, and live demonstrations. Those labels prevent a private build or historical responsibility from being presented as a public client endorsement, independently measured result, or current production deployment.</p></section>${faqSection(aboutFaqs)}</article>${routeFooter()}</main>`;
+}
+
+function contactPage() {
+  return `<main id="main" class="route-page">${routeIntro("Contact / Focused discovery", "Bring the messy operational part", "Share the workflow, failure points, constraints, and desired outcome. The first call maps the safest useful move.")}<article class="content-shell prose-page"><section class="answer-card"><h2>What to include in the operating brief</h2><p>Describe where the workflow begins, which systems and teams touch it, where the canonical record lives, what breaks, how often the exception matters, and what outcome would justify change. A sanitized diagram, sample field list, or written sequence is useful. Credentials and customer exports are not.</p></section><section><h2>What the first call should produce</h2><p>The purpose is not to force a build. The call should identify the problem boundary, actors, data, permissions, failure cost, evidence, and the smallest safe next step. That may be a diagnostic, architecture blueprint, controlled prototype, implementation phase, or a decision not to automate.</p></section><section><h2>Security before access</h2><p>Do not send passwords, API keys, tokens, private customer data, health information, or financial account details. If implementation proceeds, access should use client-owned accounts, least-privilege roles, an agreed secret-sharing method, and a record of who approved each external write.</p></section>${faqSection(contactFaqs)}</article>${contactSection}</main>`;
+}
+
 function blogIndex() {
-  return `<main id="main" class="route-page">${routeIntro("Research & findings / Dated and evidence-led", "AI research translated into business decisions", "Current papers, releases, and operating lessons—explained in plain English, dated clearly, and linked to their canonical publisher.")}<section class="content-shell research-hub"><article class="answer-card research-hub-featured"><div class="article-meta"><span>AI, Plain English · Field Note 002</span><time datetime="2026-07-23">Published July 23, 2026</time><span>9 minute read</span></div><h2><a href="${latestResearchUrl}">OpenAI Presence: The New Standard for Enterprise AI Agent Operations</a></h2><p>OpenAI Presence puts policy, testing, approved actions, monitoring, and escalation around customer-facing agents. This review explains what business leaders should deploy, delay, and measure.</p><a class="button button-primary" href="${latestResearchUrl}">Read Field Note 002 on Aixcel Solutions <span>↗</span></a></article><div class="content-grid research-hub-grid"><article><span>Buyer guide · Updated July 22, 2026</span><h2><a href="/blog/how-to-choose-an-ai-automation-agency">How to choose an AI automation agency</a></h2><p>Evaluate diagnosis, controls, evidence, ownership, recovery, and handover—not demo count.</p><a class="text-link dark-link" href="/blog/how-to-choose-an-ai-automation-agency">Read the buyer guide <span>↗</span></a></article></div></section>${routeFooter()}</main>`;
+  return `<main id="main" class="route-page">${routeIntro("Research & findings / Dated and evidence-led", "AI research translated into business decisions", "Current papers, releases, and operating lessons—explained in plain English, dated clearly, and linked to their canonical publisher.")}<section class="content-shell research-hub"><section class="answer-card"><h2>TL;DR: research should change an operating decision</h2><p>This library translates current AI papers, product releases, and system lessons into a practical decision: what to deploy, delay, govern, measure, or verify. Every current item is dated and linked to its canonical publisher. Older material is excluded from search until claims, capabilities, examples, and pricing complete a fresh source review.</p></section><section class="prose-page compact-prose"><h2>How findings are evaluated</h2><p>A useful finding states the operating problem, the system boundary, what evidence supports it, where it may fail, and which human decision remains. Product announcements are separated from deployed capability. Quantitative claims need an attributable source, definition, method, and time window. When the available evidence is incomplete, the publication says so rather than converting uncertainty into advice.</p><h2>Current coverage</h2><p>The current library covers governed customer-facing agents and a buyer guide for selecting an AI automation agency. Related evidence lives in the automation reliability lab, the system architecture case studies, and the public agentic systems library. The next useful additions should deepen the documented gaps in automation governance, CRM operations, workflow migration, error recovery, and product delivery infrastructure—not publish volume for its own sake.</p></section><article class="answer-card research-hub-featured"><div class="article-meta"><span>AI, Plain English · Field Note 002</span><time datetime="2026-07-23">Published July 23, 2026</time><span>9 minute read</span></div><h2><a href="${latestResearchUrl}">OpenAI Presence: The New Standard for Enterprise AI Agent Operations</a></h2><p>OpenAI Presence puts policy, testing, approved actions, monitoring, and escalation around customer-facing agents. This review explains what business leaders should deploy, delay, and measure.</p><a class="button button-primary" href="${latestResearchUrl}">Read Field Note 002 on Aixcel Solutions <span>↗</span></a></article><div class="content-grid research-hub-grid"><article><span>Buyer guide · Updated July 22, 2026</span><h2><a href="/blog/how-to-choose-an-ai-automation-agency">How to choose an AI automation agency</a></h2><p>Evaluate diagnosis, controls, evidence, ownership, recovery, and handover—not demo count.</p><a class="text-link dark-link" href="/blog/how-to-choose-an-ai-automation-agency">Read the buyer guide <span>↗</span></a></article></div>${faqSection(blogIndexFaqs)}</section>${routeFooter()}</main>`;
 }
 
 function blogPage(post) {
@@ -461,7 +612,7 @@ function blogPage(post) {
 }
 
 function portfolioIndex() {
-  return `<main id="main" class="route-page">${routeIntro("Legacy portfolio / Archived records", "AI automation portfolio archive", "An archive of earlier AI, automation, CRM, analytics, and operations project records, preserved alongside the newer evidence-led systems case studies.")}<section class="content-shell"><div class="answer-card"><h2>Evidence status</h2><p>The current, evidence-led portfolio is available under <a href="/work">Selected Systems</a>. These older records remain accessible so existing references continue to resolve, but their detailed pages are excluded from search indexing until each claim has a supporting artifact, method, and time window.</p></div><div class="content-grid">${PORTFOLIO_ITEMS.map((item, index) => `<article><span>${escapeHtml(item.category)} · Archived</span><h2><a href="/portfolio/${item.slug}">Archived project record ${String(index + 1).padStart(2, "0")}</a></h2><p>Owner-supplied legacy project summary retained for reference and pending an evidence review.</p><a class="text-link dark-link" href="/portfolio/${item.slug}">View archived record <span>↗</span></a></article>`).join("")}</div></section>${routeFooter()}</main>`;
+  return `<main id="main" class="route-page">${routeIntro("Legacy portfolio / Archived records", "AI automation portfolio archive", "An archive of earlier AI, automation, CRM, analytics, and operations project records, preserved alongside the newer evidence-led systems case studies.")}<section class="content-shell"><div class="answer-card"><h2>What this archive contains</h2><p>This index preserves descriptive records of earlier automation work across analytics, content, video, onboarding, CRM, lead operations, research, billing, e-commerce, and business systems. The project titles identify the type of work; they do not independently verify the original quantitative claims.</p></div><section class="prose-page compact-prose"><h2>Evidence status</h2><p>The current, evidence-led portfolio is available under <a href="/work">Selected Systems</a> and <a href="/agentic-systems">Agentic Systems</a>. These older records remain accessible so existing references continue to resolve, but their detailed pages are excluded from search indexing until each claim has a supporting artifact, measurement definition, method, and time window.</p><h2>How the archive is used</h2><p>A record may be reviewed later against source code, workflow exports, screenshots, client-approved evidence, or contemporaneous project documents. Until then, it is a preserved owner-supplied description—not a testimonial, endorsement, independently verified benchmark, forecast, or guarantee. This boundary keeps historical references available without allowing unsupported claims to compete with the current evidence-led case studies.</p></section><div class="content-grid">${PORTFOLIO_ITEMS.map((item) => `<article><span>${escapeHtml(item.category)} · Archived</span><h2><a href="/portfolio/${item.slug}">${escapeHtml(item.title)}</a></h2><p>Owner-supplied legacy project summary retained for reference and pending an evidence review.</p><a class="text-link dark-link" href="/portfolio/${item.slug}">View archived record <span>↗</span></a></article>`).join("")}</div>${faqSection(portfolioIndexFaqs)}</section>${routeFooter()}</main>`;
 }
 
 function portfolioPage(item) {
@@ -469,7 +620,7 @@ function portfolioPage(item) {
 }
 
 function agencyGuide(faqs) {
-  return `<main id="main" class="route-page">${routeIntro("Buyer guide / AI automation", "How to choose an AI automation agency", "Choose an AI automation agency by evaluating its operating diagnosis, architecture, controls, evidence, ownership model, and ability to support the system after launch—not by its demo count.")}<article class="content-shell article-body"><p class="article-meta">Updated <time datetime="2026-07-22">July 22, 2026</time> · Ahmad Bukhari</p><section class="answer-card"><h2>TL;DR: choose controls and evidence over demo count</h2><p>The right AI automation agency can explain your current state, identify where automation should stop, show how failures recover, and define a measurable operating outcome. Avoid providers that start with a tool, promise fully autonomous results without constraints, or cannot show how humans regain control.</p></section><h2>1. Start with the operational problem</h2><p>A credible agency asks how work moves today, where state lives, who owns each decision, what failure costs, and which outcomes matter. A list of AI tools is not an operating diagnosis.</p><h2>2. Ask for a system boundary</h2><p>The proposal should state what data enters, which actions the system may take, where approvals occur, and which exceptions remain human. This boundary is the foundation of security and reliability.</p><h2>3. Inspect evidence, not theatre</h2><p>Look for working repositories, sanitized architecture, test scenarios, evaluation results, or case studies that label what is live, anonymized, illustrative, or still in development. Unqualified ROI and invented certainty are warning signs.</p><h2>4. Test the failure path</h2><p>Ask what happens when a webhook arrives twice, a CRM record conflicts, the model is uncertain, an API fails, or a customer requests a human. Mature teams design these states before launch.</p><h2>5. Confirm ownership and handover</h2><p>Clarify who owns source code, credentials, prompts, data, documentation, and deployment accounts. The client should be able to operate and change the system without permanent dependency on one builder.</p><h2>6. Compare the delivery model</h2><p>A freelancer can be right for a focused workflow. An agency can coordinate broader implementation. A private AI operating system may be appropriate when several business functions need shared governance, memory, and observability. The best model depends on scope and risk.</p><h2>Questions to ask before signing</h2>${list(["What business state is the system responsible for?", "Which actions require human approval?", "How are model outputs evaluated?", "How are retries, duplicates, and partial failures handled?", "Where do logs, credentials, and customer data live?", "What evidence will prove the system is working?", "What documentation and ownership transfer are included?"])}${faqSection(faqs)}<aside class="answer-card"><h2>Compare your current plan</h2><p>Ahmad Bukhari leads architecture; Aixcel Solutions delivers AI systems; MANHAJ provides a governed model for private AI operating systems.</p><a class="button button-primary" href="${bookingUrl}">Book a 25 minute systems call <span>↗</span></a></aside></article>${routeFooter()}</main>`;
+  return `<main id="main" class="route-page">${routeIntro("Buyer guide / AI automation", "How to choose an AI automation agency", "Choose an AI automation agency by evaluating its operating diagnosis, architecture, controls, evidence, ownership model, and ability to support the system after launch—not by its demo count.")}<article class="content-shell article-body"><p class="article-meta">Updated <time datetime="2026-08-11">August 11, 2026</time> · Ahmad Bukhari</p><section class="answer-card"><h2>TL;DR: choose controls and evidence over demo count</h2><p>The right AI automation agency can explain your current state, identify where automation should stop, show how failures recover, and define a measurable operating outcome. Avoid providers that start with a tool, promise fully autonomous results without constraints, or cannot show how humans regain control.</p></section><nav class="guide-toc" aria-label="Guide contents"><strong>In this guide</strong><ol><li><a href="#operational-problem">Start with the operational problem</a></li><li><a href="#system-boundary">Ask for a system boundary</a></li><li><a href="#evidence">Inspect evidence, not theatre</a></li><li><a href="#failure-path">Test the failure path</a></li><li><a href="#ownership">Confirm ownership and handover</a></li><li><a href="#delivery-model">Compare the delivery model</a></li><li><a href="#questions">Questions before signing</a></li></ol></nav><h2 id="operational-problem">1. Start with the operational problem</h2><p>A credible agency asks how work moves today, where state lives, who owns each decision, what failure costs, and which outcomes matter. A list of AI tools is not an operating diagnosis.</p><h2 id="system-boundary">2. Ask for a system boundary</h2><p>The proposal should state what data enters, which actions the system may take, where approvals occur, and which exceptions remain human. This boundary is the foundation of security and reliability.</p><h2 id="evidence">3. Inspect evidence, not theatre</h2><p>Look for working repositories, sanitized architecture, test scenarios, evaluation results, or case studies that label what is live, anonymized, illustrative, or still in development. Unqualified ROI and invented certainty are warning signs.</p><h2 id="failure-path">4. Test the failure path</h2><p>Ask what happens when a webhook arrives twice, a CRM record conflicts, the model is uncertain, an API fails, or a customer requests a human. Mature teams design these states before launch.</p><h2 id="ownership">5. Confirm ownership and handover</h2><p>Clarify who owns source code, credentials, prompts, data, documentation, and deployment accounts. The client should be able to operate and change the system without permanent dependency on one builder.</p><h2 id="delivery-model">6. Compare the delivery model</h2><p>A freelancer can be right for a focused workflow. An agency can coordinate broader implementation. A private AI operating system may be appropriate when several business functions need shared governance, memory, and observability. The best model depends on scope and risk.</p>${comparisonTable("Delivery-model comparison", ["Model", "Good fit", "Primary advantage", "Constraint to verify"], [["Focused freelancer", "One bounded workflow or integration", "Direct specialist access and low coordination overhead", "Continuity, documentation, support, and account ownership"], ["Automation agency", "Several connected workflows and cross-functional delivery", "Broader implementation capacity and project coordination", "Architecture quality, senior oversight, handover, and change control"], ["Private AI operating system", "Multiple functions need shared state, permissions, evidence, and governance", "A common control plane for agents, automation, and operators", "Higher design burden, operating ownership, and justified scope"]])}<section><h2>Pros and constraints buyers should compare</h2><p>Specialization can shorten diagnosis, but a narrow provider may miss cross-system dependencies. A larger team can coordinate delivery, but scale does not prove that senior architecture or recovery design reaches the implementation. A private platform can reduce fragmented governance, but it creates an operating product that must have an owner. Treat every advantage as a condition to verify, not a marketing promise.</p></section><h2 id="questions">Questions to ask before signing</h2>${list(["What business state is the system responsible for?", "Which actions require human approval?", "How are model outputs evaluated?", "How are retries, duplicates, and partial failures handled?", "Where do logs, credentials, and customer data live?", "What evidence will prove the system is working?", "What documentation and ownership transfer are included?"])}<section><h2>Primary references for governance and recovery</h2><p>This guide’s control questions align with the need to govern, map, measure, and manage AI risk and to make technical behavior observable. Platform-specific error handlers remain implementation mechanisms; they do not replace business-state ownership or a safe recovery decision.</p><p class="source-note"><a href="https://www.nist.gov/itl/ai-risk-management-framework">NIST AI Risk Management Framework</a> · <a href="https://opentelemetry.io/docs/concepts/observability-primer/">OpenTelemetry observability primer</a> · <a href="https://help.make.com/error-handlers">Make error handlers</a></p></section>${faqSection(faqs)}<aside class="answer-card"><h2>Compare your current plan</h2><p>Ahmad Bukhari leads architecture; Aixcel Solutions delivers AI systems; MANHAJ provides a governed model for private AI operating systems.</p><a class="button button-primary" href="${bookingUrl}">Book a 25 minute systems call <span>↗</span></a></aside></article>${routeFooter()}</main>`;
 }
 
 function breadcrumbItems(path, title) {
@@ -526,6 +677,12 @@ function graphFor({ path, title, description, type = "WebPage", article, creativ
       "@id": "https://aixcelsolutions.com/#organization",
       name: "Aixcel Solutions",
       url: "https://aixcelsolutions.com/",
+      logo: {
+        "@type": "ImageObject",
+        url: `${siteUrl}/aixcel-signal-icon-512.svg`,
+        width: 512,
+        height: 512,
+      },
       founder: { "@id": `${siteUrl}/#person` },
       description: "Founder-led AI systems and automation company for growing businesses.",
       areaServed: "Worldwide",
@@ -655,8 +812,9 @@ addPage("/", {
 addPage("/work", {
   title: "AI Systems Portfolio & Case Studies | Ahmad Bukhari",
   description: "Inspect AI systems, automation reliability, private operating systems, migration, CRM, onboarding, and public code—with evidence and limits clearly labeled.",
-  main: `<main id="main" class="route-page">${routeIntro("Selected systems / Evidence-led", "AI systems architecture with consequences", "Six system stories spanning private products, governed delivery, workflow reliability, migration, CRM operations, and resilient onboarding.")}${workSection}${routeFooter()}</main>`,
+  main: `<main id="main" class="route-page">${routeIntro("Selected systems / Evidence-led", "AI systems architecture with consequences", "Six system stories spanning private products, governed delivery, workflow reliability, migration, CRM operations, and resilient onboarding.")}${workSection}<article class="content-shell prose-page"><section><h2>How to read the evidence</h2><p>A public demo proves only the behavior visible in that deployment. A public repository adds inspectable implementation and tests. An anonymized architecture record explains a pattern without proving a client result. A documented scope states what was planned or inventoried, while a private implementation remains uninspectable from this site. Each case keeps those evidence states separate.</p></section>${faqSection(workIndexFaqs)}</article>${routeFooter()}</main>`,
   type: "CollectionPage",
+  faqs: workIndexFaqs,
 });
 addPage("/agentic-systems", {
   title: "Agentic AI & LLM Systems Specialist | Ahmad Bukhari",
@@ -670,36 +828,41 @@ for (const [slug, item] of Object.entries(cases)) {
     description: item.description,
     main: casePage(item, slug),
     creativeWork: true,
+    faqs: caseFaqs(item, slug),
   });
 }
 addPage("/automation-lab", {
   title: "AI Automation Reliability Lab | Ahmad Bukhari",
   description: "An interactive mock-data lab for testing AI automation failure paths, idempotency, state gates, retries, escalation, and human handoff.",
-  main: `<main id="main" class="route-page">${routeIntro("Automation lab / Interactive proof", "Stress the AI automation—not just the diagram", "Run mock failure scenarios and inspect how resilient automation handles duplicate records, unavailable services, payment gates, and webhook timeouts.")}${labSections}${routeFooter()}</main>`,
+  main: automationLabPage(),
+  faqs: automationLabFaqs,
 });
 addPage("/about", {
   title: "About Ahmad Bukhari | AI Systems Specialist",
   description: "Meet Ahmad Bukhari, an Islamabad-based Agentic AI and LLM Systems Specialist with an operator-first background in sales, CRM, training, and delivery.",
-  main: `<main id="main" class="route-page">${routeIntro("About / Operator-led architecture", "The operator inside the AI system", "Years inside sales, client delivery, training, CRM operations, and operational handoffs shape how Ahmad Bukhari designs AI systems people can actually operate.")}${aboutSection}${routeFooter()}</main>`,
+  main: aboutPage(),
   type: "ProfilePage",
+  faqs: aboutFaqs,
 });
 addPage("/contact", {
   title: "Contact Ahmad Bukhari | AI Systems Consultation",
   description: "Book a focused 25-minute call with Ahmad Bukhari to discuss AI systems architecture, automation, CRM operations, voice AI, or product delivery.",
-  main: `<main id="main" class="route-page">${routeIntro("Contact / Focused discovery", "Bring the messy operational part", "Share the workflow, failure points, constraints, and desired outcome. The first call maps the safest useful move.")}${contactSection}</main>`,
+  main: contactPage(),
+  faqs: contactFaqs,
 });
 addPage("/services", {
   title: "AI Systems & Automation Consulting | Ahmad Bukhari",
   description: "AI systems and automation consulting for agentic workflows, voice AI, CRM, revenue operations, content systems, and dependable operations.",
   main: servicesIndex(),
   type: "CollectionPage",
+  faqs: servicesIndexFaqs,
 });
 for (const [slug, service] of Object.entries(services)) {
   const faqs = serviceFaqs(service);
   addPage(`/services/${slug}`, {
     title: `${service.seoTitle || service.title} | Ahmad Bukhari`,
     description: service.description,
-    main: servicePage(service, faqs),
+    main: servicePage(service, faqs, slug),
     service: { name: service.title, serviceType: service.title },
     faqs,
   });
@@ -719,6 +882,7 @@ addPage("/blog", {
   description: "Dated, evidence-led reviews of AI papers, product releases, automation systems, and their practical business impact—explained in plain English.",
   main: blogIndex(),
   type: "CollectionPage",
+  faqs: blogIndexFaqs,
 });
 for (const post of BLOG_POSTS) {
   addPage(`/blog/${post.slug}`, {
@@ -747,6 +911,7 @@ addPage("/portfolio", {
   description: "Preserved AI automation project records covering CRM, analytics, voice, content, onboarding, research, billing, e-commerce, and operational systems.",
   main: portfolioIndex(),
   type: "CollectionPage",
+  faqs: portfolioIndexFaqs,
 });
 for (const item of PORTFOLIO_ITEMS) {
   addPage(`/portfolio/${item.slug}`, {
@@ -760,7 +925,7 @@ for (const item of PORTFOLIO_ITEMS) {
 
 await rm(output, { recursive: true, force: true });
 await mkdir(output, { recursive: true });
-for (const asset of ["favicon.svg", "site.webmanifest", "twin-avatar.svg", "twin-widget.js", "images/ahmad-bukhari.jpg", "images/ahmad-cafe.jpg", "images/og-default.webp"]) {
+for (const asset of ["favicon.svg", "aixcel-signal-icon-512.svg", "site.webmanifest", "twin-avatar.svg", "twin-widget.js", "images/ahmad-bukhari.jpg", "images/ahmad-cafe.jpg", "images/og-default.webp"]) {
   const destination = resolve(output, asset);
   await mkdir(dirname(destination), { recursive: true });
   await cp(resolve(root, "public", asset), destination);
@@ -801,6 +966,11 @@ const llms = `# Ahmad Bukhari
 - [Nine verified agentic AI systems](${siteUrl}/agentic-systems)
 - [AI systems and automation consulting](${siteUrl}/services)
 - [Interactive automation reliability lab](${siteUrl}/automation-lab)
+- [Automation governance and inspectable AI decisions](${siteUrl}/services/ai-systems-architecture)
+- [Governed CRM operations architecture](${siteUrl}/services/gohighlevel-crm-automation)
+- [Workflow error classification and recovery](${siteUrl}/work/errorlens)
+- [Make to n8n workflow migration and parity](${siteUrl}/work/migration-factory)
+- [Product delivery infrastructure governance](${siteUrl}/work/enterprise-os)
 - [AI research and business findings](${siteUrl}/blog)
 - [How to choose an AI automation agency](${siteUrl}/blog/how-to-choose-an-ai-automation-agency)
 - [Contact Ahmad or book a systems call](${siteUrl}/contact)

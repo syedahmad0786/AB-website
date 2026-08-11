@@ -140,6 +140,12 @@
   object-fit: cover;
 }
 
+.case-system-art figcaption {
+  padding: .8rem 1rem;
+  color: rgba(244, 238, 227, .72);
+  font: 500 .76rem/1.5 var(--font-mono);
+}
+
 .prose-page h2,
 .article-body h2,
 .case-page h2,
@@ -164,6 +170,114 @@
   padding: clamp(1.5rem, 4vw, 3rem);
   border: 1px solid rgba(23, 22, 18, .2);
   background: rgba(200, 255, 55, .16);
+}
+
+.compact-prose {
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+}
+
+.faq-section {
+  width: min(100%, 58rem);
+  margin: 3rem auto 0;
+}
+
+.faq-section > h2 {
+  margin-bottom: 2rem;
+}
+
+.faq-item {
+  padding: 1.5rem 0;
+  border-top: 1px solid rgba(23, 22, 18, .18);
+}
+
+.faq-item:last-child {
+  border-bottom: 1px solid rgba(23, 22, 18, .18);
+}
+
+.faq-item h3 {
+  margin: 0 0 .65rem;
+  font-size: clamp(1.15rem, 2vw, 1.55rem);
+}
+
+.faq-item p {
+  margin: 0;
+}
+
+.comparison-table-wrap {
+  width: min(100%, 58rem);
+  margin: 2rem auto;
+  overflow-x: auto;
+  border: 1px solid rgba(23, 22, 18, .2);
+}
+
+.comparison-table-wrap table {
+  width: 100%;
+  min-width: 46rem;
+  border-collapse: collapse;
+  color: inherit;
+  background: rgba(244, 238, 227, .72);
+}
+
+.comparison-table-wrap caption {
+  padding: 1rem;
+  text-align: left;
+  font: 600 .76rem/1.4 var(--font-mono);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.comparison-table-wrap :is(th, td) {
+  padding: .9rem 1rem;
+  border-top: 1px solid rgba(23, 22, 18, .16);
+  border-right: 1px solid rgba(23, 22, 18, .12);
+  text-align: left;
+  vertical-align: top;
+  line-height: 1.55;
+}
+
+.comparison-table-wrap tr > :last-child {
+  border-right: 0;
+}
+
+.comparison-table-wrap thead th {
+  color: #f4eee3;
+  background: #321b34;
+  border-color: rgba(244, 238, 227, .18);
+}
+
+.comparison-table-wrap tbody th {
+  width: 18%;
+  font-weight: 700;
+}
+
+.guide-toc {
+  width: min(100%, 58rem);
+  margin: 0 auto;
+  padding: 1.5rem;
+  border: 1px solid rgba(23, 22, 18, .2);
+}
+
+.guide-toc strong {
+  font: 600 .76rem/1.4 var(--font-mono);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.guide-toc ol {
+  columns: 2;
+  margin: 1rem 0 0;
+  padding-left: 1.3rem;
+}
+
+.guide-toc li {
+  break-inside: avoid;
+  margin: .45rem 1.5rem .45rem 0;
+}
+
+.source-note {
+  padding-left: 1rem;
+  border-left: 3px solid #502c52;
 }
 
 .architecture-list {
@@ -250,4 +364,5 @@
   .architecture-list { grid-template-columns: 1fr; }
   .architecture-list li { min-height: 6rem; }
   .route-footer { flex-direction: column; }
+  .guide-toc ol { columns: 1; }
 }

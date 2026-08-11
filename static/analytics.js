@@ -26,6 +26,87 @@
     });
   }
 
+  function initCalBookingMeasurement() {
+    if (!document.querySelector("[data-cal-trigger][data-cal-link]")) return;
+
+    ((CalWindow, embedSource, initMethod) => {
+      const queue = (api, args) => api.q.push(args);
+      const documentRef = CalWindow.document;
+      CalWindow.Cal = CalWindow.Cal || function calEmbedApi() {
+        const cal = CalWindow.Cal;
+        const args = arguments;
+        if (!cal.loaded) {
+          cal.ns = {};
+          cal.q = cal.q || [];
+          const embedScript = documentRef.createElement("script");
+          embedScript.src = embedSource;
+          embedScript.async = true;
+          documentRef.head.appendChild(embedScript);
+          cal.loaded = true;
+        }
+        if (args[0] === initMethod) {
+          const namespaceApi = function namespacedCalApi() {
+            queue(namespaceApi, arguments);
+          };
+          const namespace = args[1];
+          namespaceApi.q = namespaceApi.q || [];
+          if (typeof namespace === "string") {
+            cal.ns[namespace] = cal.ns[namespace] || namespaceApi;
+            queue(cal.ns[namespace], args);
+            queue(cal, ["initNamespace", namespace]);
+          } else {
+            queue(cal, args);
+          }
+          return;
+        }
+        queue(cal, args);
+      };
+    })(window, "https://app.cal.com/embed/embed.js", "init");
+
+    const namespace = "revenue-handoff-map";
+    window.Cal("init", namespace, { origin: "https://cal.com" });
+    const bookingEmbed = window.Cal.ns[namespace];
+    bookingEmbed("ui", {
+      cssVarsPerTheme: {
+        light: { "cal-brand": "#502C52" },
+        dark: { "cal-brand": "#C8FF2E" },
+      },
+      hideEventTypeDetails: false,
+      layout: "month_view",
+    });
+
+    const measuredBookings = new Set();
+    bookingEmbed("on", {
+      action: "bookingSuccessfulV2",
+      callback: event => {
+        const data = event?.detail?.data || {};
+        const bookingKey = [data.uid, data.eventTypeId, data.startTime].filter(Boolean).join("|");
+        if (bookingKey && measuredBookings.has(bookingKey)) return;
+        if (bookingKey) measuredBookings.add(bookingKey);
+
+        const normalizedBookingStatus = typeof data.status === "string"
+          ? data.status.trim().toLowerCase()
+          : "unknown";
+        const allowedBookingStatuses = new Set(["accepted", "confirmed", "pending", "rejected", "cancelled", "canceled"]);
+        const bookingStatus = allowedBookingStatuses.has(normalizedBookingStatus)
+          ? normalizedBookingStatus
+          : "unknown";
+        const parameters = {
+          page_path: window.location.pathname,
+          booking_status: bookingStatus,
+        };
+        if (Number.isInteger(data.eventTypeId)) parameters.event_type_id = data.eventTypeId;
+
+        record("booking_created", parameters);
+        if (["accepted", "confirmed"].includes(bookingStatus)) {
+          record("booking_confirmed", parameters);
+        }
+      },
+    });
+  }
+
+  initCalBookingMeasurement();
+
   document.addEventListener("click", event => {
     const link = event.target.closest?.("a[href]");
     if (!link) return;

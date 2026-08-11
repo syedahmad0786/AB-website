@@ -9,6 +9,7 @@ const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const output = resolve(root, "dist");
 const siteUrl = "https://ahmadbukhari.com";
 const bookingUrl = "https://cal.com/ahmad-bukhari/revenue-handoff-map";
+const bookingNamespace = "revenue-handoff-map";
 const latestResearchUrl = "https://aixcelsolutions.com/insights/openai-presence-enterprise-ai-agent-rollout";
 const updatedAt = "2026-08-11";
 
@@ -838,6 +839,16 @@ function buildDocument({ path, title, description, main, type, article, creative
     .replaceAll("/ahmad-consultation.webp", "/images/ahmad-bukhari.jpg")
     .replace(/\s*<div class="field-media field-media-cosmos">[\s\S]*?<\/div>/, "")
     .replace(/\s*<div class="field-media field-media-brain">[\s\S]*?<\/div>/, "");
+  html = html.replace(/<a\b[^>]*href="https:\/\/cal\.com\/ahmad-bukhari\/revenue-handoff-map"[^>]*>/g, tag => {
+    let embeddedTag = tag;
+    if (!/\starget=/.test(embeddedTag)) embeddedTag = embeddedTag.replace(/>$/, ' target="_blank">');
+    if (!/\srel=/.test(embeddedTag)) embeddedTag = embeddedTag.replace(/>$/, ' rel="noreferrer">');
+    if (!/\sdata-cal-trigger(?:\s|=|>)/.test(embeddedTag)) embeddedTag = embeddedTag.replace(/>$/, " data-cal-trigger>");
+    if (!/\sdata-cal-link=/.test(embeddedTag)) embeddedTag = embeddedTag.replace(/>$/, ` data-cal-link="ahmad-bukhari/${bookingNamespace}">`);
+    if (!/\sdata-cal-namespace=/.test(embeddedTag)) embeddedTag = embeddedTag.replace(/>$/, ` data-cal-namespace="${bookingNamespace}">`);
+    if (!/\sdata-cal-config=/.test(embeddedTag)) embeddedTag = embeddedTag.replace(/>$/, ' data-cal-config=\'{"layout":"month_view","useSlotsViewOnSmallScreen":true}\'>');
+    return embeddedTag;
+  });
   if (!includeIdentity) {
     html = html
       .replace(/\n\s*<link rel="canonical" href="[^"]*">/, "")

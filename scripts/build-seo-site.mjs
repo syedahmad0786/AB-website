@@ -9,6 +9,7 @@ const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const output = resolve(root, "dist");
 const siteUrl = "https://ahmadbukhari.com";
 const bookingUrl = "https://cal.com/ahmad-bukhari/revenue-handoff-map";
+const bookingNamespace = "revenue-handoff-map";
 const latestResearchUrl = "https://aixcelsolutions.com/insights/openai-presence-enterprise-ai-agent-rollout";
 const updatedAt = "2026-08-11";
 
@@ -838,6 +839,13 @@ function buildDocument({ path, title, description, main, type, article, creative
     .replaceAll("/ahmad-consultation.webp", "/images/ahmad-bukhari.jpg")
     .replace(/\s*<div class="field-media field-media-cosmos">[\s\S]*?<\/div>/, "")
     .replace(/\s*<div class="field-media field-media-brain">[\s\S]*?<\/div>/, "");
+  html = html.replace(/<a\b[^>]*href="https:\/\/cal\.com\/ahmad-bukhari\/revenue-handoff-map"[^>]*>/g, tag => {
+    if (tag.includes("data-cal-link=")) return tag;
+    let embeddedTag = tag;
+    if (!/\starget=/.test(embeddedTag)) embeddedTag = embeddedTag.replace(/>$/, ' target="_blank">');
+    if (!/\srel=/.test(embeddedTag)) embeddedTag = embeddedTag.replace(/>$/, ' rel="noreferrer">');
+    return embeddedTag.replace(/>$/, ` data-cal-trigger data-cal-link="ahmad-bukhari/${bookingNamespace}" data-cal-namespace="${bookingNamespace}" data-cal-config='{"layout":"month_view","useSlotsViewOnSmallScreen":true}'>`);
+  });
   if (!includeIdentity) {
     html = html
       .replace(/\n\s*<link rel="canonical" href="[^"]*">/, "")

@@ -9,6 +9,7 @@ const urls = [...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map((match) => new URL(
 const failures = [];
 const canonicals = new Set();
 const sitemapHrefs = new Set(urls.map((url) => url.href));
+const verifiedBookingUrl = "https://cal.com/ahmad-bukhari/revenue-handoff-map";
 
 function mainVisibleWordCount(html) {
   const main = html.match(/<main[\s\S]*?<\/main>/)?.[0] || "";
@@ -50,6 +51,11 @@ for (const url of urls) {
   if ((html.match(/src="\/analytics\.js"/g) || []).length !== 1) failures.push(`${url.pathname}: expected exactly one shared analytics loader`);
   if (!html.includes('aixcel-color-theme') || !html.includes('document.documentElement.dataset.theme')) failures.push(`${url.pathname}: early theme initialization is missing`);
   if (html.includes("calendly.com/ahmadbukhari4245")) failures.push(`${url.pathname}: stale booking URL`);
+  const bookingAnchors = [...html.matchAll(/<a\b[^>]*href="https:\/\/cal\.com\/ahmad-bukhari\/revenue-handoff-map"[^>]*>/g)].map(match => match[0]);
+  if (!bookingAnchors.length) failures.push(`${url.pathname}: verified booking CTA is missing`);
+  for (const anchor of bookingAnchors) {
+    if (!anchor.includes('data-cal-link="ahmad-bukhari/revenue-handoff-map"') || !anchor.includes('data-cal-namespace="revenue-handoff-map"')) failures.push(`${url.pathname}: booking CTA cannot emit a first-party success event`);
+  }
   if (html.includes("github.com/bukhariahmad")) failures.push(`${url.pathname}: stale GitHub URL`);
   if (html.includes("hello@ahmadbukhari.com")) failures.push(`${url.pathname}: unverified email address`);
   if (/"(?:aggregateRating|review|ratingValue|reviewCount)"/.test(html)) failures.push(`${url.pathname}: unsupported review or rating schema`);
@@ -198,13 +204,14 @@ for (const file of htmlFiles) {
 }
 
 const home = builtIndex;
-const verifiedBookingUrl = "https://cal.com/ahmad-bukhari/revenue-handoff-map";
 if (!home.includes(`href="${verifiedBookingUrl}"`)) failures.push("Homepage must link to the verified live Cal.com event");
 const analytics = await readFile(resolve(dist, "analytics.js"), "utf8");
 if ((analytics.match(/G-W66WJJKGWQ/g) || []).length !== 1) failures.push("Analytics must use the Measurement ID from the existing Ahmad Bukhari Profile web stream");
 if (!analytics.includes("googletagmanager.com/gtag/js") || !analytics.includes('send_page_view: true')) failures.push("GA4 page-view initialization is incomplete");
 if (!analytics.includes('record("discovery_call_click"') || !analytics.includes('record("contact_email_click"')) failures.push("Truthful contact-intent analytics events are missing");
-if (/generate_lead|booking_confirmed/.test(analytics)) failures.push("Analytics must not claim a lead or booking without a verified success state");
+if (/generate_lead/.test(analytics)) failures.push("Analytics must not claim a generic lead without a verified success state");
+if (!analytics.includes('action: "bookingSuccessfulV2"') || !analytics.includes('record("booking_created"') || !analytics.includes('record("booking_confirmed"')) failures.push("Cal.com booking-success measurement is incomplete");
+if (!analytics.includes('["accepted", "confirmed"].includes(bookingStatus)')) failures.push("Booking confirmation must remain gated by Cal.com's accepted or confirmed status");
 const defaultOgUrl = "https://ahmadbukhari.com/art/ahmadbukhari-default-og-1200x630.png";
 if (!home.includes(`<meta property="og:image" content="${defaultOgUrl}">`)) failures.push("Homepage default Open Graph PNG is missing");
 if (!home.includes(`<meta name="twitter:image" content="${defaultOgUrl}">`)) failures.push("Homepage default Twitter image PNG is missing");

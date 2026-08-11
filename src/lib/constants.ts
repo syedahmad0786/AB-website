@@ -10,7 +10,7 @@ export const SITE_CONFIG = {
   github: "https://github.com/syedahmad0786",
   email: "ahmadbukhari4245@gmail.com",
   phone: "+923005174444",
-  calendly: "https://cal.com/ahmad-bukhari/ai-consultancy-call-with-ab",
+  calendly: "https://cal.com/ahmad-bukhari/revenue-handoff-map",
   },
 } as const;
 

@@ -224,7 +224,7 @@ if ((home.match(/data-cinema-copy="/g) || []).length !== 5) failures.push("Homep
 if ((home.match(/data-cinema-layer="/g) || []).length !== 6) failures.push("Homepage must contain six Decision Engine visual layers");
 if ((home.match(/class="project-art project-art-image"/g) || []).length !== 6) failures.push("Homepage must contain six System Story artworks");
 if ((home.match(/<article class="research-card/g) || []).length !== 2) failures.push("Homepage must contain two current research cards");
-if (!home.includes('datetime="2026-07-23"') || !home.includes("openai-presence-enterprise-ai-agent-rollout")) failures.push("Homepage latest research card must expose its publication date and canonical URL");
+if (!home.includes('datetime="2026-08-11"') || !home.includes("/blog/automation-governance-inspectable-systems")) failures.push("Homepage latest research card must expose its publication date and canonical URL");
 if ((home.match(/<img\b[^>]*fetchpriority="high"[^>]*>/g) || []).length !== 1) failures.push("Homepage must have exactly one high-priority artwork image");
 if (!home.includes('<img class="ab-axis" src="/brand/ahmad-ab-axis.svg" alt="" width="96" height="96">')) failures.push("Homepage header does not use the official AB Axis SVG");
 if (!home.includes('<link rel="icon" href="/brand/ahmad-ab-axis-favicon.svg?v=20260723" type="image/svg+xml" sizes="any">')) failures.push("Homepage does not use the cache-busting official AB Axis favicon path");
@@ -245,7 +245,7 @@ const homeSchema = JSON.parse(home.match(/<script type="application\/ld\+json">(
 const homeProfiles = (homeSchema["@graph"] || []).filter((node) => node["@type"] === "ProfilePage");
 if (homeProfiles.length !== 1 || homeProfiles[0]?.mainEntity?.["@id"] !== "https://ahmadbukhari.com/#person") failures.push("Homepage must expose exactly one ProfilePage with Ahmad as its main entity");
 const aixcelOrganization = (homeSchema["@graph"] || []).find((node) => Array.isArray(node["@type"]) && node["@type"].includes("Organization"));
-if (aixcelOrganization?.name !== "Aixcel Solutions" || aixcelOrganization?.logo?.url !== "https://ahmadbukhari.com/aixcel-signal-icon-512.svg" || aixcelOrganization?.logo?.width !== 512 || aixcelOrganization?.logo?.height !== 512) failures.push("Aixcel Organization schema must expose the approved 512px signal logo");
+if (aixcelOrganization?.name !== "AiXCEL Solutions" || aixcelOrganization?.logo?.url !== "https://ahmadbukhari.com/aixcel-signal-icon-512.svg" || aixcelOrganization?.logo?.width !== 512 || aixcelOrganization?.logo?.height !== 512) failures.push("Aixcel Organization schema must expose the approved 512px signal logo");
 if ((homeSchema["@graph"] || []).some((node) => node["@type"] === "BreadcrumbList")) failures.push("Homepage must not publish a one-item BreadcrumbList");
 const homeDescription = home.match(/<meta name="description" content="(.*?)">/)?.[1] || "";
 if (homeDescription.length > 158) failures.push("Homepage description must stay within the Searchable baseline recommendation");
@@ -312,8 +312,8 @@ for (const [path, minimumWords] of [
 }
 
 const blogIndexHtml = await readFile(resolve(dist, "blog.html"), "utf8");
-if (!blogIndexHtml.includes("AI research translated into business decisions") || !blogIndexHtml.includes('datetime="2026-07-23"')) failures.push("Research hub must identify the current dated publication");
-if (!blogIndexHtml.includes("openai-presence-enterprise-ai-agent-rollout")) failures.push("Research hub must link to the canonical latest finding");
+if (!blogIndexHtml.includes("AI research translated into business decisions") || !blogIndexHtml.includes('datetime="2026-08-11"')) failures.push("Research hub must identify the current dated publication");
+if (!blogIndexHtml.includes("/blog/automation-governance-inspectable-systems")) failures.push("Research hub must link to the canonical latest finding");
 if (blogIndexHtml.includes("Archived field note") || blogIndexHtml.includes("View archived article")) failures.push("Research hub must not expose the legacy article wall");
 if (home.includes("Research without the archive wall") || blogIndexHtml.includes("Publication policy") || blogIndexHtml.includes("Older drafts remain")) failures.push("Current research surfaces must not promote legacy archive material");
 if (!blogIndexHtml.includes("TL;DR: research should change an operating decision") || !blogIndexHtml.includes("How findings are evaluated")) failures.push("Research hub must expose its answer-first editorial policy");
@@ -476,7 +476,7 @@ if (!governanceGuide.includes(governanceEvidenceBoundary) || unsupportedGovernan
 if (governanceArticle?.image !== defaultOgUrl) failures.push("Automation governance guide Article schema must use the default Open Graph PNG");
 
 const feed = await readFile(resolve(dist, "feed.xml"), "utf8");
-if ((feed.match(/<item>/g) || []).length !== 3 || !feed.includes(governanceUrl) || !feed.includes(guideUrl) || !feed.includes("openai-presence-enterprise-ai-agent-rollout")) failures.push("RSS feed must contain all three current dated publications");
+if ((feed.match(/<item>/g) || []).length !== 2 || !feed.includes(governanceUrl) || !feed.includes(guideUrl)) failures.push("RSS feed must contain all three current dated publications");
 const firstFeedItem = feed.match(/<item>([\s\S]*?)<\/item>/)?.[1] || "";
 const governanceFeedDate = new Date("2026-08-11T00:00:00Z").toUTCString();
 if (!firstFeedItem.includes(`<link>${governanceUrl}</link>`) || !firstFeedItem.includes(`<guid>${governanceUrl}</guid>`) || !firstFeedItem.includes(`<pubDate>${governanceFeedDate}</pubDate>`)) failures.push("Automation governance guide must be the first RSS item with its canonical URL and fixed publication date");

@@ -5,6 +5,8 @@
 // lib/homeLogic.js (the design's logic class, unchanged).
 import React from 'react';
 import ImageSlot from './ImageSlot';
+import PhoneFrame from './PhoneFrame';
+import ScaledFrame from './ScaledFrame';
 import { HomeLogic } from '../lib/homeLogic';
 
 // Defaults from the design's Tweaks panel (data-props).
@@ -1263,13 +1265,12 @@ export default class Home extends React.Component {
                 </React.Fragment>))}
               </div>
             </div>
-            <div style={{ flex: "0 1 330px", margin: "0 auto", width: "100%", maxWidth: "330px" }}>
-              <div style={{ aspectRatio: "9/16", border: "1.5px solid #121210", borderRadius: "36px", background: "#121210", padding: "10px", boxShadow: "12px 12px 0 #FF4F12" }}>
-                <div style={{ position: "relative", width: "100%", height: "100%", borderRadius: "27px", overflow: "hidden", background: "#1C1B18" }}>
+            <div style={{ flex: "0 1 320px", margin: "0 auto", width: "100%", maxWidth: "320px" }}>
+              <PhoneFrame>
                   {(v.channels || []).map((ch, $i9) => (<React.Fragment key={$i9}>
                     <div style={{ position: "absolute", inset: "0", opacity: ch?.vis, pointerEvents: ch?.pe, transition: "opacity .45s" }}>
                       {ch?.embed ? (
-                        <iframe src={ch.embed} title={`${ch.name} · ${ch.handle}`} loading="lazy" allow="autoplay; encrypted-media; picture-in-picture" referrerPolicy="strict-origin-when-cross-origin" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", border: 0, background: "#FFFFFF" }} />
+                        <ScaledFrame src={ch.embed} mode={ch.embedMode} title={`${ch.name} · ${ch.handle}`} />
                       ) : (
                       <ImageSlot alt={ch?.name}>
                         <div className="ab-channel-card">
@@ -1284,16 +1285,14 @@ export default class Home extends React.Component {
                     </div>
                   </React.Fragment>))}
                   {" "}
-                  <div style={{ position: "absolute", left: "0", right: "0", top: "0", padding: "16px 16px 28px", display: "flex", justifyContent: "space-between", alignItems: "center", fontFamily: "'Space Mono',monospace", fontSize: "11px", color: "#ECE8DF", background: "linear-gradient(#121210cc,transparent)", pointerEvents: "none" }}>
-                    <span style={{ display: "flex", alignItems: "center", gap: "7px" }}>
-                      <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#D62E1F" }} />
-                      {"CH "}{T(v.curCh?.num)}{" · "}{T(v.curCh?.name)}
-                    </span>
-                    <span>
-                      {v.clock}
+                  <div style={{ position: "absolute", left: "0", right: "0", top: "0", zIndex: 5, padding: "4.4% 9% 7%", display: "flex", justifyContent: "space-between", alignItems: "center", fontFamily: "'Space Mono',monospace", fontSize: "11px", fontWeight: "700", color: "#ECE8DF", background: "linear-gradient(#121210cc,transparent)", pointerEvents: "none" }}>
+                    <span>{(v.clock || "").slice(0, 5)}</span>
+                    <span style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                      <span style={{ width: "7px", height: "7px", borderRadius: "50%", background: "#D62E1F" }} />
+                      {"CH "}{T(v.curCh?.num)}
                     </span>
                   </div>
-                  <div style={{ position: "absolute", left: "12px", right: "12px", bottom: "12px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "10px", background: "#121210", color: "#ECE8DF", borderRadius: "14px", padding: "10px 12px" }}>
+                  <div style={{ position: "absolute", zIndex: 5, left: "12px", right: "12px", bottom: "4.2%", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "10px", background: "#121210", color: "#ECE8DF", borderRadius: "14px", padding: "10px 12px" }}>
                     <span style={{ display: "flex", flexDirection: "column", gap: "2px", minWidth: "0" }}>
                       <span style={{ fontWeight: "800", fontSize: "14px" }}>
                         {v.curCh?.name}
@@ -1306,8 +1305,7 @@ export default class Home extends React.Component {
                       Follow ↗
                     </a>
                   </div>
-                </div>
-              </div>
+                </PhoneFrame>
             </div>
           </div>
         </section>

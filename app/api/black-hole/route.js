@@ -6,7 +6,16 @@ const revalidate = 86400;
 
 const KEY = process.env.NASA_API_KEY || process.env.API || 'DEMO_KEY';
 const BLACK_HOLE = /black hole|event horizon|sgr a\*|sagittarius a\*|accretion disk/i;
-const NOT_A_PICTURE = /history of|spirograph|scientist|team|briefing|press|conference|portrait|award|meeting/i;
+const NOT_A_PICTURE = /history of|spirograph|scientist|team|briefing|press|conference|portrait|award|meeting|caloris|mercury|crater|moon|mars|lunar/i;
+
+// Verified NASA Image Library black hole pictures, shown first.
+const lib = (id, title, date, center) => ({ src: `https://images-assets.nasa.gov/image/${id}/${id}~medium.jpg`, fallback: `https://images-assets.nasa.gov/image/${id}/${id}~small.jpg`, title, date, credit: 'NASA ' + center, href: `https://images.nasa.gov/details/${id}` });
+const CURATED = [
+  lib('PIA22085', "Black Hole With Jet (Artist's Concept)", '2017-11-02', 'JPL'),
+  lib('PIA04206', 'Black Hole Simulation', '1999-11-30', 'JPL'),
+  lib('behemoth-black-hole-found-in-an-unlikely-place_26209716511_o', 'Behemoth Black Hole Found in an Unlikely Place', '2016-04-06', 'GSFC'),
+  lib('PIA20865', 'A Black Hole Choir', '2016-07-28', 'JPL'),
+];
 
 // APOD days that featured black holes. Titles are checked before use, so a
 // date that turns out to be something else is skipped, not shown.
@@ -49,9 +58,10 @@ async function fromLibrary(diag) {
 
 export async function GET(req) {
   const diag = [];
-  const [apod, lib] = await Promise.all([fromApod(diag), fromLibrary(diag)]);
-  const images = [...apod, ...lib].slice(0, 6);
-  const body = new URL(req.url).searchParams.has('debug') ? { images, diag, key: KEY === 'DEMO_KEY' ? 'demo' : 'set' } : { images };
+  const [apod, found] = await Promise.all([fromApod(diag), fromLibrary(diag)]);
+  const seen = new Set();
+  const images = [...apod, ...CURATED, ...found].filter(im => !seen.has(im.href) && seen.add(im.href)).slice(0, 6);
+  const body = new URL(req.url).searchParams.has('debug') ? { images, diag } : { images };
   const cache = images.length ? 'public, s-maxage=86400, stale-while-revalidate=604800' : 'public, s-maxage=300';
   return Response.json(body, { headers: { 'Cache-Control': cache } });
 }

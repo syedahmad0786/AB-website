@@ -5,10 +5,14 @@ export const dynamic = 'force-dynamic';
 const USER = 'ahmad.bukhari0786';
 const FALLBACK = '7691429863521062152';
 
-export async function GET() {
+export async function GET(req) {
   let id = FALLBACK;
   try {
     const html = await (await fetch(`https://www.tiktok.com/embed/@${USER}`, { next: { revalidate: 21600 } })).text();
+    if (new URL(req.url).searchParams.has('debug')) {
+      const ctx = [...html.matchAll(/.{60}\b7\d{18}\b.{30}/g)].slice(0, 25).map(m => m[0]);
+      return Response.json({ ctx });
+    }
     const ids = (html.match(/\b7\d{18}\b/g) || []).sort();
     if (ids.length) id = ids[ids.length - 1];
   } catch {}

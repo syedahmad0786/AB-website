@@ -1,10 +1,10 @@
-// Black hole imagery for the footer, pulled from NASA on the server so the
+// Black hole imagery for the contact-section circle, pulled from NASA on the server so the
 // API key never reaches the browser. NASA responses are cached for a day;
 // an empty result is only cached briefly so a NASA hiccup heals itself.
 export const dynamic = 'force-dynamic';
 const revalidate = 86400;
 
-const KEY = process.env.NASA_API_KEY || 'DEMO_KEY';
+const KEY = process.env.NASA_API_KEY || process.env.API || 'DEMO_KEY';
 const BLACK_HOLE = /black hole|event horizon|sgr a|sagittarius a|m87|accretion/i;
 
 // APOD days that featured black holes. Titles are checked before use, so a

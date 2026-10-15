@@ -245,7 +245,7 @@ const homeSchema = JSON.parse(home.match(/<script type="application\/ld\+json">(
 const homeProfiles = (homeSchema["@graph"] || []).filter((node) => node["@type"] === "ProfilePage");
 if (homeProfiles.length !== 1 || homeProfiles[0]?.mainEntity?.["@id"] !== "https://ahmadbukhari.com/#person") failures.push("Homepage must expose exactly one ProfilePage with Ahmad as its main entity");
 const aixcelOrganization = (homeSchema["@graph"] || []).find((node) => Array.isArray(node["@type"]) && node["@type"].includes("Organization"));
-if (aixcelOrganization?.name !== "Aixcel Solutions" || aixcelOrganization?.logo?.url !== "https://ahmadbukhari.com/aixcel-signal-icon-512.svg" || aixcelOrganization?.logo?.width !== 512 || aixcelOrganization?.logo?.height !== 512) failures.push("Aixcel Organization schema must expose the approved 512px signal logo");
+if (aixcelOrganization?.name !== "AiXCEL Solutions" || aixcelOrganization?.logo?.url !== "https://ahmadbukhari.com/aixcel-signal-icon-512.svg" || aixcelOrganization?.logo?.width !== 512 || aixcelOrganization?.logo?.height !== 512) failures.push("Aixcel Organization schema must expose the approved 512px signal logo");
 if ((homeSchema["@graph"] || []).some((node) => node["@type"] === "BreadcrumbList")) failures.push("Homepage must not publish a one-item BreadcrumbList");
 const homeDescription = home.match(/<meta name="description" content="(.*?)">/)?.[1] || "";
 if (homeDescription.length > 158) failures.push("Homepage description must stay within the Searchable baseline recommendation");

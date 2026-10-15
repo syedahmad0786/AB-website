@@ -1,0 +1,47 @@
+/* Base styles and keyframes from the design's <helmet> block. */
+body{margin:0;background:#ECE8DF;color:#121210;font-family:'Schibsted Grotesk',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:#121210}a:hover{color:#C2410C}
+*{box-sizing:border-box}
+@keyframes abFlow{to{stroke-dashoffset:-26}}
+@keyframes abMarq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes abSpin{to{transform:rotate(360deg)}}
+@keyframes abSpinR{to{transform:rotate(-360deg)}}
+@keyframes abFadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@keyframes abGrow{from{width:0}to{width:100%}}
+@keyframes abOrbit{to{offset-distance:100%}}
+@keyframes abGlow{0%,100%{opacity:.55;transform:scale(1)}50%{opacity:1;transform:scale(1.08)}}
+@keyframes abOrbit3{0%{offset-distance:0%;transform:scale(1);z-index:2;opacity:1}25%{transform:scale(1.22);z-index:3;opacity:1}50%{transform:scale(1);z-index:2;opacity:.9}75%{transform:scale(.7);z-index:0;opacity:.45}100%{offset-distance:100%;transform:scale(1);z-index:2;opacity:1}}
+@keyframes abKen{from{transform:scale(1) translate(0,0)}to{transform:scale(1.09) translate(-1.5%,-1%)}}
+@keyframes abFlare{0%{transform:translateX(-60%);opacity:0}20%{opacity:.9}60%{opacity:.6}100%{transform:translateX(60%);opacity:0}}
+@keyframes abPulse{0%{box-shadow:0 0 0 0 rgba(19,128,74,.55)}70%{box-shadow:0 0 0 9px rgba(19,128,74,0)}100%{box-shadow:0 0 0 0 rgba(19,128,74,0)}}
+
+/* Dark mode: invert the page, then re-invert media and sections that are already dark ([data-keep]). */
+html[data-theme="dark"]{filter:invert(1) hue-rotate(180deg);background:#ECE8DF}
+html[data-theme="dark"] img[data-fb],html[data-theme="dark"] img[data-logo]{background:#FFFFFF;border-radius:4px;box-shadow:0 0 0 2px #FFFFFF}
+html[data-theme="dark"] img,html[data-theme="dark"] video,html[data-theme="dark"] iframe,html[data-theme="dark"] .ab-slot,html[data-theme="dark"] [data-keep]{filter:invert(1) hue-rotate(180deg)}
+html[data-theme="dark"] [data-keep] img,html[data-theme="dark"] [data-keep] video,html[data-theme="dark"] [data-keep] iframe,html[data-theme="dark"] [data-keep] .ab-slot,html[data-theme="dark"] .ab-slot img{filter:none}
+
+/* Image slots (production version of the design's <image-slot>). */
+.ab-slot{display:block;position:relative;width:100%;height:100%;aspect-ratio:3/2}
+.ab-slot-frame{position:absolute;inset:0;overflow:hidden;background:rgba(127,127,127,.08)}
+.ab-slot-frame>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+
+/* Phone screen fallback for a channel with no reel or capture yet. */
+.ab-channel-card{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:24px;background:radial-gradient(circle at 50% 38%,#2C2B27,#121210 70%);color:#ECE8DF;text-align:center}
+.ab-channel-logo{width:76px;height:76px;border-radius:20px;background:#FFFFFF;display:grid;place-items:center;box-shadow:0 0 0 6px rgba(255,79,18,.18),0 0 40px rgba(255,79,18,.35);margin-bottom:6px}
+.ab-channel-logo img{width:56%;height:56%;object-fit:contain}
+.ab-channel-name{font-weight:800;font-size:22px;letter-spacing:-.02em}
+.ab-channel-handle{font-family:'Space Mono',monospace;font-size:12px;color:#A39E92}
+
+/* Hover states (the design's style-hover attributes). */
+.ab-hover-0:hover{background:#121210 !important;color:#ECE8DF !important}
+.ab-hover-1:hover{background:#FF4F12 !important;color:#121210 !important}
+.ab-hover-2:hover{transform:translate(-2px,-2px) !important;box-shadow:6px 6px 0 #FF4F12 !important;color:#ECE8DF !important}
+.ab-hover-3:hover{background:#121210 !important;border-color:#121210 !important}
+.ab-hover-4:hover{box-shadow:8px 8px 0 #121210 !important;transform:translate(-3px,-3px) !important}
+.ab-hover-5:hover{color:#ECE8DF !important;border-color:#ECE8DF !important}
+.ab-hover-6:hover{transform:translate(-2px,-2px) !important;box-shadow:4px 4px 0 #121210 !important;color:#121210 !important}
+.ab-hover-7:hover{background:#ECE8DF !important;color:#121210 !important}
+.ab-hover-8:hover{transform:translate(-3px,-3px) !important;box-shadow:6px 6px 0 #121210 !important;background:#FFFDF8 !important;color:#121210 !important}
+.ab-hover-9:hover{box-shadow:8px 8px 0 #121210 !important;transform:translate(-3px,-3px) !important;color:#121210 !important}
+.ab-hover-a:hover{transform:translate(-2px,-2px) !important;box-shadow:8px 8px 0 #FFFDF8 !important;color:#121210 !important}

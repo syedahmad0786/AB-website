@@ -728,12 +728,12 @@ function graphFor({ path, title, description, type = "WebPage", article, creativ
         "https://www.facebook.com/profile.php?id=61593858664534",
       ],
       knowsAbout: ["AI systems architecture", "agentic AI", "LLM systems", "AI automation", "voice AI", "CRM operations", "GoHighLevel", "n8n", "Make", "workflow reliability", "human-in-the-loop approval", "observability", "product delivery"],
-      worksFor: { "@id": "https://aixcelsolutions.com/#organization" },
+      worksFor: { "@id": "https://aixcelsolutions.com/#org" },
       homeLocation: { "@type": "Place", name: "Islamabad, Pakistan" },
     },
     {
       "@type": ["Organization", "ProfessionalService"],
-      "@id": "https://aixcelsolutions.com/#organization",
+      "@id": "https://aixcelsolutions.com/#org",
       name: "AiXCEL Solutions",
       url: "https://aixcelsolutions.com/",
       logo: {

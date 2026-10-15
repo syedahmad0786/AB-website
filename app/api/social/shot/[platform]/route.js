@@ -11,7 +11,7 @@ const PROFILES = {
   github: 'https://github.com/syedahmad0786',
 };
 
-export async function GET(_req, { params }) {
+export async function GET(req, { params }) {
   const { platform } = await params;
   const url = PROFILES[platform];
   if (!url) return new Response('Not found', { status: 404 });
@@ -33,7 +33,9 @@ export async function GET(_req, { params }) {
     const r = await fetch(api, { next: { revalidate: 86400 } });
     const type = r.headers.get('content-type') || '';
     if (!r.ok || !type.startsWith('image/')) return new Response('Capture failed', { status: 502, headers: { 'Cache-Control': 'public, s-maxage=300' } });
-    return new Response(await r.arrayBuffer(), { headers: { 'Content-Type': type, 'Cache-Control': 'public, s-maxage=86400, stale-while-revalidate=604800' } });
+    const buf = await r.arrayBuffer();
+    if (new URL(req.url).searchParams.has('b64')) return new Response(Buffer.from(buf).toString('base64'), { headers: { 'Cache-Control': 'no-store' } });
+    return new Response(buf, { headers: { 'Content-Type': type, 'Cache-Control': 'public, s-maxage=86400, stale-while-revalidate=604800' } });
   } catch {
     return new Response('Capture failed', { status: 502, headers: { 'Cache-Control': 'public, s-maxage=300' } });
   }

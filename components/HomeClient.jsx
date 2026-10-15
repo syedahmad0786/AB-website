@@ -1,14 +1,23 @@
 'use client';
 
-// The page reads window size, the clock and localStorage while rendering, so it
-// renders on the client only. Metadata and fonts are still served from the server.
+// The interactive page (./Home) reads window size, the clock and localStorage while rendering,
+// so it mounts on the client only. Until its chunk has loaded, the server-rendered StaticHome
+// (passed in from app/page.jsx) is on screen; it is also what crawlers read.
+import { createContext, useContext } from 'react';
 import dynamic from 'next/dynamic';
 
-const Home = dynamic(() => import('./Home'), {
-  ssr: false,
-  loading: () => <div style={{ minHeight: '100vh', background: '#ECE8DF' }} />,
-});
+const FallbackContext = createContext(null);
 
-export default function HomeClient() {
-  return <Home />;
+function Loading() {
+  return useContext(FallbackContext);
+}
+
+const Home = dynamic(() => import('./Home'), { ssr: false, loading: Loading });
+
+export default function HomeClient({ fallback }) {
+  return (
+    <FallbackContext.Provider value={fallback}>
+      <Home />
+    </FallbackContext.Provider>
+  );
 }

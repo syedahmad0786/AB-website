@@ -1,21 +1,41 @@
 import './globals.css';
+import { PERSON, SITE_URL } from '../lib/site';
+
+const title = `${PERSON.name} | ${PERSON.jobTitle}`;
+const description =
+  'Agentic AI, LLM systems and resilient automation, designed around how work actually breaks. Founder of AiXCEL Solutions.';
+const ogImage = { url: '/art/ahmadbukhari-default-og-1200x630.png', width: 1200, height: 630, alt: 'Ahmad Bukhari: messy operations become systems that think.' };
 
 export const metadata = {
-  metadataBase: new URL('https://www.ahmadbukhari.com'),
-  title: 'Ahmad Bukhari · Agentic AI & LLM Systems',
-  description: 'Agentic AI, LLM systems and resilient automation, designed around how work actually breaks. Founder of AiXCEL Solutions.',
+  metadataBase: new URL(SITE_URL),
+  title,
+  description,
+  alternates: { canonical: '/', types: { 'application/rss+xml': '/feed.xml' } },
   openGraph: {
-    title: 'Ahmad Bukhari · Agentic AI & LLM Systems',
+    title,
     description: 'Work breaks. I design what happens next.',
-    url: 'https://www.ahmadbukhari.com',
-    siteName: 'Ahmad Bukhari',
-    type: 'website',
+    url: '/',
+    siteName: PERSON.name,
+    type: 'profile',
+    images: [ogImage],
   },
-  twitter: { card: 'summary_large_image', creator: '@ahmadbukhari' },
-  icons: { icon: '/assets/ahmad-avatar.gif' },
+  twitter: { card: 'summary_large_image', creator: '@ahmadbukhari', title, description: 'Work breaks. I design what happens next.', images: [ogImage.url] },
+  robots: { index: true, follow: true, 'max-image-preview': 'large' },
+  icons: {
+    icon: [{ url: '/favicon.ico', sizes: '32x32' }, { url: '/brand/ahmad-ab-axis-favicon.svg', type: 'image/svg+xml' }],
+    apple: '/brand/ahmad-ab-axis-apple-touch-180.png',
+  },
+  manifest: '/site.webmanifest',
 };
 
-export const viewport = { width: 'device-width', initialScale: 1, themeColor: '#ECE8DF' };
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#ECE8DF' },
+    { media: '(prefers-color-scheme: dark)', color: '#121210' },
+  ],
+};
 
 // Applies the saved theme before first paint so dark mode doesn't flash.
 const themeScript = "try{var t=localStorage.getItem('ab-theme');if(t)document.documentElement.setAttribute('data-theme',t)}catch(e){}";

@@ -1203,15 +1203,15 @@ export default class Home extends React.Component {
             Field notes · what I’m finding now
           </div>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(min(100%,380px),1fr))", gap: "20px" }}>
-            <a href="https://aixcelsolutions.com/insights/openai-presence-enterprise-ai-agent-rollout" data-reveal="" style={{ textDecoration: "none", color: "#121210", border: "1.5px solid #121210", borderRadius: "14px", padding: "26px", display: "flex", flexDirection: "column", gap: "12px", background: "#F7F4EE" }} className="ab-hover-9">
+            <a href="https://ahmadbukhari.com/blog/automation-governance-inspectable-systems" data-reveal="" style={{ textDecoration: "none", color: "#121210", border: "1.5px solid #121210", borderRadius: "14px", padding: "26px", display: "flex", flexDirection: "column", gap: "12px", background: "#F7F4EE" }} className="ab-hover-9">
               <span style={{ fontFamily: "'Space Mono',monospace", fontSize: "12px", color: "#5E5B54" }}>
-                Field Note 002 · July 23, 2026 · 9 min
+                Practitioner guide · August 11, 2026 · 9 min
               </span>
               <span style={{ fontSize: "clamp(22px,2vw,28px)", fontWeight: "800", letterSpacing: "-.02em", lineHeight: "1.15" }}>
-                OpenAI Presence: The New Standard for Enterprise AI Agent Operations
+                Automation governance for inspectable systems
               </span>
               <span style={{ fontSize: "16px", lineHeight: "1.5", color: "#3A3833" }}>
-                Why customer-facing AI agents are becoming controlled operating systems, and what leaders should deploy, delay, and measure.
+                Connect CRM state, AI decisions, delivery gates, workflow migration, and error recovery through explicit owners and evidence.
               </span>
             </a>
             <a href="https://ahmadbukhari.com/blog/how-to-choose-an-ai-automation-agency" data-reveal="" style={{ textDecoration: "none", color: "#121210", border: "1.5px solid #121210", borderRadius: "14px", padding: "26px", display: "flex", flexDirection: "column", gap: "12px", background: "#F7F4EE" }} className="ab-hover-9">

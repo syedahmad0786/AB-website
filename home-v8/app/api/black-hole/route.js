@@ -56,7 +56,29 @@ async function fromLibrary(diag) {
   }
 }
 
+// NASA Image and Video Library videos (black hole visualizations), with mp4 links.
+async function videoCandidates(diag) {
+  try {
+    const r = await fetch('https://images-api.nasa.gov/search?q=black%20hole&media_type=video&page_size=100', { next: { revalidate } });
+    if (!r.ok) { diag.push(`videos: ${r.status}`); return []; }
+    const items = ((await r.json())?.collection?.items || []).filter(it => BLACK_HOLE.test(it.data?.[0]?.title || ''));
+    return Promise.all(items.slice(0, 40).map(async it => {
+      const d = it.data[0];
+      let files = [];
+      try { files = await (await fetch(it.href, { next: { revalidate } })).json(); } catch {}
+      return { id: d.nasa_id, title: d.title, center: d.center, date: (d.date_created || '').slice(0, 10), mp4: files.filter(f => /\.mp4$/i.test(f)), thumb: (it.links || []).find(l => l.render === 'image')?.href };
+    }));
+  } catch (e) {
+    diag.push(`videos: ${e.message}`);
+    return [];
+  }
+}
+
 export async function GET(req) {
+  if (new URL(req.url).searchParams.has('videos')) {
+    const diag = [];
+    return Response.json({ videos: await videoCandidates(diag), diag }, { headers: { 'Cache-Control': 'no-store' } });
+  }
   const diag = [];
   const [apod, found] = await Promise.all([fromApod(diag), fromLibrary(diag)]);
   const seen = new Set();

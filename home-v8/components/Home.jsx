@@ -1242,7 +1242,7 @@ export default class Home extends React.Component {
               </p>
               <div onMouseEnter={v.pauseCh} onMouseLeave={v.playCh} style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill,minmax(min(100%,210px),1fr))", gap: "10px" }}>
                 {(v.channels || []).map((ch, $i8) => (<React.Fragment key={$i8}>
-                  <a href={ch?.href} onMouseEnter={ch?.on} onFocus={ch?.on} style={{ textDecoration: "none", color: "#121210", display: "flex", alignItems: "center", gap: "12px", padding: "12px 14px", border: `1.5px solid ${ch?.border ?? ''}`, borderRadius: "12px", background: ch?.bg, boxShadow: ch?.shadow, transform: ch?.tf, transition: "all .2s" }}>
+                  <a href={ch?.href} target="_blank" rel="noopener" onClick={ch?.click} onMouseEnter={ch?.on} onFocus={ch?.on} style={{ textDecoration: "none", color: "#121210", display: "flex", alignItems: "center", gap: "12px", padding: "12px 14px", border: `1.5px solid ${ch?.border ?? ''}`, borderRadius: "12px", background: ch?.bg, boxShadow: ch?.shadow, transform: ch?.tf, transition: "all .2s" }}>
                     <span style={{ fontFamily: "'Space Mono',monospace", fontSize: "11px", color: "#8C877C", flex: "none" }}>
                       {ch?.num}
                     </span>
@@ -1268,6 +1268,9 @@ export default class Home extends React.Component {
                 <div style={{ position: "relative", width: "100%", height: "100%", borderRadius: "27px", overflow: "hidden", background: "#1C1B18" }}>
                   {(v.channels || []).map((ch, $i9) => (<React.Fragment key={$i9}>
                     <div style={{ position: "absolute", inset: "0", opacity: ch?.vis, pointerEvents: ch?.pe, transition: "opacity .45s" }}>
+                      {ch?.embed ? (
+                        <iframe src={ch.embed} title={`${ch.name} · ${ch.handle}`} loading="lazy" allow="autoplay; encrypted-media; picture-in-picture" referrerPolicy="strict-origin-when-cross-origin" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", border: 0, background: "#FFFFFF" }} />
+                      ) : (
                       <ImageSlot alt={ch?.name}>
                         <div className="ab-channel-card">
                           <span className="ab-channel-logo">
@@ -1277,6 +1280,7 @@ export default class Home extends React.Component {
                           <span className="ab-channel-handle">{ch?.handle}</span>
                         </div>
                       </ImageSlot>
+                      )}
                     </div>
                   </React.Fragment>))}
                   {" "}

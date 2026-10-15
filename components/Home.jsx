@@ -5,6 +5,7 @@
 // lib/homeLogic.js (the design's logic class, unchanged).
 import React from 'react';
 import ImageSlot from './ImageSlot';
+import NasaBlackHole from './NasaBlackHole';
 import { HomeLogic } from '../lib/homeLogic';
 
 // Defaults from the design's Tweaks panel (data-props).
@@ -1365,6 +1366,7 @@ export default class Home extends React.Component {
           </div>
         </section>
         <footer data-keep="" style={{ background: "#121210", color: "#C9C4B8" }}>
+          <NasaBlackHole />
           <div style={{ maxWidth: "1480px", margin: "0 auto", padding: "28px clamp(16px,3vw,40px)", display: "flex", flexWrap: "wrap", gap: "16px 32px", alignItems: "center", fontFamily: "'Space Mono',monospace", fontSize: "12.5px" }}>
             <span style={{ color: "#ECE8DF", fontWeight: "700" }}>
               Ahmad Bukhari · Agentic AI & LLM Systems Specialist

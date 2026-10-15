@@ -46,3 +46,7 @@ html[data-theme="dark"] [data-keep] img,html[data-theme="dark"] [data-keep] vide
 .ab-hover-9:hover{box-shadow:8px 8px 0 #121210 !important;transform:translate(-3px,-3px) !important;color:#121210 !important}
 .ab-hover-a:hover{transform:translate(-2px,-2px) !important;box-shadow:8px 8px 0 #FFFDF8 !important;color:#121210 !important}
 
+
+/* Live black hole beside "Bring me the messy part" (components/BlackHole.jsx). */
+.ab-blackhole{position:absolute;right:1%;top:42%;width:min(54vw,660px);aspect-ratio:1;transform:translateY(-50%);z-index:0;pointer-events:none}
+@media (max-width:820px){.ab-blackhole{right:-22%;top:-2%;width:min(110vw,520px);transform:none;opacity:.55}}

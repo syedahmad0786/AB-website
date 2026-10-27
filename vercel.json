@@ -8,48 +8,126 @@
   "redirects": [
     {
       "source": "/",
-      "has": [{ "type": "host", "value": "www.ahmadbukhari.com" }],
+      "has": [
+        {
+          "type": "host",
+          "value": "www.ahmadbukhari.com"
+        }
+      ],
       "destination": "https://ahmadbukhari.com/",
       "permanent": true
     },
     {
       "source": "/:path*",
-      "has": [{ "type": "host", "value": "www.ahmadbukhari.com" }],
+      "has": [
+        {
+          "type": "host",
+          "value": "www.ahmadbukhari.com"
+        }
+      ],
       "destination": "https://ahmadbukhari.com/:path*",
       "permanent": true
     },
-    { "source": "/index.html", "destination": "/", "permanent": true },
-    { "source": "/case-studies", "destination": "/work", "permanent": true },
-    { "source": "/field-notes", "destination": "/blog", "permanent": true },
-    { "source": "/case-studies/vendingpreneurs-student-onboarding-automation", "destination": "/work/onboarding", "permanent": true },
-    { "source": "/tools/n8n-automation-development", "destination": "/automation-lab", "permanent": true },
-    { "source": "/tools/gohighlevel-crm-setup", "destination": "/services/gohighlevel-crm-automation", "permanent": true },
-    { "source": "/tools/vapi-voice-ai-integration", "destination": "/services/voice-ai-conversational-intelligence", "permanent": true },
-    { "source": "/process", "destination": "https://aixcelsolutions.com/#process", "permanent": true },
-    { "source": "/pricing", "destination": "https://aixcelsolutions.com/contact#engagement", "permanent": true },
-    { "source": "/free-consultation", "destination": "https://cal.com/ahmad-bukhari/revenue-handoff-map", "permanent": true },
-    { "source": "/cv", "destination": "/about", "permanent": true }
+    {
+      "source": "/index.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/case-studies",
+      "destination": "/work",
+      "permanent": true
+    },
+    {
+      "source": "/field-notes",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/case-studies/vendingpreneurs-student-onboarding-automation",
+      "destination": "/work/onboarding",
+      "permanent": true
+    },
+    {
+      "source": "/tools/n8n-automation-development",
+      "destination": "/automation-lab",
+      "permanent": true
+    },
+    {
+      "source": "/tools/gohighlevel-crm-setup",
+      "destination": "/services/gohighlevel-crm-automation",
+      "permanent": true
+    },
+    {
+      "source": "/tools/vapi-voice-ai-integration",
+      "destination": "/services/voice-ai-conversational-intelligence",
+      "permanent": true
+    },
+    {
+      "source": "/process",
+      "destination": "https://aixcelsolutions.com/#process",
+      "permanent": true
+    },
+    {
+      "source": "/pricing",
+      "destination": "https://aixcelsolutions.com/contact#engagement",
+      "permanent": true
+    },
+    {
+      "source": "/free-consultation",
+      "destination": "https://cal.com/ahmad-bukhari/revenue-handoff-map",
+      "permanent": true
+    },
+    {
+      "source": "/cv",
+      "destination": "/about",
+      "permanent": true
+    }
   ],
   "headers": [
-    {"source": "/case-studies/fonts/(.*)", "headers": [{"key": "Access-Control-Allow-Origin", "value": "*"}]},
+    {
+      "source": "/case-studies/fonts/(.*)",
+      "headers": [
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        }
+      ]
+    },
     {
       "source": "/(.*)",
       "headers": [
-    {"source": "/case-studies/fonts/(.*)", "headers": [{"key": "Access-Control-Allow-Origin", "value": "*"}]},
-        { "key": "X-Content-Type-Options", "value": "nosniff" },
-        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
-        { "key": "Permissions-Policy", "value": "camera=(), microphone=(self), geolocation=()" }
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "Permissions-Policy",
+          "value": "camera=(), microphone=(self), geolocation=()"
+        }
       ]
     },
     {
       "source": "/site.:hash.css",
       "headers": [
-    {"source": "/case-studies/fonts/(.*)", "headers": [{"key": "Access-Control-Allow-Origin", "value": "*"}]},{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
     },
     {
       "source": "/(experience.js|decision-engine.js|theme.js|analytics.js)",
       "headers": [
-    {"source": "/case-studies/fonts/(.*)", "headers": [{"key": "Access-Control-Allow-Origin", "value": "*"}]},{ "key": "Cache-Control", "value": "public, max-age=3600, must-revalidate" }]
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=3600, must-revalidate"
+        }
+      ]
     }
   ]
 }

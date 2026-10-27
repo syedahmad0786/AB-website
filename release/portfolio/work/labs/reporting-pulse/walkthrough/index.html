@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>PULSE reporting flow · Ahmad Bukhari</title><link rel="stylesheet" href="/work-walkthrough/tokens.css"><link rel="stylesheet" href="/work-walkthrough/widgets/pulse/app.css"><script src="/work-walkthrough/helpers.js" defer></script><script src="/work-walkthrough/widgets/pulse/app.js" defer></script></head><body class="wk-pulse-page"><header class="wk-header"><a class="wk-wordmark" href="/work/case-studies">Ahmad Bukhari</a><a class="wk-back" href="/work/case-studies/dashboards-daily-pulse/">← Back to case</a><button class="wk-reset" type="button" data-wk-reset>Reset</button></header><main class="wk-app"><article class="wk-pulse" id="wkPulse" aria-labelledby="wkPulse-title"><header class="pulse-intro"><p class="lab">PULSE · reporting service</p><h1 id="wkPulse-title">One agreed view. A daily pulse.</h1><p>The original dashboard, reporting map and Slack output pattern.</p></header>    <div class="win" role="group" aria-label="A revenue dashboard with one agreed view">
+      <div class="win-bar">
+        
+        <span class="win-t"><span class="nm">Revenue · One agreed view</span></span>
+      </div>
+      <div class="tabs" role="tablist" aria-label="Dashboard views">
+        <button type="button" role="tab" id="wkPulse-tab-1" aria-selected="true" aria-controls="wkPulse-pn-1">Overview</button>
+        <button type="button" role="tab" id="wkPulse-tab-2" aria-selected="false" aria-controls="wkPulse-pn-2" tabindex="-1">Sources</button>
+        <button type="button" role="tab" id="wkPulse-tab-3" aria-selected="false" aria-controls="wkPulse-pn-3" tabindex="-1">Pulse</button>
+      </div>
+      <div class="win-body">
+        <div id="wkPulse-pn-1" role="tabpanel" aria-labelledby="wkPulse-tab-1">
+          <p class="lab pn-h">Last 7 days · all sources</p>
+          <div class="mk">
+            <div class="kpi"><span class="lab">Spend</span><strong><em>$</em><span data-to="12480">12,480</span></strong></div>
+            <div class="kpi"><span class="lab">Leads</span><strong><span data-to="312">312</span></strong></div>
+            <div class="kpi"><span class="lab">Cost per lead</span><strong><em>$</em><span data-to="40">40</span></strong></div>
+            <div class="kpi"><span class="lab">Booked</span><strong><span data-to="58">58</span><em>calls</em></strong></div>
+            <div class="kpi"><span class="lab">Revenue</span><strong><em>$</em><span data-to="41200">41,200</span></strong></div>
+          </div>
+          <div class="trend" id="wkPulse-trend" role="img" aria-label="Leads-per-day line chart.">
+            <div class="chart-h"><span class="lab">Leads per day</span><span class="lab">14 days</span></div>
+            <svg viewBox="0 0 300 64" aria-hidden="true">
+              
+              <path class="tgrid" d="M0 16H300M0 40H300"/>
+              <path class="tarea" d="M0 39.8 L23.1 33.0 L46.2 44.4 L69.2 26.2 L92.3 19.4 L115.4 30.7 L138.5 35.3 L161.5 26.2 L184.6 21.6 L207.7 28.5 L230.8 23.9 L253.8 33.0 L276.9 17.1 L300 23.9 L300 64 L0 64Z"/>
+              <path class="tline" pathLength="100" d="M0 39.8 L23.1 33.0 L46.2 44.4 L69.2 26.2 L92.3 19.4 L115.4 30.7 L138.5 35.3 L161.5 26.2 L184.6 21.6 L207.7 28.5 L230.8 23.9 L253.8 33.0 L276.9 17.1 L300 23.9"/>
+              <circle class="tdot" cx="300" cy="23.9" r="3.5"/>
+            </svg>
+          </div>
+        </div>
+        <div id="wkPulse-pn-2" role="tabpanel" aria-labelledby="wkPulse-tab-2" hidden>
+          <p class="lab pn-h">Source freshness · original refresh times</p>
+          <ul class="sy cyc" data-mode="on">
+            <li><b>Meta Ads</b><span class="st"><i class="dd"></i>Refreshed 07:52</span></li>
+            <li><b>Google Ads</b><span class="st"><i class="dd"></i>Refreshed 07:53</span></li>
+            <li><b>GA4</b><span class="st late-t"><i class="dd late"></i>Stale · 02:10</span></li>
+            <li><b>HubSpot</b><span class="st"><i class="dd"></i>Refreshed 07:55</span></li>
+            <li><b>Stripe</b><span class="st"><i class="dd"></i>Refreshed 07:56</span></li>
+          </ul>
+        </div>
+        <div id="wkPulse-pn-3" role="tabpanel" aria-labelledby="wkPulse-tab-3" hidden>
+          <div class="slk hero-slk" aria-label="Slack message">
+            <div class="slk-h"><b>Pulse</b><span class="app">APP</span><small>08:00</small></div>
+            <p class="slk-t">#leadership · Daily pulse, yesterday</p>
+          </div>
+          <ul class="pl cyc" data-mode="done">
+            <li><span class="k">Spend</span><span class="v">$412</span><span class="n">Meta $236 · Google $176</span></li>
+            <li><span class="k">Leads</span><span class="v">11</span><span class="n">$37 each</span></li>
+            <li><span class="k">Booked</span><span class="v">3</span><span class="n">calls</span></li>
+            <li><span class="k">Revenue</span><span class="v">$1,380</span><span class="n">from Stripe</span></li>
+            <li class="gap"><span class="k">Gap</span><span class="v">GA4</span><span class="n">6 h behind · shown as stale</span></li>
+          </ul>
+        </div>
+      </div>
+      
+    </div>
+<section class="blk" id="wkPulse-ws1" aria-labelledby="wkPulse-ws1-h">
+  <div class="wrap">
+    <div class="ws-head rv">
+      <div><div class="ws-k"><span class="lab">Workstream 1</span><span class="kind">Source structure</span></div><h2 id="wkPulse-ws1-h" class="h2">One agreed <b>view</b></h2></div>
+      <p class="d">The original service flow: agree a metric dictionary and source inventory, reconcile the numbers, then put a dashboard and a Slack pulse on top.</p>
+    </div>
+    <div class="ws1">
+      <div class="card uc">
+        <p class="lab">Explore the source use case</p>
+        <div class="uc-list" role="group" aria-label="Use case">
+          <button type="button" class="uc-row" data-uc="paid" aria-pressed="true">Paid ads and CRM</button>
+          <button type="button" class="uc-row" data-uc="agency" aria-pressed="false">Agency client reporting</button>
+          <button type="button" class="uc-row" data-uc="revenue" aria-pressed="false">Revenue and pipeline</button>
+          <button type="button" class="uc-row" data-uc="custom" aria-pressed="false">Custom</button>
+        </div>
+        <p class="lab">Service scope</p>
+        <ul class="ck">
+          <li>An agreed metric dictionary and source inventory</li>
+          <li>Scheduled collection and normalization for a bounded dataset</li>
+          <li>A dashboard with freshness indicators</li>
+          <li>Checks for missing, duplicate and inconsistent records</li>
+        </ul>
+        
+      </div>
+
+      <div class="card dgw">
+        <div class="dgw-bar"><span class="t" id="wkPulse-dgt">Reporting flow · Paid ads and CRM</span></div>
+        <p class="graph-hint" id="wkPulse-graph-hint">Scroll graph horizontally to inspect each stage. A text node list is below.</p><div class="dg-pad" role="region" tabindex="0" aria-label="Reporting flow graph, horizontally scrollable" aria-describedby="wkPulse-graph-hint">
+          <div class="dg pin" id="wkPulse-dg" role="group" aria-label="Diagram: data sources feed a reconcile and define step covering agreed metric definitions, de-duplication and attribution rules, then a warehouse of tables, then a dashboard and a Slack pulse.">
+            <svg class="dg-lines" id="wkPulse-dgs" aria-hidden="true"></svg>
+            <div class="sg st-src"><p class="st-t">Sources</p><div class="stl" id="wkPulse-srcs"></div></div>
+            <div class="sg st-enr"><p class="st-t">Reconcile</p>
+              <span class="nd" id="wkPulse-enr"><b>Reconcile &amp; define</b><span class="r">Metric definitions</span><span class="r">De-duplication</span><span class="r">Attribution rules</span></span>
+            </div>
+            <div class="sg st-q"><p class="st-t">Warehouse</p><div class="stl" id="wkPulse-wh"></div></div>
+            <div class="sg st-rt"><p class="st-t">Dashboard + Slack</p>
+              <div class="stl" id="wkPulse-outs"></div>
+              <span class="nd pillc" id="wkPulse-pill"><span>Source dates on every number</span></span>
+            </div>
+          </div>
+        </div>
+        <details class="node-fallback"><summary>Read the flow as a node list</summary><ol id="wkPulse-node-list"></ol></details><p class="selection-status" id="wkPulse-selection-status" role="status" aria-live="polite"></p><div class="dg-foot"><span class="ill">Scoped service flow · local selection only</span></div>
+        <div class="outcome"><span class="pillo">Use-case intent</span><p class="fxt" id="wkPulse-outTxt"></p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 4 · WORKSTREAM 2 -->
+<section class="blk" id="wkPulse-ws2" aria-labelledby="wkPulse-ws2-h">
+  <div class="wrap">
+    <div class="ws-head rv">
+      <div><div class="ws-k"><span class="lab">Workstream 2</span><span class="kind">Scheduled outputs</span></div><h2 id="wkPulse-ws2-h" class="h2">Daily pulse <b>in Slack</b></h2></div>
+      <p class="d">Pulse is the module inside this reporting service: a morning Slack summary, an alert when a metric leaves its agreed range, and weekly report drafts that wait for a person to approve them.</p>
+    </div>
+    <div class="card tlw">
+      <div class="tl" id="wkPulse-tl1">
+        
+        <ol class="tl-steps">
+          <li class="tl-step" data-step><span class="tm">08:00</span><div class="chip"><h3>Daily pulse</h3><p>Yesterday's spend, leads, bookings and revenue land in the channel your team already reads.</p><span class="tag">Internal</span></div></li>
+          <li class="tl-step" data-step><span class="tm">Any time</span><div class="chip"><h3>Anomaly alert</h3><p>When a metric breaks its agreed range or a source stops refreshing, the owner is pinged with what changed.</p><span class="tag">Internal</span></div></li>
+          <li class="tl-step" data-step><span class="tm">Monday</span><div class="chip"><h3>Weekly report draft</h3><p>A weekly report is drafted per team or per client from the same agreed numbers.</p><span class="tag">Draft only</span></div></li>
+          <li class="tl-step" data-step><span class="tm">Before sending</span><div class="chip"><h3>A person approves</h3><p>Nothing goes to a client until a person has read and approved it.</p><span class="tag ok">Person approves</span></div></li>
+          <li class="tl-step" data-step><span class="tm">Month end</span><div class="chip"><h3>Month-end summary</h3><p>A month-end summary of spend, leads, bookings and revenue, with notes on any data gaps.</p><span class="tag">Internal</span></div></li>
+        </ol>
+      </div>
+      <p class="tl-leg"><span>Client-facing reports always wait for a person to approve them</span><span>Every step runs on a schedule</span></p>
+    </div>
+
+    <div class="ws3 ws2b">
+      <div class="ws3-l">
+        <div>
+          <h3>One pulse, <b>one place</b></h3>
+          <p class="intro">Each morning the team gets a short summary: what was spent, what came in, what booked and what earned. If a source is late, the pulse says so instead of quietly leaving it out.</p>
+        </div>
+        <div class="card slk" role="group" aria-label="Slack message">
+          <div class="slk-h"><b>Pulse</b><span class="app">APP</span><small>08:00</small></div>
+          <p class="slk-t">#leadership · Daily pulse, yesterday</p>
+          <dl class="slk-g"><div><dt>Spend</dt><dd>$412</dd></div><div><dt>Leads</dt><dd>11</dd></div><div><dt>Booked</dt><dd>3</dd></div><div><dt>Revenue</dt><dd>$1,380</dd></div></dl>
+          <p class="slk-note">GA4 refreshed 6 h late, so it is marked stale.</p>
+          
+        </div>
+        <ul class="ck">
+          <li>Spend, leads, bookings and revenue on one set of definitions</li>
+          <li>Freshness shown for every source</li>
+          <li>An owner named on every alert</li>
+        </ul>
+      </div>
+
+      <div class="card dash" id="wkPulse-ws2dash">
+        <div class="dash-h"><b>Cost per lead vs agreed range</b></div>
+        <div class="dash-b">
+          <div class="chart">
+            <div class="chart-h"><span class="lab">Cost per lead, last 7 days</span><span class="lab">Fri · today</span></div>
+            <div class="bars" id="wkPulse-bars" role="img" aria-label="Bar chart of cost per lead per day: Saturday $36, Sunday $34, Monday $37, Tuesday $39, Wednesday $38, Thursday $41, Friday $58, which is above the agreed range of $30 to $45.">
+              <div class="bar pulse-bar-0"><b>$36</b><i></i><span>Sat</span></div>
+              <div class="bar pulse-bar-1"><b>$34</b><i></i><span>Sun</span></div>
+              <div class="bar pulse-bar-2"><b>$37</b><i></i><span>Mon</span></div>
+              <div class="bar pulse-bar-3"><b>$39</b><i></i><span>Tue</span></div>
+              <div class="bar pulse-bar-4"><b>$38</b><i></i><span>Wed</span></div>
+              <div class="bar pulse-bar-5"><b>$41</b><i></i><span>Thu</span></div>
+              <div class="bar warn pulse-bar-6"><b>$58</b><i></i><span>Fri</span></div>
+            </div>
+            <p class="rng"><span><i></i>Agreed range $30 to $45</span><span><i class="w"></i>Outside the range</span></p>
+          </div>
+          <div class="card slk alert" role="group" aria-label="Slack alert">
+            <div class="slk-h"><b>Pulse alert</b><span class="app">APP</span><small>11:42</small></div>
+            <p class="slk-t">Cost per lead is $58, above the agreed $30 to $45 range.</p>
+            <p class="slk-note">Spend rose while leads stayed flat. Owner: Sam. Source dates attached.</p>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section></article></main></body></html>

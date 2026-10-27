@@ -1,0 +1,2504 @@
+{
+  "id": "pfv5source025",
+  "name": "Ad analysis to creative strategy - archived source",
+  "nodes": [
+    {
+      "id": "pfv5source025n0",
+      "name": "Get Ads Report",
+      "type": "n8n-nodes-base.googleDocs",
+      "typeVersion": 2,
+      "position": [
+        -2380,
+        2180
+      ],
+      "parameters": {
+        "operation": "get",
+        "documentURL": "[REMOVED FOR VISUAL REVIEW]"
+      },
+      "disabled": false,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "id": "pfv5source025n1",
+      "name": "Get Client Record",
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        -2120,
+        2180
+      ],
+      "parameters": {
+        "base": "[REMOVED FOR VISUAL REVIEW]",
+        "table": {
+          "__rl": true,
+          "value": "[REMOVED FOR VISUAL REVIEW]",
+          "mode": "list",
+          "cachedResultName": "[REMOVED FOR VISUAL REVIEW]",
+          "cachedResultUrl": "[REMOVED FOR VISUAL REVIEW]"
+        },
+        "id": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {}
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source025n2",
+      "name": "Pull Ads w/High Spend",
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        -1920,
+        2180
+      ],
+      "parameters": {
+        "operation": "search",
+        "base": "[REMOVED FOR VISUAL REVIEW]",
+        "table": {
+          "__rl": true,
+          "value": "[REMOVED FOR VISUAL REVIEW]",
+          "mode": "list",
+          "cachedResultName": "[REMOVED FOR VISUAL REVIEW]",
+          "cachedResultUrl": "[REMOVED FOR VISUAL REVIEW]"
+        },
+        "filterByFormula": "[REMOVED FOR VISUAL REVIEW]",
+        "returnAll": false,
+        "limit": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {
+          "view": {
+            "__rl": true,
+            "value": "[REMOVED FOR VISUAL REVIEW]",
+            "mode": "list",
+            "cachedResultName": "[REMOVED FOR VISUAL REVIEW]",
+            "cachedResultUrl": "[REMOVED FOR VISUAL REVIEW]"
+          }
+        },
+        "sort": {
+          "property": [
+            {
+              "field": "[REMOVED FOR VISUAL REVIEW]",
+              "direction": "[REMOVED FOR VISUAL REVIEW]"
+            }
+          ]
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source025n3",
+      "name": "Airtable7",
+      "type": "n8n-nodes-base.airtableTool",
+      "typeVersion": 2.1,
+      "position": [
+        -660,
+        2440
+      ],
+      "parameters": {
+        "operation": "search",
+        "base": "[REMOVED FOR VISUAL REVIEW]",
+        "table": {
+          "__rl": true,
+          "value": "[REMOVED FOR VISUAL REVIEW]",
+          "mode": "list",
+          "cachedResultName": "[REMOVED FOR VISUAL REVIEW]",
+          "cachedResultUrl": "[REMOVED FOR VISUAL REVIEW]"
+        },
+        "filterByFormula": "[REMOVED FOR VISUAL REVIEW]",
+        "returnAll": false,
+        "limit": 20,
+        "options": {
+          "view": {
+            "__rl": true,
+            "value": "[REMOVED FOR VISUAL REVIEW]",
+            "mode": "list",
+            "cachedResultName": "[REMOVED FOR VISUAL REVIEW]",
+            "cachedResultUrl": "[REMOVED FOR VISUAL REVIEW]"
+          }
+        },
+        "sort": {
+          "property": [
+            {
+              "field": "[REMOVED FOR VISUAL REVIEW]",
+              "direction": "[REMOVED FOR VISUAL REVIEW]"
+            }
+          ]
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source025n4",
+      "name": "Limit",
+      "type": "n8n-nodes-base.limit",
+      "typeVersion": 1,
+      "position": [
+        -1400,
+        2180
+      ],
+      "parameters": {},
+      "disabled": false
+    },
+    {
+      "id": "pfv5source025n5",
+      "name": "Creative Matrix",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        -780,
+        2180
+      ],
+      "parameters": {
+        "promptType": "[REMOVED FOR VISUAL REVIEW]",
+        "text": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {
+          "systemMessage": "[REMOVED FOR VISUAL REVIEW]",
+          "maxIterations": 3,
+          "returnIntermediateSteps": true
+        }
+      },
+      "disabled": false,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "id": "pfv5source025n6",
+      "name": "Brand SWOT Analysis",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -2580,
+        2800
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "[REMOVED FOR VISUAL REVIEW]",
+        "authentication": "[REMOVED FOR VISUAL REVIEW]",
+        "genericAuthType": "[REMOVED FOR VISUAL REVIEW]",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {}
+      },
+      "disabled": false,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "id": "pfv5source025n7",
+      "name": "Ad Angle Development",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        -2100,
+        2800
+      ],
+      "parameters": {
+        "promptType": "[REMOVED FOR VISUAL REVIEW]",
+        "text": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {
+          "systemMessage": "[REMOVED FOR VISUAL REVIEW]",
+          "returnIntermediateSteps": true
+        }
+      },
+      "disabled": false,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "id": "pfv5source025n8",
+      "name": "Airtable",
+      "type": "n8n-nodes-base.airtableTool",
+      "typeVersion": 2.1,
+      "position": [
+        -1920,
+        3020
+      ],
+      "parameters": {
+        "operation": "search",
+        "base": "[REMOVED FOR VISUAL REVIEW]",
+        "table": {
+          "__rl": true,
+          "value": "[REMOVED FOR VISUAL REVIEW]",
+          "mode": "list",
+          "cachedResultName": "[REMOVED FOR VISUAL REVIEW]",
+          "cachedResultUrl": "[REMOVED FOR VISUAL REVIEW]"
+        },
+        "filterByFormula": "[REMOVED FOR VISUAL REVIEW]",
+        "returnAll": false,
+        "limit": 20,
+        "options": {
+          "view": {
+            "__rl": true,
+            "value": "[REMOVED FOR VISUAL REVIEW]",
+            "mode": "list",
+            "cachedResultName": "[REMOVED FOR VISUAL REVIEW]",
+            "cachedResultUrl": "[REMOVED FOR VISUAL REVIEW]"
+          }
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source025n9",
+      "name": "Airtable1",
+      "type": "n8n-nodes-base.airtableTool",
+      "typeVersion": 2.1,
+      "position": [
+        -220,
+        3080
+      ],
+      "parameters": {
+        "operation": "search",
+        "base": "[REMOVED FOR VISUAL REVIEW]",
+        "table": {
+          "__rl": true,
+          "value": "[REMOVED FOR VISUAL REVIEW]",
+          "mode": "list",
+          "cachedResultName": "[REMOVED FOR VISUAL REVIEW]",
+          "cachedResultUrl": "[REMOVED FOR VISUAL REVIEW]"
+        },
+        "filterByFormula": "[REMOVED FOR VISUAL REVIEW]",
+        "returnAll": false,
+        "limit": 20,
+        "options": {
+          "downloadFields": [
+            "[REMOVED FOR VISUAL REVIEW]"
+          ],
+          "view": {
+            "__rl": true,
+            "value": "[REMOVED FOR VISUAL REVIEW]",
+            "mode": "list",
+            "cachedResultName": "[REMOVED FOR VISUAL REVIEW]",
+            "cachedResultUrl": "[REMOVED FOR VISUAL REVIEW]"
+          }
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source025n10",
+      "name": "Statics",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        -360,
+        2800
+      ],
+      "parameters": {
+        "promptType": "[REMOVED FOR VISUAL REVIEW]",
+        "text": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {
+          "systemMessage": "[REMOVED FOR VISUAL REVIEW]",
+          "returnIntermediateSteps": true
+        }
+      },
+      "disabled": false,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "id": "pfv5source025n11",
+      "name": "More Static Image Concepts",
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.5,
+      "position": [
+        220,
+        2800
+      ],
+      "parameters": {
+        "promptType": "[REMOVED FOR VISUAL REVIEW]",
+        "text": "[REMOVED FOR VISUAL REVIEW]",
+        "messages": "[REMOVED FOR VISUAL REVIEW]"
+      },
+      "disabled": false,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "id": "pfv5source025n12",
+      "name": "Airtable2",
+      "type": "n8n-nodes-base.airtableTool",
+      "typeVersion": 2.1,
+      "position": [
+        -2240,
+        3420
+      ],
+      "parameters": {
+        "operation": "search",
+        "base": "[REMOVED FOR VISUAL REVIEW]",
+        "table": {
+          "__rl": true,
+          "value": "[REMOVED FOR VISUAL REVIEW]",
+          "mode": "list",
+          "cachedResultName": "[REMOVED FOR VISUAL REVIEW]",
+          "cachedResultUrl": "[REMOVED FOR VISUAL REVIEW]"
+        },
+        "filterByFormula": "[REMOVED FOR VISUAL REVIEW]",
+        "returnAll": false,
+        "limit": 20,
+        "options": {
+          "downloadFields": [
+            "[REMOVED FOR VISUAL REVIEW]"
+          ],
+          "view": {
+            "__rl": true,
+            "value": "[REMOVED FOR VISUAL REVIEW]",
+            "mode": "list",
+            "cachedResultName": "[REMOVED FOR VISUAL REVIEW]",
+            "cachedResultUrl": "[REMOVED FOR VISUAL REVIEW]"
+          }
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source025n13",
+      "name": "UGC Briefs",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        -2320,
+        3220
+      ],
+      "parameters": {
+        "promptType": "[REMOVED FOR VISUAL REVIEW]",
+        "text": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {
+          "systemMessage": "[REMOVED FOR VISUAL REVIEW]",
+          "returnIntermediateSteps": true
+        }
+      },
+      "disabled": false,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "id": "pfv5source025n14",
+      "name": "More UGC Briefs",
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.5,
+      "position": [
+        -1660,
+        3220
+      ],
+      "parameters": {
+        "promptType": "[REMOVED FOR VISUAL REVIEW]",
+        "text": "[REMOVED FOR VISUAL REVIEW]",
+        "messages": "[REMOVED FOR VISUAL REVIEW]"
+      },
+      "disabled": false,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "id": "pfv5source025n15",
+      "name": "Wait2",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        -420,
+        2180
+      ],
+      "parameters": {
+        "amount": 55
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source025n16",
+      "name": "Wait6",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        -1740,
+        2800
+      ],
+      "parameters": {
+        "amount": 1,
+        "unit": "minutes"
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source025n17",
+      "name": "Wait7",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        -1120,
+        2800
+      ],
+      "parameters": {
+        "amount": 55
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source025n18",
+      "name": "Wait8",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        20,
+        2800
+      ],
+      "parameters": {
+        "amount": 1
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source025n19",
+      "name": "Wait9",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        -2580,
+        3220
+      ],
+      "parameters": {
+        "amount": 55
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source025n20",
+      "name": "Wait10",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        -1920,
+        3220
+      ],
+      "parameters": {
+        "amount": 55
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source025n21",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -2600,
+        2180
+      ],
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {}
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source025n22",
+      "name": "Send to Creative Diagnostician",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        -1640,
+        2280
+      ],
+      "parameters": {
+        "options": {}
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source025n23",
+      "name": "Google Gemini Chat Model4",
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        -1600,
+        2600
+      ],
+      "parameters": {
+        "modelName": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {}
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source025n24",
+      "name": "Creative Diagnostician2",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        -1480,
+        2400
+      ],
+      "parameters": {
+        "promptType": "[REMOVED FOR VISUAL REVIEW]",
+        "text": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {
+          "systemMessage": "[REMOVED FOR VISUAL REVIEW]",
+          "maxIterations": "[REMOVED FOR VISUAL REVIEW]",
+          "returnIntermediateSteps": true,
+          "passthroughBinaryImages": true
+        }
+      },
+      "disabled": false,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "id": "pfv5source025n25",
+      "name": "Pull Ad that Needs Analysis",
+      "type": "n8n-nodes-base.airtableTool",
+      "typeVersion": 2.1,
+      "position": [
+        -1360,
+        2620
+      ],
+      "parameters": {
+        "descriptionType": "[REMOVED FOR VISUAL REVIEW]",
+        "toolDescription": "[REMOVED FOR VISUAL REVIEW]",
+        "base": "[REMOVED FOR VISUAL REVIEW]",
+        "table": {
+          "__rl": true,
+          "value": "[REMOVED FOR VISUAL REVIEW]",
+          "mode": "list",
+          "cachedResultName": "[REMOVED FOR VISUAL REVIEW]",
+          "cachedResultUrl": "[REMOVED FOR VISUAL REVIEW]"
+        },
+        "id": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {
+          "downloadFields": [
+            "[REMOVED FOR VISUAL REVIEW]"
+          ]
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source025n26",
+      "name": "Pull other High Spend Ads",
+      "type": "n8n-nodes-base.airtableTool",
+      "typeVersion": 2.1,
+      "position": [
+        -1200,
+        2600
+      ],
+      "parameters": {
+        "operation": "search",
+        "base": "[REMOVED FOR VISUAL REVIEW]",
+        "table": {
+          "__rl": true,
+          "value": "[REMOVED FOR VISUAL REVIEW]",
+          "mode": "list",
+          "cachedResultName": "[REMOVED FOR VISUAL REVIEW]",
+          "cachedResultUrl": "[REMOVED FOR VISUAL REVIEW]"
+        },
+        "filterByFormula": "[REMOVED FOR VISUAL REVIEW]",
+        "returnAll": false,
+        "limit": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {
+          "downloadFields": [
+            "[REMOVED FOR VISUAL REVIEW]"
+          ]
+        },
+        "sort": {
+          "property": [
+            {
+              "field": "[REMOVED FOR VISUAL REVIEW]",
+              "direction": "[REMOVED FOR VISUAL REVIEW]"
+            }
+          ]
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source025n27",
+      "name": "Add Creative Diagnostician Analysis",
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        -1120,
+        2400
+      ],
+      "parameters": {
+        "operation": "update",
+        "base": "[REMOVED FOR VISUAL REVIEW]",
+        "table": {
+          "__rl": true,
+          "value": "[REMOVED FOR VISUAL REVIEW]",
+          "mode": "list",
+          "cachedResultName": "[REMOVED FOR VISUAL REVIEW]",
+          "cachedResultUrl": "[REMOVED FOR VISUAL REVIEW]"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": "[REMOVED FOR VISUAL REVIEW]",
+          "matchingColumns": [
+            "[REMOVED FOR VISUAL REVIEW]"
+          ],
+          "schema": [
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": false
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "[REMOVED FOR VISUAL REVIEW]",
+              "options": [
+                {
+                  "name": "[REMOVED FOR VISUAL REVIEW]",
+                  "value": "[REMOVED FOR VISUAL REVIEW]"
+                },
+                {
+                  "name": "[REMOVED FOR VISUAL REVIEW]",
+                  "value": "[REMOVED FOR VISUAL REVIEW]"
+                },
+                {
+                  "name": "[REMOVED FOR VISUAL REVIEW]",
+                  "value": "[REMOVED FOR VISUAL REVIEW]"
+                }
+              ],
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "[REMOVED FOR VISUAL REVIEW]",
+              "options": [
+                {
+                  "name": "[REMOVED FOR VISUAL REVIEW]",
+                  "value": "[REMOVED FOR VISUAL REVIEW]"
+                }
+              ],
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "[REMOVED FOR VISUAL REVIEW]",
+              "options": [
+                {
+                  "name": "[REMOVED FOR VISUAL REVIEW]",
+                  "value": "[REMOVED FOR VISUAL REVIEW]"
+                }
+              ],
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "dateTime",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "dateTime",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "dateTime",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "[REMOVED FOR VISUAL REVIEW]",
+              "options": [
+                {
+                  "name": "[REMOVED FOR VISUAL REVIEW]",
+                  "value": "[REMOVED FOR VISUAL REVIEW]"
+                }
+              ],
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "boolean",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "array",
+              "options": [
+                {
+                  "name": "[REMOVED FOR VISUAL REVIEW]",
+                  "value": "[REMOVED FOR VISUAL REVIEW]"
+                }
+              ],
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "array",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "array",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": false
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "array",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "[REMOVED FOR VISUAL REVIEW]",
+              "options": [
+                {
+                  "name": "[REMOVED FOR VISUAL REVIEW]",
+                  "value": "[REMOVED FOR VISUAL REVIEW]"
+                },
+                {
+                  "name": "[REMOVED FOR VISUAL REVIEW]",
+                  "value": "[REMOVED FOR VISUAL REVIEW]"
+                },
+                {
+                  "name": "[REMOVED FOR VISUAL REVIEW]",
+                  "value": "[REMOVED FOR VISUAL REVIEW]"
+                }
+              ],
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source025n28",
+      "name": "Anthropic Chat Model2",
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.3,
+      "position": [
+        -800,
+        2440
+      ],
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "[REMOVED FOR VISUAL REVIEW]",
+          "mode": "list",
+          "cachedResultName": "[REMOVED FOR VISUAL REVIEW]"
+        },
+        "options": {}
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source025n29",
+      "name": "Airtable13",
+      "type": "n8n-nodes-base.airtableTool",
+      "typeVersion": 2.1,
+      "position": [
+        -200,
+        2440
+      ],
+      "parameters": {
+        "operation": "search",
+        "base": "[REMOVED FOR VISUAL REVIEW]",
+        "table": {
+          "__rl": true,
+          "value": "[REMOVED FOR VISUAL REVIEW]",
+          "mode": "list",
+          "cachedResultName": "[REMOVED FOR VISUAL REVIEW]",
+          "cachedResultUrl": "[REMOVED FOR VISUAL REVIEW]"
+        },
+        "filterByFormula": "[REMOVED FOR VISUAL REVIEW]",
+        "returnAll": false,
+        "limit": 20,
+        "options": {
+          "view": {
+            "__rl": true,
+            "value": "[REMOVED FOR VISUAL REVIEW]",
+            "mode": "list",
+            "cachedResultName": "[REMOVED FOR VISUAL REVIEW]",
+            "cachedResultUrl": "[REMOVED FOR VISUAL REVIEW]"
+          }
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source025n30",
+      "name": "Anthropic Chat Model15",
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.3,
+      "position": [
+        -340,
+        2420
+      ],
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "[REMOVED FOR VISUAL REVIEW]",
+          "mode": "list",
+          "cachedResultName": "[REMOVED FOR VISUAL REVIEW]"
+        },
+        "options": {}
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source025n31",
+      "name": "High Level Creative Strategy",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        -220,
+        2180
+      ],
+      "parameters": {
+        "promptType": "[REMOVED FOR VISUAL REVIEW]",
+        "text": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {
+          "systemMessage": "[REMOVED FOR VISUAL REVIEW]",
+          "returnIntermediateSteps": true
+        }
+      },
+      "disabled": false,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "id": "pfv5source025n32",
+      "name": "Market & Competitor Analysis",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        160,
+        2180
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "[REMOVED FOR VISUAL REVIEW]",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "[REMOVED FOR VISUAL REVIEW]",
+              "value": "[REMOVED FOR VISUAL REVIEW]"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {}
+      },
+      "disabled": false,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "id": "pfv5source025n33",
+      "name": "Online Reviews",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -2360,
+        2800
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "[REMOVED FOR VISUAL REVIEW]",
+        "authentication": "[REMOVED FOR VISUAL REVIEW]",
+        "genericAuthType": "[REMOVED FOR VISUAL REVIEW]",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {}
+      },
+      "disabled": false,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "id": "pfv5source025n34",
+      "name": "Anthropic Chat Model8",
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.3,
+      "position": [
+        -2220,
+        3000
+      ],
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "[REMOVED FOR VISUAL REVIEW]",
+          "mode": "list",
+          "cachedResultName": "[REMOVED FOR VISUAL REVIEW]"
+        },
+        "options": {}
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source025n35",
+      "name": "Airtable3",
+      "type": "n8n-nodes-base.airtableTool",
+      "typeVersion": 2.1,
+      "position": [
+        -1300,
+        3020
+      ],
+      "parameters": {
+        "operation": "search",
+        "base": "[REMOVED FOR VISUAL REVIEW]",
+        "table": {
+          "__rl": true,
+          "value": "[REMOVED FOR VISUAL REVIEW]",
+          "mode": "list",
+          "cachedResultName": "[REMOVED FOR VISUAL REVIEW]",
+          "cachedResultUrl": "[REMOVED FOR VISUAL REVIEW]"
+        },
+        "filterByFormula": "[REMOVED FOR VISUAL REVIEW]",
+        "returnAll": false,
+        "limit": 20,
+        "options": {
+          "view": {
+            "__rl": true,
+            "value": "[REMOVED FOR VISUAL REVIEW]",
+            "mode": "list",
+            "cachedResultName": "[REMOVED FOR VISUAL REVIEW]",
+            "cachedResultUrl": "[REMOVED FOR VISUAL REVIEW]"
+          }
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source025n36",
+      "name": "FB Copy",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        -1500,
+        2800
+      ],
+      "parameters": {
+        "promptType": "[REMOVED FOR VISUAL REVIEW]",
+        "text": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {
+          "systemMessage": "[REMOVED FOR VISUAL REVIEW]",
+          "returnIntermediateSteps": true
+        }
+      },
+      "disabled": false,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "id": "pfv5source025n37",
+      "name": "Anthropic Chat Model16",
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.3,
+      "position": [
+        -1540,
+        3020
+      ],
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "[REMOVED FOR VISUAL REVIEW]",
+          "mode": "list",
+          "cachedResultName": "[REMOVED FOR VISUAL REVIEW]"
+        },
+        "options": {}
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source025n38",
+      "name": "Anthropic Chat Model17",
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.3,
+      "position": [
+        -860,
+        3020
+      ],
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "[REMOVED FOR VISUAL REVIEW]",
+          "mode": "list",
+          "cachedResultName": "[REMOVED FOR VISUAL REVIEW]"
+        },
+        "options": {}
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source025n39",
+      "name": "FB Copy 2",
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.5,
+      "position": [
+        -920,
+        2800
+      ],
+      "parameters": {
+        "promptType": "[REMOVED FOR VISUAL REVIEW]",
+        "text": "[REMOVED FOR VISUAL REVIEW]",
+        "messages": "[REMOVED FOR VISUAL REVIEW]"
+      },
+      "disabled": false,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "id": "pfv5source025n40",
+      "name": "Wait11",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        -560,
+        2800
+      ],
+      "parameters": {
+        "amount": 1
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source025n41",
+      "name": "Anthropic Chat Model18",
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.3,
+      "position": [
+        -440,
+        3040
+      ],
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "[REMOVED FOR VISUAL REVIEW]",
+          "mode": "list",
+          "cachedResultName": "[REMOVED FOR VISUAL REVIEW]"
+        },
+        "options": {}
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source025n42",
+      "name": "Anthropic Chat Model19",
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.3,
+      "position": [
+        100,
+        3040
+      ],
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "[REMOVED FOR VISUAL REVIEW]",
+          "mode": "list",
+          "cachedResultName": "[REMOVED FOR VISUAL REVIEW]"
+        },
+        "options": {}
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source025n43",
+      "name": "Anthropic Chat Model9",
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.3,
+      "position": [
+        -2400,
+        3420
+      ],
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "[REMOVED FOR VISUAL REVIEW]",
+          "mode": "list",
+          "cachedResultName": "[REMOVED FOR VISUAL REVIEW]"
+        },
+        "options": {}
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source025n44",
+      "name": "Anthropic Chat Model10",
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.3,
+      "position": [
+        -1740,
+        3400
+      ],
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "[REMOVED FOR VISUAL REVIEW]",
+          "mode": "list",
+          "cachedResultName": "[REMOVED FOR VISUAL REVIEW]"
+        },
+        "options": {}
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source025n45",
+      "name": "Create Document",
+      "type": "n8n-nodes-base.markdown",
+      "typeVersion": 1,
+      "position": [
+        -1300,
+        3220
+      ],
+      "parameters": {
+        "mode": "[REMOVED FOR VISUAL REVIEW]",
+        "markdown": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {
+          "completeHTMLDocument": true,
+          "simpleLineBreaks": true,
+          "smartIndentationFix": true,
+          "disableForced4SpacesIndentedSublists": true,
+          "tables": true
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source025n46",
+      "name": "Send to Make1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -1080,
+        3220
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "[REMOVED FOR VISUAL REVIEW]",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "[REMOVED FOR VISUAL REVIEW]",
+              "value": "[REMOVED FOR VISUAL REVIEW]"
+            },
+            {
+              "name": "[REMOVED FOR VISUAL REVIEW]",
+              "value": "[REMOVED FOR VISUAL REVIEW]"
+            },
+            {
+              "name": "[REMOVED FOR VISUAL REVIEW]",
+              "value": "[REMOVED FOR VISUAL REVIEW]"
+            },
+            {
+              "name": "[REMOVED FOR VISUAL REVIEW]",
+              "value": "[REMOVED FOR VISUAL REVIEW]"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source025n47",
+      "name": "Wait",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        -960,
+        2400
+      ],
+      "parameters": {
+        "amount": 20
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source025n48",
+      "name": "Send Execution Data1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -840,
+        3220
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "[REMOVED FOR VISUAL REVIEW]",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {}
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source025n49",
+      "name": "Think",
+      "type": "@n8n/n8n-nodes-langchain.toolThink",
+      "typeVersion": 1,
+      "position": [
+        -540,
+        2440
+      ],
+      "parameters": {
+        "description": "[REMOVED FOR VISUAL REVIEW]"
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source025n50",
+      "name": "Think1",
+      "type": "@n8n/n8n-nodes-langchain.toolThink",
+      "typeVersion": 1,
+      "position": [
+        -80,
+        2440
+      ],
+      "parameters": {
+        "description": "[REMOVED FOR VISUAL REVIEW]"
+      },
+      "disabled": false
+    }
+  ],
+  "connections": {
+    "Get Ads Report": {
+      "main": [
+        [
+          {
+            "node": "Get Client Record",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Client Record": {
+      "main": [
+        [
+          {
+            "node": "Pull Ads w/High Spend",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Pull Ads w/High Spend": {
+      "main": [
+        [
+          {
+            "node": "Send to Creative Diagnostician",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Airtable7": {
+      "ai_tool": [
+        [
+          {
+            "node": "Creative Matrix",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Limit": {
+      "main": [
+        [
+          {
+            "node": "Creative Matrix",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Creative Matrix": {
+      "main": [
+        [
+          {
+            "node": "Wait2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Brand SWOT Analysis": {
+      "main": [
+        [
+          {
+            "node": "Online Reviews",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ad Angle Development": {
+      "main": [
+        [
+          {
+            "node": "Wait6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Airtable": {
+      "ai_tool": [
+        [
+          {
+            "node": "Ad Angle Development",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Airtable1": {
+      "ai_tool": [
+        [
+          {
+            "node": "Statics",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Statics": {
+      "main": [
+        [
+          {
+            "node": "Wait8",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "More Static Image Concepts": {
+      "main": [
+        [
+          {
+            "node": "Wait9",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Airtable2": {
+      "ai_tool": [
+        [
+          {
+            "node": "UGC Briefs",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "UGC Briefs": {
+      "main": [
+        [
+          {
+            "node": "Wait10",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "More UGC Briefs": {
+      "main": [
+        [
+          {
+            "node": "Create Document",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait2": {
+      "main": [
+        [
+          {
+            "node": "High Level Creative Strategy",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait6": {
+      "main": [
+        [
+          {
+            "node": "FB Copy",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait7": {
+      "main": [
+        [
+          {
+            "node": "FB Copy 2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait8": {
+      "main": [
+        [
+          {
+            "node": "More Static Image Concepts",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait9": {
+      "main": [
+        [
+          {
+            "node": "UGC Briefs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait10": {
+      "main": [
+        [
+          {
+            "node": "More UGC Briefs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Get Ads Report",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send to Creative Diagnostician": {
+      "main": [
+        [
+          {
+            "node": "Limit",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Creative Diagnostician2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model4": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Creative Diagnostician2",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Pull Ad that Needs Analysis": {
+      "ai_tool": [
+        [
+          {
+            "node": "Creative Diagnostician2",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Pull other High Spend Ads": {
+      "ai_tool": [
+        [
+          {
+            "node": "Creative Diagnostician2",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Creative Diagnostician2": {
+      "main": [
+        [
+          {
+            "node": "Add Creative Diagnostician Analysis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Add Creative Diagnostician Analysis": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Anthropic Chat Model2": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Creative Matrix",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Airtable13": {
+      "ai_tool": [
+        [
+          {
+            "node": "High Level Creative Strategy",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Anthropic Chat Model15": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "High Level Creative Strategy",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "High Level Creative Strategy": {
+      "main": [
+        [
+          {
+            "node": "Market & Competitor Analysis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Market & Competitor Analysis": {
+      "main": [
+        [
+          {
+            "node": "Brand SWOT Analysis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Online Reviews": {
+      "main": [
+        [
+          {
+            "node": "Ad Angle Development",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Anthropic Chat Model8": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Ad Angle Development",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Airtable3": {
+      "ai_tool": [
+        [
+          {
+            "node": "FB Copy",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Anthropic Chat Model16": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "FB Copy",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "FB Copy": {
+      "main": [
+        [
+          {
+            "node": "Wait7",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Anthropic Chat Model17": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "FB Copy 2",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "FB Copy 2": {
+      "main": [
+        [
+          {
+            "node": "Wait11",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait11": {
+      "main": [
+        [
+          {
+            "node": "Statics",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Anthropic Chat Model18": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Statics",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Anthropic Chat Model19": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "More Static Image Concepts",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Anthropic Chat Model9": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "UGC Briefs",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Anthropic Chat Model10": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "More UGC Briefs",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Document": {
+      "main": [
+        [
+          {
+            "node": "Send to Make1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send to Make1": {
+      "main": [
+        [
+          {
+            "node": "Send Execution Data1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "Send to Creative Diagnostician",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Think": {
+      "ai_tool": [
+        [
+          {
+            "node": "Creative Matrix",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Think1": {
+      "ai_tool": [
+        [
+          {
+            "node": "High Level Creative Strategy",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "tags": []
+}

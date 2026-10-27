@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:; connect-src 'none'; form-action 'none'; object-src 'none'; base-uri 'none'">
+<title>Member Pulse · Member 001</title>
+<link rel="stylesheet" href="/case-studies/fonts/fonts.css">
+<link rel="stylesheet" href="/work-walkthrough/widgets/member-pulse/app.css">
+</head>
+<body>
+  
+
+  <div id="app" data-theme="light">
+    <div class="wrap"><header class="walkthrough-intro"><a href="/work/case-studies/dashboards-daily-pulse">Back to case study</a><h1>Member Pulse</h1><p>Explore the five views. Select a touchpoint for detail. Wide charts scroll horizontally. Reset restores the default Pulse Stream.</p></header>
+      <div class="panel topbar">
+        <div class="brand"><span class="spark"></span> Member&nbsp;Pulse</div>
+        <nav class="tabs" role="tablist" aria-label="Member Pulse views">
+          <button type="button" class="tab" id="tab-timeline" data-tour="tab-timeline" role="tab" aria-selected="false" aria-controls="view-timeline" tabindex="-1" data-view="timeline">Timeline</button>
+          <button type="button" class="tab" id="tab-stages" data-tour="tab-stages" role="tab" aria-selected="false" aria-controls="view-stages" tabindex="-1" data-view="stages">Stages</button>
+          <button type="button" class="tab" id="tab-map" data-tour="tab-map" role="tab" aria-selected="false" aria-controls="view-map" tabindex="-1" data-view="map">Experience Map</button>
+          <button type="button" class="tab" id="tab-stream" data-tour="tab-stream" role="tab" aria-selected="false" aria-controls="view-stream" tabindex="-1" data-view="stream">Pulse Stream</button>
+          <button type="button" class="tab" id="tab-tenure" data-tour="tab-tenure" role="tab" aria-selected="false" aria-controls="view-tenure" tabindex="-1" data-view="tenure">Tenure</button>
+        </nav>
+        <div class="spacer"></div>
+        <button class="theme-toggle" id="resetPulse" type="button">Reset view</button>
+        <div class="memberchip"><span class="mini" id="mcInit">M1</span><span class="mname" id="mcName">Member 001</span><span class="mtier" id="mcTier">Learning membership</span></div>
+      </div>
+
+      <section class="panel view" id="view-timeline" role="tabpanel" aria-labelledby="tab-timeline" hidden data-screen-label="Timeline"></section>
+      <section class="panel view" id="view-stages" role="tabpanel" aria-labelledby="tab-stages" hidden data-screen-label="Stages"></section>
+      <section class="panel view" id="view-map" role="tabpanel" aria-labelledby="tab-map" hidden data-screen-label="Experience Map"></section>
+      <section class="panel view" id="view-stream" role="tabpanel" aria-labelledby="tab-stream" hidden data-screen-label="Pulse Stream"></section>
+      <section class="panel view" id="view-tenure" role="tabpanel" aria-labelledby="tab-tenure" hidden data-screen-label="Tenure"></section>
+    </div>
+  </div>
+
+  <div class="dcard" id="dcard" role="dialog" aria-label="Record detail" aria-live="polite"></div>
+  <script src="/work-walkthrough/widgets/member-pulse/app.js" defer></script>
+
+
+</body></html>

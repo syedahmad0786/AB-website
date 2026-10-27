@@ -1,0 +1,297 @@
+{
+  "id": "pfv5error",
+  "name": "Error monitoring - original creator workflow",
+  "nodes": [
+    {
+      "id": "pfv5errorn0",
+      "name": "Webhook (Manual)",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        176,
+        752
+      ],
+      "parameters": {
+        "path": "[Configure locally]",
+        "options": {},
+        "responseMode": "lastNode"
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5errorn1",
+      "name": "Schedule",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        176,
+        944
+      ],
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "minutes"
+            }
+          ]
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5errorn2",
+      "name": "Get Failures",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        400,
+        848
+      ],
+      "parameters": {
+        "url": "https://service.example.test/configure",
+        "options": {
+          "timeout": 30000
+        },
+        "authentication": "[Configure locally]",
+        "genericAuthType": "[Configure locally]"
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5errorn3",
+      "name": "Filter Recent",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        624,
+        848
+      ],
+      "parameters": {
+        "jsCode": "const data = $input.first().json;\nconst executions = data.data || [];\nconst now = new Date();\nconst fiveMinAgo = new Date(now.getTime() - 5 * 60 * 1000);\nconst thisWorkflowId = $workflow.id;\nconst recent = executions.filter(ex => {\n  const started = new Date(ex.startedAt || 0);\n  return started >= fiveMinAgo && ex.workflowId !== thisWorkflowId;\n});\nif (recent.length === 0) return [];\nconst entries = [];\nfor (const ex of recent) {\n  entries.push({ json: { executionId: ex.id, workflowId: ex.workflowId, startedAt: ex.startedAt, status: ex.status || 'error' } });\n}\nreturn entries;"
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5errorn4",
+      "name": "Get Execution Detail",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        848,
+        848
+      ],
+      "parameters": {
+        "url": "https://service.example.test/configure",
+        "options": {
+          "timeout": 30000
+        },
+        "authentication": "[Configure locally]",
+        "genericAuthType": "[Configure locally]"
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5errorn5",
+      "name": "Classify Error",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1072,
+        848
+      ],
+      "parameters": {
+        "jsCode": "const ex = $input.first().json;\nconst ts = new Date().toISOString();\nconst wfData = ex.workflowData || {};\nconst wfName = wfData.name || 'Unknown';\nconst wfId = ex.workflowId || '';\nconst exId = ex.id || '';\nconst rd = (ex.data || {}).resultData || {};\nconst topErr = rd.error || {};\nlet errorMessage = topErr.message || '';\nlet failedNode = topErr.node?.name || '';\nconst runData = rd.runData || {};\nfor (const [nodeName, runs] of Object.entries(runData)) { for (const run of runs) { if (run.error) { if (!failedNode) failedNode = nodeName; if (!errorMessage) errorMessage = run.error.message || ''; } } }\nif (!errorMessage) errorMessage = 'Unknown error';\nif (!failedNode) failedNode = 'Unknown';\nconst m = errorMessage.toLowerCase();\nlet cat='Unclassified',sev='Medium',sol='Check execution log.',retry=false;\nif(m.includes('401')||m.includes('unauthorized')||m.includes('credential')){cat='Auth Error';sev='Critical';sol='Re-authenticate: '+failedNode;}\nelse if(m.includes('429')||m.includes('rate limit')){cat='Rate Limit';sev='Medium';sol='Wait and retry.';retry=true;}\nelse if(m.includes('timeout')||m.includes('econn')||m.includes('network')){cat='Network';sev='Medium';sol='Check service.';retry=true;}\nelse if(m.includes('validation')||m.includes('required')||m.includes('undefined')){cat='Data/Config Error';sev='High';sol='Check config: '+failedNode;}\nelse if(m.includes('404')||m.includes('not found')){cat='Not Found';sev='High';sol='Check resource: '+failedNode;}\nelse if(m.includes('500')||m.includes('internal server')){cat='Server Error';sev='Medium';sol='Service error.';retry=true;}\nelse if(m.includes('permission')||m.includes('access denied')){cat='Permission';sev='Critical';sol='Check scopes: '+failedNode;}\nconst emoji=sev==='Critical'?':red_circle:':sev==='High'?':large_orange_circle:':':large_yellow_circle:';\nconst slack=emoji+' *n8n Error*\\n*Workflow:* '+wfName+'\\n*Node:* `'+failedNode+'`\\n*Type:* '+cat+' ('+sev+')\\n```'+(errorMessage||'').substring(0,300)+'```\\n*Fix:* '+sol;\nconst sheetRow=JSON.stringify({values:[[ts,wfName,wfId,exId,failedNode,cat,sev,(errorMessage||'').substring(0,500),sol,retry?'Yes':'No',retry?'Pending':'Manual Fix','']]});\nreturn [{json:{_slack:slack,_body:sheetRow,_retry:retry,_exId:exId}}];"
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5errorn6",
+      "name": "Log to Sheet",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1296,
+        752
+      ],
+      "parameters": {
+        "url": "https://service.example.test/configure",
+        "method": "POST",
+        "options": {},
+        "jsonBody": "[Configure locally]",
+        "sendBody": true,
+        "specifyBody": "[Configure locally]",
+        "authentication": "[Configure locally]"
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5errorn7",
+      "name": "Slack Alert",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.2,
+      "position": [
+        1296,
+        944
+      ],
+      "parameters": {
+        "text": "[Configure locally]",
+        "select": "[Configure locally]",
+        "channelId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "[Configure locally]",
+          "cachedResultName": "[Configure locally]"
+        },
+        "otherOptions": {},
+        "authentication": "[Configure locally]"
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5errorn8",
+      "name": "Sticky Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -576,
+        384
+      ],
+      "parameters": {
+        "color": 4,
+        "width": 652,
+        "height": 700,
+        "content": "Local source import. Original topology retained; personal configuration and credentials removed. Not executed."
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5errorn9",
+      "name": "Sticky Note1",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        80,
+        608
+      ],
+      "parameters": {
+        "color": 6,
+        "width": 316,
+        "height": 480,
+        "content": "Local source import. Original topology retained; personal configuration and credentials removed. Not executed."
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5errorn10",
+      "name": "Sticky Note2",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        400,
+        720
+      ],
+      "parameters": {
+        "color": 3,
+        "width": 384,
+        "height": 320,
+        "content": "Local source import. Original topology retained; personal configuration and credentials removed. Not executed."
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5errorn11",
+      "name": "Sticky Note3",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        784,
+        672
+      ],
+      "parameters": {
+        "width": 696,
+        "height": 416,
+        "content": "Local source import. Original topology retained; personal configuration and credentials removed. Not executed."
+      },
+      "disabled": false
+    }
+  ],
+  "connections": {
+    "Schedule": {
+      "main": [
+        [
+          {
+            "node": "Get Failures",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Failures": {
+      "main": [
+        [
+          {
+            "node": "Filter Recent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter Recent": {
+      "main": [
+        [
+          {
+            "node": "Get Execution Detail",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Classify Error": {
+      "main": [
+        [
+          {
+            "node": "Log to Sheet",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Slack Alert",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook (Manual)": {
+      "main": [
+        [
+          {
+            "node": "Get Failures",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Execution Detail": {
+      "main": [
+        [
+          {
+            "node": "Classify Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "tags": []
+}

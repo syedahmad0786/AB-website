@@ -1,0 +1,33 @@
+(()=>{'use strict';
+const theme=document.querySelector('[data-theme-toggle]');theme?.addEventListener('click',()=>{const dark=document.documentElement.dataset.theme!=='dark';document.documentElement.dataset.theme=dark?'dark':'light';theme.setAttribute('aria-pressed',String(dark))});
+const dialog=document.querySelector('#evidence-dialog');let trigger;
+document.querySelectorAll('[data-figure]').forEach(button=>button.addEventListener('click',event=>{if(!dialog?.showModal)return;const source=button.dataset.imageSrc||button.getAttribute('href');if(!source||!/^\/case-studies\/assets\/[a-zA-Z0-9.-]+$/.test(source))return;event.preventDefault();trigger=button;const img=dialog.querySelector('img');img.src=source;img.alt=button.dataset.imageAlt||button.querySelector('img')?.alt||'Evidence full view';const caption=dialog.querySelector('#dialog-caption');if(caption)caption.textContent=button.dataset.imageCaption||'';if(!dialog.open)dialog.showModal();dialog.querySelector('[data-close-dialog]')?.focus()}));
+document.querySelector('[data-close-dialog]')?.addEventListener('click',()=>dialog?.close());
+dialog?.addEventListener('close',()=>{dialog.querySelector('img')?.removeAttribute('src');if(trigger?.isConnected)trigger.focus()});
+// Native dialog cancel handles Escape and dispatches close, returning focus above.
+document.querySelectorAll('[data-open-walkthrough]').forEach(button=>button.addEventListener('click',()=>{const url=button.dataset.openWalkthrough;if(!/^\/work\/case-studies\/[a-z][a-z0-9]*(?:-[a-z0-9]+)*\/walkthrough\/$/.test(url))return;const target=button.closest('.uc-walk-panel')?.querySelector('[data-embed-target]');if(!target)return;const frame=document.createElement('iframe');frame.src=url;frame.title=(button.dataset.walkTitle||'Interactive')+' walkthrough';frame.setAttribute('sandbox','allow-scripts');frame.setAttribute('allow',"autoplay 'none'; camera 'none'; microphone 'none'; geolocation 'none'; payment 'none'");frame.referrerPolicy='no-referrer';frame.className='uc-walk-frame';frame.setAttribute('data-keep','');target.replaceChildren(frame);button.setAttribute('aria-expanded','true');button.disabled=true;button.textContent='Opened below'}));
+
+// Progressive enhancement: every figure remains readable when scripts are unavailable.
+document.querySelectorAll('[data-gallery]').forEach(gallery=>{
+ const slides=[...gallery.querySelectorAll('[data-slide]')],controls=[...gallery.querySelectorAll('[data-gallery-controls]')],thumbs=[...gallery.querySelectorAll('[data-slide-to]')],count=gallery.querySelector('[data-count]');
+ if(!slides.length)return;let index=0;
+ function select(next,manual=true){const direction=next<index?-1:1;index=(next+slides.length)%slides.length;slides.forEach((slide,n)=>{slide.hidden=n!==index});thumbs.forEach((button,n)=>button.setAttribute('aria-pressed',String(n===index)));if(count)count.textContent=(index+1)+' / '+slides.length;
+  if(manual&&!window.matchMedia('(prefers-reduced-motion: reduce)').matches&&slides[index].animate){slides[index].getAnimations().forEach(a=>a.cancel());slides[index].animate([{opacity:0},{opacity:1}],{duration:220,easing:'cubic-bezier(.2,.7,.2,1)'});}
+ }
+ controls.forEach(c=>c.hidden=false);select(0,false);
+ gallery.querySelector('[data-prev]')?.addEventListener('click',()=>select(index-1));gallery.querySelector('[data-next]')?.addEventListener('click',()=>select(index+1));
+ thumbs.forEach((button,n)=>button.addEventListener('click',()=>select(n)));
+ // Arrow/Home/End only belong to gallery navigation, never page-level or full-image links.
+ controls.forEach(control=>control.addEventListener('keydown',event=>{if(!event.target.closest('button'))return;let next;if(event.key==='ArrowRight'||event.key==='ArrowDown')next=index+1;else if(event.key==='ArrowLeft'||event.key==='ArrowUp')next=index-1;else if(event.key==='Home')next=0;else if(event.key==='End')next=slides.length-1;else return;event.preventDefault();select(next);if(event.target.matches('[data-slide-to]'))thumbs[index]?.focus({preventScroll:true});}));
+ const stage=gallery.querySelector('[data-gallery-stage]');let touch;
+ stage?.addEventListener('touchstart',event=>{touch=event.touches.length===1?{x:event.touches[0].clientX,y:event.touches[0].clientY}:null},{passive:true});
+ stage?.addEventListener('touchend',event=>{if(!touch||event.changedTouches.length!==1)return;const dx=event.changedTouches[0].clientX-touch.x,dy=event.changedTouches[0].clientY-touch.y;touch=null;if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy)*1.5)select(index+(dx<0?1:-1));},{passive:true});
+ stage?.addEventListener('touchcancel',()=>{touch=null},{passive:true});
+});
+
+const ledgers=[...document.querySelectorAll('.uc-source-details')];let printState;window.addEventListener('beforeprint',()=>{printState=ledgers.map(d=>d.open);ledgers.forEach(d=>{d.open=true})});window.addEventListener('afterprint',()=>{if(printState)ledgers.forEach((d,n)=>{d.open=printState[n]});printState=undefined});
+
+const reduce=matchMedia('(prefers-reduced-motion: reduce)'),pointer=matchMedia('(hover:hover) and (pointer:fine)');
+if(!reduce.matches&&'IntersectionObserver' in window){const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('v7-visible');observer.unobserve(entry.target)}}),{threshold:.15});document.querySelectorAll('.v7-project-copy,.v7-group>h2,.v7-all').forEach(el=>{el.classList.add('v7-reveal');observer.observe(el)});reduce.addEventListener('change',()=>{if(reduce.matches){document.querySelectorAll('.v7-reveal').forEach(el=>el.classList.add('v7-visible'));observer.disconnect()}});}
+document.querySelectorAll('[data-logo-motion]').forEach(el=>{let x=0,y=0,tx=0,ty=0,raf=0;const inner=el.querySelector('img');function reset(){cancelAnimationFrame(raf);raf=0;x=y=tx=ty=0;el.style.transform='';if(inner)inner.style.transform=''}function frame(){if(reduce.matches||!pointer.matches){reset();return}x+=(tx-x)*.18;y+=(ty-y)*.18;el.style.transform='translate('+x+'px,'+y+'px)';if(inner)inner.style.transform='translate('+x/2+'px,'+y/2+'px)';if(Math.abs(tx-x)+Math.abs(ty-y)>.05)raf=requestAnimationFrame(frame);else raf=0}el.addEventListener('pointermove',e=>{if(reduce.matches||!pointer.matches)return;const b=el.getBoundingClientRect();tx=Math.max(-6,Math.min(6,((e.clientX-b.left)/b.width-.5)*12));ty=Math.max(-6,Math.min(6,((e.clientY-b.top)/b.height-.5)*12));if(!raf)raf=requestAnimationFrame(frame)});el.addEventListener('pointerleave',()=>{tx=ty=0;if(!raf)raf=requestAnimationFrame(frame)});reduce.addEventListener('change',reset);pointer.addEventListener('change',reset)});
+})();

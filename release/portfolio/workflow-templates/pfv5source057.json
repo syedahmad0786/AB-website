@@ -1,0 +1,633 @@
+{
+  "id": "pfv5source057",
+  "name": "Messaging map agent - archived source",
+  "nodes": [
+    {
+      "id": "pfv5source057n0",
+      "name": "Get Market Research",
+      "type": "n8n-nodes-base.googleDocs",
+      "typeVersion": 2,
+      "position": [
+        940,
+        -40
+      ],
+      "parameters": {
+        "operation": "get",
+        "documentURL": "[REMOVED FOR VISUAL REVIEW]"
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source057n1",
+      "name": "Anthropic Chat Model36",
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.2,
+      "position": [
+        1248,
+        180
+      ],
+      "parameters": {
+        "options": {
+          "temperature": 0.7
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source057n2",
+      "name": "Extract Brand Foundation",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.6,
+      "position": [
+        1160,
+        -40
+      ],
+      "parameters": {
+        "promptType": "[REMOVED FOR VISUAL REVIEW]",
+        "text": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {
+          "systemMessage": "[REMOVED FOR VISUAL REVIEW]"
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source057n3",
+      "name": "Define Positioning Statement",
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.4,
+      "position": [
+        1536,
+        -40
+      ],
+      "parameters": {
+        "promptType": "[REMOVED FOR VISUAL REVIEW]",
+        "text": "[REMOVED FOR VISUAL REVIEW]",
+        "messages": "[REMOVED FOR VISUAL REVIEW]"
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source057n4",
+      "name": "Anthropic Chat Model2",
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.3,
+      "position": [
+        1624,
+        180
+      ],
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "[REMOVED FOR VISUAL REVIEW]",
+          "cachedResultName": "[REMOVED FOR VISUAL REVIEW]"
+        },
+        "options": {}
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source057n5",
+      "name": "Clarify Core Value Proposition",
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.4,
+      "position": [
+        1912,
+        -40
+      ],
+      "parameters": {
+        "promptType": "[REMOVED FOR VISUAL REVIEW]",
+        "text": "[REMOVED FOR VISUAL REVIEW]",
+        "messages": "[REMOVED FOR VISUAL REVIEW]"
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source057n6",
+      "name": "Anthropic Chat Model13",
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.3,
+      "position": [
+        2000,
+        180
+      ],
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "[REMOVED FOR VISUAL REVIEW]",
+          "cachedResultName": "[REMOVED FOR VISUAL REVIEW]"
+        },
+        "options": {}
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source057n7",
+      "name": "Extract Brand Voice & Tone Keywords",
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.4,
+      "position": [
+        2288,
+        -40
+      ],
+      "parameters": {
+        "promptType": "[REMOVED FOR VISUAL REVIEW]",
+        "text": "[REMOVED FOR VISUAL REVIEW]",
+        "messages": "[REMOVED FOR VISUAL REVIEW]"
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source057n8",
+      "name": "Anthropic Chat Model14",
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.3,
+      "position": [
+        2376,
+        180
+      ],
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "[REMOVED FOR VISUAL REVIEW]",
+          "cachedResultName": "[REMOVED FOR VISUAL REVIEW]"
+        },
+        "options": {}
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source057n9",
+      "name": "Anthropic Chat Model15",
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.3,
+      "position": [
+        2752,
+        180
+      ],
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "[REMOVED FOR VISUAL REVIEW]",
+          "cachedResultName": "[REMOVED FOR VISUAL REVIEW]"
+        },
+        "options": {}
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source057n10",
+      "name": "Extract Messaging Pillars",
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.4,
+      "position": [
+        2664,
+        -40
+      ],
+      "parameters": {
+        "promptType": "[REMOVED FOR VISUAL REVIEW]",
+        "text": "[REMOVED FOR VISUAL REVIEW]",
+        "messages": "[REMOVED FOR VISUAL REVIEW]"
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source057n11",
+      "name": "Anthropic Chat Model16",
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.3,
+      "position": [
+        3128,
+        180
+      ],
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "[REMOVED FOR VISUAL REVIEW]",
+          "cachedResultName": "[REMOVED FOR VISUAL REVIEW]"
+        },
+        "options": {}
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source057n12",
+      "name": "Objections & Proof Summary Agent",
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.4,
+      "position": [
+        3040,
+        -40
+      ],
+      "parameters": {
+        "promptType": "[REMOVED FOR VISUAL REVIEW]",
+        "text": "[REMOVED FOR VISUAL REVIEW]",
+        "messages": "[REMOVED FOR VISUAL REVIEW]"
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source057n13",
+      "name": "Anthropic Chat Model17",
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.3,
+      "position": [
+        3504,
+        180
+      ],
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "[REMOVED FOR VISUAL REVIEW]",
+          "cachedResultName": "[REMOVED FOR VISUAL REVIEW]"
+        },
+        "options": {}
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source057n14",
+      "name": "Messaging Map Assembly Agent",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.8,
+      "position": [
+        3416,
+        -40
+      ],
+      "parameters": {
+        "promptType": "[REMOVED FOR VISUAL REVIEW]",
+        "text": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {
+          "systemMessage": "[REMOVED FOR VISUAL REVIEW]"
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source057n15",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        460,
+        -40
+      ],
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {}
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source057n16",
+      "name": "Create MR Document1",
+      "type": "n8n-nodes-base.markdown",
+      "typeVersion": 1,
+      "position": [
+        4168,
+        -40
+      ],
+      "parameters": {
+        "mode": "[REMOVED FOR VISUAL REVIEW]",
+        "markdown": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {
+          "completeHTMLDocument": true,
+          "simpleLineBreaks": true,
+          "smartIndentationFix": true,
+          "disableForced4SpacesIndentedSublists": true,
+          "tables": false
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source057n17",
+      "name": "Airtable12",
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        720,
+        -40
+      ],
+      "parameters": {
+        "base": "[REMOVED FOR VISUAL REVIEW]",
+        "table": {
+          "__rl": true,
+          "value": "[REMOVED FOR VISUAL REVIEW]",
+          "mode": "list",
+          "cachedResultName": "[REMOVED FOR VISUAL REVIEW]",
+          "cachedResultUrl": "[REMOVED FOR VISUAL REVIEW]"
+        },
+        "id": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {}
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source057n18",
+      "name": "HTTP Request1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        4388,
+        -40
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "[REMOVED FOR VISUAL REVIEW]",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "[REMOVED FOR VISUAL REVIEW]",
+              "value": "[REMOVED FOR VISUAL REVIEW]"
+            },
+            {
+              "name": "[REMOVED FOR VISUAL REVIEW]",
+              "value": "[REMOVED FOR VISUAL REVIEW]"
+            },
+            {
+              "name": "[REMOVED FOR VISUAL REVIEW]",
+              "value": "[REMOVED FOR VISUAL REVIEW]"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source057n19",
+      "name": "Messaging Map Assembly Agent1",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.8,
+      "position": [
+        3792,
+        -40
+      ],
+      "parameters": {
+        "promptType": "[REMOVED FOR VISUAL REVIEW]",
+        "text": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {
+          "systemMessage": "[REMOVED FOR VISUAL REVIEW]"
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source057n20",
+      "name": "Anthropic Chat Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.3,
+      "position": [
+        3880,
+        180
+      ],
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "[REMOVED FOR VISUAL REVIEW]",
+          "cachedResultName": "[REMOVED FOR VISUAL REVIEW]"
+        },
+        "options": {}
+      },
+      "disabled": false
+    }
+  ],
+  "connections": {
+    "Get Market Research": {
+      "main": [
+        [
+          {
+            "node": "Extract Brand Foundation",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Anthropic Chat Model36": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Extract Brand Foundation",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Brand Foundation": {
+      "main": [
+        [
+          {
+            "node": "Define Positioning Statement",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Define Positioning Statement": {
+      "main": [
+        [
+          {
+            "node": "Clarify Core Value Proposition",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Anthropic Chat Model2": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Define Positioning Statement",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Clarify Core Value Proposition": {
+      "main": [
+        [
+          {
+            "node": "Extract Brand Voice & Tone Keywords",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Anthropic Chat Model13": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Clarify Core Value Proposition",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Brand Voice & Tone Keywords": {
+      "main": [
+        [
+          {
+            "node": "Extract Messaging Pillars",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Anthropic Chat Model14": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Extract Brand Voice & Tone Keywords",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Anthropic Chat Model15": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Extract Messaging Pillars",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Messaging Pillars": {
+      "main": [
+        [
+          {
+            "node": "Objections & Proof Summary Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Anthropic Chat Model16": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Objections & Proof Summary Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Objections & Proof Summary Agent": {
+      "main": [
+        [
+          {
+            "node": "Messaging Map Assembly Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Anthropic Chat Model17": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Messaging Map Assembly Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Messaging Map Assembly Agent": {
+      "main": [
+        [
+          {
+            "node": "Messaging Map Assembly Agent1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Airtable12",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create MR Document1": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Airtable12": {
+      "main": [
+        [
+          {
+            "node": "Get Market Research",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Messaging Map Assembly Agent1": {
+      "main": [
+        [
+          {
+            "node": "Create MR Document1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Anthropic Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Messaging Map Assembly Agent1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "tags": []
+}

@@ -1,0 +1,1647 @@
+{
+  "id": "pfv5source047",
+  "name": "Appointment setter conversation handling - archived source",
+  "nodes": [
+    {
+      "id": "pfv5source047n0",
+      "name": "Receive Contact Message",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        400,
+        340
+      ],
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {}
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source047n1",
+      "name": "Find Contact in Supabase",
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        820,
+        340
+      ],
+      "parameters": {
+        "operation": "get",
+        "tableId": "[REMOVED FOR VISUAL REVIEW]",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "[REMOVED FOR VISUAL REVIEW]",
+              "keyValue": "[REMOVED FOR VISUAL REVIEW]"
+            }
+          ]
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source047n2",
+      "name": "Contact Exists?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1080,
+        340
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": false,
+            "leftValue": "[REMOVED FOR VISUAL REVIEW]",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "leftValue": "[REMOVED FOR VISUAL REVIEW]",
+              "rightValue": "[REMOVED FOR VISUAL REVIEW]",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {
+          "ignoreCase": true
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source047n3",
+      "name": "Add User Message to Table",
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        1360,
+        0
+      ],
+      "parameters": {
+        "tableId": "[REMOVED FOR VISUAL REVIEW]",
+        "fieldsUi": {
+          "fieldValues": "[REMOVED FOR VISUAL REVIEW]"
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source047n4",
+      "name": "SMS Setter",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        1760,
+        0
+      ],
+      "parameters": {
+        "promptType": "[REMOVED FOR VISUAL REVIEW]",
+        "text": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {
+          "systemMessage": "[REMOVED FOR VISUAL REVIEW]"
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source047n5",
+      "name": "Anthropic Chat Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.2,
+      "position": [
+        1660,
+        220
+      ],
+      "parameters": {
+        "model": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {
+          "temperature": 0.3
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source047n6",
+      "name": "Get Conversation History",
+      "type": "n8n-nodes-base.supabaseTool",
+      "typeVersion": 1,
+      "position": [
+        2220,
+        220
+      ],
+      "parameters": {
+        "descriptionType": "[REMOVED FOR VISUAL REVIEW]",
+        "toolDescription": "[REMOVED FOR VISUAL REVIEW]",
+        "operation": "getAll",
+        "tableId": "[REMOVED FOR VISUAL REVIEW]",
+        "matchType": "[REMOVED FOR VISUAL REVIEW]",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "[REMOVED FOR VISUAL REVIEW]",
+              "condition": "[REMOVED FOR VISUAL REVIEW]",
+              "keyValue": "[REMOVED FOR VISUAL REVIEW]"
+            }
+          ]
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source047n7",
+      "name": "Create User",
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        1360,
+        480
+      ],
+      "parameters": {
+        "tableId": "[REMOVED FOR VISUAL REVIEW]",
+        "fieldsUi": {
+          "fieldValues": "[REMOVED FOR VISUAL REVIEW]"
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source047n8",
+      "name": "Add User Message",
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        2240,
+        480
+      ],
+      "parameters": {
+        "tableId": "[REMOVED FOR VISUAL REVIEW]",
+        "fieldsUi": {
+          "fieldValues": "[REMOVED FOR VISUAL REVIEW]"
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source047n9",
+      "name": "Add AI Message to the Table",
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        2120,
+        0
+      ],
+      "parameters": {
+        "tableId": "[REMOVED FOR VISUAL REVIEW]",
+        "fieldsUi": {
+          "fieldValues": "[REMOVED FOR VISUAL REVIEW]"
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source047n10",
+      "name": "GHL",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2380,
+        0
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "[REMOVED FOR VISUAL REVIEW]",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "[REMOVED FOR VISUAL REVIEW]",
+              "value": "[REMOVED FOR VISUAL REVIEW]"
+            },
+            {
+              "name": "[REMOVED FOR VISUAL REVIEW]",
+              "value": "[REMOVED FOR VISUAL REVIEW]"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "[REMOVED FOR VISUAL REVIEW]",
+              "value": "[REMOVED FOR VISUAL REVIEW]"
+            },
+            {
+              "name": "[REMOVED FOR VISUAL REVIEW]",
+              "value": "[REMOVED FOR VISUAL REVIEW]"
+            },
+            {
+              "name": "[REMOVED FOR VISUAL REVIEW]",
+              "value": "[REMOVED FOR VISUAL REVIEW]"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source047n11",
+      "name": "Anthropic Chat Model1",
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.2,
+      "position": [
+        2340,
+        720
+      ],
+      "parameters": {
+        "model": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {
+          "temperature": 0.3
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source047n12",
+      "name": "Get Conversation History1",
+      "type": "n8n-nodes-base.supabaseTool",
+      "typeVersion": 1,
+      "position": [
+        2800,
+        740
+      ],
+      "parameters": {
+        "descriptionType": "[REMOVED FOR VISUAL REVIEW]",
+        "toolDescription": "[REMOVED FOR VISUAL REVIEW]",
+        "operation": "getAll",
+        "tableId": "[REMOVED FOR VISUAL REVIEW]",
+        "matchType": "[REMOVED FOR VISUAL REVIEW]",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "[REMOVED FOR VISUAL REVIEW]",
+              "condition": "[REMOVED FOR VISUAL REVIEW]",
+              "keyValue": "[REMOVED FOR VISUAL REVIEW]"
+            }
+          ]
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source047n13",
+      "name": "SMS Setter 2",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        2480,
+        480
+      ],
+      "parameters": {
+        "promptType": "[REMOVED FOR VISUAL REVIEW]",
+        "text": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {
+          "systemMessage": "[REMOVED FOR VISUAL REVIEW]"
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source047n14",
+      "name": "Add Lead Message",
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        2000,
+        480
+      ],
+      "parameters": {
+        "tableId": "[REMOVED FOR VISUAL REVIEW]",
+        "fieldsUi": {
+          "fieldValues": "[REMOVED FOR VISUAL REVIEW]"
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source047n15",
+      "name": "Wait",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1580,
+        0
+      ],
+      "parameters": {
+        "amount": "[REMOVED FOR VISUAL REVIEW]",
+        "unit": "minutes"
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source047n16",
+      "name": "GHL 2",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        3120,
+        480
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "[REMOVED FOR VISUAL REVIEW]",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "[REMOVED FOR VISUAL REVIEW]",
+              "value": "[REMOVED FOR VISUAL REVIEW]"
+            },
+            {
+              "name": "[REMOVED FOR VISUAL REVIEW]",
+              "value": "[REMOVED FOR VISUAL REVIEW]"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "[REMOVED FOR VISUAL REVIEW]",
+              "value": "[REMOVED FOR VISUAL REVIEW]"
+            },
+            {
+              "name": "[REMOVED FOR VISUAL REVIEW]",
+              "value": "[REMOVED FOR VISUAL REVIEW]"
+            },
+            {
+              "name": "[REMOVED FOR VISUAL REVIEW]",
+              "value": "[REMOVED FOR VISUAL REVIEW]"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source047n17",
+      "name": "Wait1",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1800,
+        480
+      ],
+      "parameters": {
+        "amount": "[REMOVED FOR VISUAL REVIEW]",
+        "unit": "minutes"
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source047n18",
+      "name": "Supabase Vector Store",
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreSupabase",
+      "typeVersion": 1,
+      "position": [
+        1800,
+        180
+      ],
+      "parameters": {
+        "mode": "[REMOVED FOR VISUAL REVIEW]",
+        "toolName": "[REMOVED FOR VISUAL REVIEW]",
+        "toolDescription": "[REMOVED FOR VISUAL REVIEW]",
+        "tableName": {
+          "__rl": true,
+          "value": "[REMOVED FOR VISUAL REVIEW]",
+          "mode": "list",
+          "cachedResultName": "[REMOVED FOR VISUAL REVIEW]"
+        },
+        "options": {
+          "queryName": "[REMOVED FOR VISUAL REVIEW]"
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source047n19",
+      "name": "Embeddings OpenAI",
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        1840,
+        320
+      ],
+      "parameters": {
+        "model": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {}
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source047n20",
+      "name": "Embeddings OpenAI1",
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -1020,
+        1040
+      ],
+      "parameters": {
+        "model": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {}
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source047n21",
+      "name": "Default Data Loader",
+      "type": "@n8n/n8n-nodes-langchain.documentDefaultDataLoader",
+      "typeVersion": 1,
+      "position": [
+        -900,
+        1040
+      ],
+      "parameters": {
+        "options": {}
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source047n22",
+      "name": "Recursive Character Text Splitter",
+      "type": "@n8n/n8n-nodes-langchain.textSplitterRecursiveCharacterTextSplitter",
+      "typeVersion": 1,
+      "position": [
+        -1020,
+        1200
+      ],
+      "parameters": {
+        "chunkSize": "[REMOVED FOR VISUAL REVIEW]",
+        "chunkOverlap": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {}
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source047n23",
+      "name": "Supabase Vector Store2",
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreSupabase",
+      "typeVersion": 1,
+      "position": [
+        2480,
+        760
+      ],
+      "parameters": {
+        "mode": "[REMOVED FOR VISUAL REVIEW]",
+        "toolName": "[REMOVED FOR VISUAL REVIEW]",
+        "toolDescription": "[REMOVED FOR VISUAL REVIEW]",
+        "tableName": {
+          "__rl": true,
+          "value": "[REMOVED FOR VISUAL REVIEW]",
+          "mode": "list",
+          "cachedResultName": "[REMOVED FOR VISUAL REVIEW]"
+        },
+        "options": {
+          "queryName": "[REMOVED FOR VISUAL REVIEW]"
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source047n24",
+      "name": "Embeddings OpenAI2",
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        2560,
+        940
+      ],
+      "parameters": {
+        "model": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {}
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source047n25",
+      "name": "Find in Supabase",
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        240,
+        -400
+      ],
+      "parameters": {
+        "operation": "get",
+        "tableId": "[REMOVED FOR VISUAL REVIEW]",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "[REMOVED FOR VISUAL REVIEW]",
+              "keyValue": "[REMOVED FOR VISUAL REVIEW]"
+            }
+          ]
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source047n26",
+      "name": "Add User 2nd or 3rd Message",
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        500,
+        -400
+      ],
+      "parameters": {
+        "tableId": "[REMOVED FOR VISUAL REVIEW]",
+        "fieldsUi": {
+          "fieldValues": "[REMOVED FOR VISUAL REVIEW]"
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source047n27",
+      "name": "Sticky Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -2340,
+        720
+      ],
+      "parameters": {
+        "content": "SOURCE-DERIVED REVIEW\nDisconnected · disabled · secrets removed",
+        "height": 180,
+        "width": 300
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source047n28",
+      "name": "Sticky Note1",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -80,
+        -500
+      ],
+      "parameters": {
+        "content": "SOURCE-DERIVED REVIEW\nDisconnected · disabled · secrets removed",
+        "height": 180,
+        "width": 300
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source047n29",
+      "name": "Get Document",
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        -2060,
+        860
+      ],
+      "parameters": {
+        "base": "[REMOVED FOR VISUAL REVIEW]",
+        "table": {
+          "__rl": true,
+          "value": "[REMOVED FOR VISUAL REVIEW]",
+          "mode": "list",
+          "cachedResultName": "[REMOVED FOR VISUAL REVIEW]",
+          "cachedResultUrl": "[REMOVED FOR VISUAL REVIEW]"
+        },
+        "id": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {}
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source047n30",
+      "name": "Add to Vector Store",
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreSupabase",
+      "typeVersion": 1,
+      "position": [
+        -940,
+        860
+      ],
+      "parameters": {
+        "mode": "insert",
+        "tableName": {
+          "__rl": true,
+          "value": "[REMOVED FOR VISUAL REVIEW]",
+          "mode": "list",
+          "cachedResultName": "[REMOVED FOR VISUAL REVIEW]"
+        },
+        "options": {
+          "queryName": "[REMOVED FOR VISUAL REVIEW]"
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source047n31",
+      "name": "Google Docs",
+      "type": "n8n-nodes-base.googleDocs",
+      "typeVersion": 2,
+      "position": [
+        -1420,
+        780
+      ],
+      "parameters": {
+        "operation": "get",
+        "documentURL": "[REMOVED FOR VISUAL REVIEW]"
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source047n32",
+      "name": "Supabase",
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        -340,
+        880
+      ],
+      "parameters": {
+        "operation": "update",
+        "tableId": "[REMOVED FOR VISUAL REVIEW]",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "[REMOVED FOR VISUAL REVIEW]",
+              "condition": "is",
+              "keyValue": "[REMOVED FOR VISUAL REVIEW]"
+            }
+          ]
+        },
+        "fieldsUi": {
+          "fieldValues": "[REMOVED FOR VISUAL REVIEW]"
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source047n33",
+      "name": "Pull Supabase Company",
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        -1840,
+        860
+      ],
+      "parameters": {
+        "operation": "get",
+        "tableId": "[REMOVED FOR VISUAL REVIEW]",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "[REMOVED FOR VISUAL REVIEW]",
+              "keyValue": "[REMOVED FOR VISUAL REVIEW]"
+            }
+          ]
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source047n34",
+      "name": "Loop Over Items",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        -560,
+        860
+      ],
+      "parameters": {
+        "batchSize": 2000,
+        "options": {}
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source047n35",
+      "name": "Limit",
+      "type": "n8n-nodes-base.limit",
+      "typeVersion": 1,
+      "position": [
+        -180,
+        760
+      ],
+      "parameters": {},
+      "disabled": false
+    },
+    {
+      "id": "pfv5source047n36",
+      "name": "Update Document Status to Complete",
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        760
+      ],
+      "parameters": {
+        "operation": "update",
+        "base": "[REMOVED FOR VISUAL REVIEW]",
+        "table": {
+          "__rl": true,
+          "value": "[REMOVED FOR VISUAL REVIEW]",
+          "mode": "list",
+          "cachedResultName": "[REMOVED FOR VISUAL REVIEW]",
+          "cachedResultUrl": "[REMOVED FOR VISUAL REVIEW]"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": "[REMOVED FOR VISUAL REVIEW]",
+          "matchingColumns": [
+            "[REMOVED FOR VISUAL REVIEW]"
+          ],
+          "schema": [
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": false
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "[REMOVED FOR VISUAL REVIEW]",
+              "options": [
+                {
+                  "name": "[REMOVED FOR VISUAL REVIEW]",
+                  "value": "[REMOVED FOR VISUAL REVIEW]"
+                },
+                {
+                  "name": "[REMOVED FOR VISUAL REVIEW]",
+                  "value": "[REMOVED FOR VISUAL REVIEW]"
+                },
+                {
+                  "name": "[REMOVED FOR VISUAL REVIEW]",
+                  "value": "[REMOVED FOR VISUAL REVIEW]"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "array",
+              "readOnly": false,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source047n37",
+      "name": "Find Company",
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        600,
+        340
+      ],
+      "parameters": {
+        "operation": "search",
+        "base": "[REMOVED FOR VISUAL REVIEW]",
+        "table": {
+          "__rl": true,
+          "value": "[REMOVED FOR VISUAL REVIEW]",
+          "mode": "list",
+          "cachedResultName": "[REMOVED FOR VISUAL REVIEW]",
+          "cachedResultUrl": "[REMOVED FOR VISUAL REVIEW]"
+        },
+        "filterByFormula": "[REMOVED FOR VISUAL REVIEW]",
+        "returnAll": false,
+        "limit": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {}
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source047n38",
+      "name": "Add Lead to Airtable",
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        1580,
+        480
+      ],
+      "parameters": {
+        "operation": "create",
+        "base": "[REMOVED FOR VISUAL REVIEW]",
+        "table": {
+          "__rl": true,
+          "value": "[REMOVED FOR VISUAL REVIEW]",
+          "mode": "list",
+          "cachedResultName": "[REMOVED FOR VISUAL REVIEW]",
+          "cachedResultUrl": "[REMOVED FOR VISUAL REVIEW]"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": "[REMOVED FOR VISUAL REVIEW]",
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "[REMOVED FOR VISUAL REVIEW]",
+              "options": [
+                {
+                  "name": "[REMOVED FOR VISUAL REVIEW]",
+                  "value": "[REMOVED FOR VISUAL REVIEW]"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "array",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source047n39",
+      "name": "Add AI Response",
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        2900,
+        480
+      ],
+      "parameters": {
+        "tableId": "[REMOVED FOR VISUAL REVIEW]",
+        "fieldsUi": {
+          "fieldValues": "[REMOVED FOR VISUAL REVIEW]"
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source047n40",
+      "name": "Add Document to Knowledgebase",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -2260,
+        860
+      ],
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {}
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source047n41",
+      "name": "Double or Triple Text",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -20,
+        -400
+      ],
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {}
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source047n42",
+      "name": "Sticky Note2",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        340,
+        -60
+      ],
+      "parameters": {
+        "content": "SOURCE-DERIVED REVIEW\nDisconnected · disabled · secrets removed",
+        "height": 180,
+        "width": 300
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source047n43",
+      "name": "If",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -1620,
+        860
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": false,
+            "leftValue": "[REMOVED FOR VISUAL REVIEW]",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "leftValue": "[REMOVED FOR VISUAL REVIEW]",
+              "rightValue": "[REMOVED FOR VISUAL REVIEW]",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {
+          "ignoreCase": true
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source047n44",
+      "name": "Google Drive",
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        -1520,
+        1040
+      ],
+      "parameters": {
+        "operation": "[REMOVED FOR VISUAL REVIEW]",
+        "fileId": {
+          "__rl": true,
+          "value": "[REMOVED FOR VISUAL REVIEW]",
+          "mode": "[REMOVED FOR VISUAL REVIEW]"
+        },
+        "options": {
+          "googleFileConversion": {
+            "conversion": {
+              "docsToFormat": "[REMOVED FOR VISUAL REVIEW]"
+            }
+          }
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source047n45",
+      "name": "Extract from File",
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [
+        -1320,
+        1040
+      ],
+      "parameters": {
+        "operation": "text",
+        "options": {}
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source047n46",
+      "name": "Merge",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.1,
+      "position": [
+        -1140,
+        860
+      ],
+      "parameters": {},
+      "disabled": false
+    }
+  ],
+  "connections": {
+    "Receive Contact Message": {
+      "main": [
+        [
+          {
+            "node": "Find Company",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Find Contact in Supabase": {
+      "main": [
+        [
+          {
+            "node": "Contact Exists?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Contact Exists?": {
+      "main": [
+        [
+          {
+            "node": "Add User Message to Table",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Create User",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Add User Message to Table": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Anthropic Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "SMS Setter",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Conversation History": {
+      "ai_tool": [
+        [
+          {
+            "node": "SMS Setter",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create User": {
+      "main": [
+        [
+          {
+            "node": "Add Lead to Airtable",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Add User Message": {
+      "main": [
+        [
+          {
+            "node": "SMS Setter 2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SMS Setter": {
+      "main": [
+        [
+          {
+            "node": "Add AI Message to the Table",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Add AI Message to the Table": {
+      "main": [
+        [
+          {
+            "node": "GHL",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Anthropic Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "SMS Setter 2",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Conversation History1": {
+      "ai_tool": [
+        [
+          {
+            "node": "SMS Setter 2",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Add Lead Message": {
+      "main": [
+        [
+          {
+            "node": "Add User Message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SMS Setter 2": {
+      "main": [
+        [
+          {
+            "node": "Add AI Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "SMS Setter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait1": {
+      "main": [
+        [
+          {
+            "node": "Add Lead Message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Supabase Vector Store": {
+      "ai_tool": [
+        [
+          {
+            "node": "SMS Setter",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings OpenAI": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Supabase Vector Store",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings OpenAI1": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Add to Vector Store",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Default Data Loader": {
+      "ai_document": [
+        [
+          {
+            "node": "Add to Vector Store",
+            "type": "ai_document",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Recursive Character Text Splitter": {
+      "ai_textSplitter": [
+        [
+          {
+            "node": "Default Data Loader",
+            "type": "ai_textSplitter",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings OpenAI2": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Supabase Vector Store2",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Supabase Vector Store2": {
+      "ai_tool": [
+        [
+          {
+            "node": "SMS Setter 2",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Find in Supabase": {
+      "main": [
+        [
+          {
+            "node": "Add User 2nd or 3rd Message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Document": {
+      "main": [
+        [
+          {
+            "node": "Pull Supabase Company",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Docs": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Add to Vector Store": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Pull Supabase Company": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [
+          {
+            "node": "Limit",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Supabase",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Supabase": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Limit": {
+      "main": [
+        [
+          {
+            "node": "Update Document Status to Complete",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Find Company": {
+      "main": [
+        [
+          {
+            "node": "Find Contact in Supabase",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Add Lead to Airtable": {
+      "main": [
+        [
+          {
+            "node": "Wait1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Add AI Response": {
+      "main": [
+        [
+          {
+            "node": "GHL 2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Add Document to Knowledgebase": {
+      "main": [
+        [
+          {
+            "node": "Get Document",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Double or Triple Text": {
+      "main": [
+        [
+          {
+            "node": "Find in Supabase",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Google Docs",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Google Drive",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Drive": {
+      "main": [
+        [
+          {
+            "node": "Extract from File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract from File": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Add to Vector Store",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "tags": []
+}

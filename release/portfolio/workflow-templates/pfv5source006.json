@@ -1,0 +1,2983 @@
+{
+  "id": "pfv5source006",
+  "name": "Onboarding to research and offer planning - archived source",
+  "nodes": [
+    {
+      "id": "pfv5source006n0",
+      "name": "Anthropic Chat Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.2,
+      "position": [
+        600,
+        520
+      ],
+      "parameters": {
+        "model": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {
+          "temperature": 0.2
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source006n1",
+      "name": "Receive Onboarding Transcripts",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        0,
+        0
+      ],
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {}
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source006n2",
+      "name": "Code",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        220,
+        0
+      ],
+      "parameters": {
+        "jsCode": "[REMOVED FOR VISUAL REVIEW]"
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source006n3",
+      "name": "Loop Over Items",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        440,
+        0
+      ],
+      "parameters": {
+        "options": {}
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source006n4",
+      "name": "Find Client",
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        680,
+        20
+      ],
+      "parameters": {
+        "operation": "upsert",
+        "base": "[REMOVED FOR VISUAL REVIEW]",
+        "table": {
+          "__rl": true,
+          "value": "[REMOVED FOR VISUAL REVIEW]",
+          "mode": "list",
+          "cachedResultName": "[REMOVED FOR VISUAL REVIEW]",
+          "cachedResultUrl": "[REMOVED FOR VISUAL REVIEW]"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": "[REMOVED FOR VISUAL REVIEW]",
+          "matchingColumns": [
+            "[REMOVED FOR VISUAL REVIEW]"
+          ],
+          "schema": [
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": false
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": false
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "[REMOVED FOR VISUAL REVIEW]",
+              "options": [
+                {
+                  "name": "[REMOVED FOR VISUAL REVIEW]",
+                  "value": "[REMOVED FOR VISUAL REVIEW]"
+                },
+                {
+                  "name": "[REMOVED FOR VISUAL REVIEW]",
+                  "value": "[REMOVED FOR VISUAL REVIEW]"
+                },
+                {
+                  "name": "[REMOVED FOR VISUAL REVIEW]",
+                  "value": "[REMOVED FOR VISUAL REVIEW]"
+                },
+                {
+                  "name": "[REMOVED FOR VISUAL REVIEW]",
+                  "value": "[REMOVED FOR VISUAL REVIEW]"
+                },
+                {
+                  "name": "[REMOVED FOR VISUAL REVIEW]",
+                  "value": "[REMOVED FOR VISUAL REVIEW]"
+                },
+                {
+                  "name": "[REMOVED FOR VISUAL REVIEW]",
+                  "value": "[REMOVED FOR VISUAL REVIEW]"
+                },
+                {
+                  "name": "[REMOVED FOR VISUAL REVIEW]",
+                  "value": "[REMOVED FOR VISUAL REVIEW]"
+                }
+              ],
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "array",
+              "options": [
+                {
+                  "name": "[REMOVED FOR VISUAL REVIEW]",
+                  "value": "[REMOVED FOR VISUAL REVIEW]"
+                },
+                {
+                  "name": "[REMOVED FOR VISUAL REVIEW]",
+                  "value": "[REMOVED FOR VISUAL REVIEW]"
+                },
+                {
+                  "name": "[REMOVED FOR VISUAL REVIEW]",
+                  "value": "[REMOVED FOR VISUAL REVIEW]"
+                },
+                {
+                  "name": "[REMOVED FOR VISUAL REVIEW]",
+                  "value": "[REMOVED FOR VISUAL REVIEW]"
+                },
+                {
+                  "name": "[REMOVED FOR VISUAL REVIEW]",
+                  "value": "[REMOVED FOR VISUAL REVIEW]"
+                },
+                {
+                  "name": "[REMOVED FOR VISUAL REVIEW]",
+                  "value": "[REMOVED FOR VISUAL REVIEW]"
+                },
+                {
+                  "name": "[REMOVED FOR VISUAL REVIEW]",
+                  "value": "[REMOVED FOR VISUAL REVIEW]"
+                },
+                {
+                  "name": "[REMOVED FOR VISUAL REVIEW]",
+                  "value": "[REMOVED FOR VISUAL REVIEW]"
+                }
+              ],
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "array",
+              "options": [
+                {
+                  "name": "[REMOVED FOR VISUAL REVIEW]",
+                  "value": "[REMOVED FOR VISUAL REVIEW]"
+                },
+                {
+                  "name": "[REMOVED FOR VISUAL REVIEW]",
+                  "value": "[REMOVED FOR VISUAL REVIEW]"
+                },
+                {
+                  "name": "[REMOVED FOR VISUAL REVIEW]",
+                  "value": "[REMOVED FOR VISUAL REVIEW]"
+                },
+                {
+                  "name": "[REMOVED FOR VISUAL REVIEW]",
+                  "value": "[REMOVED FOR VISUAL REVIEW]"
+                },
+                {
+                  "name": "[REMOVED FOR VISUAL REVIEW]",
+                  "value": "[REMOVED FOR VISUAL REVIEW]"
+                },
+                {
+                  "name": "[REMOVED FOR VISUAL REVIEW]",
+                  "value": "[REMOVED FOR VISUAL REVIEW]"
+                },
+                {
+                  "name": "[REMOVED FOR VISUAL REVIEW]",
+                  "value": "[REMOVED FOR VISUAL REVIEW]"
+                },
+                {
+                  "name": "[REMOVED FOR VISUAL REVIEW]",
+                  "value": "[REMOVED FOR VISUAL REVIEW]"
+                },
+                {
+                  "name": "[REMOVED FOR VISUAL REVIEW]",
+                  "value": "[REMOVED FOR VISUAL REVIEW]"
+                }
+              ],
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "array",
+              "options": [
+                {
+                  "name": "[REMOVED FOR VISUAL REVIEW]",
+                  "value": "[REMOVED FOR VISUAL REVIEW]"
+                },
+                {
+                  "name": "[REMOVED FOR VISUAL REVIEW]",
+                  "value": "[REMOVED FOR VISUAL REVIEW]"
+                },
+                {
+                  "name": "[REMOVED FOR VISUAL REVIEW]",
+                  "value": "[REMOVED FOR VISUAL REVIEW]"
+                },
+                {
+                  "name": "[REMOVED FOR VISUAL REVIEW]",
+                  "value": "[REMOVED FOR VISUAL REVIEW]"
+                },
+                {
+                  "name": "[REMOVED FOR VISUAL REVIEW]",
+                  "value": "[REMOVED FOR VISUAL REVIEW]"
+                },
+                {
+                  "name": "[REMOVED FOR VISUAL REVIEW]",
+                  "value": "[REMOVED FOR VISUAL REVIEW]"
+                },
+                {
+                  "name": "[REMOVED FOR VISUAL REVIEW]",
+                  "value": "[REMOVED FOR VISUAL REVIEW]"
+                }
+              ],
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "array",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "array",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "array",
+              "readOnly": false,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source006n5",
+      "name": "SWOT Analysis",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        620,
+        340
+      ],
+      "parameters": {
+        "promptType": "[REMOVED FOR VISUAL REVIEW]",
+        "text": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {
+          "systemMessage": "[REMOVED FOR VISUAL REVIEW]"
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source006n6",
+      "name": "Get Client Record",
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        1120,
+        20
+      ],
+      "parameters": {
+        "base": "[REMOVED FOR VISUAL REVIEW]",
+        "table": {
+          "__rl": true,
+          "value": "[REMOVED FOR VISUAL REVIEW]",
+          "mode": "list",
+          "cachedResultName": "[REMOVED FOR VISUAL REVIEW]",
+          "cachedResultUrl": "[REMOVED FOR VISUAL REVIEW]"
+        },
+        "id": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {}
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source006n7",
+      "name": "Initial Offer Analysis & Planning",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        600,
+        740
+      ],
+      "parameters": {
+        "promptType": "[REMOVED FOR VISUAL REVIEW]",
+        "text": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {
+          "systemMessage": "[REMOVED FOR VISUAL REVIEW]"
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source006n8",
+      "name": "Anthropic Chat Model5",
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.2,
+      "position": [
+        -980,
+        -920
+      ],
+      "parameters": {
+        "model": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {
+          "temperature": 0.2
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source006n9",
+      "name": "Anthropic Chat Model6",
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.2,
+      "position": [
+        -1140,
+        -1060
+      ],
+      "parameters": {
+        "model": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {
+          "temperature": 0.2
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source006n10",
+      "name": "Dream Outcomes",
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.5,
+      "position": [
+        1200,
+        740
+      ],
+      "parameters": {
+        "promptType": "[REMOVED FOR VISUAL REVIEW]",
+        "text": "[REMOVED FOR VISUAL REVIEW]",
+        "messages": "[REMOVED FOR VISUAL REVIEW]"
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source006n11",
+      "name": "Solution Development",
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.5,
+      "position": [
+        1780,
+        740
+      ],
+      "parameters": {
+        "promptType": "[REMOVED FOR VISUAL REVIEW]",
+        "text": "[REMOVED FOR VISUAL REVIEW]",
+        "messages": "[REMOVED FOR VISUAL REVIEW]"
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source006n12",
+      "name": "Trim & Stack",
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.5,
+      "position": [
+        2340,
+        740
+      ],
+      "parameters": {
+        "promptType": "[REMOVED FOR VISUAL REVIEW]",
+        "text": "[REMOVED FOR VISUAL REVIEW]",
+        "messages": "[REMOVED FOR VISUAL REVIEW]"
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source006n13",
+      "name": "Anthropic Chat Model7",
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.2,
+      "position": [
+        -1160,
+        -900
+      ],
+      "parameters": {
+        "model": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {
+          "temperature": 0.3
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source006n14",
+      "name": "Send to Zapier",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        3580,
+        740
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "[REMOVED FOR VISUAL REVIEW]",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "[REMOVED FOR VISUAL REVIEW]",
+              "value": "[REMOVED FOR VISUAL REVIEW]"
+            },
+            {
+              "name": "[REMOVED FOR VISUAL REVIEW]",
+              "value": "[REMOVED FOR VISUAL REVIEW]"
+            },
+            {
+              "name": "[REMOVED FOR VISUAL REVIEW]",
+              "value": "[REMOVED FOR VISUAL REVIEW]"
+            },
+            {
+              "name": "[REMOVED FOR VISUAL REVIEW]",
+              "value": "[REMOVED FOR VISUAL REVIEW]"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source006n15",
+      "name": "Wait",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        980,
+        340
+      ],
+      "parameters": {
+        "amount": 45
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source006n16",
+      "name": "Wait4",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1020,
+        740
+      ],
+      "parameters": {
+        "amount": 55
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source006n17",
+      "name": "Wait5",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1560,
+        740
+      ],
+      "parameters": {
+        "amount": 55
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source006n18",
+      "name": "Wait6",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        2140,
+        740
+      ],
+      "parameters": {
+        "amount": 45
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source006n19",
+      "name": "OpenAI Chat Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        580,
+        1000
+      ],
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "[REMOVED FOR VISUAL REVIEW]",
+          "mode": "list",
+          "cachedResultName": "[REMOVED FOR VISUAL REVIEW]"
+        },
+        "options": {
+          "temperature": 0.4
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source006n20",
+      "name": "Anthropic Chat Model4",
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.2,
+      "position": [
+        -1300,
+        -1040
+      ],
+      "parameters": {
+        "model": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {
+          "temperature": 0.2
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source006n21",
+      "name": "OpenAI Chat Model1",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        1180,
+        980
+      ],
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "[REMOVED FOR VISUAL REVIEW]",
+          "mode": "list",
+          "cachedResultName": "[REMOVED FOR VISUAL REVIEW]"
+        },
+        "options": {
+          "temperature": 0.4
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source006n22",
+      "name": "OpenAI Chat Model2",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        1760,
+        980
+      ],
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "[REMOVED FOR VISUAL REVIEW]",
+          "mode": "list",
+          "cachedResultName": "[REMOVED FOR VISUAL REVIEW]"
+        },
+        "options": {
+          "temperature": 0.4
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source006n23",
+      "name": "Executive Summary Information Gathering",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        400,
+        340
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "[REMOVED FOR VISUAL REVIEW]",
+        "authentication": "[REMOVED FOR VISUAL REVIEW]",
+        "genericAuthType": "[REMOVED FOR VISUAL REVIEW]",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {}
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source006n24",
+      "name": "Format for API Call",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1340,
+        20
+      ],
+      "parameters": {
+        "jsCode": "[REMOVED FOR VISUAL REVIEW]"
+      },
+      "disabled": false,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "id": "pfv5source006n25",
+      "name": "Executive Summary Information Gathering1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1180,
+        340
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "[REMOVED FOR VISUAL REVIEW]",
+        "authentication": "[REMOVED FOR VISUAL REVIEW]",
+        "genericAuthType": "[REMOVED FOR VISUAL REVIEW]",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {}
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source006n26",
+      "name": "Wait7",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1400,
+        340
+      ],
+      "parameters": {
+        "amount": 55
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source006n27",
+      "name": "Competitor Analysis",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1600,
+        340
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "[REMOVED FOR VISUAL REVIEW]",
+        "authentication": "[REMOVED FOR VISUAL REVIEW]",
+        "genericAuthType": "[REMOVED FOR VISUAL REVIEW]",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {}
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source006n28",
+      "name": "OpenAI Chat Model4",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        2860,
+        540
+      ],
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "[REMOVED FOR VISUAL REVIEW]",
+          "mode": "list",
+          "cachedResultName": "[REMOVED FOR VISUAL REVIEW]"
+        },
+        "options": {}
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source006n29",
+      "name": "Exec Summary Creation",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        1820,
+        340
+      ],
+      "parameters": {
+        "promptType": "[REMOVED FOR VISUAL REVIEW]",
+        "text": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {
+          "systemMessage": "[REMOVED FOR VISUAL REVIEW]"
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source006n30",
+      "name": "Anthropic Chat Model1",
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.2,
+      "position": [
+        1720,
+        560
+      ],
+      "parameters": {
+        "model": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {
+          "temperature": 0.2
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source006n31",
+      "name": "Anthropic Chat Model2",
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.2,
+      "position": [
+        2380,
+        540
+      ],
+      "parameters": {
+        "model": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {
+          "temperature": 0.2
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source006n32",
+      "name": "Ideal Client Avatar Deep Dive",
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.5,
+      "position": [
+        2380,
+        340
+      ],
+      "parameters": {
+        "promptType": "[REMOVED FOR VISUAL REVIEW]",
+        "text": "[REMOVED FOR VISUAL REVIEW]",
+        "messages": "[REMOVED FOR VISUAL REVIEW]"
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source006n33",
+      "name": "Anthropic Chat Model3",
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.2,
+      "position": [
+        3460,
+        540
+      ],
+      "parameters": {
+        "model": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {
+          "temperature": 0.2
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source006n34",
+      "name": "Competitor Landscape",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        2940,
+        340
+      ],
+      "parameters": {
+        "promptType": "[REMOVED FOR VISUAL REVIEW]",
+        "text": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {
+          "systemMessage": "[REMOVED FOR VISUAL REVIEW]"
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source006n35",
+      "name": "Messaging Strategy",
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.5,
+      "position": [
+        3500,
+        340
+      ],
+      "parameters": {
+        "promptType": "[REMOVED FOR VISUAL REVIEW]",
+        "text": "[REMOVED FOR VISUAL REVIEW]",
+        "messages": "[REMOVED FOR VISUAL REVIEW]"
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source006n36",
+      "name": "Anthropic Chat Model8",
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.2,
+      "position": [
+        4080,
+        540
+      ],
+      "parameters": {
+        "model": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {
+          "temperature": 0.2
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source006n37",
+      "name": "Ad Strategy",
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.5,
+      "position": [
+        4120,
+        340
+      ],
+      "parameters": {
+        "promptType": "[REMOVED FOR VISUAL REVIEW]",
+        "text": "[REMOVED FOR VISUAL REVIEW]",
+        "messages": "[REMOVED FOR VISUAL REVIEW]"
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source006n38",
+      "name": "Wait1",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        2180,
+        340
+      ],
+      "parameters": {
+        "amount": 55
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source006n39",
+      "name": "Wait2",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        3300,
+        340
+      ],
+      "parameters": {
+        "amount": 55
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source006n40",
+      "name": "Wait3",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        3860,
+        340
+      ],
+      "parameters": {
+        "amount": 55
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source006n41",
+      "name": "Send to VSL Copywriter",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        3840,
+        740
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "[REMOVED FOR VISUAL REVIEW]",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "[REMOVED FOR VISUAL REVIEW]",
+              "value": "[REMOVED FOR VISUAL REVIEW]"
+            },
+            {
+              "name": "[REMOVED FOR VISUAL REVIEW]",
+              "value": "[REMOVED FOR VISUAL REVIEW]"
+            },
+            {
+              "name": "[REMOVED FOR VISUAL REVIEW]",
+              "value": "[REMOVED FOR VISUAL REVIEW]"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source006n42",
+      "name": "Anthropic Chat Model9",
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.2,
+      "position": [
+        2200,
+        960
+      ],
+      "parameters": {
+        "model": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {
+          "temperature": 0.2
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source006n43",
+      "name": "Create MR Document",
+      "type": "n8n-nodes-base.markdown",
+      "typeVersion": 1,
+      "position": [
+        3060,
+        740
+      ],
+      "parameters": {
+        "mode": "[REMOVED FOR VISUAL REVIEW]",
+        "markdown": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {
+          "completeHTMLDocument": true,
+          "smartIndentationFix": true,
+          "disableForced4SpacesIndentedSublists": true
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source006n44",
+      "name": "Create Offer Document",
+      "type": "n8n-nodes-base.markdown",
+      "typeVersion": 1,
+      "position": [
+        3300,
+        740
+      ],
+      "parameters": {
+        "mode": "[REMOVED FOR VISUAL REVIEW]",
+        "markdown": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {
+          "completeHTMLDocument": true,
+          "smartIndentationFix": true,
+          "disableForced4SpacesIndentedSublists": true
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source006n45",
+      "name": "Add Client Transcript",
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        900,
+        20
+      ],
+      "parameters": {
+        "operation": "create",
+        "base": "[REMOVED FOR VISUAL REVIEW]",
+        "table": {
+          "__rl": true,
+          "value": "[REMOVED FOR VISUAL REVIEW]",
+          "mode": "list",
+          "cachedResultName": "[REMOVED FOR VISUAL REVIEW]",
+          "cachedResultUrl": "[REMOVED FOR VISUAL REVIEW]"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": "[REMOVED FOR VISUAL REVIEW]",
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "[REMOVED FOR VISUAL REVIEW]",
+              "options": [
+                {
+                  "name": "[REMOVED FOR VISUAL REVIEW]",
+                  "value": "[REMOVED FOR VISUAL REVIEW]"
+                },
+                {
+                  "name": "[REMOVED FOR VISUAL REVIEW]",
+                  "value": "[REMOVED FOR VISUAL REVIEW]"
+                },
+                {
+                  "name": "[REMOVED FOR VISUAL REVIEW]",
+                  "value": "[REMOVED FOR VISUAL REVIEW]"
+                },
+                {
+                  "name": "[REMOVED FOR VISUAL REVIEW]",
+                  "value": "[REMOVED FOR VISUAL REVIEW]"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "[REMOVED FOR VISUAL REVIEW]",
+              "options": [
+                {
+                  "name": "[REMOVED FOR VISUAL REVIEW]",
+                  "value": "[REMOVED FOR VISUAL REVIEW]"
+                },
+                {
+                  "name": "[REMOVED FOR VISUAL REVIEW]",
+                  "value": "[REMOVED FOR VISUAL REVIEW]"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "array",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            },
+            {
+              "id": "[REMOVED FOR VISUAL REVIEW]",
+              "displayName": "[REMOVED FOR VISUAL REVIEW]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "array",
+              "readOnly": false,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {
+          "typecast": true
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source006n46",
+      "name": "Anthropic Chat Model10",
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.2,
+      "position": [
+        620,
+        2160
+      ],
+      "parameters": {
+        "model": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {
+          "temperature": 0.2
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source006n47",
+      "name": "SWOT Analysis1",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        640,
+        1980
+      ],
+      "parameters": {
+        "promptType": "[REMOVED FOR VISUAL REVIEW]",
+        "text": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {
+          "systemMessage": "[REMOVED FOR VISUAL REVIEW]"
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source006n48",
+      "name": "Get Client Record1",
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        1140,
+        1660
+      ],
+      "parameters": {
+        "base": "[REMOVED FOR VISUAL REVIEW]",
+        "table": {
+          "__rl": true,
+          "value": "[REMOVED FOR VISUAL REVIEW]",
+          "mode": "list",
+          "cachedResultName": "[REMOVED FOR VISUAL REVIEW]",
+          "cachedResultUrl": "[REMOVED FOR VISUAL REVIEW]"
+        },
+        "id": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {}
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source006n49",
+      "name": "Initial Offer Analysis & Planning1",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        620,
+        2380
+      ],
+      "parameters": {
+        "promptType": "[REMOVED FOR VISUAL REVIEW]",
+        "text": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {
+          "systemMessage": "[REMOVED FOR VISUAL REVIEW]"
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source006n50",
+      "name": "Dream Outcomes1",
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.5,
+      "position": [
+        1220,
+        2380
+      ],
+      "parameters": {
+        "promptType": "[REMOVED FOR VISUAL REVIEW]",
+        "text": "[REMOVED FOR VISUAL REVIEW]",
+        "messages": "[REMOVED FOR VISUAL REVIEW]"
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source006n51",
+      "name": "Solution Development1",
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.5,
+      "position": [
+        1800,
+        2380
+      ],
+      "parameters": {
+        "promptType": "[REMOVED FOR VISUAL REVIEW]",
+        "text": "[REMOVED FOR VISUAL REVIEW]",
+        "messages": "[REMOVED FOR VISUAL REVIEW]"
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source006n52",
+      "name": "Trim & Stack1",
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.5,
+      "position": [
+        2360,
+        2380
+      ],
+      "parameters": {
+        "promptType": "[REMOVED FOR VISUAL REVIEW]",
+        "text": "[REMOVED FOR VISUAL REVIEW]",
+        "messages": "[REMOVED FOR VISUAL REVIEW]"
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source006n53",
+      "name": "Send to Zapier1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        3380,
+        2380
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "[REMOVED FOR VISUAL REVIEW]",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "[REMOVED FOR VISUAL REVIEW]",
+              "value": "[REMOVED FOR VISUAL REVIEW]"
+            },
+            {
+              "name": "[REMOVED FOR VISUAL REVIEW]",
+              "value": "[REMOVED FOR VISUAL REVIEW]"
+            },
+            {
+              "name": "[REMOVED FOR VISUAL REVIEW]",
+              "value": "[REMOVED FOR VISUAL REVIEW]"
+            },
+            {
+              "name": "[REMOVED FOR VISUAL REVIEW]",
+              "value": "[REMOVED FOR VISUAL REVIEW]"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source006n54",
+      "name": "Wait8",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1000,
+        1980
+      ],
+      "parameters": {
+        "amount": 45
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source006n55",
+      "name": "Wait9",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1040,
+        2380
+      ],
+      "parameters": {
+        "amount": 55
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source006n56",
+      "name": "Wait10",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1580,
+        2380
+      ],
+      "parameters": {
+        "amount": 55
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source006n57",
+      "name": "Wait11",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        2160,
+        2380
+      ],
+      "parameters": {
+        "amount": 45
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source006n58",
+      "name": "OpenAI Chat Model3",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        600,
+        2640
+      ],
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "[REMOVED FOR VISUAL REVIEW]",
+          "mode": "list",
+          "cachedResultName": "[REMOVED FOR VISUAL REVIEW]"
+        },
+        "options": {
+          "temperature": 0.4
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source006n59",
+      "name": "OpenAI Chat Model5",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        1200,
+        2620
+      ],
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "[REMOVED FOR VISUAL REVIEW]",
+          "mode": "list",
+          "cachedResultName": "[REMOVED FOR VISUAL REVIEW]"
+        },
+        "options": {
+          "temperature": 0.4
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source006n60",
+      "name": "OpenAI Chat Model6",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        1780,
+        2620
+      ],
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "[REMOVED FOR VISUAL REVIEW]",
+          "mode": "list",
+          "cachedResultName": "[REMOVED FOR VISUAL REVIEW]"
+        },
+        "options": {
+          "temperature": 0.4
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source006n61",
+      "name": "Executive Summary Information Gathering2",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        420,
+        1980
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "[REMOVED FOR VISUAL REVIEW]",
+        "authentication": "[REMOVED FOR VISUAL REVIEW]",
+        "genericAuthType": "[REMOVED FOR VISUAL REVIEW]",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {}
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source006n62",
+      "name": "Format for API Call1",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1360,
+        1660
+      ],
+      "parameters": {
+        "jsCode": "[REMOVED FOR VISUAL REVIEW]"
+      },
+      "disabled": false,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "id": "pfv5source006n63",
+      "name": "Executive Summary Information Gathering3",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1200,
+        1980
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "[REMOVED FOR VISUAL REVIEW]",
+        "authentication": "[REMOVED FOR VISUAL REVIEW]",
+        "genericAuthType": "[REMOVED FOR VISUAL REVIEW]",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {}
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source006n64",
+      "name": "Wait12",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1420,
+        1980
+      ],
+      "parameters": {
+        "amount": 55
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source006n65",
+      "name": "Competitor Analysis1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1620,
+        1980
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "[REMOVED FOR VISUAL REVIEW]",
+        "authentication": "[REMOVED FOR VISUAL REVIEW]",
+        "genericAuthType": "[REMOVED FOR VISUAL REVIEW]",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {}
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source006n66",
+      "name": "OpenAI Chat Model7",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        2660,
+        2180
+      ],
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "[REMOVED FOR VISUAL REVIEW]",
+          "mode": "list",
+          "cachedResultName": "[REMOVED FOR VISUAL REVIEW]"
+        },
+        "options": {}
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source006n67",
+      "name": "Exec Summary Creation1",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        1840,
+        1980
+      ],
+      "parameters": {
+        "promptType": "[REMOVED FOR VISUAL REVIEW]",
+        "text": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {
+          "systemMessage": "[REMOVED FOR VISUAL REVIEW]"
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source006n68",
+      "name": "Anthropic Chat Model11",
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.2,
+      "position": [
+        1740,
+        2200
+      ],
+      "parameters": {
+        "model": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {
+          "temperature": 0.2
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source006n69",
+      "name": "Anthropic Chat Model12",
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.2,
+      "position": [
+        2400,
+        2180
+      ],
+      "parameters": {
+        "model": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {
+          "temperature": 0.2
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source006n70",
+      "name": "Ideal Client Avatar Deep Dive1",
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.5,
+      "position": [
+        2400,
+        1980
+      ],
+      "parameters": {
+        "promptType": "[REMOVED FOR VISUAL REVIEW]",
+        "text": "[REMOVED FOR VISUAL REVIEW]",
+        "messages": "[REMOVED FOR VISUAL REVIEW]"
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source006n71",
+      "name": "Anthropic Chat Model13",
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.2,
+      "position": [
+        3260,
+        2180
+      ],
+      "parameters": {
+        "model": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {
+          "temperature": 0.2
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source006n72",
+      "name": "Competitor Landscape1",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        2740,
+        1980
+      ],
+      "parameters": {
+        "promptType": "[REMOVED FOR VISUAL REVIEW]",
+        "text": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {
+          "systemMessage": "[REMOVED FOR VISUAL REVIEW]"
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source006n73",
+      "name": "Messaging Strategy1",
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.5,
+      "position": [
+        3300,
+        1980
+      ],
+      "parameters": {
+        "promptType": "[REMOVED FOR VISUAL REVIEW]",
+        "text": "[REMOVED FOR VISUAL REVIEW]",
+        "messages": "[REMOVED FOR VISUAL REVIEW]"
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source006n74",
+      "name": "Anthropic Chat Model14",
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.2,
+      "position": [
+        3880,
+        2180
+      ],
+      "parameters": {
+        "model": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {
+          "temperature": 0.2
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source006n75",
+      "name": "Ad Strategy1",
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.5,
+      "position": [
+        3920,
+        1980
+      ],
+      "parameters": {
+        "promptType": "[REMOVED FOR VISUAL REVIEW]",
+        "text": "[REMOVED FOR VISUAL REVIEW]",
+        "messages": "[REMOVED FOR VISUAL REVIEW]"
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source006n76",
+      "name": "Wait13",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        2200,
+        1980
+      ],
+      "parameters": {
+        "amount": 55
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source006n77",
+      "name": "Wait14",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        3100,
+        1980
+      ],
+      "parameters": {
+        "amount": 55
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source006n78",
+      "name": "Wait15",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        3660,
+        1980
+      ],
+      "parameters": {
+        "amount": 55
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source006n79",
+      "name": "Anthropic Chat Model15",
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.2,
+      "position": [
+        2220,
+        2600
+      ],
+      "parameters": {
+        "model": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {
+          "temperature": 0.2
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source006n80",
+      "name": "Create MR Document1",
+      "type": "n8n-nodes-base.markdown",
+      "typeVersion": 1,
+      "position": [
+        2860,
+        2380
+      ],
+      "parameters": {
+        "mode": "[REMOVED FOR VISUAL REVIEW]",
+        "markdown": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {
+          "completeHTMLDocument": true,
+          "smartIndentationFix": true,
+          "disableForced4SpacesIndentedSublists": true
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source006n81",
+      "name": "Create Offer Document1",
+      "type": "n8n-nodes-base.markdown",
+      "typeVersion": 1,
+      "position": [
+        3100,
+        2380
+      ],
+      "parameters": {
+        "mode": "[REMOVED FOR VISUAL REVIEW]",
+        "markdown": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {
+          "completeHTMLDocument": true,
+          "smartIndentationFix": true,
+          "disableForced4SpacesIndentedSublists": true
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source006n82",
+      "name": "New OB Call Added",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        600,
+        1660
+      ],
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {}
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source006n83",
+      "name": "Airtable",
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        820,
+        1660
+      ],
+      "parameters": {
+        "base": "[REMOVED FOR VISUAL REVIEW]",
+        "table": {
+          "__rl": true,
+          "value": "[REMOVED FOR VISUAL REVIEW]",
+          "mode": "list",
+          "cachedResultName": "[REMOVED FOR VISUAL REVIEW]",
+          "cachedResultUrl": "[REMOVED FOR VISUAL REVIEW]"
+        },
+        "id": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {}
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source006n84",
+      "name": "Wait16",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        2740,
+        340
+      ],
+      "parameters": {
+        "amount": 55
+      },
+      "disabled": false
+    }
+  ],
+  "connections": {
+    "Anthropic Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "SWOT Analysis",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Receive Onboarding Transcripts": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Find Client",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Find Client": {
+      "main": [
+        [
+          {
+            "node": "Add Client Transcript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Client Record": {
+      "main": [
+        [
+          {
+            "node": "Format for API Call",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SWOT Analysis": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Initial Offer Analysis & Planning": {
+      "main": [
+        [
+          {
+            "node": "Wait4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Anthropic Chat Model5": {
+      "ai_languageModel": [
+        []
+      ]
+    },
+    "Anthropic Chat Model6": {
+      "ai_languageModel": [
+        []
+      ]
+    },
+    "Dream Outcomes": {
+      "main": [
+        [
+          {
+            "node": "Wait5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Solution Development": {
+      "main": [
+        [
+          {
+            "node": "Wait6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Anthropic Chat Model7": {
+      "ai_languageModel": [
+        []
+      ]
+    },
+    "Trim & Stack": {
+      "main": [
+        [
+          {
+            "node": "Create MR Document",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "Executive Summary Information Gathering1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait4": {
+      "main": [
+        [
+          {
+            "node": "Dream Outcomes",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait5": {
+      "main": [
+        [
+          {
+            "node": "Solution Development",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait6": {
+      "main": [
+        [
+          {
+            "node": "Trim & Stack",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Initial Offer Analysis & Planning",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Anthropic Chat Model4": {
+      "ai_languageModel": [
+        []
+      ]
+    },
+    "OpenAI Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Dream Outcomes",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model2": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Solution Development",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send to Zapier": {
+      "main": [
+        [
+          {
+            "node": "Send to VSL Copywriter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format for API Call": {
+      "main": [
+        [
+          {
+            "node": "Executive Summary Information Gathering",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Executive Summary Information Gathering": {
+      "main": [
+        [
+          {
+            "node": "SWOT Analysis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Executive Summary Information Gathering1": {
+      "main": [
+        [
+          {
+            "node": "Wait7",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait7": {
+      "main": [
+        [
+          {
+            "node": "Competitor Analysis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Competitor Analysis": {
+      "main": [
+        [
+          {
+            "node": "Exec Summary Creation",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model4": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Competitor Landscape",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Anthropic Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Exec Summary Creation",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Exec Summary Creation": {
+      "main": [
+        [
+          {
+            "node": "Wait1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Anthropic Chat Model2": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Ideal Client Avatar Deep Dive",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Anthropic Chat Model3": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Messaging Strategy",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ideal Client Avatar Deep Dive": {
+      "main": [
+        [
+          {
+            "node": "Wait16",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Competitor Landscape": {
+      "main": [
+        [
+          {
+            "node": "Wait2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Messaging Strategy": {
+      "main": [
+        [
+          {
+            "node": "Wait3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Anthropic Chat Model8": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Ad Strategy",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ad Strategy": {
+      "main": [
+        [
+          {
+            "node": "Initial Offer Analysis & Planning",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait1": {
+      "main": [
+        [
+          {
+            "node": "Ideal Client Avatar Deep Dive",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait2": {
+      "main": [
+        [
+          {
+            "node": "Messaging Strategy",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait3": {
+      "main": [
+        [
+          {
+            "node": "Ad Strategy",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send to VSL Copywriter": {
+      "main": [
+        []
+      ]
+    },
+    "Anthropic Chat Model9": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Trim & Stack",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create MR Document": {
+      "main": [
+        [
+          {
+            "node": "Create Offer Document",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Offer Document": {
+      "main": [
+        [
+          {
+            "node": "Send to Zapier",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Add Client Transcript": {
+      "main": [
+        [
+          {
+            "node": "Get Client Record",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Anthropic Chat Model10": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "SWOT Analysis1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SWOT Analysis1": {
+      "main": [
+        [
+          {
+            "node": "Wait8",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Client Record1": {
+      "main": [
+        [
+          {
+            "node": "Format for API Call1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Initial Offer Analysis & Planning1": {
+      "main": [
+        [
+          {
+            "node": "Wait9",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Dream Outcomes1": {
+      "main": [
+        [
+          {
+            "node": "Wait10",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Solution Development1": {
+      "main": [
+        [
+          {
+            "node": "Wait11",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Trim & Stack1": {
+      "main": [
+        [
+          {
+            "node": "Create MR Document1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send to Zapier1": {
+      "main": [
+        []
+      ]
+    },
+    "Wait8": {
+      "main": [
+        [
+          {
+            "node": "Executive Summary Information Gathering3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait9": {
+      "main": [
+        [
+          {
+            "node": "Dream Outcomes1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait10": {
+      "main": [
+        [
+          {
+            "node": "Solution Development1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait11": {
+      "main": [
+        [
+          {
+            "node": "Trim & Stack1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model3": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Initial Offer Analysis & Planning1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model5": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Dream Outcomes1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model6": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Solution Development1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Executive Summary Information Gathering2": {
+      "main": [
+        [
+          {
+            "node": "SWOT Analysis1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format for API Call1": {
+      "main": [
+        [
+          {
+            "node": "Executive Summary Information Gathering2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Executive Summary Information Gathering3": {
+      "main": [
+        [
+          {
+            "node": "Wait12",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait12": {
+      "main": [
+        [
+          {
+            "node": "Competitor Analysis1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Competitor Analysis1": {
+      "main": [
+        [
+          {
+            "node": "Exec Summary Creation1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model7": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Competitor Landscape1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Exec Summary Creation1": {
+      "main": [
+        [
+          {
+            "node": "Wait13",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Anthropic Chat Model11": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Exec Summary Creation1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Anthropic Chat Model12": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Ideal Client Avatar Deep Dive1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ideal Client Avatar Deep Dive1": {
+      "main": [
+        [
+          {
+            "node": "Competitor Landscape1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Anthropic Chat Model13": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Messaging Strategy1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Competitor Landscape1": {
+      "main": [
+        [
+          {
+            "node": "Wait14",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Messaging Strategy1": {
+      "main": [
+        [
+          {
+            "node": "Wait15",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Anthropic Chat Model14": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Ad Strategy1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ad Strategy1": {
+      "main": [
+        [
+          {
+            "node": "Initial Offer Analysis & Planning1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait13": {
+      "main": [
+        [
+          {
+            "node": "Ideal Client Avatar Deep Dive1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait14": {
+      "main": [
+        [
+          {
+            "node": "Messaging Strategy1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait15": {
+      "main": [
+        [
+          {
+            "node": "Ad Strategy1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Anthropic Chat Model15": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Trim & Stack1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create MR Document1": {
+      "main": [
+        [
+          {
+            "node": "Create Offer Document1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Offer Document1": {
+      "main": [
+        [
+          {
+            "node": "Send to Zapier1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "New OB Call Added": {
+      "main": [
+        [
+          {
+            "node": "Airtable",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Airtable": {
+      "main": [
+        [
+          {
+            "node": "Get Client Record1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait16": {
+      "main": [
+        [
+          {
+            "node": "Competitor Landscape",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "tags": []
+}

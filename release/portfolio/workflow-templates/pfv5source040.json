@@ -1,0 +1,1552 @@
+{
+  "id": "pfv5source040",
+  "name": "Weekly Facebook ad report - archived source",
+  "nodes": [
+    {
+      "id": "pfv5source040n0",
+      "name": "Campaign Performance Analysis",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        1200,
+        0
+      ],
+      "parameters": {
+        "promptType": "[REMOVED FOR VISUAL REVIEW]",
+        "text": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {
+          "systemMessage": "[REMOVED FOR VISUAL REVIEW]"
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source040n1",
+      "name": "Campaign Executive Summary1",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        640,
+        0
+      ],
+      "parameters": {
+        "promptType": "[REMOVED FOR VISUAL REVIEW]",
+        "text": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {
+          "systemMessage": "[REMOVED FOR VISUAL REVIEW]"
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source040n2",
+      "name": "Budget Analysis",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        1780,
+        0
+      ],
+      "parameters": {
+        "promptType": "[REMOVED FOR VISUAL REVIEW]",
+        "text": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {
+          "systemMessage": "[REMOVED FOR VISUAL REVIEW]"
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source040n3",
+      "name": "Pull Campaign Data ",
+      "type": "n8n-nodes-base.airtableTool",
+      "typeVersion": 2.1,
+      "position": [
+        720,
+        260
+      ],
+      "parameters": {
+        "descriptionType": "[REMOVED FOR VISUAL REVIEW]",
+        "toolDescription": "[REMOVED FOR VISUAL REVIEW]",
+        "operation": "search",
+        "base": "[REMOVED FOR VISUAL REVIEW]",
+        "table": {
+          "__rl": true,
+          "value": "[REMOVED FOR VISUAL REVIEW]",
+          "mode": "list",
+          "cachedResultName": "[REMOVED FOR VISUAL REVIEW]",
+          "cachedResultUrl": "[REMOVED FOR VISUAL REVIEW]"
+        },
+        "filterByFormula": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {
+          "view": {
+            "__rl": true,
+            "value": "[REMOVED FOR VISUAL REVIEW]",
+            "mode": "list",
+            "cachedResultName": "[REMOVED FOR VISUAL REVIEW]",
+            "cachedResultUrl": "[REMOVED FOR VISUAL REVIEW]"
+          }
+        },
+        "sort": {
+          "property": [
+            {
+              "field": "[REMOVED FOR VISUAL REVIEW]"
+            }
+          ]
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source040n4",
+      "name": "Pull Ad Set Data 1",
+      "type": "n8n-nodes-base.airtableTool",
+      "typeVersion": 2.1,
+      "position": [
+        620,
+        640
+      ],
+      "parameters": {
+        "descriptionType": "[REMOVED FOR VISUAL REVIEW]",
+        "toolDescription": "[REMOVED FOR VISUAL REVIEW]",
+        "operation": "search",
+        "base": "[REMOVED FOR VISUAL REVIEW]",
+        "table": {
+          "__rl": true,
+          "value": "[REMOVED FOR VISUAL REVIEW]",
+          "mode": "list",
+          "cachedResultName": "[REMOVED FOR VISUAL REVIEW]",
+          "cachedResultUrl": "[REMOVED FOR VISUAL REVIEW]"
+        },
+        "filterByFormula": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {
+          "view": {
+            "__rl": true,
+            "value": "[REMOVED FOR VISUAL REVIEW]",
+            "mode": "list",
+            "cachedResultName": "[REMOVED FOR VISUAL REVIEW]",
+            "cachedResultUrl": "[REMOVED FOR VISUAL REVIEW]"
+          }
+        },
+        "sort": {
+          "property": [
+            {
+              "field": "[REMOVED FOR VISUAL REVIEW]",
+              "direction": "[REMOVED FOR VISUAL REVIEW]"
+            }
+          ]
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source040n5",
+      "name": "Pull Ads Data 1",
+      "type": "n8n-nodes-base.airtableTool",
+      "typeVersion": 2.1,
+      "position": [
+        1200,
+        680
+      ],
+      "parameters": {
+        "descriptionType": "[REMOVED FOR VISUAL REVIEW]",
+        "toolDescription": "[REMOVED FOR VISUAL REVIEW]",
+        "operation": "search",
+        "base": "[REMOVED FOR VISUAL REVIEW]",
+        "table": {
+          "__rl": true,
+          "value": "[REMOVED FOR VISUAL REVIEW]",
+          "mode": "list",
+          "cachedResultName": "[REMOVED FOR VISUAL REVIEW]",
+          "cachedResultUrl": "[REMOVED FOR VISUAL REVIEW]"
+        },
+        "filterByFormula": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {
+          "view": {
+            "__rl": true,
+            "value": "[REMOVED FOR VISUAL REVIEW]",
+            "mode": "list",
+            "cachedResultName": "[REMOVED FOR VISUAL REVIEW]",
+            "cachedResultUrl": "[REMOVED FOR VISUAL REVIEW]"
+          }
+        },
+        "sort": {
+          "property": [
+            {
+              "field": "[REMOVED FOR VISUAL REVIEW]",
+              "direction": "[REMOVED FOR VISUAL REVIEW]"
+            }
+          ]
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source040n6",
+      "name": "Performance & Trends - AdSet",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        500,
+        440
+      ],
+      "parameters": {
+        "promptType": "[REMOVED FOR VISUAL REVIEW]",
+        "text": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {
+          "systemMessage": "[REMOVED FOR VISUAL REVIEW]"
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source040n7",
+      "name": "Audience Health & Fatigue - AdSet",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        1180,
+        -1260
+      ],
+      "parameters": {
+        "promptType": "[REMOVED FOR VISUAL REVIEW]",
+        "text": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {
+          "systemMessage": "[REMOVED FOR VISUAL REVIEW]"
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source040n8",
+      "name": "Optimization & Opps - AdSet",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        1760,
+        -1260
+      ],
+      "parameters": {
+        "promptType": "[REMOVED FOR VISUAL REVIEW]",
+        "text": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {
+          "systemMessage": "[REMOVED FOR VISUAL REVIEW]"
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source040n9",
+      "name": "Executive Summary - Ads",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        1080,
+        440
+      ],
+      "parameters": {
+        "promptType": "[REMOVED FOR VISUAL REVIEW]",
+        "text": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {
+          "systemMessage": "[REMOVED FOR VISUAL REVIEW]"
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source040n10",
+      "name": "Ad Performance Analysis",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        1640,
+        440
+      ],
+      "parameters": {
+        "promptType": "[REMOVED FOR VISUAL REVIEW]",
+        "text": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {
+          "systemMessage": "[REMOVED FOR VISUAL REVIEW]"
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source040n11",
+      "name": "Budget Scaling and Allocations",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        2200,
+        -1500
+      ],
+      "parameters": {
+        "promptType": "[REMOVED FOR VISUAL REVIEW]",
+        "text": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {
+          "systemMessage": "[REMOVED FOR VISUAL REVIEW]"
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source040n12",
+      "name": "Audience & Targeting Deep Dive",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        2780,
+        -1500
+      ],
+      "parameters": {
+        "promptType": "[REMOVED FOR VISUAL REVIEW]",
+        "text": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {
+          "systemMessage": "[REMOVED FOR VISUAL REVIEW]"
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source040n13",
+      "name": "Wait1",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1000,
+        0
+      ],
+      "parameters": {
+        "amount": 55
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source040n14",
+      "name": "Wait2",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1560,
+        0
+      ],
+      "parameters": {
+        "amount": 55
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source040n15",
+      "name": "Wait3",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        2140,
+        0
+      ],
+      "parameters": {
+        "amount": 55
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source040n16",
+      "name": "Wait5",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        980,
+        -1260
+      ],
+      "parameters": {
+        "amount": 30
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source040n17",
+      "name": "Wait6",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1540,
+        -1260
+      ],
+      "parameters": {
+        "amount": 30
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source040n18",
+      "name": "Wait7",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        860,
+        440
+      ],
+      "parameters": {
+        "amount": 55
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source040n19",
+      "name": "Wait10",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        2040,
+        -1500
+      ],
+      "parameters": {
+        "amount": 20
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source040n20",
+      "name": "Wait11",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        2560,
+        -1500
+      ],
+      "parameters": {
+        "amount": 30
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source040n21",
+      "name": "Pull Campaign Data 1",
+      "type": "n8n-nodes-base.airtableTool",
+      "typeVersion": 2.1,
+      "position": [
+        1380,
+        240
+      ],
+      "parameters": {
+        "descriptionType": "[REMOVED FOR VISUAL REVIEW]",
+        "toolDescription": "[REMOVED FOR VISUAL REVIEW]",
+        "operation": "search",
+        "base": "[REMOVED FOR VISUAL REVIEW]",
+        "table": {
+          "__rl": true,
+          "value": "[REMOVED FOR VISUAL REVIEW]",
+          "mode": "list",
+          "cachedResultName": "[REMOVED FOR VISUAL REVIEW]",
+          "cachedResultUrl": "[REMOVED FOR VISUAL REVIEW]"
+        },
+        "filterByFormula": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {
+          "view": {
+            "__rl": true,
+            "value": "[REMOVED FOR VISUAL REVIEW]",
+            "mode": "list",
+            "cachedResultName": "[REMOVED FOR VISUAL REVIEW]",
+            "cachedResultUrl": "[REMOVED FOR VISUAL REVIEW]"
+          }
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source040n22",
+      "name": "Google Gemini Chat Model11",
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        1160,
+        240
+      ],
+      "parameters": {
+        "modelName": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {}
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source040n23",
+      "name": "Pull Campaign Data 2",
+      "type": "n8n-nodes-base.airtableTool",
+      "typeVersion": 2.1,
+      "position": [
+        1920,
+        240
+      ],
+      "parameters": {
+        "descriptionType": "[REMOVED FOR VISUAL REVIEW]",
+        "toolDescription": "[REMOVED FOR VISUAL REVIEW]",
+        "operation": "search",
+        "base": "[REMOVED FOR VISUAL REVIEW]",
+        "table": {
+          "__rl": true,
+          "value": "[REMOVED FOR VISUAL REVIEW]",
+          "mode": "list",
+          "cachedResultName": "[REMOVED FOR VISUAL REVIEW]",
+          "cachedResultUrl": "[REMOVED FOR VISUAL REVIEW]"
+        },
+        "filterByFormula": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {
+          "view": {
+            "__rl": true,
+            "value": "[REMOVED FOR VISUAL REVIEW]",
+            "mode": "list",
+            "cachedResultName": "[REMOVED FOR VISUAL REVIEW]",
+            "cachedResultUrl": "[REMOVED FOR VISUAL REVIEW]"
+          }
+        },
+        "sort": {
+          "property": [
+            {
+              "field": "[REMOVED FOR VISUAL REVIEW]",
+              "direction": "[REMOVED FOR VISUAL REVIEW]"
+            }
+          ]
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source040n24",
+      "name": "Google Gemini Chat Model12",
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        1700,
+        240
+      ],
+      "parameters": {
+        "modelName": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {}
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source040n25",
+      "name": "Pull Ad Set Data ",
+      "type": "n8n-nodes-base.airtableTool",
+      "typeVersion": 2.1,
+      "position": [
+        1300,
+        -1020
+      ],
+      "parameters": {
+        "descriptionType": "[REMOVED FOR VISUAL REVIEW]",
+        "toolDescription": "[REMOVED FOR VISUAL REVIEW]",
+        "operation": "search",
+        "base": "[REMOVED FOR VISUAL REVIEW]",
+        "table": {
+          "__rl": true,
+          "value": "[REMOVED FOR VISUAL REVIEW]",
+          "mode": "list",
+          "cachedResultName": "[REMOVED FOR VISUAL REVIEW]",
+          "cachedResultUrl": "[REMOVED FOR VISUAL REVIEW]"
+        },
+        "filterByFormula": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {},
+        "sort": {
+          "property": [
+            {
+              "field": "[REMOVED FOR VISUAL REVIEW]",
+              "direction": "[REMOVED FOR VISUAL REVIEW]"
+            }
+          ]
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source040n26",
+      "name": "Google Gemini Chat Model7",
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        1180,
+        -1020
+      ],
+      "parameters": {
+        "modelName": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {}
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source040n27",
+      "name": "Pull Ad Set Data 3",
+      "type": "n8n-nodes-base.airtableTool",
+      "typeVersion": 2.1,
+      "position": [
+        1840,
+        -1020
+      ],
+      "parameters": {
+        "descriptionType": "[REMOVED FOR VISUAL REVIEW]",
+        "toolDescription": "[REMOVED FOR VISUAL REVIEW]",
+        "operation": "search",
+        "base": "[REMOVED FOR VISUAL REVIEW]",
+        "table": {
+          "__rl": true,
+          "value": "[REMOVED FOR VISUAL REVIEW]",
+          "mode": "list",
+          "cachedResultName": "[REMOVED FOR VISUAL REVIEW]",
+          "cachedResultUrl": "[REMOVED FOR VISUAL REVIEW]"
+        },
+        "filterByFormula": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {},
+        "sort": {
+          "property": [
+            {
+              "field": "[REMOVED FOR VISUAL REVIEW]",
+              "direction": "[REMOVED FOR VISUAL REVIEW]"
+            }
+          ]
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source040n28",
+      "name": "Google Gemini Chat Model8",
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        1720,
+        -1020
+      ],
+      "parameters": {
+        "modelName": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {}
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source040n29",
+      "name": "Pull Ads Data ",
+      "type": "n8n-nodes-base.airtableTool",
+      "typeVersion": 2.1,
+      "position": [
+        1780,
+        660
+      ],
+      "parameters": {
+        "descriptionType": "[REMOVED FOR VISUAL REVIEW]",
+        "toolDescription": "[REMOVED FOR VISUAL REVIEW]",
+        "operation": "search",
+        "base": "[REMOVED FOR VISUAL REVIEW]",
+        "table": {
+          "__rl": true,
+          "value": "[REMOVED FOR VISUAL REVIEW]",
+          "mode": "list",
+          "cachedResultName": "[REMOVED FOR VISUAL REVIEW]",
+          "cachedResultUrl": "[REMOVED FOR VISUAL REVIEW]"
+        },
+        "filterByFormula": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {
+          "view": {
+            "__rl": true,
+            "value": "[REMOVED FOR VISUAL REVIEW]",
+            "mode": "list",
+            "cachedResultName": "[REMOVED FOR VISUAL REVIEW]",
+            "cachedResultUrl": "[REMOVED FOR VISUAL REVIEW]"
+          }
+        },
+        "sort": {
+          "property": [
+            {
+              "field": "[REMOVED FOR VISUAL REVIEW]",
+              "direction": "[REMOVED FOR VISUAL REVIEW]"
+            }
+          ]
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source040n30",
+      "name": "Pull Ads Data 2",
+      "type": "n8n-nodes-base.airtableTool",
+      "typeVersion": 2.1,
+      "position": [
+        2380,
+        -1220
+      ],
+      "parameters": {
+        "descriptionType": "[REMOVED FOR VISUAL REVIEW]",
+        "toolDescription": "[REMOVED FOR VISUAL REVIEW]",
+        "operation": "search",
+        "base": "[REMOVED FOR VISUAL REVIEW]",
+        "table": {
+          "__rl": true,
+          "value": "[REMOVED FOR VISUAL REVIEW]",
+          "mode": "list",
+          "cachedResultName": "[REMOVED FOR VISUAL REVIEW]",
+          "cachedResultUrl": "[REMOVED FOR VISUAL REVIEW]"
+        },
+        "filterByFormula": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {
+          "downloadFields": [
+            "[REMOVED FOR VISUAL REVIEW]"
+          ]
+        },
+        "sort": {
+          "property": [
+            {
+              "field": "[REMOVED FOR VISUAL REVIEW]",
+              "direction": "[REMOVED FOR VISUAL REVIEW]"
+            }
+          ]
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source040n31",
+      "name": "Google Gemini Chat Model2",
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        2200,
+        -1240
+      ],
+      "parameters": {
+        "modelName": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {}
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source040n32",
+      "name": "Pull Ads Data 3",
+      "type": "n8n-nodes-base.airtableTool",
+      "typeVersion": 2.1,
+      "position": [
+        2860,
+        -1240
+      ],
+      "parameters": {
+        "descriptionType": "[REMOVED FOR VISUAL REVIEW]",
+        "toolDescription": "[REMOVED FOR VISUAL REVIEW]",
+        "operation": "search",
+        "base": "[REMOVED FOR VISUAL REVIEW]",
+        "table": {
+          "__rl": true,
+          "value": "[REMOVED FOR VISUAL REVIEW]",
+          "mode": "list",
+          "cachedResultName": "[REMOVED FOR VISUAL REVIEW]",
+          "cachedResultUrl": "[REMOVED FOR VISUAL REVIEW]"
+        },
+        "filterByFormula": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {
+          "downloadFields": [
+            "[REMOVED FOR VISUAL REVIEW]"
+          ]
+        },
+        "sort": {
+          "property": [
+            {
+              "field": "[REMOVED FOR VISUAL REVIEW]",
+              "direction": "[REMOVED FOR VISUAL REVIEW]"
+            }
+          ]
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source040n33",
+      "name": "Google Gemini Chat Model3",
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        2680,
+        -1260
+      ],
+      "parameters": {
+        "modelName": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {}
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source040n34",
+      "name": "Send to Make for Document Creation",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2220,
+        440
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "[REMOVED FOR VISUAL REVIEW]",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "[REMOVED FOR VISUAL REVIEW]",
+              "value": "[REMOVED FOR VISUAL REVIEW]"
+            },
+            {
+              "name": "[REMOVED FOR VISUAL REVIEW]",
+              "value": "[REMOVED FOR VISUAL REVIEW]"
+            },
+            {
+              "name": "[REMOVED FOR VISUAL REVIEW]",
+              "value": "[REMOVED FOR VISUAL REVIEW]"
+            },
+            {
+              "name": "[REMOVED FOR VISUAL REVIEW]",
+              "value": "[REMOVED FOR VISUAL REVIEW]"
+            },
+            {
+              "name": "[REMOVED FOR VISUAL REVIEW]",
+              "value": "[REMOVED FOR VISUAL REVIEW]"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source040n35",
+      "name": "Ad Analysis Agent",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        0,
+        0
+      ],
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {}
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source040n36",
+      "name": "Wait8",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        460,
+        0
+      ],
+      "parameters": {
+        "amount": "[REMOVED FOR VISUAL REVIEW]"
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source040n37",
+      "name": "Get Client Record",
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        220,
+        0
+      ],
+      "parameters": {
+        "base": "[REMOVED FOR VISUAL REVIEW]",
+        "table": {
+          "__rl": true,
+          "value": "[REMOVED FOR VISUAL REVIEW]",
+          "mode": "list",
+          "cachedResultName": "[REMOVED FOR VISUAL REVIEW]",
+          "cachedResultUrl": "[REMOVED FOR VISUAL REVIEW]"
+        },
+        "id": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {}
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source040n38",
+      "name": "OpenAI Chat Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        480,
+        260
+      ],
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "[REMOVED FOR VISUAL REVIEW]",
+          "mode": "list",
+          "cachedResultName": "[REMOVED FOR VISUAL REVIEW]"
+        },
+        "options": {
+          "temperature": 0.3
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source040n39",
+      "name": "OpenAI Chat Model1",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        360,
+        620
+      ],
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "[REMOVED FOR VISUAL REVIEW]",
+          "mode": "list",
+          "cachedResultName": "[REMOVED FOR VISUAL REVIEW]"
+        },
+        "options": {
+          "temperature": 0.4
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source040n40",
+      "name": "OpenAI Chat Model2",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        1020,
+        680
+      ],
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "[REMOVED FOR VISUAL REVIEW]",
+          "mode": "list",
+          "cachedResultName": "[REMOVED FOR VISUAL REVIEW]"
+        },
+        "options": {
+          "temperature": 0.4
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source040n41",
+      "name": "Wait",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1440,
+        440
+      ],
+      "parameters": {
+        "amount": 55
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source040n42",
+      "name": "OpenAI Chat Model3",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        1480,
+        640
+      ],
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "[REMOVED FOR VISUAL REVIEW]",
+          "mode": "list",
+          "cachedResultName": "[REMOVED FOR VISUAL REVIEW]"
+        },
+        "options": {
+          "temperature": 0.4
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source040n43",
+      "name": "Campaign Executive Summary & Performance Analysis",
+      "type": "n8n-nodes-base.markdown",
+      "typeVersion": 1,
+      "position": [
+        2400,
+        -820
+      ],
+      "parameters": {
+        "mode": "[REMOVED FOR VISUAL REVIEW]",
+        "markdown": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {
+          "completeHTMLDocument": true,
+          "smartIndentationFix": true,
+          "disableForced4SpacesIndentedSublists": true
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source040n44",
+      "name": "AdSet Analysis",
+      "type": "n8n-nodes-base.markdown",
+      "typeVersion": 1,
+      "position": [
+        2300,
+        -1020
+      ],
+      "parameters": {
+        "mode": "[REMOVED FOR VISUAL REVIEW]",
+        "markdown": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {
+          "completeHTMLDocument": true,
+          "smartIndentationFix": true,
+          "disableForced4SpacesIndentedSublists": true
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source040n45",
+      "name": "Ads Analysis",
+      "type": "n8n-nodes-base.markdown",
+      "typeVersion": 1,
+      "position": [
+        2540,
+        -1020
+      ],
+      "parameters": {
+        "mode": "[REMOVED FOR VISUAL REVIEW]",
+        "markdown": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {
+          "completeHTMLDocument": true,
+          "smartIndentationFix": true,
+          "disableForced4SpacesIndentedSublists": true
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source040n46",
+      "name": "Full Doc",
+      "type": "n8n-nodes-base.markdown",
+      "typeVersion": 1,
+      "position": [
+        2000,
+        440
+      ],
+      "parameters": {
+        "mode": "[REMOVED FOR VISUAL REVIEW]",
+        "markdown": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {
+          "completeHTMLDocument": true,
+          "smartIndentationFix": true,
+          "disableForced4SpacesIndentedSublists": true
+        }
+      },
+      "disabled": false
+    }
+  ],
+  "connections": {
+    "Campaign Performance Analysis": {
+      "main": [
+        [
+          {
+            "node": "Wait2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Campaign Executive Summary1": {
+      "main": [
+        [
+          {
+            "node": "Wait1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Budget Analysis": {
+      "main": [
+        [
+          {
+            "node": "Wait3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Pull Campaign Data ": {
+      "ai_tool": [
+        [
+          {
+            "node": "Campaign Executive Summary1",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Pull Ad Set Data 1": {
+      "ai_tool": [
+        [
+          {
+            "node": "Performance & Trends - AdSet",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Pull Ads Data 1": {
+      "ai_tool": [
+        [
+          {
+            "node": "Executive Summary - Ads",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Performance & Trends - AdSet": {
+      "main": [
+        [
+          {
+            "node": "Wait7",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Audience Health & Fatigue - AdSet": {
+      "main": [
+        [
+          {
+            "node": "Wait6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Optimization & Opps - AdSet": {
+      "main": [
+        []
+      ]
+    },
+    "Executive Summary - Ads": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ad Performance Analysis": {
+      "main": [
+        [
+          {
+            "node": "Full Doc",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Budget Scaling and Allocations": {
+      "main": [
+        [
+          {
+            "node": "Wait11",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Audience & Targeting Deep Dive": {
+      "main": [
+        []
+      ]
+    },
+    "Wait1": {
+      "main": [
+        [
+          {
+            "node": "Campaign Performance Analysis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait2": {
+      "main": [
+        [
+          {
+            "node": "Budget Analysis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait3": {
+      "main": [
+        [
+          {
+            "node": "Performance & Trends - AdSet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait5": {
+      "main": [
+        [
+          {
+            "node": "Audience Health & Fatigue - AdSet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait6": {
+      "main": [
+        [
+          {
+            "node": "Optimization & Opps - AdSet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait7": {
+      "main": [
+        [
+          {
+            "node": "Executive Summary - Ads",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait10": {
+      "main": [
+        [
+          {
+            "node": "Budget Scaling and Allocations",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait11": {
+      "main": [
+        [
+          {
+            "node": "Audience & Targeting Deep Dive",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Pull Campaign Data 1": {
+      "ai_tool": [
+        [
+          {
+            "node": "Campaign Performance Analysis",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model11": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Campaign Performance Analysis",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Pull Campaign Data 2": {
+      "ai_tool": [
+        [
+          {
+            "node": "Budget Analysis",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model12": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Budget Analysis",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Pull Ad Set Data ": {
+      "ai_tool": [
+        [
+          {
+            "node": "Audience Health & Fatigue - AdSet",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model7": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Audience Health & Fatigue - AdSet",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Pull Ad Set Data 3": {
+      "ai_tool": [
+        [
+          {
+            "node": "Optimization & Opps - AdSet",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model8": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Optimization & Opps - AdSet",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Pull Ads Data ": {
+      "ai_tool": [
+        [
+          {
+            "node": "Ad Performance Analysis",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Pull Ads Data 2": {
+      "ai_tool": [
+        [
+          {
+            "node": "Budget Scaling and Allocations",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model2": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Budget Scaling and Allocations",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Pull Ads Data 3": {
+      "ai_tool": [
+        [
+          {
+            "node": "Audience & Targeting Deep Dive",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model3": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Audience & Targeting Deep Dive",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ad Analysis Agent": {
+      "main": [
+        [
+          {
+            "node": "Get Client Record",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait8": {
+      "main": [
+        [
+          {
+            "node": "Campaign Executive Summary1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Client Record": {
+      "main": [
+        [
+          {
+            "node": "Wait8",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Campaign Executive Summary1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Performance & Trends - AdSet",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model2": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Executive Summary - Ads",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "Ad Performance Analysis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model3": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Ad Performance Analysis",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Campaign Executive Summary & Performance Analysis": {
+      "main": [
+        [
+          {
+            "node": "AdSet Analysis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AdSet Analysis": {
+      "main": [
+        [
+          {
+            "node": "Ads Analysis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ads Analysis": {
+      "main": [
+        []
+      ]
+    },
+    "Full Doc": {
+      "main": [
+        [
+          {
+            "node": "Send to Make for Document Creation",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send to Make for Document Creation": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "active": false,
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "tags": []
+}

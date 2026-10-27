@@ -1,0 +1,38 @@
+/* WorkEmbed v1 shared embed styles (V10 contract section 4/6). Uses tokens.css motion tokens with fallbacks. */
+html[data-embed]{--we-ease:var(--m-ease,cubic-bezier(.22,.61,.36,1));--we-io:var(--m-io,cubic-bezier(.65,0,.35,1));--we-accent:var(--wk-accent,#D62E1F);--we-ink:var(--wk-ink,#121210);--we-cream:var(--wk-bg,#ECE8DF);height:100%;overflow:hidden;background:var(--wk-surface,#FFFDF8)}
+html[data-embed] body{height:100%;overflow:auto;overscroll-behavior:contain;background:var(--wk-surface,#FFFDF8)}
+html[data-embed] .wk-header,html[data-embed] .wk-context,html[data-embed] .wk-back,html[data-embed] [data-embed-hide]{display:none!important}
+html[data-embed] .wk-app{max-width:none;margin:0;height:100%}
+html.we-dip body{opacity:.35;transition:opacity var(--m-base,240ms) var(--we-ease)}
+html[data-embed] body{transition:opacity var(--m-base,240ms) var(--we-ease)}
+
+.we-overlay{position:fixed;inset:0;z-index:2147483000;pointer-events:none;overflow:hidden;opacity:0;transition:opacity var(--m-base,240ms) var(--we-ease)}
+.we-overlay.is-on{opacity:1}
+.we-cursor{position:absolute;left:0;top:0;width:18px;height:18px;margin:-2px 0 0 -2px;will-change:transform;transition-property:transform;transition-timing-function:var(--we-ease);transition-duration:700ms;filter:drop-shadow(0 2px 3px rgb(18 18 16/.28))}
+.we-cursor svg{display:block;width:18px;height:18px;transform-origin:2px 2px;transition:transform 180ms var(--we-ease)}
+.we-cursor path{fill:var(--we-ink);stroke:var(--we-cream);stroke-width:1.5;stroke-linejoin:round}
+.we-cursor.is-press svg{transform:scale(.92)}
+.we-ripple{position:absolute;width:34px;height:34px;margin:-17px 0 0 -17px;border-radius:50%;background:rgb(214 46 31/.2);transform:scale(.2);opacity:1;animation:we-ripple 360ms var(--we-ease) forwards}
+@keyframes we-ripple{to{transform:scale(1.15);opacity:0}}
+.we-target{outline:2px solid var(--we-accent)!important;outline-offset:2px;animation:we-pulse 600ms var(--we-ease) 1}
+@keyframes we-pulse{0%{outline-color:rgb(214 46 31/0);outline-offset:6px}35%{outline-color:var(--we-accent);outline-offset:2px}100%{outline-color:rgb(214 46 31/0);outline-offset:2px}}
+
+/* shared logo + pill primitives (contract section 9 logo rule) */
+.we-logo{display:inline-block;height:var(--logo-h,16px);width:auto;vertical-align:middle;flex:none}
+.we-logo--lg{height:24px}
+.we-logo-ink{display:inline-flex;align-items:center;justify-content:center;padding:3px 7px;border-radius:6px;background:var(--wk-ink,#121210);flex:none}
+.we-logo-ink .we-logo{height:12px}
+.we-pill{display:inline-flex;align-items:center;gap:5px;min-height:20px;padding:1px 8px;border:1px solid var(--af-line,#CFC9BC);border-radius:999px;background:var(--logo-pill-bg,#F5F1E8);color:var(--wk-ink,#121210);font:12px/1.4 var(--wk-mono,'Space Mono',ui-monospace,monospace);white-space:nowrap;flex:none}
+.we-brand{display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+
+/* entry motion helpers (8px rise + fade) */
+.we-rise{animation:we-rise var(--m-enter,420ms) var(--we-ease,cubic-bezier(.22,.61,.36,1)) both}
+@keyframes we-rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.we-draw path,.we-draw polyline{stroke-dasharray:var(--we-len,1200);stroke-dashoffset:var(--we-len,1200);animation:we-draw var(--m-draw,700ms) var(--we-ease,cubic-bezier(.22,.61,.36,1)) forwards}
+@keyframes we-draw{to{stroke-dashoffset:0}}
+
+@media (prefers-reduced-motion:reduce){
+  .we-overlay{display:none!important}
+  .we-rise,.we-draw path,.we-draw polyline{animation:none!important;opacity:1!important;transform:none!important;stroke-dashoffset:0!important}
+  html.we-dip body{opacity:1}
+}

@@ -1,0 +1,342 @@
+{
+  "id": "pfv5pulseadaptation",
+  "name": "Pulse - new reporting-flow adaptation, not deployed backend",
+  "nodes": [
+    {
+      "name": "Manual review only",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -800,
+        0
+      ],
+      "parameters": {},
+      "id": "pfv5pulseadaptationn0",
+      "disabled": true
+    },
+    {
+      "name": "Meta Ads source - configure",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -520,
+        -440
+      ],
+      "parameters": {
+        "url": "https://service.example.test/meta-ads",
+        "options": {}
+      },
+      "id": "pfv5pulseadaptationn1",
+      "disabled": true
+    },
+    {
+      "name": "Google Ads source - configure",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -520,
+        -220
+      ],
+      "parameters": {
+        "url": "https://service.example.test/google-ads",
+        "options": {}
+      },
+      "id": "pfv5pulseadaptationn2",
+      "disabled": true
+    },
+    {
+      "name": "GA4 source - configure",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -520,
+        0
+      ],
+      "parameters": {
+        "url": "https://service.example.test/ga4",
+        "options": {}
+      },
+      "id": "pfv5pulseadaptationn3",
+      "disabled": true
+    },
+    {
+      "name": "CRM source - configure",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -520,
+        220
+      ],
+      "parameters": {
+        "url": "https://service.example.test/crm",
+        "options": {}
+      },
+      "id": "pfv5pulseadaptationn4",
+      "disabled": true
+    },
+    {
+      "name": "Stripe source - configure",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -520,
+        440
+      ],
+      "parameters": {
+        "url": "https://service.example.test/stripe",
+        "options": {}
+      },
+      "id": "pfv5pulseadaptationn5",
+      "disabled": true
+    },
+    {
+      "name": "Agree definitions and normalize",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -200,
+        0
+      ],
+      "parameters": {
+        "jsCode": "// New architecture adaptation, not the deployed Pulse backend.\n// Agree metric mappings, source contracts and attribution rules before enabling.\nthrow new Error(\"Configure the agreed metric dictionary and source mappings before use.\");"
+      },
+      "id": "pfv5pulseadaptationn6",
+      "disabled": true
+    },
+    {
+      "name": "Warehouse - configure",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        100,
+        0
+      ],
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "-- Configure the private warehouse connection and approved schema.\nSELECT 1;",
+        "options": {}
+      },
+      "id": "pfv5pulseadaptationn7",
+      "disabled": true
+    },
+    {
+      "name": "Freshness and range checks",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        380,
+        0
+      ],
+      "parameters": {
+        "jsCode": "// Source freshness and agreed ranges must be configured before use.\nthrow new Error(\"Configure freshness thresholds and agreed ranges before use.\");"
+      },
+      "id": "pfv5pulseadaptationn8",
+      "disabled": true
+    },
+    {
+      "name": "Internal Slack pulse - configure",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.3,
+      "position": [
+        660,
+        -120
+      ],
+      "parameters": {
+        "resource": "message",
+        "operation": "post",
+        "channelId": {
+          "__rl": true,
+          "value": "CONFIGURE_INTERNAL_CHANNEL",
+          "mode": "id"
+        },
+        "text": "={{ $json.pulseText }}",
+        "otherOptions": {}
+      },
+      "id": "pfv5pulseadaptationn9",
+      "disabled": true
+    },
+    {
+      "name": "Weekly report draft boundary",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        660,
+        120
+      ],
+      "parameters": {},
+      "id": "pfv5pulseadaptationn10",
+      "disabled": true
+    },
+    {
+      "name": "Person approves - no client send",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        940,
+        120
+      ],
+      "parameters": {},
+      "id": "pfv5pulseadaptationn11",
+      "disabled": true
+    },
+    {
+      "name": "New local adaptation - not the deployed backend",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -850,
+        -650
+      ],
+      "parameters": {
+        "content": "New n8n adaptation of the documented Pulse reporting flow. Not an original recovered Pulse JSON and not the deployed backend. All source connections and agreed metric rules require configuration. No client-send node is provided.",
+        "width": 1650,
+        "height": 130
+      },
+      "id": "pfv5pulseadaptationn12",
+      "disabled": true
+    }
+  ],
+  "connections": {
+    "Manual review only": {
+      "main": [
+        [
+          {
+            "node": "Meta Ads source - configure",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Google Ads source - configure",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "GA4 source - configure",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "CRM source - configure",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Stripe source - configure",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Meta Ads source - configure": {
+      "main": [
+        [
+          {
+            "node": "Agree definitions and normalize",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Ads source - configure": {
+      "main": [
+        [
+          {
+            "node": "Agree definitions and normalize",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GA4 source - configure": {
+      "main": [
+        [
+          {
+            "node": "Agree definitions and normalize",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CRM source - configure": {
+      "main": [
+        [
+          {
+            "node": "Agree definitions and normalize",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Stripe source - configure": {
+      "main": [
+        [
+          {
+            "node": "Agree definitions and normalize",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Agree definitions and normalize": {
+      "main": [
+        [
+          {
+            "node": "Warehouse - configure",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Warehouse - configure": {
+      "main": [
+        [
+          {
+            "node": "Freshness and range checks",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Weekly report draft boundary": {
+      "main": [
+        [
+          {
+            "node": "Person approves - no client send",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Freshness and range checks": {
+      "main": [
+        [
+          {
+            "node": "Internal Slack pulse - configure",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Weekly report draft boundary",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "tags": []
+}

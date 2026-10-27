@@ -1,0 +1,2 @@
+/* OpenXCEL tour: the scene list (scenes.js) is the tour; WorkEmbed drives play/pause/reset through the bridge. */
+(function(){'use strict';if(window.WorkEmbed&&window.OX&&window.OX.bridge)window.WorkEmbed.bridge(window.OX.bridge);})();

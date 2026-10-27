@@ -1,0 +1,335 @@
+{
+  "id": "pfv5source049",
+  "name": "Post topic research - archived source",
+  "nodes": [
+    {
+      "id": "pfv5source049n0",
+      "name": "Schedule Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        0
+      ],
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 23
+            }
+          ]
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source049n1",
+      "name": "Post Topics Agent",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.8,
+      "position": [
+        220,
+        0
+      ],
+      "parameters": {
+        "promptType": "[REMOVED FOR VISUAL REVIEW]",
+        "text": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {
+          "systemMessage": "[REMOVED FOR VISUAL REVIEW]"
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source049n2",
+      "name": "PerplexityResearch",
+      "type": "@n8n/n8n-nodes-langchain.toolHttpRequest",
+      "typeVersion": 1.1,
+      "position": [
+        340,
+        280
+      ],
+      "parameters": {
+        "toolDescription": "[REMOVED FOR VISUAL REVIEW]",
+        "method": "POST",
+        "url": "[REMOVED FOR VISUAL REVIEW]",
+        "authentication": "[REMOVED FOR VISUAL REVIEW]",
+        "genericAuthType": "[REMOVED FOR VISUAL REVIEW]",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "[REMOVED FOR VISUAL REVIEW]",
+        "placeholderDefinitions": {
+          "values": "[REMOVED FOR VISUAL REVIEW]"
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source049n3",
+      "name": "AirtableMCP",
+      "type": "@n8n/n8n-nodes-langchain.mcpClientTool",
+      "typeVersion": 1,
+      "position": [
+        520,
+        220
+      ],
+      "parameters": {
+        "sseEndpoint": "[REMOVED FOR VISUAL REVIEW]",
+        "include": "[REMOVED FOR VISUAL REVIEW]",
+        "excludeTools": [
+          "[REMOVED FOR VISUAL REVIEW]"
+        ]
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source049n4",
+      "name": "Anthropic Chat Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.3,
+      "position": [
+        140,
+        220
+      ],
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "[REMOVED FOR VISUAL REVIEW]",
+          "cachedResultName": "[REMOVED FOR VISUAL REVIEW]"
+        },
+        "options": {
+          "thinking": true
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source049n5",
+      "name": "Post Topics Agent1",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.8,
+      "position": [
+        800,
+        0
+      ],
+      "parameters": {
+        "promptType": "[REMOVED FOR VISUAL REVIEW]",
+        "text": "[REMOVED FOR VISUAL REVIEW]",
+        "options": {
+          "systemMessage": "[REMOVED FOR VISUAL REVIEW]"
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source049n6",
+      "name": "PerplexityResearch1",
+      "type": "@n8n/n8n-nodes-langchain.toolHttpRequest",
+      "typeVersion": 1.1,
+      "position": [
+        980,
+        280
+      ],
+      "parameters": {
+        "toolDescription": "[REMOVED FOR VISUAL REVIEW]",
+        "method": "POST",
+        "url": "[REMOVED FOR VISUAL REVIEW]",
+        "authentication": "[REMOVED FOR VISUAL REVIEW]",
+        "genericAuthType": "[REMOVED FOR VISUAL REVIEW]",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "[REMOVED FOR VISUAL REVIEW]",
+        "placeholderDefinitions": {
+          "values": "[REMOVED FOR VISUAL REVIEW]"
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source049n7",
+      "name": "AirtableMCP1",
+      "type": "@n8n/n8n-nodes-langchain.mcpClientTool",
+      "typeVersion": 1,
+      "position": [
+        1160,
+        220
+      ],
+      "parameters": {
+        "sseEndpoint": "[REMOVED FOR VISUAL REVIEW]",
+        "include": "[REMOVED FOR VISUAL REVIEW]",
+        "excludeTools": [
+          "[REMOVED FOR VISUAL REVIEW]"
+        ]
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source049n8",
+      "name": "Anthropic Chat Model1",
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.3,
+      "position": [
+        760,
+        220
+      ],
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "[REMOVED FOR VISUAL REVIEW]",
+          "mode": "list",
+          "cachedResultName": "[REMOVED FOR VISUAL REVIEW]"
+        },
+        "options": {}
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source049n9",
+      "name": "Wait",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        580,
+        0
+      ],
+      "parameters": {
+        "amount": "[REMOVED FOR VISUAL REVIEW]",
+        "unit": "minutes"
+      },
+      "disabled": false
+    },
+    {
+      "id": "pfv5source049n10",
+      "name": "Think",
+      "type": "@n8n/n8n-nodes-langchain.toolThink",
+      "typeVersion": 1,
+      "position": [
+        1060,
+        220
+      ],
+      "parameters": {
+        "description": "[REMOVED FOR VISUAL REVIEW]"
+      },
+      "disabled": false
+    }
+  ],
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Post Topics Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "PerplexityResearch": {
+      "ai_tool": [
+        [
+          {
+            "node": "Post Topics Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AirtableMCP": {
+      "ai_tool": [
+        [
+          {
+            "node": "Post Topics Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Anthropic Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Post Topics Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "PerplexityResearch1": {
+      "ai_tool": [
+        [
+          {
+            "node": "Post Topics Agent1",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AirtableMCP1": {
+      "ai_tool": [
+        [
+          {
+            "node": "Post Topics Agent1",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Anthropic Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Post Topics Agent1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Post Topics Agent": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "Post Topics Agent1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Think": {
+      "ai_tool": [
+        [
+          {
+            "node": "Post Topics Agent1",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "tags": []
+}

@@ -1,4 +1,5 @@
 import './globals.css';
+import '../styles/live-workspace.css';
 import { PERSON, SITE_URL } from '../lib/site';
 
 const title = `${PERSON.name} | ${PERSON.jobTitle}`;

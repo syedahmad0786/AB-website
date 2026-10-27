@@ -9,6 +9,7 @@ import {
   AIXCEL_MODULES, AIXCEL_PRODUCTS, AIXCEL_SERVICES, ASK_LINKS, BOOKING_URL, EMAIL, HEADLINE, HERO_COPY, HERO_TAGS,
   JOURNEY, NOTES, PAGES, PERSON, PRINCIPLES,
 } from '../lib/site';
+import ProjectSelector from './ProjectSelector';
 import { AG, CASES, CH, CLIENTS, PROTOS, REPOS, SYSTEMS, TOOLS } from '../lib/siteData';
 
 function protoFor(name) {
@@ -52,6 +53,7 @@ export default function StaticHome() {
           </p>
         </section>
 
+        <ProjectSelector />
         <section className="ssr-section" aria-labelledby="ssr-principles">
           <h2 id="ssr-principles" className="ssr-eyebrow">What the workflow on this page demonstrates</h2>
           <dl className="ssr-grid">

@@ -4,6 +4,7 @@
 // Markup mirrors the design template; all state, motion and data live in
 // lib/homeLogic.js (the design's logic class, unchanged).
 import React from 'react';
+import ProjectSelector from './ProjectSelector';
 import ImageSlot from './ImageSlot';
 import PhoneFrame from './PhoneFrame';
 import ScaledFrame from './ScaledFrame';
@@ -230,7 +231,7 @@ export default class Home extends React.Component {
               <span style={{ fontFamily: "'Space Mono',monospace", fontSize: "11px", color: "#5E5B54", background: "#ECE8DF", borderRadius: "6px", padding: "3px 8px", whiteSpace: "nowrap" }}>
                 {"run #"}{T(v.run)}{" · "}{T(v.stackLabel)}
               </span>
-              <div style={{ marginLeft: "auto", display: "flex", gap: "6px", flexWrap: "wrap" }}>
+              <div role="toolbar" aria-label="Workflow scenario controls" style={{ marginLeft: "auto", display: "flex", gap: "6px", flexWrap: "wrap" }}>
                 {(v.scenarios || []).map((sc, $i8) => (<React.Fragment key={$i8}>
                   <button onClick={sc?.go} style={{ fontFamily: "'Space Mono',monospace", fontSize: "11px", padding: "7px 10px", borderRadius: "8px", border: "1.5px solid #121210", cursor: "pointer", background: sc?.bg, color: sc?.fg }}>
                     {sc?.label}
@@ -362,6 +363,7 @@ export default class Home extends React.Component {
             </div>
           </div>
         </section>
+        <ProjectSelector />
         <section data-screen-label="02 Principles" style={{ maxWidth: "1480px", margin: "0 auto", padding: "8px clamp(16px,3vw,40px) 56px" }}>
           <div style={{ fontFamily: "'Space Mono',monospace", fontSize: "12px", letterSpacing: ".08em", textTransform: "uppercase", color: "#5E5B54", marginBottom: "16px" }}>
             What you just watched · hover to find it in the run
@@ -560,13 +562,13 @@ export default class Home extends React.Component {
             <div data-reveal="" style={{ display: "grid", gridTemplateColumns: "72px minmax(0,1fr)", gap: "0 16px" }}>
               <div style={{ position: "relative" }}>
                 <div style={{ position: "absolute", left: "19px", top: "46px", bottom: "0", width: "2px", background: "#121210" }} />
-                <div style={{ position: "absolute", left: "51px", top: "46px", bottom: "0", width: "2px", background: "#FF4F12" }} />
-                <div style={{ position: "absolute", left: "12px", top: "38px", width: "16px", height: "16px", borderRadius: "50%", background: "#FF4F12", border: "2px solid #121210" }} />
+                <div style={{ position: "absolute", left: "51px", top: "46px", bottom: "0", width: "2px", background: "#B8693A" }} />
+                <div style={{ position: "absolute", left: "12px", top: "38px", width: "16px", height: "16px", borderRadius: "50%", background: "#B8693A", border: "2px solid #121210" }} />
               </div>
-              <div style={{ display: "flex", flexWrap: "wrap", gap: "20px 48px", padding: "32px 0", borderTop: "1px solid #CFC9BC" }}>
-                <div style={{ flex: "1 1 380px", display: "flex", flexDirection: "column", gap: "10px" }}>
+              <div className="tl-row" style={{ minWidth: "0", display: "flex", flexWrap: "wrap", gap: "20px 48px", padding: "32px 0", borderTop: "1px solid #CFC9BC" }}>
+                <div className="tl-copy" style={{ flex: "1 1 380px", minWidth: "0", display: "flex", flexDirection: "column", gap: "10px" }}>
                   <div style={{ display: "flex", gap: "10px", flexWrap: "wrap", fontFamily: "'Space Mono',monospace", fontSize: "12px", alignItems: "center" }}>
-                    <span style={{ color: "#C2410C" }}>
+                    <span style={{ color: "#9A5426" }}>
                       e7c41a0
                     </span>
                     <span style={{ background: "#121210", color: "#ECE8DF", padding: "2px 8px", borderRadius: "5px" }}>
@@ -586,7 +588,7 @@ export default class Home extends React.Component {
                     Architecting resilient CRM, voice, agentic, migration, and delivery systems for service businesses and internal teams.
                   </p>
                 </div>
-                <div data-keep="" style={{ flex: "0 1 280px", aspectRatio: "4/3", borderRadius: "12px", overflow: "hidden", position: "relative", border: "1px solid #CFC9BC" }}>
+                <div className="tl-art" data-keep="">
                   {v.nowViz}
                 </div>
               </div>
@@ -594,13 +596,13 @@ export default class Home extends React.Component {
             <div data-reveal="" style={{ display: "grid", gridTemplateColumns: "72px minmax(0,1fr)", gap: "0 16px" }}>
               <div style={{ position: "relative" }}>
                 <div style={{ position: "absolute", left: "19px", top: "0", bottom: "0", width: "2px", background: "#121210" }} />
-                <div style={{ position: "absolute", left: "51px", top: "0", bottom: "0", width: "2px", background: "#FF4F12" }} />
+                <div style={{ position: "absolute", left: "51px", top: "0", bottom: "0", width: "2px", background: "#B8693A" }} />
                 <div style={{ position: "absolute", left: "12px", top: "38px", width: "16px", height: "16px", borderRadius: "50%", background: "#ECE8DF", border: "2px solid #121210" }} />
               </div>
-              <div style={{ display: "flex", flexWrap: "wrap", gap: "20px 48px", padding: "32px 0", borderTop: "1px solid #CFC9BC" }}>
-                <div style={{ flex: "1 1 380px", display: "flex", flexDirection: "column", gap: "10px" }}>
+              <div className="tl-row" style={{ minWidth: "0", display: "flex", flexWrap: "wrap", gap: "20px 48px", padding: "32px 0", borderTop: "1px solid #CFC9BC" }}>
+                <div className="tl-copy" style={{ flex: "1 1 380px", minWidth: "0", display: "flex", flexDirection: "column", gap: "10px" }}>
                   <div style={{ display: "flex", gap: "10px", flexWrap: "wrap", fontFamily: "'Space Mono',monospace", fontSize: "12px", alignItems: "center" }}>
-                    <span style={{ color: "#C2410C" }}>
+                    <span style={{ color: "#9A5426" }}>
                       9b2d5f3
                     </span>
                     <span style={{ color: "#5E5B54" }}>
@@ -622,7 +624,7 @@ export default class Home extends React.Component {
                     </span>
                   </div>
                 </div>
-                <div data-keep="" style={{ flex: "0 1 280px", aspectRatio: "4/3", borderRadius: "12px", overflow: "hidden", position: "relative", border: "1px solid #CFC9BC" }}>
+                <div className="tl-art" data-keep="">
                   {v.salesViz}
                 </div>
               </div>
@@ -630,21 +632,21 @@ export default class Home extends React.Component {
             <div data-reveal="" style={{ display: "grid", gridTemplateColumns: "72px minmax(0,1fr)", gap: "0 16px" }}>
               <div style={{ position: "relative" }}>
                 <div style={{ position: "absolute", left: "19px", top: "0", bottom: "0", width: "2px", background: "#121210" }} />
-                <div style={{ position: "absolute", left: "51px", top: "0", height: "46px", width: "2px", background: "#FF4F12" }} />
+                <div style={{ position: "absolute", left: "51px", top: "0", height: "46px", width: "2px", background: "#B8693A" }} />
                 {" "}
                 <svg width="34" height="60" viewBox="0 0 34 60" style={{ position: "absolute", left: "19px", top: "46px", overflow: "visible" }}>
-                  <path d="M1 60 C1 28 33 34 33 0" fill="none" stroke="#FF4F12" strokeWidth="2" />
+                  <path d="M1 60 C1 28 33 34 33 0" fill="none" stroke="#B8693A" strokeWidth="2" />
                 </svg>
                 {" "}
-                <div style={{ position: "absolute", left: "44px", top: "38px", width: "16px", height: "16px", borderRadius: "50%", background: "#FF4F12", border: "2px solid #121210" }} />
+                <div style={{ position: "absolute", left: "44px", top: "38px", width: "16px", height: "16px", borderRadius: "50%", background: "#B8693A", border: "2px solid #121210" }} />
               </div>
-              <div style={{ display: "flex", flexWrap: "wrap", gap: "20px 48px", padding: "32px 0", borderTop: "1px solid #CFC9BC" }}>
-                <div style={{ flex: "1 1 380px", display: "flex", flexDirection: "column", gap: "10px" }}>
+              <div className="tl-row" style={{ minWidth: "0", display: "flex", flexWrap: "wrap", gap: "20px 48px", padding: "32px 0", borderTop: "1px solid #CFC9BC" }}>
+                <div className="tl-copy" style={{ flex: "1 1 380px", minWidth: "0", display: "flex", flexDirection: "column", gap: "10px" }}>
                   <div style={{ display: "flex", gap: "10px", flexWrap: "wrap", fontFamily: "'Space Mono',monospace", fontSize: "12px", alignItems: "center" }}>
-                    <span style={{ color: "#C2410C" }}>
+                    <span style={{ color: "#9A5426" }}>
                       4f8a91c
                     </span>
-                    <span style={{ background: "#FF4F12", color: "#121210", padding: "2px 8px", borderRadius: "5px" }}>
+                    <span style={{ background: "#B8693A", color: "#121210", padding: "2px 8px", borderRadius: "5px" }}>
                       branch: yardim
                     </span>
                     <span style={{ color: "#5E5B54" }}>
@@ -666,7 +668,7 @@ export default class Home extends React.Component {
                     </span>
                   </div>
                 </div>
-                <div data-keep="" style={{ flex: "0 1 280px", aspectRatio: "4/3", borderRadius: "12px", overflow: "hidden", position: "relative", border: "1px solid #CFC9BC" }}>
+                <div className="tl-art" data-keep="">
                   {v.yardimViz}
                 </div>
               </div>
@@ -676,10 +678,10 @@ export default class Home extends React.Component {
                 <div style={{ position: "absolute", left: "19px", top: "0", height: "46px", width: "2px", background: "#121210" }} />
                 <div style={{ position: "absolute", left: "12px", top: "38px", width: "16px", height: "16px", borderRadius: "3px", background: "#121210" }} />
               </div>
-              <div style={{ display: "flex", flexWrap: "wrap", gap: "20px 48px", padding: "32px 0", borderTop: "1px solid #CFC9BC", borderBottom: "1px solid #CFC9BC" }}>
-                <div style={{ flex: "1 1 380px", display: "flex", flexDirection: "column", gap: "10px" }}>
+              <div className="tl-row" style={{ minWidth: "0", display: "flex", flexWrap: "wrap", gap: "20px 48px", padding: "32px 0", borderTop: "1px solid #CFC9BC", borderBottom: "1px solid #CFC9BC" }}>
+                <div className="tl-copy" style={{ flex: "1 1 380px", minWidth: "0", display: "flex", flexDirection: "column", gap: "10px" }}>
                   <div style={{ display: "flex", gap: "10px", flexWrap: "wrap", fontFamily: "'Space Mono',monospace", fontSize: "12px", alignItems: "center" }}>
-                    <span style={{ color: "#C2410C" }}>
+                    <span style={{ color: "#9A5426" }}>
                       1a0c3e2
                     </span>
                     <span style={{ border: "1px solid #121210", padding: "1px 8px", borderRadius: "5px" }}>
@@ -695,8 +697,9 @@ export default class Home extends React.Component {
                   <p style={{ margin: "0", fontSize: "17px", lineHeight: "1.55", color: "#3A3833", maxWidth: "620px" }}>
                     Translated complex property decisions into clear client choices across residential and commercial transactions.
                   </p>
+                  <p className="tl-note">Illustrative scenario from an earlier diagram, not actual returns: Residential 5.1% yield · hold; Commercial 7.4% yield · act.</p>
                 </div>
-                <div data-keep="" style={{ flex: "0 1 280px", aspectRatio: "4/3", borderRadius: "12px", overflow: "hidden", position: "relative", border: "1px solid #CFC9BC" }}>
+                <div className="tl-art" data-keep="">
                   {v.advisoryViz}
                 </div>
               </div>

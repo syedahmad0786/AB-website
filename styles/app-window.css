@@ -1,0 +1,50 @@
+/* V10 app window: one fixed stage, live product frames (contract sections 6-7). */
+.aw-wrap{--af-chrome:#F5F1E8;--af-line:#CFC9BC;--af-dot:#CFC9BC;--af-r:14px;--af-shadow:0 1px 0 rgb(18 18 16/.06),0 28px 56px -28px rgb(18 18 16/.30);--aw-ease:cubic-bezier(.22,.61,.36,1);width:100%;max-width:1280px;margin:0 auto;min-width:0}
+.aw{container-type:inline-size;position:relative;overflow:hidden;border:1px solid var(--af-line);border-radius:var(--af-r);background:var(--af-chrome);box-shadow:var(--af-shadow);color:#121210}
+.aw-chrome{display:flex;align-items:center;gap:12px;height:44px;padding:0 0 0 14px;background:var(--af-chrome);border-bottom:1px solid var(--af-line)}
+.aw-dots{display:inline-flex;gap:6px;flex:none}
+.aw-dots i{display:block;width:10px;height:10px;border-radius:50%;background:var(--af-dot)}
+.aw-tab{display:inline-flex;align-items:center;gap:8px;min-width:0;height:32px;margin-top:12px;padding:0 14px;border:1px solid var(--af-line);border-bottom:0;border-radius:9px 9px 0 0;background:#FFFDF8;font:600 13px/1 'Schibsted Grotesk',system-ui,sans-serif;white-space:nowrap}
+.aw-tab span{overflow:hidden;text-overflow:ellipsis}
+.aw-mark{display:block;width:16px;height:16px;object-fit:contain;flex:none}
+.aw-mono{position:relative;display:inline-grid;place-items:center;width:24px;height:20px;border-radius:5px;background:#121210;color:#ECE8DF;font:700 12px/1 'Space Mono',ui-monospace,monospace;letter-spacing:-.04em;flex:none}
+.aw-spark{position:absolute;top:-2px;right:-2px;width:6px;height:6px;border-radius:50%;background:#D62E1F;box-shadow:0 0 0 1.5px var(--af-chrome)}
+.aw-controls{display:inline-flex;margin-left:auto;flex:none}
+.aw-btn{display:inline-grid;place-items:center;width:44px;height:44px;padding:0;border:0;background:none;color:inherit;cursor:pointer;border-radius:8px}
+.aw-btn svg{fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.aw-btn svg path[d^="M8 5.5"],.aw-btn svg path[d^="M7 5h"]{fill:currentColor;stroke:none}
+.aw-btn:hover{background:rgb(18 18 16/.06)}
+.aw-btn:focus-visible{outline:2px solid #121210;outline-offset:-4px}
+/* Slack desktop title bar for OpenXCEL */
+.aw--slack{border-color:#350D36}
+.aw--slack .aw-chrome{background:#350D36;border-bottom-color:#350D36;color:#fff}
+.aw--slack .aw-dots i{background:rgb(255 255 255/.28)}
+.aw-sk-nav{display:inline-flex;gap:6px;opacity:.75;flex:none}
+.aw-sk-nav svg,.aw-sk-search svg{fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.aw-sk-search{display:inline-flex;align-items:center;justify-content:center;gap:6px;flex:1;max-width:560px;min-width:0;height:26px;margin:0 auto;padding:0 10px;border-radius:6px;background:rgb(255 255 255/.16);color:rgb(255 255 255/.82);font:400 13px/1 Lato,'Segoe UI',system-ui,sans-serif;white-space:nowrap;overflow:hidden}
+.aw-slack{display:block;width:18px;height:18px;flex:none;padding:3px;box-sizing:content-box;border-radius:5px;background:#fff}
+.aw--slack .aw-btn:hover{background:rgb(255 255 255/.12)}
+.aw--slack .aw-btn:focus-visible{outline-color:#fff}
+.aw--slack .aw-controls{margin-left:0}
+/* stage */
+.aw-body{position:relative;aspect-ratio:1280/760;overflow:hidden;background:var(--af-chrome)}
+@container (max-width:1023px){.aw-body{aspect-ratio:auto;height:600px}}
+@container (max-width:767px){.aw-body{height:560px}.aw-sk-search{display:none}.aw-sk-nav{display:none}.aw--slack .aw-controls{margin-left:auto}}
+.aw-skeleton{position:absolute;inset:0;background:linear-gradient(90deg,var(--af-chrome) 0 22%,#EFEADF 22% 22.2%,#FBF8F2 22.2%)}
+.aw-frame{position:absolute;inset:0;opacity:0;visibility:hidden;transition:opacity 240ms var(--aw-ease),visibility 0s linear 240ms}
+.aw-frame.is-active{opacity:1;visibility:visible;transition:opacity 240ms var(--aw-ease)}
+.aw-frame iframe{display:block;width:100%;height:100%;border:0;background:#fff}
+.aw-body--scaled .aw-frame iframe{transform-origin:0 0}
+.aw-noscript{position:absolute;inset:auto 16px 16px;font:600 14px/1.4 'Schibsted Grotesk',system-ui,sans-serif}
+@media (prefers-reduced-motion:reduce){.aw-frame,.aw-frame.is-active{transition:none}}
+/* homepage layout: product leads, copy beneath */
+.ps-stage{margin:0 auto 36px;max-width:1280px;min-width:0}
+.ps-copy-stack{max-width:1280px;margin:0 auto;min-width:0}
+.project-selector .ps-panel{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr)!important;gap:48px;align-items:start}
+.project-selector .ps-panel[hidden]{display:none}
+.project-selector .ps-panel .project-selector-copy{max-width:100%}
+.project-selector .ps-panel ul{display:block!important;grid-template-columns:none!important;margin:12px 0 24px}
+.project-selector .ps-panel li+li{margin-top:8px!important}
+.project-selector .ps-copy-a h3{margin-top:12px}
+.project-selector .ps-copy-b h4{margin-top:6px}
+@media (max-width:899px){.project-selector .ps-panel{grid-template-columns:1fr!important;gap:8px}.ps-stage{margin-bottom:28px}}

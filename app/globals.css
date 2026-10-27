@@ -113,3 +113,48 @@ html[data-theme="dark"] [data-keep] img,html[data-theme="dark"] [data-keep] vide
 .ssr-sitenav ul{list-style:none;padding:0;margin:0;display:grid;gap:6px;font-size:14px}
 .ssr-sitenav .ssr-eyebrow{color:#A39E92;margin-bottom:8px}
 @media (max-width:640px){.ssr-head{flex-wrap:wrap}.ssr-nav{order:3;flex-basis:100%}}
+
+/* V7 project selector: independent of workflow scenario state. */
+.project-selector{margin-top:32px;background:#ECE8DF;color:#121210;border-block:1px solid rgba(18,18,16,.14)}
+.project-selector-inner{max-width:1440px;margin:auto;padding:64px 40px}
+.project-selector-heading{display:flex;justify-content:space-between;align-items:end;gap:24px;margin-bottom:32px}
+.project-selector h2{font-size:clamp(32px,3.4vw,52px);line-height:1.02;letter-spacing:-.02em;margin:8px 0 0}
+.project-selector-label,.project-selector h4{font:12px/1.5 'Space Mono',monospace;text-transform:uppercase;letter-spacing:.08em;margin:0}
+.project-selector-tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.project-selector-tabs button,.project-selector-tabs a,.project-selector-actions a,.project-selector-heading>a{min-height:44px;display:inline-flex;align-items:center;justify-content:center;padding:10px 14px;border:1px solid #121210;background:transparent;color:#121210;font:12px/1.5 'Space Mono',monospace;text-decoration:none;cursor:pointer;transition:background 140ms,color 140ms}
+.project-selector-tabs [aria-selected=true],.project-selector-actions .project-selector-primary{background:#D62E1F;color:#fff;border-color:#D62E1F}
+.project-selector :focus-visible{outline:2px solid #D62E1F;outline-offset:3px}
+.project-selector-panel{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:24px;align-items:start}
+.project-selector-panel[hidden]{display:none}
+.project-selector figure{margin:0;min-width:0}
+.project-selector-evidence{background:#fff;isolation:isolate}
+.project-selector-evidence img{display:block;width:100%;height:auto;max-height:640px;object-fit:contain}
+/* html itself is inverted: data-keep compensates once; nested media must not compensate twice. */
+html[data-theme=dark] .project-selector-evidence[data-keep]{filter:invert(1) hue-rotate(180deg)}
+html[data-theme=dark] .project-selector-evidence[data-keep] img{filter:none}
+.project-selector figcaption{font:12px/1.6 'Space Mono',monospace;color:#5E5B54;margin-top:12px}
+.project-selector h3{font-size:28px;line-height:1.1;letter-spacing:-.02em;margin:12px 0 20px}
+.project-selector h3 span{font-weight:500}
+.project-selector-copy>p:not(.project-selector-label),.project-selector li{font-size:17px;line-height:1.55;max-width:60ch}
+.project-selector ul{padding-left:20px;margin:12px 0 24px}.project-selector li+li{margin-top:8px}
+.project-selector-actions{display:flex;flex-wrap:wrap;gap:8px}
+@media(min-width:1200px){#project-panel-openxcel-ai,#project-panel-automation-monitoring{grid-template-columns:1fr}#project-panel-openxcel-ai .project-selector-copy,#project-panel-automation-monitoring .project-selector-copy{max-width:100%}#project-panel-openxcel-ai ul,#project-panel-automation-monitoring ul{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:32px}#project-panel-openxcel-ai li,#project-panel-automation-monitoring li{margin-top:0}}
+@media(max-width:1199px){.project-selector-inner{padding:64px 32px}.project-selector-panel{grid-template-columns:1fr;gap:20px}}
+@media(max-width:767px){.project-selector-inner{padding:48px 20px}.project-selector-heading{align-items:start;flex-direction:column}.project-selector-tabs{flex-wrap:nowrap;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x proximity;padding:4px 4px 12px}.project-selector-tabs>*{flex:none;scroll-snap-align:start}.project-selector-panel>*{min-width:0}.project-selector{overflow-x:clip}}
+@media(prefers-reduced-motion:reduce){.project-selector *{transition:none!important;animation:none!important;transform:none!important}}
+
+.project-selector-context>summary{min-height:44px;display:flex;align-items:center;gap:8px;cursor:pointer;font:12px 'Space Mono',monospace}.project-selector-context>summary::before{content:'+';font-size:18px}.project-selector-context[open]>summary::before{content:'−'}.project-selector-context>p{font-size:14px;line-height:1.5;margin:8px 0}.project-selector-context>summary:focus-visible{outline:2px solid #D62E1F;outline-offset:3px}
+
+/* V8 career illustration family */
+.tl-art{flex:0 0 280px;width:280px;height:auto;aspect-ratio:4/3;align-self:flex-start;min-width:0;
+  position:relative;overflow:hidden;border-radius:12px;border:1px solid #CFC9BC;background:#F1ECE3;
+  box-shadow:0 1px 0 rgba(18,18,16,.04),0 12px 28px -18px rgba(18,18,16,.28);contain:layout paint}
+.tl-art>svg{position:absolute;inset:0;width:100%;height:100%;display:block}
+.tl-row,.tl-copy{min-width:0}
+@media (max-width:720px){.tl-art{flex:1 1 100%;width:100%;max-width:440px}.tl-copy{max-width:100%}}
+.tl-note{margin:2px 0 0;font:400 12px/1.5 'Space Mono',monospace;color:#5E5B54;max-width:520px}
+
+/* V8 QA: keep vector labels legible inside the narrow timeline column. */
+.tl-art{container-type:inline-size}
+@container (max-width:270px){.tl-art>svg text[font-size="18"],.tl-art>svg text[font-size="22"]{font-size:22px}}
+@container (max-width:220px){.tl-art>svg text[font-size="18"],.tl-art>svg text[font-size="22"]{font-size:28px}}

@@ -6,7 +6,7 @@ var wins=[];
 function send(w,type){if(w.iframe&&w.iframe.contentWindow)w.iframe.contentWindow.postMessage({ns:NS,v:V,type:type},'*')}
 function sync(w){if(w.iframe)send(w,w.inView&&!document.hidden?'visible':'hidden')}
 function fit(w){
-  if(!w.iframe)return;var bw=w.body.clientWidth,s=bw>=1024?Math.min(1,bw/W):0;
+  if(!w.iframe)return;var bw=w.body.clientWidth,s=bw>=1024&&bw<W?bw/W:0;
   w.body.classList.toggle('aw-body--scaled',!!s);
   if(s){w.iframe.style.width=W+'px';w.iframe.style.height=H+'px';w.iframe.style.transform='scale('+s+')'}
   else{w.iframe.style.width='100%';w.iframe.style.height='100%';w.iframe.style.transform='none'}

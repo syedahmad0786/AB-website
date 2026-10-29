@@ -44,3 +44,18 @@ figure.aw-wrap{margin:24px auto 32px}
 .aw-wrap img.aw-mark{width:16px!important;height:16px!important;max-width:none!important}
 .aw-wrap svg{width:16px;height:16px;max-width:none}
 .aw-wrap .aw-frame iframe{max-width:none}
+
+/* Index cards with a live product window: window spans the full card, copy sits beneath it. */
+.v7-project.v7-live{row-gap:28px}
+.v7-project.v7-live>.aw-wrap{grid-column:1/-1;grid-row:1;max-width:none;margin:0}
+.v7-project.v7-live>.v7-project-heading{grid-column:1/-1;grid-row:2;align-self:start}
+.v7-project.v7-live>.v7-project-copy{grid-column:1/-1;grid-row:3;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr) minmax(0,.9fr);gap:0 40px;align-items:start}
+.v7-project.v7-live>.v7-project-copy>p{grid-column:1;grid-row:1;margin-top:0}
+.v7-project.v7-live>.v7-project-copy>h3{grid-column:2;grid-row:1;margin-top:0;align-self:start}
+.v7-project.v7-live>.v7-project-copy>ul{grid-column:2;grid-row:1;margin-top:0;padding-top:34px}
+.v7-project.v7-live .v7-live-side{grid-column:3;grid-row:1;display:flex;flex-direction:column;gap:18px}
+.v7-project.v7-live .v7-live-side>*{margin:0}
+@media (max-width:1100px){
+ .v7-project.v7-live>.v7-project-copy{display:block}
+ .v7-project.v7-live .v7-live-side{margin-top:24px}
+}

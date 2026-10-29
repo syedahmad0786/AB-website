@@ -77,6 +77,9 @@ for (const file of await files(src)) {
       .replaceAll('Ahmad Bukhari · Private preview', 'Ahmad Bukhari')
       .replaceAll('BUILD NOTE · PRIVATE DRAFT', 'BUILD NOTE');
     if (indexable(rel)) {
+      // Single shared consent asset; embeds/walkthroughs remain untracked.
+      html = html.replace(/<script\b[^>]*src=["']\/analytics\.js[^"']*["'][^>]*>\s*<\/script>/gi, "");
+      html = html.replace("</body>", '<script defer src="/analytics.js?v=20261029-consent-1"></script></body>');
       const route = routeOf(rel);
       html = html.replace('<meta name="robots" content="noindex,nofollow">', `<link rel="canonical" href="${SITE}${route}">`);
       sitemapRoutes.push(route);
@@ -94,10 +97,10 @@ for (const file of await files(src)) {
 const sitemapPath = resolve(out, 'sitemap.xml');
 try {
   let xml = await readFile(sitemapPath, 'utf8');
-  const today = new Date().toISOString().slice(0, 10);
+  // Original release history unavailable: omit lastmod rather than invent a build date.
   const add = sitemapRoutes
     .filter((r) => !xml.includes(`<loc>${SITE}${r}</loc>`))
-    .map((r) => `  <url><loc>${SITE}${r}</loc><lastmod>${today}</lastmod></url>`)
+    .map((r) => `  <url><loc>${SITE}${r}</loc></url>`)
     .join('\n');
   if (add) xml = xml.replace('</urlset>', add + '\n</urlset>');
   await writeFile(sitemapPath, xml);

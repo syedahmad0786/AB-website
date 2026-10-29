@@ -227,9 +227,19 @@ const services = {
     answer: "A strong AI automation engagement starts with the operational failure, maps the state and owners, and automates only the actions that can be controlled and measured.",
     outcomes: ["Workflow and failure-point audit", "Automation opportunity ranking", "Prototype and integration plan", "Controls for retries and escalation", "Operator documentation"],
   },
+  "n8n-automation-developer": {
+    title: "n8n Expert and Automation Developer",
+    seoTitle: "n8n Expert & Automation Developer",
+    lastModified: "2026-10-29",
+    description: "n8n automation built for failures, handover, and scale: workflow design, Make and Zapier migrations, error monitoring, and recovery paths from a verified n8n creator.",
+    answer: "Reliable n8n automation is designed around what happens when a step fails. Each workflow gets a clear trigger and state model, idempotent writes where the connected platform allows them, bounded retries, error classification, and a human owner for exceptions.",
+    outcomes: ["n8n workflow architecture and build", "Make or Zapier to n8n migration plan with parity checks", "Error handling, retries, and quarantine paths", "Failure monitoring and alerting", "Handover documentation for the team that runs it"],
+  },
   "agentic-ai-autonomous-workflows": {
-    title: "Agentic AI and Autonomous Workflow Design",
-    description: "Controlled agentic AI workflows that can plan and act within explicit tools, permissions, evidence requirements, and human approval boundaries.",
+    title: "AI Agent Development for Business Workflows",
+    seoTitle: "AI Agent Developer for Business Workflows",
+    lastModified: "2026-10-29",
+    description: "AI agent development for business workflows: controlled agentic AI that can plan and act within explicit tools, permissions, evidence requirements, and human approval boundaries.",
     answer: "Agentic AI is useful when a task requires reasoning across several steps. It still needs bounded tools, auditable state, evaluation, and a safe handoff when confidence is low.",
     outcomes: ["Agent and tool boundaries", "Memory and retrieval design", "Evaluation scenarios", "Approval gates", "Failure containment"],
   },
@@ -262,6 +272,7 @@ const services = {
 };
 
 const serviceGuides = {
+  "n8n-automation-developer": `<section><h2>What the n8n work is based on</h2><p>Ahmad is a <a href="https://n8n.io/creators/ahmadbukhari/">verified n8n creator</a>. The public record of the approach is in the <a href="/work/migration-factory">Make to n8n migration factory</a> case study, the <a href="/work/errorlens">workflow error classification and recovery</a> case study, the interactive <a href="/automation-lab">automation reliability lab</a>, and the open-source <a href="https://github.com/syedahmad0786/flowsentry">FlowSentry</a> repository, which detects n8n failures deterministically and uses a local LLM for root-cause notes and Slack-ready digests.</p><p>The migration case describes 108 documented migration candidates grouped into reusable families. That figure is migration scope, not a claim that every workflow has already been converted and deployed.</p></section><section><h2>When n8n is the right tool, and when it is not</h2>${comparisonTable("Choosing the automation layer", ["Situation", "Recommendation", "Why"], [["Many repeatable integrations with clear triggers", "n8n workflows with shared sub-workflows", "Visible logic, self-hosting option, and reusable patterns"], ["Estate already running on Make or Zapier", "Inventory and classify before migrating", "Copying nodes without the hidden behavior contract breaks parity"], ["Multi-step reasoning across tools", "An AI agent with bounded tools, called from n8n", "Keeps the agent's permissions and approvals explicit"], ["Low-volume task that rarely changes", "Possibly no automation", "Maintenance can cost more than the manual step"]])}<p>Every build ends with failure tests: duplicate events, unavailable services, expired credentials, and partial completion, so the team knows what the workflow does when something goes wrong.</p></section>`,
   "ai-systems-architecture": `<section><h2>Automation governance framework for inspectable AI decisions</h2><p>A governed AI decision engine separates model judgment from permission to act. It records the input and source freshness, policy version, model or rule output, confidence and uncertainty, allowed tools, approval state, side effect, verification result, and final owner. The system should make a refusal or human escalation as observable as a successful automated action.</p>${comparisonTable("Inspectable decision controls", ["Control", "Question answered", "Minimum evidence", "Owner"], [["Input provenance", "What information drove the decision?", "Source, version, freshness, retrieval reference", "Data owner"], ["Policy boundary", "Was this action allowed?", "Policy version, role, permission, risk class", "Business owner"], ["Evaluation", "Was the output good enough?", "Scenario, expected result, actual result, score", "System owner"], ["Human approval", "Who accepted the risky action?", "Preview, approver, time, decision", "Named approver"], ["Execution receipt", "What changed outside the model?", "Tool, request ID, before/after state, verification", "Integration owner"], ["Recovery", "How is a bad outcome contained?", "Checkpoint, retry class, rollback or escalation", "Incident owner"]])}<p>NIST’s voluntary AI Risk Management Framework groups risk activity into govern, map, measure, and manage. Those functions are useful scaffolding; production architecture still requires specific state, permission, evaluation, approval, receipt, and recovery controls for each automated action.</p><p class="source-note"><strong>Primary reference:</strong> <a href="https://www.nist.gov/itl/ai-risk-management-framework">NIST AI Risk Management Framework</a></p></section>`,
   "gohighlevel-crm-automation": `<section><h2>CRM operations architecture that survives peak demand</h2><p>A CRM integration usually fails under peak load because identity, ordering, rate limits, retries, and ownership were treated as connector settings instead of operating requirements. Define the canonical contact and opportunity state, normalize inbound events, use idempotency keys where possible, queue work that can wait, bound retries, preserve request and record identifiers, and route conflicting state to an owner.</p>${comparisonTable("CRM operating controls", ["Risk", "Control", "Evidence", "Recovery"], [["Duplicate contact or event", "Identity resolution and idempotency", "Source ID, canonical contact, prior action", "Merge, ignore, or review"], ["Out-of-order updates", "Version or state-transition check", "Previous and requested state", "Reject stale event"], ["Rate limit or timeout", "Queue and bounded backoff", "Attempt, response code, request ID", "Retry only safe actions"], ["Partial cross-platform write", "Checkpoint and reconciliation", "Completed side effects and last good state", "Continue or compensate"], ["Credential or permission failure", "Integration identity monitoring", "Connection, scope, affected action", "Stop and re-authorize"], ["Unknown conflict", "Human exception queue", "Record context, trace, recommended next step", "Named owner decides"]])}<p>Peak-hour verification should include bursts, duplicate webhooks, reordered events, expired credentials, slow dependencies, and partial completion. Success is not only throughput: the same business event must produce one intended state change, remain traceable, and reach a recoverable exception path when it cannot complete.</p></section>`,
 };
@@ -932,6 +943,7 @@ for (const [slug, service] of Object.entries(services)) {
     title: `${service.seoTitle || service.title} | Ahmad Bukhari`,
     description: service.description,
     main: servicePage(service, faqs, slug),
+    ...(service.lastModified ? { lastModified: service.lastModified } : {}),
     service: { name: service.title, serviceType: service.title },
     faqs,
   });
@@ -1003,6 +1015,8 @@ for (const item of PORTFOLIO_ITEMS) {
   });
 }
 
+addPage('/privacy', { title: 'Privacy | Ahmad Bukhari', description: 'How optional analytics and privacy choices work on this personal website.', lastModified: '2026-10-29', main: "<main id=\"main\" class=\"route-page\"><article class=\"content-shell\"><h1>Privacy and optional analytics</h1><p>Updated 29 October 2026.</p><p>Google Analytics (GA4, property G-W66WJJKGWQ) is optional on this personal website. It loads only after you choose Accept, and only on ahmadbukhari.com or www.ahmadbukhari.com. Preview and localhost copies show the controls but do not load Google Analytics.</p><p>When allowed, this site sends a page view with the page title and page URL and referring URL without query strings or fragments. Google also receives network and device information when your browser contacts its service. Advertising consent stays denied; Google signals and advertising personalization are disabled. This implementation does not send custom form, search, booking, email-click or other click events. Google Analytics property settings are separate from this code.</p><p>Your versioned choice is stored in this browser’s localStorage. A missing, invalid or inaccessible choice leaves analytics off. Change it using Privacy settings in the footer. Rejecting after acceptance disables collection, deletes accessible _ga-prefixed cookies at the root path for this host and the personal root domain, and reloads the page. This cannot erase data already processed by Google. Other browsers or devices have their own choices.</p><p>Read <a href=\"https://policies.google.com/privacy\">Google’s privacy policy</a>, <a href=\"https://policies.google.com/technologies/partner-sites\">how Google uses information from partner sites</a>, and <a href=\"https://support.google.com/analytics/answer/6004245\">Google Analytics data practices</a>. External booking and other linked services have their own privacy practices.</p><p>Questions: <a href=\"mailto:ahmadbukhari4245@gmail.com\">ahmadbukhari4245@gmail.com</a>. This is a technical description, not a claim of legal compliance or a promise about retention settings.</p></article></main>" });
+
 await rm(output, { recursive: true, force: true });
 await mkdir(output, { recursive: true });
 for (const asset of ["favicon.svg", "aixcel-signal-icon-512.svg", "site.webmanifest", "twin-avatar.svg", "twin-widget.js", "images/ahmad-bukhari.jpg", "images/ahmad-cafe.jpg", "images/og-default.webp"]) {
@@ -1046,6 +1060,9 @@ const llms = `# Ahmad Bukhari
 - [AI systems portfolio and evidence-led case studies](${siteUrl}/work)
 - [Ten verified agentic AI systems](${siteUrl}/agentic-systems)
 - [AI systems and automation consulting](${siteUrl}/services)
+- [n8n expert and automation developer](${siteUrl}/services/n8n-automation-developer)
+- [AI agent development for business workflows](${siteUrl}/services/agentic-ai-autonomous-workflows)
+- [AI automation consulting](${siteUrl}/services/ai-automation-consulting)
 - [Interactive automation reliability lab](${siteUrl}/automation-lab)
 - [Automation governance and inspectable AI decisions](${siteUrl}/services/ai-systems-architecture)
 - [Governed CRM operations architecture](${siteUrl}/services/gohighlevel-crm-automation)

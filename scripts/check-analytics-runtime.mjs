@@ -1,113 +1,54 @@
-import { readFile } from "node:fs/promises";
-import { resolve } from "node:path";
-import vm from "node:vm";
-
-const analyticsSource = await readFile(resolve("static", "analytics.js"), "utf8");
-const listeners = new Map();
-const appendedScripts = [];
-const appendScript = element => appendedScripts.push(element);
-
-const context = {
-  URL,
-  console,
-  location: { pathname: "/services/ai-automation-consulting", href: "https://ahmadbukhari.com/services/ai-automation-consulting" },
-  document: {
-    querySelector: selector => selector === "[data-cal-trigger][data-cal-link]" ? {} : null,
-    createElement: tagName => ({
-      tagName,
-      dataset: {},
-      listeners: {},
-      addEventListener(type, listener) {
-        this.listeners[type] = listener;
-      },
-    }),
-    head: { append: appendScript, appendChild: appendScript },
-    addEventListener: (type, listener) => listeners.set(type, listener),
-  },
-};
-context.window = context;
-vm.createContext(context);
-new vm.Script(analyticsSource, { filename: "static/analytics.js" }).runInContext(context);
-
-const failures = [];
-if (!appendedScripts.some(script => script.src === "https://www.googletagmanager.com/gtag/js?id=G-W66WJJKGWQ")) {
-  failures.push("GA4 loader was not initialized with the verified measurement ID");
+import {readFileSync} from 'node:fs';
+import vm from 'node:vm';
+import assert from 'node:assert/strict';
+import test from 'node:test';
+const source = readFileSync(new URL('../static/analytics.js', import.meta.url), 'utf8');
+function setup({saved=null, host='ahmadbukhari.com', port='', broken=false, frame='top'}={}) {
+ let value=saved,reloads=0,footerQueries=0; const scripts=[],cookies=[],events={},observers=[];
+ function connected(node,on){node.isConnected=on;for(const child of node.children)connected(child,on)}
+ function element(tag){return {tag,tagName:tag.toUpperCase(),nodeType:1,children:[],isConnected:true,parentNode:null,setAttribute(){},addEventListener(n,f){this[n]=f},appendChild(e){if(e.parentNode)e.parentNode.removeChild(e);this.children.push(e);e.parentNode=this;connected(e,this.isConnected);if(e.tag==='script')scripts.push(e)},removeChild(e){this.children=this.children.filter(child=>child!==e);e.parentNode=null;connected(e,false)},querySelectorAll(s){const found=[];for(const child of this.children){if(s==='footer'?child.tag==='footer':s.startsWith('.')?child.className===s.slice(1):false)found.push(child);found.push(...child.querySelectorAll(s))}return found},querySelector(s){if(s.startsWith('[data-ab-'))return this[s] ||= element('button');return this.querySelectorAll(s)[0]||null},focus(){this.focused=true}}}
+ const head=element('head'),body=element('body');let footer=element('footer');
+ const document={head,body,title:'Public title',referrer:'https://ref.example/path?private=yes#secret',readyState:'complete',createElement:element,querySelector(s){assert.equal(s,'footer');footerQueries++;return footer}};
+ class MutationObserver{constructor(callback){this.callback=callback;observers.push(this)}observe(target,options){this.target=target;this.options=options}}
+ Object.defineProperty(document,'cookie',{get:()=> '_ga=one; _ga_ABC=two; other=keep',set:v=>cookies.push(v)});
+ const location={hostname:host,port,protocol:'https:',href:'https://'+host+(port?':'+port:'')+'/work?private=yes#secret',reload(){reloads++}};
+ const window={addEventListener(n,f){events[n]=f}};
+ window.self=window;
+ if(frame==='throws')Object.defineProperty(window,'top',{get(){throw Error('frame access denied')}});else window.top=frame==='embedded'?{}:window;
+ const localStorage={getItem(){if(broken)throw Error();return value},setItem(k,v){if(broken)throw Error();value=v}};
+ const history={pushState(a,b,url){location.href=new URL(url,location.href).href},replaceState(a,b,url){location.href=new URL(url,location.href).href}};
+ const context=vm.createContext({window,document,location,history,localStorage,URL,Date,MutationObserver});vm.runInContext(source,context);
+ const panel=body.children.find(e=>e.tag==='section');
+ function mutate(records){for(const observer of observers)observer.callback(records)}
+ function replaceFooter(){const old=footer;connected(old,false);footer=element('footer');mutate([{target:body,addedNodes:[footer],removedNodes:[old]}]);return footer}
+ return {window,document,history,scripts,cookies,panel,events,element,observers,mutate,replaceFooter,footer:()=>footer,footerQueries:()=>footerQueries,stored:()=>value,again:()=>vm.runInContext(source,context),accept:()=>panel.querySelector('[data-ab-accept]').click(),reject:()=>panel.querySelector('[data-ab-reject]').click(),reloads:()=>reloads,commands:()=>window.dataLayer.map(a=>Array.from(a))};
 }
-const calLoader = appendedScripts.find(script => script.src === "https://app.cal.com/embed/embed.js" && script.async === true);
-if (!calLoader) {
-  failures.push("Cal.com embed loader was not initialized asynchronously");
-}
+const validUpdatedAt=new Date(Date.now()-60000).toISOString();
+const grant=JSON.stringify({version:1,analytics:'granted',updatedAt:validUpdatedAt});
+const views=h=>h.commands().filter(a=>a[0]==='event'&&a[1]==='page_view');
+test('default denied, no loader, no autofocus, reject stays off',()=>{const h=setup();assert.equal(h.scripts.length,0);assert.equal(h.panel.focused,undefined);assert.equal(h.commands()[0][1],'default');assert.equal(h.commands()[0][2].analytics_storage,'denied');h.reject();assert.equal(h.scripts.length,0)});
+test('accept once, sanitized URLs, auto pageview and advertising disabled',()=>{const h=setup();h.accept();assert.equal(h.scripts.length,1);assert.equal(views(h).length,1);assert.equal(views(h)[0][2].page_location,'https://ahmadbukhari.com/work');assert.equal(views(h)[0][2].page_referrer,'https://ref.example/path');const c=h.commands().find(a=>a[0]==='config')[2];assert.equal(c.send_page_view,false);assert.equal(c.allow_google_signals,false);assert.equal(c.allow_ad_personalization_signals,false);for(const c of h.commands().filter(a=>a[0]==='consent'))for(const k of ['ad_storage','ad_user_data','ad_personalization'])assert.equal(c[2][k],'denied')});
+test('stored grant and duplicate execution do not double insert',()=>{const h=setup({saved:grant});h.again();h.accept();assert.equal(h.scripts.length,1);assert.equal(views(h).length,1)});
+test('semantic navigation only, query/hash excluded, return counts',()=>{const h=setup({saved:grant});h.history.pushState(null,'','/work?x=y#x');assert.equal(views(h).length,1);h.history.pushState(null,'','/about?x=y');assert.equal(views(h).length,2);h.history.replaceState(null,'','/about#z');assert.equal(views(h).length,2);h.history.pushState(null,'','/work');assert.equal(views(h).length,3)});
+test('corrupt and version mismatch fail closed',()=>{for(const saved of ['{','null','true','{}','{"version":2,"analytics":"granted"}'])assert.equal(setup({saved}).scripts.length,0)});
+test('storage throws fail closed even on accept',()=>{const h=setup({broken:true});h.accept();assert.equal(h.scripts.length,0)});
+test('preview localhost and spoof host blocked, www allowed',()=>{for(const host of ['localhost','127.0.0.1','preview.vercel.app','ahmadbukhari.com.evil.test']){const h=setup({host,saved:grant});h.accept();assert.equal(h.scripts.length,0)}assert.equal(setup({host:'www.ahmadbukhari.com',saved:grant}).scripts.length,1)});
+test('withdraw clears ga cookies root domains, disables and reloads',()=>{const h=setup({saved:grant});h.reject();assert.equal(h.reloads(),1);assert.equal(h.window['ga-disable-G-W66WJJKGWQ'],true);assert.ok(h.cookies.some(c=>c.includes('domain=.ahmadbukhari.com')));assert.ok(h.cookies.every(c=>c.startsWith('_ga')))});
+test('quiet load failure has no retries',()=>{const h=setup();h.accept();h.scripts[0].onerror();h.history.pushState(null,'','/about');h.accept();assert.equal(h.scripts.length,1);assert.equal(views(h).length,1)});
+test('settings focuses panel, restores trigger and announces saved',()=>{const h=setup();const trigger={isConnected:true,focus(){this.focused=true}};h.window.ABPrivacy.open(trigger);assert.equal(h.panel.focused,true);h.reject();assert.equal(trigger.focused,true);assert.ok(h.document.body.children.some(e=>e.textContent==='Saved: analytics off.'))});
 
-const namespace = context.Cal?.ns?.["revenue-handoff-map"];
-const queue = namespace?.q || [];
-const bookingListener = queue
-  .map(args => Array.from(args))
-  .find(args => args[0] === "on" && args[1]?.action === "bookingSuccessfulV2")?.[1]?.callback;
-if (typeof bookingListener !== "function") failures.push("Cal.com bookingSuccessfulV2 listener was not registered");
+test('new decisions record ISO timestamps without changing version',()=>{for(const accepted of [false,true]){const h=setup();const before=Date.now();if(accepted)h.accept();else h.reject();const decision=JSON.parse(h.stored());assert.equal(decision.version,1);assert.equal(decision.analytics,accepted?'granted':'denied');assert.match(decision.updatedAt,/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/);assert.ok(Date.parse(decision.updatedAt)>=before);assert.ok(Date.parse(decision.updatedAt)<=Date.now())}});
+test('canonical past version-one decisions remain valid',()=>{const h=setup({saved:grant});assert.equal(h.panel.hidden,true);assert.equal(h.scripts.length,1);assert.equal(views(h).length,1);assert.equal(h.stored(),grant)});
+test('iframes never mount controls or load GA even with a saved grant',()=>{for(const saved of [null,grant]){const h=setup({saved,frame:'embedded'});assert.equal(h.panel,undefined);assert.equal(h.document.body.children.length,0);assert.equal(h.document.head.children.length,0);assert.equal(h.scripts.length,0);assert.equal(h.window.ABPrivacy,undefined);assert.equal(h.window.dataLayer,undefined);assert.equal(h.stored(),saved);h.again();assert.equal(h.scripts.length,0)}});
+test('throwing frame comparison fails closed before any UI or GA initialization',()=>{const h=setup({saved:grant,frame:'throws'});assert.equal(h.panel,undefined);assert.equal(h.document.body.children.length,0);assert.equal(h.document.head.children.length,0);assert.equal(h.scripts.length,0);assert.equal(h.window.ABPrivacy,undefined);assert.equal(h.window.dataLayer,undefined)});
 
-function analyticsEvents() {
-  return (context.dataLayer || [])
-    .map(args => Array.from(args))
-    .filter(args => args[0] === "event")
-    .map(([, name, parameters]) => ({ name, parameters }));
-}
+test('footer replacement retains one working privacy settings control and withdrawal',()=>{const h=setup({saved:grant});const previous=h.footer();const stable=previous.querySelector('.ab-privacy-settings');const replacement=h.replaceFooter();assert.equal(previous.querySelectorAll('.ab-privacy-settings').length,0);assert.equal(replacement.querySelectorAll('.ab-privacy-settings').length,1);assert.equal(replacement.querySelectorAll('.ab-privacy-links').length,1);assert.equal(replacement.querySelector('.ab-privacy-settings'),stable);stable.click();assert.equal(h.panel.hidden,false);assert.equal(h.panel.focused,true);h.reject();assert.equal(h.reloads(),1);assert.equal(stable.focused,true);assert.equal(h.window['ga-disable-G-W66WJJKGWQ'],true)});
+test('repeated footer replacement, script execution and ensure remain duplicate-free',()=>{const h=setup();for(let i=0;i<3;i++){const footer=h.replaceFooter();h.window.ABPrivacy.ensure();h.again();assert.equal(footer.querySelectorAll('.ab-privacy-settings').length,1);assert.equal(footer.querySelectorAll('.ab-privacy-links').length,1);assert.equal(h.observers.length,1)}assert.equal(h.scripts.length,0)});
+test('ordinary animation/text mutation batches do not rescan footer',()=>{const h=setup();const queries=h.footerQueries();const node=h.element('span');for(let i=0;i<20;i++)h.mutate([{target:node,addedNodes:[node],removedNodes:[]}]);assert.equal(h.footerQueries(),queries);assert.deepEqual({...h.observers[0].options},{childList:true,subtree:true})});
+test('same-footer child removal restores controls and detached panel recovers',()=>{const h=setup();const footer=h.footer();const links=footer.querySelector('.ab-privacy-links');footer.removeChild(links);h.mutate([{target:footer,addedNodes:[],removedNodes:[links]}]);assert.equal(footer.querySelectorAll('.ab-privacy-settings').length,1);h.document.body.removeChild(h.panel);h.window.ABPrivacy.open(footer.querySelector('.ab-privacy-settings'));assert.equal(h.panel.isConnected,true);assert.equal(h.panel.parentNode,h.document.body);assert.equal(h.panel.focused,true)});
 
-function emitBooking(data) {
-  bookingListener?.({ detail: { data } });
-}
+test('missing, invalid, noncanonical and future consent timestamps fail closed',()=>{const invalid=[undefined,null,123,true,'','not-a-date','2026-02-30T00:00:00.000Z','1970-01-01T00:00:00.000Z','1969-12-31T23:59:59.999Z',new Date(Date.now()+86400000).toISOString(),validUpdatedAt.replace(/\.\d{3}Z$/,'Z'),validUpdatedAt.replace('Z','+00:00'),validUpdatedAt.toLowerCase()];for(const updatedAt of invalid){for(const analytics of ['granted','denied']){const h=setup({saved:JSON.stringify({version:1,analytics,updatedAt})});assert.equal(h.scripts.length,0);assert.equal(h.panel.hidden,false);assert.equal(h.window['ga-disable-G-W66WJJKGWQ'],true);assert.equal(views(h).length,0)}}});
+test('legacy t-only decisions fail closed until a fresh explicit choice',()=>{const h=setup({saved:JSON.stringify({version:1,analytics:'granted',t:validUpdatedAt})});assert.equal(h.scripts.length,0);assert.equal(h.panel.hidden,false);h.accept();assert.equal(h.scripts.length,1);assert.equal(typeof JSON.parse(h.stored()).updatedAt,'string')});
+test('nondefault HTTPS ports on either production host never load analytics',()=>{for(const host of ['ahmadbukhari.com','www.ahmadbukhari.com'])for(const port of ['8443','444'])for(const saved of [null,grant]){const h=setup({host,port,saved});h.accept();assert.equal(h.scripts.length,0);assert.equal(views(h).length,0);assert.equal(h.window['ga-disable-G-W66WJJKGWQ'],true);assert.equal(h.footer().querySelectorAll('.ab-privacy-settings').length,1)}});
 
-emitBooking({ uid: "accepted-1", eventTypeId: 101, startTime: "2026-08-12T10:00:00.000Z", status: "ACCEPTED", email: "private@example.com", title: "Private title", videoCallUrl: "https://example.com/private" });
-emitBooking({ uid: "pending-1", eventTypeId: 101, startTime: "2026-08-13T10:00:00.000Z", status: "PENDING" });
-emitBooking({ uid: "unknown-1", eventTypeId: 101, startTime: "2026-08-14T10:00:00.000Z", status: "ACCEPTED<script>" });
-emitBooking({ uid: "accepted-1", eventTypeId: 101, startTime: "2026-08-12T10:00:00.000Z", status: "ACCEPTED" });
-
-const bookingEvents = analyticsEvents().filter(event => event.name.startsWith("booking_"));
-if (bookingEvents.filter(event => event.name === "booking_created").length !== 3) {
-  failures.push("Exactly one booking_created event per unique successful booking is required");
-}
-if (bookingEvents.filter(event => event.name === "booking_confirmed").length !== 1) {
-  failures.push("booking_confirmed must fire only for an accepted or confirmed booking status");
-}
-const pendingConfirmed = bookingEvents.some(event => event.name === "booking_confirmed" && event.parameters?.booking_status === "pending");
-if (pendingConfirmed) failures.push("Pending bookings must not be reported as confirmed");
-const unknownBooking = bookingEvents.find(event => event.name === "booking_created" && event.parameters?.booking_status === "unknown");
-if (!unknownBooking) failures.push("Undocumented Cal.com status values must be bounded to unknown");
-
-const forbiddenParameter = /uid|email|name|title|start|end|video|url/i;
-for (const event of bookingEvents) {
-  const forbiddenKeys = Object.keys(event.parameters || {}).filter(key => forbiddenParameter.test(key) && key !== "page_path");
-  if (forbiddenKeys.length) failures.push(`${event.name} exposes forbidden booking parameters: ${forbiddenKeys.join(", ")}`);
-  if (!event.parameters?.page_path || !event.parameters?.booking_status) failures.push(`${event.name} is missing its bounded context`);
-}
-
-const clickListener = listeners.get("click");
-function clickBookingLink() {
-  const event = {
-    prevented: false,
-    preventDefault() {
-      this.prevented = true;
-    },
-    target: {
-      closest: () => ({
-        href: "https://cal.com/ahmad-bukhari/revenue-handoff-map",
-        matches: selector => selector === "[data-cal-trigger][data-cal-link]",
-      }),
-    },
-  };
-  clickListener?.(event);
-  return event.prevented;
-}
-
-if (clickBookingLink()) failures.push("Booking link fallback must remain available before the Cal.com embed loads");
-calLoader?.listeners?.load?.();
-if (!clickBookingLink()) failures.push("Loaded Cal.com embeds must suppress native anchor navigation");
-if (!analyticsEvents().some(event => event.name === "discovery_call_click")) {
-  failures.push("Discovery-call intent event no longer fires for the verified Cal.com link");
-}
-
-if (failures.length) {
-  console.error(failures.join("\n"));
-  process.exit(1);
-}
-
-console.log("Analytics runtime validated: CTA intent, unique booking creation, accepted-only confirmation, and privacy boundary passed.");
+test('consent loaders use a fresh cache key in Next and both static markup paths',()=>{const expected='/analytics.js?v=20261029-consent-1';const layout=readFileSync(new URL('../../personal-home/app/layout.jsx',import.meta.url),'utf8');const template=readFileSync(new URL('../../personal-static/static/site-template.html',import.meta.url),'utf8');const apply=readFileSync(new URL('../../personal-static/scripts/apply-portfolio-release.mjs',import.meta.url),'utf8');for(const markup of [layout,template,apply]){assert.ok(markup.includes('src="'+expected+'"'));assert.ok(!markup.includes('src="/analytics.js"'))}assert.notEqual(new URL(expected,'https://ahmadbukhari.com').href,new URL('/analytics.js','https://ahmadbukhari.com').href);const line=apply.split('\n').find(line=>line.includes('html = html.replace(/<script'));const expression=line.match(/\.replace\((\/.+\/gi), ""\);$/)?.[1];assert.ok(expression);const removal=vm.runInNewContext(expression);for(const url of ['/analytics.js',expected,'/analytics.js?v=old'])assert.equal(('<script defer src="'+url+'"></script>').replace(removal,''),'')});

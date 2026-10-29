@@ -183,7 +183,7 @@ export default class Home extends React.Component {
               </h1>
             </>) : null}
             <p style={{ margin: "0", fontSize: "clamp(17px,1.35vw,20px)", lineHeight: "1.5", color: "#3A3833", maxWidth: "460px", textWrap: "pretty" }}>
-              Agentic AI, LLM systems and resilient automation, designed around how work actually breaks. This workflow is running now. Go ahead and break it.
+              AI automation and AI agent developer based in Islamabad, working globally. I build reliable n8n workflows, LLM systems, CRM automation and human-approved agents for agencies and service businesses. This workflow is running now. Go ahead and break it.
             </p>
             <div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
               <a href="https://cal.com/ahmad-bukhari/revenue-handoff-map" style={{ textDecoration: "none", background: "#121210", color: "#ECE8DF", padding: "15px 22px", borderRadius: "12px", fontWeight: "600", fontSize: "16px", boxShadow: "4px 4px 0 #FF4F12" }} className="ab-hover-2">

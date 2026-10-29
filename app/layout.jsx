@@ -1,10 +1,11 @@
+import Script from 'next/script';
 import './globals.css';
 import '../styles/live-workspace.css';
 import { PERSON, SITE_URL } from '../lib/site';
 
-const title = `${PERSON.name} | ${PERSON.jobTitle}`;
+const title = `${PERSON.name} | AI Automation & AI Agent Developer`;
 const description =
-  'Agentic AI, LLM systems and resilient automation, designed around how work actually breaks. Founder of AiXCEL Solutions.';
+  'AI automation and AI agent developer: reliable n8n workflows, LLM systems, CRM automation and human-approved agents for agencies and service businesses. Founder of AiXCEL Solutions.';
 const ogImage = { url: '/art/ahmadbukhari-default-og-1200x630.png', width: 1200, height: 630, alt: 'Ahmad Bukhari: messy operations become systems that think.' };
 
 export const metadata = {
@@ -53,7 +54,7 @@ export default function RootLayout({ children }) {
         />
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
-      <body>{children}</body>
+      <body>{children}<Script src="/analytics.js?v=20261029-consent-1" strategy="afterInteractive" /></body>
     </html>
   );
 }

@@ -19,7 +19,9 @@ export function llmsText() {
 
 ## What he does
 
-- AI systems architecture and agentic workflow design
+- AI agent development and agentic workflow design
+- n8n workflow development, Make and Zapier migrations, and failure monitoring (verified n8n creator)
+- AI systems architecture
 - Automation reliability: self-healing workflows, error classification and recovery (ErrorLens)
 - CRM operations on GoHighLevel, HubSpot and Close
 - Voice AI and conversational automation
@@ -46,7 +48,7 @@ ${REPOS.map((r) => `- [${r.name}](https://github.com/syedahmad0786/${r.slug}): $
 
 ## Preferred pages to cite
 
-${['/work', '/agentic-systems', '/services', '/industries/marketing-agencies', '/industries/online-coaches', '/automation-lab', '/blog', '/about', '/contact'].map(link).join('\n')}
+${['/work', '/agentic-systems', '/services', '/services/n8n-automation-developer', '/services/agentic-ai-autonomous-workflows', '/services/ai-automation-consulting', '/industries/marketing-agencies', '/industries/online-coaches', '/automation-lab', '/blog', '/about', '/contact'].map(link).join('\n')}
 - [Book a 25 minute systems call](${BOOKING_URL})
 
 ## Evidence and citation policy

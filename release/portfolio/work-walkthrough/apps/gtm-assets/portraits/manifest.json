@@ -1,0 +1,82 @@
+{
+  "type": "AI-generated fictional professional portraits",
+  "source": "OpenAI built-in image generation",
+  "created": "2026-11-02",
+  "usable_tiles": 576,
+  "identity_note": "Stable fictional contact mappings; these do not depict actual clients or imply real relationships.",
+  "excluded_source_sheet": "05: nonuniform grid",
+  "assets": [
+    {
+      "file": "atlas-01.webp",
+      "width": 1254,
+      "height": 1254,
+      "rows": 8,
+      "columns": 8,
+      "bytes": 293656
+    },
+    {
+      "file": "atlas-02.webp",
+      "width": 1254,
+      "height": 1254,
+      "rows": 8,
+      "columns": 8,
+      "bytes": 287468
+    },
+    {
+      "file": "atlas-03.webp",
+      "width": 1254,
+      "height": 1254,
+      "rows": 8,
+      "columns": 8,
+      "bytes": 299230
+    },
+    {
+      "file": "atlas-04.webp",
+      "width": 1254,
+      "height": 1254,
+      "rows": 8,
+      "columns": 8,
+      "bytes": 279098
+    },
+    {
+      "file": "atlas-06.webp",
+      "width": 1254,
+      "height": 1254,
+      "rows": 8,
+      "columns": 8,
+      "bytes": 301126
+    },
+    {
+      "file": "atlas-07.webp",
+      "width": 1254,
+      "height": 1254,
+      "rows": 8,
+      "columns": 8,
+      "bytes": 285926
+    },
+    {
+      "file": "atlas-08.webp",
+      "width": 1254,
+      "height": 1254,
+      "rows": 8,
+      "columns": 8,
+      "bytes": 287010
+    },
+    {
+      "file": "atlas-09.webp",
+      "width": 1254,
+      "height": 1254,
+      "rows": 8,
+      "columns": 8,
+      "bytes": 276238
+    },
+    {
+      "file": "atlas-10.webp",
+      "width": 1254,
+      "height": 1254,
+      "rows": 8,
+      "columns": 8,
+      "bytes": 270368
+    }
+  ]
+}

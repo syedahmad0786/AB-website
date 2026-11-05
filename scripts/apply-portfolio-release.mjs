@@ -23,14 +23,20 @@ async function files(dir) {
 
 // Link previews (LinkedIn, X, Slack): one 1200x627 card per public case study, served from /work/og/.
 const OG = {
-  'work/case-studies/index.html': ['case-studies', 'Six systems I built: OpenXCEL AI, Command Center, Member Onboarding, ErrorLens, Member Pulse and SIGNAL'],
+  'work/case-studies/index.html': ['case-studies', 'Built systems: twelve growth and operations workspaces, from outbound and ABM to partners and AI visibility'],
   'work/case-studies/openxcel-ai/index.html': ['openxcel-ai', 'OpenXCEL AI: an AI coworker in your Slack, shown in a Slack workspace'],
   'work/case-studies/healthcare-agency-operating-os/index.html': ['healthcare-agency-operating-os', 'Command Center: run client delivery from one workspace, with a lifecycle milestone board'],
   'work/case-studies/member-onboarding/index.html': ['member-onboarding', 'Member Onboarding: every member setup step checkpointed, with an onboarding pipeline view'],
   'work/case-studies/automation-monitoring/index.html': ['automation-monitoring', 'ErrorLens: make broken automations visible, with an error overview dashboard'],
   'work/case-studies/dashboards-daily-pulse/index.html': ['dashboards-daily-pulse', 'Member Pulse: see the whole member journey, with a connected pulse stream chart'],
   'work/case-studies/signal/index.html': ['signal', 'SIGNAL: see where your brand shows up when buyers ask ChatGPT, Perplexity, Gemini and Claude'],
-  'work/case-studies/commerce-intelligence-creative/index.html': ['commerce-intelligence-creative', 'Commerce intelligence: creative briefs that know what customers buy, with Meta and Shopify campaign context'],
+  'work/case-studies/outbound-engine/index.html': ['outbound-engine', 'Outbound engine: act on the next outbound exception, with a meetings-booked view'],
+  'work/case-studies/account-based-growth/index.html': ['account-based-growth', 'ABM engine: find the missing buying role, with a named-account coverage view'],
+  'work/case-studies/paid-acquisition/index.html': ['paid-acquisition', 'Paid acquisition engine: judge every ad by the customers it brings, with a creative wall'],
+  'work/case-studies/content-and-inbound/index.html': ['content-and-inbound', 'Content engine: see how content earns pipeline, with an attribution view'],
+  'work/case-studies/product-led-growth/index.html': ['product-led-growth', 'PLG engine: find where new workspaces stall, with an activation view'],
+  'work/case-studies/partner-ecosystem/index.html': ['partner-ecosystem', 'Partner engine: resolve referral ownership before commission, with a partner overview'],
+  'work/case-studies/social-monitoring/index.html': ['social-monitoring', 'Social monitoring engine: follow one idea across eight platforms, with a cross-platform overview'],  'work/case-studies/commerce-intelligence-creative/index.html': ['commerce-intelligence-creative', 'Commerce intelligence: creative briefs that know what customers buy, with Meta and Shopify campaign context'],
   'work/case-studies/agency-research-campaign/index.html': ['agency-research-campaign', 'Campaign research: client research carried into campaign copy, with a research document library'],
 };
 const OG_W = 1200, OG_H = 627;

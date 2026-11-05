@@ -3,10 +3,10 @@ import './globals.css';
 import '../styles/live-workspace.css';
 import { PERSON, SITE_URL } from '../lib/site';
 
-const title = `${PERSON.name} | AI Automation & AI Agent Developer`;
+const title = `${PERSON.name} | AI GTM Engineer, outbound systems`;
 const description =
-  'AI automation and AI agent developer: reliable n8n workflows, LLM systems, CRM automation and human-approved agents for agencies and service businesses. Founder of AiXCEL Solutions.';
-const ogImage = { url: '/art/ahmadbukhari-default-og-1200x630.png', width: 1200, height: 630, alt: 'Ahmad Bukhari: messy operations become systems that think.' };
+  'AI GTM Engineer. I build the systems around the send: deliverability, routing, attribution. 1.14M emails at 0.014% spam complaints since 2025.';
+const ogImage = { url: '/art/ahmadbukhari-gtm-og-1200x630.png', width: 1200, height: 630, alt: 'Ahmad Bukhari, AI GTM Engineer: the systems around the send. 1.14M emails, 20K+ appointments, 759 discovery calls since 2025.' };
 
 export const metadata = {
   metadataBase: new URL(SITE_URL),
@@ -15,13 +15,13 @@ export const metadata = {
   alternates: { canonical: '/', types: { 'application/rss+xml': '/feed.xml' } },
   openGraph: {
     title,
-    description: 'Work breaks. I design what happens next.',
+    description: 'Pipeline breaks. I build what keeps it moving.',
     url: '/',
     siteName: PERSON.name,
     type: 'profile',
     images: [ogImage],
   },
-  twitter: { card: 'summary_large_image', creator: '@ahmadbukhari', title, description: 'Work breaks. I design what happens next.', images: [ogImage.url] },
+  twitter: { card: 'summary_large_image', creator: '@ahmadbukhari', title, description: 'Pipeline breaks. I build what keeps it moving.', images: [ogImage.url] },
   robots: { index: true, follow: true, 'max-image-preview': 'large' },
   icons: {
     icon: [{ url: '/favicon.ico', sizes: '32x32' }, { url: '/brand/ahmad-ab-axis-favicon.svg', type: 'image/svg+xml' }],

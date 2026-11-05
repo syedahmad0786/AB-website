@@ -14,7 +14,7 @@ export default function ProjectSelector() {
     e.preventDefault(); setActive(keys[e.key]); tabs.current[keys[e.key]]?.focus();
   }
   return <section className="project-selector" aria-labelledby="built-systems-title"><div className="project-selector-inner">
-    <header className="project-selector-heading"><div><p className="project-selector-label">Selected projects</p><h2 id="built-systems-title">Built systems</h2></div><a href="/work/case-studies">All 13 projects →</a></header>
+    <header className="project-selector-heading"><div><p className="project-selector-label">Selected projects</p><h2 id="built-systems-title">Built systems</h2></div><a href="/work/case-studies">All projects →</a></header>
     {enhanced
       ? <div className="project-selector-tabs" role="tablist" aria-label="Choose a built system">{FEATURED_PRODUCTS.map((p, i) => <button key={p.slug} ref={el => { tabs.current[i] = el; }} id={'project-tab-' + p.slug} type="button" role="tab" aria-selected={active === i} aria-controls={'project-panel-' + p.slug} tabIndex={active === i ? 0 : -1} onClick={() => setActive(i)} onKeyDown={e => move(e, i)}>{p.name}</button>)}</div>
       : <nav className="project-selector-tabs" aria-label="Featured project links">{FEATURED_PRODUCTS.map(p => <a key={p.slug} href={p.caseHref}>{p.name}</a>)}</nav>}

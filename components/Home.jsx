@@ -9,6 +9,7 @@ import ImageSlot from './ImageSlot';
 import PhoneFrame from './PhoneFrame';
 import ScaledFrame from './ScaledFrame';
 import { HomeLogic } from '../lib/homeLogic';
+import { AUDIT_OFFER, GROWTH_SYSTEMS, OPERATING_RECORD, PROOF_LINE } from '../lib/site';
 
 // Defaults from the design's Tweaks panel (data-props).
 // Interpolated text next to literal text renders in its own <span>, as in the
@@ -51,14 +52,14 @@ export default class Home extends React.Component {
       <div ref={v.rootRef} style={{ position: "relative", zIndex: "0", isolation: "isolate", minHeight: "100vh", backgroundColor: "#ECE8DF", backgroundImage: "url(data:image/svg+xml,%3Csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20width=%27180%27%20height=%27180%27%3E%3Cfilter%20id=%27n%27%3E%3CfeTurbulence%20type=%27fractalNoise%27%20baseFrequency=%27.85%27%20numOctaves=%272%27%20stitchTiles=%27stitch%27/%3E%3CfeColorMatrix%20values=%270%200%200%200%20.07%200%200%200%200%20.07%200%200%200%200%20.06%200%200%200%20.11%200%27/%3E%3C/filter%3E%3Crect%20width=%27180%27%20height=%27180%27%20filter=%27url%28%23n%29%27/%3E%3C/svg%3E)", backgroundSize: "180px 180px", overflowX: "hidden" }}>
         {T(v.bgCanvas)}{T(v.invertCursor)}{T(v.buddy)}
         <header style={{ position: "sticky", top: "0", zIndex: "30", background: "rgba(236,232,223,.88)", backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)", borderBottom: "1px solid #CFC9BC" }}>
-          <div style={{ maxWidth: "1480px", margin: "0 auto", padding: "12px clamp(16px,3vw,40px)", display: "flex", alignItems: "center", gap: "clamp(14px,2vw,28px)", flexWrap: "nowrap" }}>
+          <div className="hdr-row" style={{ maxWidth: "1480px", margin: "0 auto", padding: "12px clamp(16px,3vw,40px)", display: "flex", alignItems: "center", gap: "clamp(14px,2vw,28px)", flexWrap: "nowrap" }}>
             <a href="#top" style={{ display: "flex", alignItems: "center", gap: "10px", textDecoration: "none", color: "#121210" }}>
               <img src="/assets/ahmad-avatar.gif" alt="Ahmad Bukhari" style={{ width: "36px", height: "36px", borderRadius: "50%", border: "1.5px solid #121210", objectFit: "cover", background: "#121210" }} />
               <span style={{ fontWeight: "800", fontSize: "17px", letterSpacing: "-.02em", whiteSpace: "nowrap" }}>
                 Ahmad Bukhari
               </span>
             </a>
-            <nav style={{ display: "flex", gap: "clamp(14px,1.6vw,22px)", flexWrap: "nowrap", whiteSpace: "nowrap", flex: "1 1 auto", minWidth: "0", overflowX: "auto", scrollbarWidth: "none", WebkitMaskImage: "linear-gradient(90deg,#000 86%,transparent)", maskImage: "linear-gradient(90deg,#000 86%,transparent)", paddingRight: "28px", fontSize: "15px", fontWeight: "500" }}>
+            <nav className="hdr-nav" style={{ display: "flex", gap: "clamp(14px,1.6vw,22px)", flexWrap: "nowrap", whiteSpace: "nowrap", flex: "1 1 auto", minWidth: "0", overflowX: "auto", scrollbarWidth: "none", WebkitMaskImage: "linear-gradient(90deg,#000 86%,transparent)", maskImage: "linear-gradient(90deg,#000 86%,transparent)", paddingRight: "28px", fontSize: "15px", fontWeight: "500" }}>
               <a href="#clients" style={{ textDecoration: "none" }}>
                 Work
               </a>
@@ -75,7 +76,7 @@ export default class Home extends React.Component {
                 AiXCEL
               </a>
             </nav>
-            <div style={{ marginLeft: "auto", display: "flex", alignItems: "center", gap: "18px", flexWrap: "nowrap", flex: "none" }}>
+            <div className="hdr-right" style={{ marginLeft: "auto", display: "flex", alignItems: "center", gap: "18px", flexWrap: "nowrap", flex: "none" }}>
               {v.wideHdr ? (<>
                 <div style={{ display: "flex", alignItems: "center", gap: "10px", fontFamily: "'Space Mono',monospace", fontSize: "12px", color: "#5E5B54" }}>
                   {v.liveDot}
@@ -87,7 +88,7 @@ export default class Home extends React.Component {
               <button onClick={v.toggleTheme} aria-label="Toggle dark mode" style={{ all: "unset", cursor: "pointer", width: "36px", height: "36px", borderRadius: "50%", border: "1.5px solid #121210", display: "grid", placeItems: "center", fontSize: "16px", lineHeight: "1", flex: "none" }} className="ab-hover-0">
                 {v.themeIcon}
               </button>
-              <a href="https://cal.com/ahmad-bukhari/revenue-handoff-map" style={{ textDecoration: "none", background: "#121210", color: "#ECE8DF", padding: "10px 16px", borderRadius: "999px", fontSize: "14px", fontWeight: "600", whiteSpace: "nowrap" }} className="ab-hover-1">
+              <a href="https://cal.com/ahmad-bukhari/revenue-handoff-map" style={{ textDecoration: "none", background: "#121210", color: "#ECE8DF", padding: "10px 16px", borderRadius: "999px", fontSize: "14px", fontWeight: "600", whiteSpace: "nowrap" }} className="ab-hover-1 hdr-cta">
                 Book a 25 min call ↗
               </a>
             </div>
@@ -139,30 +140,30 @@ export default class Home extends React.Component {
           <div style={{ flex: "1 1 360px", maxWidth: "520px", display: "flex", flexDirection: "column", gap: "28px", paddingTop: "8px" }}>
             <div style={{ fontFamily: "'Space Mono',monospace", fontSize: "12px", letterSpacing: ".08em", textTransform: "uppercase", color: "#5E5B54", display: "flex", gap: "10px", flexWrap: "wrap" }}>
               <span>
-                Agentic AI & LLM Systems
+                AI GTM Engineer
               </span>
               <span style={{ color: "#FF4F12" }}>
                 /
               </span>
               <span>
-                Resilient automation
+                Deliverability & routing
               </span>
               <span style={{ color: "#FF4F12" }}>
                 /
               </span>
               <span>
-                CRM operations
+                Attribution & AI visibility
               </span>
             </div>
             {v.hA ? (<>
               <h1 style={{ margin: "0", fontSize: "clamp(48px,5.6vw,92px)", fontWeight: "800", letterSpacing: "-.05em", lineHeight: ".9", textWrap: "balance" }}>
-                {"Work "}
+                {"Pipeline "}
                 <span style={{ color: "#D62E1F", textDecoration: "line-through", textDecorationThickness: ".07em" }}>
                   breaks.
                 </span>
-                {" I design what happens "}
+                {" I build what keeps it "}
                 <span style={{ background: "linear-gradient(transparent 64%,#FF4F12 64%,#FF4F12 90%,transparent 90%)" }}>
-                  next.
+                  moving.
                 </span>
               </h1>
             </>) : null}
@@ -183,14 +184,17 @@ export default class Home extends React.Component {
               </h1>
             </>) : null}
             <p style={{ margin: "0", fontSize: "clamp(17px,1.35vw,20px)", lineHeight: "1.5", color: "#3A3833", maxWidth: "460px", textWrap: "pretty" }}>
-              AI automation and AI agent developer based in Islamabad, working globally. I build reliable n8n workflows, LLM systems, CRM automation and human-approved agents for agencies and service businesses. This workflow is running now. Go ahead and break it.
+              I build the systems around the send in GoHighLevel, n8n, Clay and Claude: deliverability, routing, attribution and the handoff to a person. Based in Islamabad, working globally. This workflow is running now. Go ahead and break it.
+            </p>
+            <p style={{ margin: "0", fontFamily: "'Space Mono',monospace", fontSize: "13px", lineHeight: "1.6", color: "#121210" }}>
+              <a href="#operating-record" style={{ color: "inherit", textDecorationColor: "#D62E1F", textUnderlineOffset: "4px" }}>{PROOF_LINE}</a>
             </p>
             <div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
               <a href="https://cal.com/ahmad-bukhari/revenue-handoff-map" style={{ textDecoration: "none", background: "#121210", color: "#ECE8DF", padding: "15px 22px", borderRadius: "12px", fontWeight: "600", fontSize: "16px", boxShadow: "4px 4px 0 #FF4F12" }} className="ab-hover-2">
-                Book a 25 min systems call ↗
+                Book an outbound audit ↗
               </a>
-              <a href="#systems" style={{ textDecoration: "none", border: "1.5px solid #121210", padding: "14px 20px", borderRadius: "12px", fontWeight: "600", fontSize: "16px" }} className="ab-hover-0">
-                See the systems ↓
+              <a href="#growth-systems" style={{ textDecoration: "none", border: "1.5px solid #121210", padding: "14px 20px", borderRadius: "12px", fontWeight: "600", fontSize: "16px" }} className="ab-hover-0">
+                See the growth systems ↓
               </a>
             </div>
             <div style={{ display: "flex", gap: "18px", flexWrap: "wrap", fontFamily: "'Space Mono',monospace", fontSize: "12px", color: "#5E5B54", paddingTop: "4px" }}>
@@ -363,6 +367,41 @@ export default class Home extends React.Component {
             </div>
           </div>
         </section>
+        <section id="operating-record" aria-labelledby="operating-record-title" style={{ maxWidth: "1480px", margin: "0 auto", padding: "clamp(40px,5vw,72px) clamp(16px,3vw,40px) clamp(24px,3vw,40px)" }}>
+          <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "flex-end", gap: "12px 48px", marginBottom: "28px" }}>
+            <h2 id="operating-record-title" style={{ ...{margin: "0",fontSize: "clamp(32px,3.6vw,56px)",fontWeight: "800",letterSpacing: "-.04em",lineHeight: ".98",textWrap: "balance"}, maxWidth: "720px" }}>The numbers behind the send.</h2>
+            <p style={{ margin: "0", fontFamily: "'Space Mono',monospace", fontSize: "12px", color: "#5E5B54" }}>{OPERATING_RECORD.period}</p>
+          </div>
+          <dl style={{ margin: "0", display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(min(100%,250px),1fr))", columnGap: "24px", borderTop: "1.5px solid #121210" }}>
+            {OPERATING_RECORD.items.map(([num, label, how]) => (<div key={label} style={{ padding: "22px 0", borderBottom: "1px solid #CFC9BC", display: "flex", flexDirection: "column", gap: "6px" }}>
+              <dt style={{ order: 2, fontSize: "17px", fontWeight: "700", letterSpacing: "-.01em" }}>{label}</dt>
+              <dd style={{ order: 1, margin: "0", fontSize: "clamp(38px,3.4vw,52px)", fontWeight: "800", letterSpacing: "-.035em", lineHeight: "1" }}>{num}</dd>
+              <dd style={{ order: 3, margin: "0", fontSize: "14.5px", lineHeight: "1.5", color: "#3A3833", maxWidth: "300px", textWrap: "pretty" }}>{how}</dd>
+            </div>))}
+          </dl>
+          <p style={{ margin: "18px 0 0", fontSize: "14px", lineHeight: "1.55", color: "#5E5B54", maxWidth: "68ch", textWrap: "pretty" }}>{OPERATING_RECORD.note}</p>
+        </section>
+        <section id="growth-systems" aria-labelledby="growth-systems-title" style={{ maxWidth: "1480px", margin: "0 auto", padding: "clamp(48px,6vw,96px) clamp(16px,3vw,40px) clamp(40px,5vw,72px)" }}>
+          <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "flex-end", gap: "16px 48px", marginBottom: "12px" }}>
+            <div style={{ maxWidth: "min(760px,64ch)", display: "flex", flexDirection: "column", gap: "16px" }}>
+              <h2 id="growth-systems-title" style={{margin: "0",fontSize: "clamp(32px,3.6vw,56px)",fontWeight: "800",letterSpacing: "-.04em",lineHeight: ".98",textWrap: "balance"}}>{"One workspace "}<span style={{ color: "#C2410C" }}>per motion.</span></h2>
+              <p style={{ margin: "0", fontSize: "clamp(17px,1.35vw,20px)", lineHeight: "1.5", color: "#3A3833", textWrap: "pretty", maxWidth: "62ch" }}>Twelve workspaces I designed and built, each on its own page with a live interface you can click through: seven growth engines, then the desks and monitors that keep them running.</p>
+            </div>
+            <a href="/work/case-studies" style={{ fontWeight: "700", fontSize: "15px", color: "#121210", textUnderlineOffset: "4px" }}>All projects →</a>
+          </div>
+          {['Growth engines', 'Desks and monitors'].map(g => (<div key={g} style={{ marginTop: "32px" }}>
+            <h3 style={{ margin: "0 0 10px", fontSize: "15px", fontWeight: "700", color: "#5E5B54" }}>{g}</h3>
+            <ul style={{ listStyle: "none", margin: "0", padding: "0", display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(min(100%,440px),1fr))", columnGap: "48px", borderTop: "1.5px solid #121210" }}>
+              {GROWTH_SYSTEMS.filter(s => s.group === g).map(s => (<li key={s.slug} style={{ borderBottom: "1px solid #CFC9BC" }}>
+                <a href={'/work/case-studies/' + s.slug} className="gs-row">
+                  <span className="gs-name">{s.name}{s.kind ? <span className="gs-kind">{' · ' + s.kind}</span> : null}</span>
+                  <span aria-hidden="true" className="gs-arrow">→</span>
+                  <span className="gs-line">{s.line}</span>
+                </a>
+              </li>))}
+            </ul>
+          </div>))}
+        </section>
         <ProjectSelector />
         <section data-screen-label="02 Principles" style={{ maxWidth: "1480px", margin: "0 auto", padding: "8px clamp(16px,3vw,40px) 56px" }}>
           <div style={{ fontFamily: "'Space Mono',monospace", fontSize: "12px", letterSpacing: ".08em", textTransform: "uppercase", color: "#5E5B54", marginBottom: "16px" }}>
@@ -533,6 +572,15 @@ export default class Home extends React.Component {
               </span>
             </div>
             {v.orbits}
+          </div>
+        </section>
+        <section id="audit" aria-labelledby="audit-title" style={{ borderTop: "1.5px solid #121210", borderBottom: "1.5px solid #121210", backgroundColor: "#E4DFD4" }}>
+          <div style={{ maxWidth: "1480px", margin: "0 auto", padding: "clamp(40px,5vw,72px) clamp(16px,3vw,40px)", display: "flex", flexWrap: "wrap", gap: "24px 64px", alignItems: "center", justifyContent: "space-between" }}>
+            <div style={{ maxWidth: "720px", display: "flex", flexDirection: "column", gap: "14px" }}>
+              <h2 id="audit-title" style={{margin: "0",fontSize: "clamp(32px,3.6vw,56px)",fontWeight: "800",letterSpacing: "-.04em",lineHeight: ".98",textWrap: "balance"}}>{AUDIT_OFFER.title}</h2>
+              <p style={{ margin: "0", fontSize: "clamp(17px,1.35vw,20px)", lineHeight: "1.5", color: "#3A3833", textWrap: "pretty" }}>{AUDIT_OFFER.body}</p>
+            </div>
+            <a href="https://cal.com/ahmad-bukhari/revenue-handoff-map" className="ab-hover-2" style={{ textDecoration: "none", background: "#121210", color: "#ECE8DF", padding: "15px 22px", borderRadius: "12px", fontWeight: "600", fontSize: "16px", boxShadow: "4px 4px 0 #FF4F12" }}>{AUDIT_OFFER.cta}</a>
           </div>
         </section>
         <section id="journey" data-buddy="Reading the commit history" data-screen-label="05 Journey" style={{ maxWidth: "1480px", margin: "0 auto", padding: "clamp(64px,8vw,120px) clamp(16px,3vw,40px)" }}>
@@ -1372,7 +1420,7 @@ export default class Home extends React.Component {
         <footer data-keep="" style={{ background: "#121210", color: "#C9C4B8" }}>
           <div style={{ maxWidth: "1480px", margin: "0 auto", padding: "28px clamp(16px,3vw,40px)", display: "flex", flexWrap: "wrap", gap: "16px 32px", alignItems: "center", fontFamily: "'Space Mono',monospace", fontSize: "12.5px" }}>
             <span style={{ color: "#ECE8DF", fontWeight: "700" }}>
-              Ahmad Bukhari · Agentic AI & LLM Systems Specialist
+              Ahmad Bukhari · AI GTM Engineer
             </span>
             <span style={{ display: "flex", gap: "20px", flexWrap: "wrap" }}>
               <a href="mailto:ahmadbukhari4245@gmail.com" style={{ color: "#C9C4B8" }}>

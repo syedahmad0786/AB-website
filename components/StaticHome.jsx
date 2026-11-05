@@ -7,7 +7,7 @@
 // lib/site.js, the same sources the interactive page uses, so the two cannot drift apart.
 import {
   AIXCEL_MODULES, AIXCEL_PRODUCTS, AIXCEL_SERVICES, ASK_LINKS, BOOKING_URL, EMAIL, HEADLINE, HERO_COPY, HERO_TAGS,
-  JOURNEY, NOTES, PAGES, PERSON, PRINCIPLES,
+  JOURNEY, NOTES, PAGES, PERSON, PRINCIPLES, OPERATING_RECORD, GROWTH_SYSTEMS, AUDIT_OFFER, PROOF_LINE,
 } from '../lib/site';
 import ProjectSelector from './ProjectSelector';
 import { AG, CASES, CH, CLIENTS, PROTOS, REPOS, SYSTEMS, TOOLS } from '../lib/siteData';
@@ -42,15 +42,46 @@ export default function StaticHome() {
             {HEADLINE.lead} <mark>{HEADLINE.mark1}</mark> {HEADLINE.mid} <mark>{HEADLINE.mark2}</mark>
           </h1>
           <p className="ssr-lead">{HERO_COPY}</p>
+          <p><a href="#operating-record">{PROOF_LINE}</a></p>
           <p className="ssr-actions">
-            <a href={BOOKING_URL} className="ssr-cta">Book a 25 min systems call ↗</a>
-            <a href="#systems">See the systems ↓</a>
+            <a href={BOOKING_URL} className="ssr-cta">{AUDIT_OFFER.cta}</a>
+            <a href="#growth-systems">See the growth systems ↓</a>
           </p>
           <p className="ssr-proofline">
             <a href="https://n8n.io/creators/ahmadbukhari/">Verified n8n creator ↗</a>
             <a href="https://github.com/syedahmad0786">github.com/syedahmad0786 ↗</a>
             <span>{PERSON.availability} · {PERSON.location}</span>
           </p>
+        </section>
+
+        <section id="operating-record" className="ssr-section" aria-labelledby="ssr-record">
+          <h2 id="ssr-record">The numbers behind the send.</h2>
+          <p className="ssr-muted">{OPERATING_RECORD.period}</p>
+          <dl className="ssr-grid">
+            {OPERATING_RECORD.items.map(([num, label, how]) => (
+              <div key={label}>
+                <dt>{num} {label}</dt>
+                <dd>{how}</dd>
+              </div>
+            ))}
+          </dl>
+          <p className="ssr-muted">{OPERATING_RECORD.note}</p>
+        </section>
+
+        <section id="growth-systems" className="ssr-section" aria-labelledby="ssr-growth">
+          <h2 id="ssr-growth">One workspace per motion.</h2>
+          <p className="ssr-lead">Twelve workspaces I designed and built, each on its own page with a live interface you can click through: seven growth engines, then the desks and monitors that keep them running.</p>
+          {['Growth engines', 'Desks and monitors'].map((g) => (
+            <div key={g}>
+              <h3>{g}</h3>
+              <ul>
+                {GROWTH_SYSTEMS.filter((x) => x.group === g).map((x) => (
+                  <li key={x.slug}><a href={'/work/case-studies/' + x.slug}>{x.name}{x.kind ? ' · ' + x.kind : ''}</a>: {x.line}</li>
+                ))}
+              </ul>
+            </div>
+          ))}
+          <p><a href="/work/case-studies">All projects →</a></p>
         </section>
 
         <ProjectSelector />
@@ -99,6 +130,13 @@ export default function StaticHome() {
             ))}
           </ul>
         </section>
+
+        <section id="audit" className="ssr-section" aria-labelledby="ssr-audit">
+          <h2 id="ssr-audit">{AUDIT_OFFER.title}</h2>
+          <p className="ssr-lead">{AUDIT_OFFER.body}</p>
+          <p><a href={BOOKING_URL} className="ssr-cta">{AUDIT_OFFER.cta}</a></p>
+        </section>
+
 
         <section id="journey" className="ssr-section">
           <p className="ssr-eyebrow">git log --graph · 7+ years operating</p>
